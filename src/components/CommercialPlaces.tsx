@@ -47,17 +47,12 @@ export function CommercialPlaces() {
         </div>
 
         <div className="flex w-full flex-col items-start gap-6 xl:flex-row xl:flex-wrap xl:items-center xl:justify-center">
-          {cards.map((card, i) => {
+          {cards.map((card) => {
             const Icon = ICONS[card.icon];
-            const isFirst = i === 0;
             return (
               <div
                 key={card.title}
-                className={`flex w-full shrink-0 items-center justify-center gap-2.5 rounded-lg bg-white p-6 xl:h-[136px] xl:w-[627px] ${
-                  isFirst
-                    ? "border border-navy/28 xl:border-0"
-                    : "backdrop-blur-[11.25px]"
-                }`}
+                className="flex w-full shrink-0 items-center justify-center gap-2.5 rounded-lg border border-transparent bg-white p-6 transition-all hover:border-teal/33 hover:shadow-[0px_4px_4px_rgba(0,0,0,0.05)] xl:h-[136px] xl:w-[627px]"
               >
                 <div className="flex flex-1 flex-col items-start gap-2 text-navy">
                   <p className="w-full font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px]">{card.title}</p>
