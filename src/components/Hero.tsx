@@ -3,40 +3,15 @@ import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
 
 interface HeroProps {
-  // Optional breadcrumb pill shown above the heading (e.g. "HOME >
-  // SERVICES") — only the "/services" hub page uses this (node "3008:1526"
-  // in Figma); the homepage hero has no breadcrumb. Kept as a prop rather
-  // than a field on the shared `HeroContent` type so the homepage's
-  // `<Hero />` call is unaffected — the caller supplies it from its own
-  // page-specific content instead.
   breadcrumb?: string;
-  // Added 2026-08-17 for the "/commercial" page, which reuses this same
-  // full-bleed-photo-with-overlaid-text Hero pattern but with its own
-  // heading/subheading/CTA/background image (confirmed via get_design_context
-  // on "Desktop Commercial" node 2220:843 — visually identical structure to
-  // the shared Hero, just different content). All optional and default to
-  // the shared `hero` content object below, so the homepage/`/services`
-  // callers (which don't pass these) are completely unaffected.
   heading?: string;
   subheading?: string;
   ctaLabel?: string;
   ctaHref?: string;
   backgroundImage?: { src: string; alt: string };
-  // Also added for "/commercial": that page's CONFIRMED mobile frame uses a
-  // distinct named text style ("Heading/H1 - Mobile", 32px/42px) for its H1
-  // — smaller than the 48px/64px used at every breakpoint everywhere else in
-  // this project, including this same page's own tablet/desktop frames.
-  // This is a real, confirmed exception to the project's general "no
-  // font-size scaling across breakpoints" rule (verified via
-  // get_design_context on the mobile frame specifically, not assumed) —
-  // gated behind this flag so the homepage/`/services` Hero (confirmed NOT
-  // to scale) keeps its default unscaled behavior.
   headingScalesOnMobile?: boolean;
 }
 
-// No "use client" here on purpose: this section has no state or event
-// handlers, so per the project's server-first rule it stays a plain Server
-// Component — renders on the server, ships no extra JS to the browser.
 export function Hero({
   breadcrumb,
   heading: headingOverride,
@@ -54,16 +29,8 @@ export function Hero({
   const backgroundImage = backgroundImageOverride ?? defaults.backgroundImage;
 
   return (
-    // Section height is a flat 700px on every confirmed frame (mobile,
-    // tablet, and the original desktop) — it does NOT shrink on smaller
-    // screens, only the text below reflows within it. Also true for every
-    // text style below except the H1 (see `headingScalesOnMobile` above):
-    // Figma uses the exact same type ramp (H1 48/64, H3 22/32) at all three
-    // breakpoints — nothing else scales down, so no other responsive
-    // text-size classes here on purpose.
     <section className="relative flex h-[700px] items-end overflow-hidden">
-      <Image src={backgroundImage.src} alt={backgroundImage.alt} fill priority className="object-cover" />
-      {/* Exact gradient from the Figma node: transparent to rgba(44,40,53,0.84) */}
+      <Image src={backgroundImage.src} alt={backgroundImage.alt} fill priority sizes="100vw" className="object-cover" />
       <div
         className="absolute inset-0"
         style={{
