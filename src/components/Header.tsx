@@ -4,17 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, X, ArrowRight } from "lucide-react";
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa6";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
 
-// "use client" is required here: the "Services" nav item opens a mega-menu
-// dropdown (Figma node "Frame 462", authored hidden right below the nav at
-// the same x/y region) on click, which needs local open/close state plus an
-// outside-click / Escape handler. Below `lg` (the confirmed tablet/mobile
-// frames both replace the full nav row with a single hamburger icon,
-// "pepicons-pop:menu"), the same header instead renders a slide-down drawer
-// with its own open/close state.
+const SOCIAL_ICONS = {
+  instagram: FaInstagram,
+  facebook: FaFacebook,
+  youtube: FaYoutube,
+  linkedin: FaLinkedin,
+} as const;
+
 export function Header() {
   const { logo, servicesLabel, servicesDropdown, links, ctaLabel, ctaHref } = useContent("nav");
   const pathname = usePathname();
@@ -22,6 +23,7 @@ export function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileExpandedCategory, setMobileExpandedCategory] = useState<string | null>(null);
   const [headerVisible, setHeaderVisible] = useState(true);
   const headerRef = useRef<HTMLElement>(null);
   const lastScrollY = useRef(0);
@@ -46,9 +48,6 @@ export function Header() {
     };
   }, [servicesOpen]);
 
-  // If the viewport grows back past `xl` while the mobile drawer is open
-  // (e.g. rotating a tablet, or resizing a desktop window back up), close it
-  // so it can't be left open-but-hidden behind the now-visible desktop nav.
   useEffect(() => {
     if (!mobileMenuOpen) return;
     const mql = window.matchMedia("(min-width: 1280px)");
@@ -76,18 +75,21 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [mobileMenuOpen, servicesOpen]);
 
-  const expandedCategories = servicesDropdown.categories.filter((category) => category.subItems);
+  const { categories, blogCard, socialLinks } = servicesDropdown;
+
+  // Desktop mega-menu groups categories into 3 columns of 2
+  const desktopColumns = [
+    [categories[0], categories[1]],
+    [categories[2], categories[3]],
+    [categories[4], categories[5]],
+  ];
 
   return (
-    // Note: the Figma frame has `overflow-clip` on this container, but that's
-    // dropped here on purpose — it would clip the mega-menu panel, which is
-    // meant to render below the header, not inside its 108px height.
     <header
       ref={headerRef}
       className={`sticky top-0 z-50 flex h-[100px] w-full items-center justify-between border-b border-ice bg-white pl-12 pr-4 py-6 transition-transform duration-300 xl:h-[108px] xl:px-20 ${headerVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
       <Link href={logo.href} className="shrink-0">
-        {/* TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/ before then. */}
         <Image
           src={logo.src}
           alt={logo.alt}
@@ -128,9 +130,6 @@ export function Header() {
         {ctaLabel}
       </Button>
 
-      {/* Hamburger toggle: only the icon changes in the confirmed frames
-          (no separate "close" glyph shown), but swapping to X while open is
-          a standard, low-risk affordance rather than a deviation. */}
       <button
         type="button"
         onClick={() => setMobileMenuOpen((open) => !open)}
@@ -142,71 +141,120 @@ export function Header() {
         {mobileMenuOpen ? <X className="size-8" /> : <Menu className="size-8" />}
       </button>
 
+      {/* Desktop mega-menu */}
       {servicesOpen && (
-        <div className="absolute left-0 top-full z-50 hidden w-full items-start justify-between bg-white py-10 pl-20 shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
-          <div className="flex items-start gap-[120px]">
-            <div className="flex w-[220px] flex-col items-start gap-4">
-              {servicesDropdown.categories.map((category) => {
-                const isActive = pathname.startsWith(category.href);
-                return category.subItems ? (
-                  <div key={category.label} className="flex w-full items-center gap-4 rounded p-1">
-                    <Link
-                      href={category.href}
-                      className={`whitespace-nowrap text-lg font-semibold tracking-[-0.0648px] transition-colors hover:text-teal ${isActive ? "text-teal" : "text-navy"}`}
-                    >
-                      {category.label}
-                    </Link>
-                    <ChevronRight className={`size-[10px] ${isActive ? "text-teal" : "text-navy"}`} />
-                  </div>
-                ) : (
-                  <Link
-                    key={category.label}
-                    href={category.href}
-                    className={`w-full text-base leading-[23px] font-semibold transition-colors hover:text-teal ${isActive ? "text-teal" : "text-navy"}`}
-                  >
-                    {category.label}
-                  </Link>
-                );
-              })}
-            </div>
-
-            {expandedCategories.map((category) => (
-              <div key={category.label} className="flex flex-col items-start gap-4 text-base leading-[23px]">
-                {category.subItems?.map((sub) => (
-                  <Link
-                    key={sub.label}
-                    href={sub.href}
-                    className={`w-full whitespace-nowrap transition-colors hover:text-teal ${pathname === sub.href ? "text-teal font-semibold" : "text-navy"}`}
-                  >
-                    {sub.label}
-                  </Link>
-                ))}
+        <div className="absolute left-0 top-full z-50 hidden w-full flex-col bg-white rounded-b-lg shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
+          <div className="flex items-start justify-between px-20 pt-10">
+            {desktopColumns.map((column, colIdx) => (
+              <div key={colIdx} className="flex flex-col gap-10">
+                {column.map((category) => {
+                  if (!category) return null;
+                  return (
+                    <div key={category.label} className="flex flex-col gap-4">
+                      <Link
+                        href={category.href}
+                        onClick={() => setServicesOpen(false)}
+                        className="font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-black transition-colors hover:text-teal"
+                      >
+                        {category.label}
+                      </Link>
+                      {category.subItems && (
+                        <div className="flex flex-col gap-4">
+                          {category.subItems.map((sub) => (
+                            <Link
+                              key={sub.label}
+                              href={sub.href}
+                              onClick={() => setServicesOpen(false)}
+                              className="text-base leading-[23px] text-black transition-colors hover:text-teal"
+                            >
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                      <Link
+                        href={category.href}
+                        onClick={() => setServicesOpen(false)}
+                        className="font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-teal transition-colors hover:text-teal-pressed"
+                      >
+                        {category.exploreLabel}
+                      </Link>
+                    </div>
+                  );
+                })}
               </div>
             ))}
+
+            {/* Blog card */}
+            <div className="flex w-[449px] shrink-0 flex-col gap-2 rounded-lg">
+              <div className="relative h-[220px] w-full overflow-hidden rounded-lg">
+                <Image
+                  src={blogCard.image.src}
+                  alt={blogCard.image.alt}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-col gap-2.5 rounded-lg bg-[#e7eeee] p-6">
+                <div className="flex flex-col gap-2.5 text-black">
+                  <p className="font-heading text-base font-semibold leading-[23px] tracking-[0.16px]">
+                    {blogCard.title}
+                  </p>
+                  <p className="text-sm leading-6">
+                    {blogCard.description}
+                  </p>
+                </div>
+                <div className="flex justify-end">
+                  <Link
+                    href={blogCard.buttonHref}
+                    onClick={() => setServicesOpen(false)}
+                    className="flex items-center gap-2 rounded-lg bg-white px-4 py-2"
+                  >
+                    <span className="font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy">
+                      {blogCard.buttonLabel}
+                    </span>
+                    <ArrowRight className="size-3.5 text-navy" />
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="relative h-[355px] w-[742px] shrink-0">
-            {/* TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/ before then. */}
-            <Image
-              src={servicesDropdown.image.src}
-              alt={servicesDropdown.image.alt}
-              fill
-              className="object-cover"
-            />
+          {/* Social footer */}
+          <div className="flex items-center justify-end rounded-b-lg px-20 pt-10 pb-6">
+            <div className="flex items-center gap-6">
+              <p className="font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-black">
+                Follow us on
+              </p>
+              <div className="flex items-center gap-2.5">
+                {socialLinks.map((social) => {
+                  const Icon = SOCIAL_ICONS[social.platform];
+                  return (
+                    <a
+                      key={social.platform}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                      className="text-black transition-colors hover:text-teal"
+                    >
+                      <Icon className="size-6" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Mobile/tablet drawer: replaces the desktop nav row + mega-menu with
-          a stacked list (services expandable inline, then the page links,
-          then the CTA), matching the confirmed tablet (2806:1529) and
-          mobile (2810:2235) frames. */}
+      {/* Mobile/tablet drawer */}
       {mobileMenuOpen && (
         <div className="absolute left-0 top-full z-50 flex max-h-[calc(100vh-100px)] w-full flex-col items-start gap-6 overflow-y-auto bg-white px-8 py-8 shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:hidden">
           <div className="flex w-full flex-col items-start gap-4">
             <button
               type="button"
-              onClick={() => setMobileServicesOpen((open) => !open)}
+              onClick={() => { setMobileServicesOpen((o) => !o); setMobileExpandedCategory(null); }}
               aria-expanded={mobileServicesOpen}
               className={`flex w-full cursor-pointer items-center justify-between text-base leading-[23px] ${isOnServicePage ? "text-teal" : "text-navy"}`}
             >
@@ -216,39 +264,45 @@ export function Header() {
 
             {mobileServicesOpen && (
               <div className="flex w-full flex-col items-start gap-4 pl-4">
-                {servicesDropdown.categories.map((category) => {
+                {categories.map((category) => {
                   const isActive = pathname.startsWith(category.href);
-                  return category.subItems ? (
+                  const isExpanded = mobileExpandedCategory === category.label;
+                  const hasSubItems = category.subItems && category.subItems.length > 0;
+                  return (
                     <div key={category.label} className="flex w-full flex-col items-start gap-2">
-                      <Link
-                        href={category.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`whitespace-nowrap text-base font-semibold tracking-[-0.0648px] ${isActive ? "text-teal" : "text-navy"}`}
-                      >
-                        {category.label}
-                      </Link>
-                      <div className="flex w-full flex-col items-start gap-2 pl-4">
-                        {category.subItems.map((sub) => (
-                          <Link
-                            key={sub.label}
-                            href={sub.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className={`w-full whitespace-nowrap text-sm ${pathname === sub.href ? "text-teal font-semibold" : "text-navy"}`}
-                          >
-                            {sub.label}
-                          </Link>
-                        ))}
-                      </div>
+                      {hasSubItems ? (
+                        <button
+                          type="button"
+                          onClick={() => setMobileExpandedCategory(isExpanded ? null : category.label)}
+                          className={`flex w-full cursor-pointer items-center justify-between font-heading text-base font-semibold ${isActive ? "text-teal" : "text-navy"}`}
+                        >
+                          {category.label}
+                          <ChevronRight className={`size-3.5 transition-transform ${isExpanded ? "rotate-90" : ""}`} />
+                        </button>
+                      ) : (
+                        <Link
+                          href={category.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className={`w-full font-heading text-base font-semibold ${isActive ? "text-teal" : "text-navy"}`}
+                        >
+                          {category.label}
+                        </Link>
+                      )}
+                      {isExpanded && category.subItems && (
+                        <div className="flex w-full flex-col items-start gap-2 pl-4">
+                          {category.subItems.map((sub) => (
+                            <Link
+                              key={sub.label}
+                              href={sub.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className={`w-full whitespace-nowrap text-sm ${pathname === sub.href ? "text-teal font-semibold" : "text-navy"}`}
+                            >
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <Link
-                      key={category.label}
-                      href={category.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`w-full text-base font-semibold ${isActive ? "text-teal" : "text-navy"}`}
-                    >
-                      {category.label}
-                    </Link>
                   );
                 })}
               </div>

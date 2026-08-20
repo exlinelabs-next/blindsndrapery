@@ -22,28 +22,82 @@ export const mockContent: PageContent = {
     servicesLabel: 'Services',
     servicesDropdown: {
       categories: [
-        { label: 'Blinds', href: '/services/blinds' },
         {
           label: 'Shades',
           href: '/services/shades',
+          exploreLabel: 'Explore Shades →',
           subItems: [
             { label: 'Roller Shades', href: '/services/shades/roller-shades' },
             { label: 'Solar Shades', href: '/services/shades/solar-shades' },
             { label: 'Cellular Shades', href: '/services/shades/cellular-shades' },
             { label: 'Roman Shades', href: '/services/shades/roman-shades' },
-            { label: 'Zebra Shades', href: '/services/shades/zebra-shades' },
+            { label: 'Woven Shades', href: '/services/shades/woven-wood-shades' },
           ],
         },
-        { label: 'Curtains & Drapery', href: '/services/drapery' },
-        { label: 'Shutters', href: '/services/shutters' },
-        { label: 'Motorized & Smart Homes', href: '/services/motorized' },
-        { label: 'Repair & Maintenance', href: '/services/repairs' },
+        {
+          label: 'Shutters',
+          href: '/services/shutters',
+          exploreLabel: 'Explore Shutters →',
+          subItems: [
+            { label: 'Composite Shutters', href: '/services/shutters' },
+            { label: 'Natural Wood Shutters', href: '/services/shutters' },
+            { label: 'Tier-on-Tier Shutters', href: '/services/shutters' },
+          ],
+        },
+        {
+          label: 'Blinds',
+          href: '/services/blinds',
+          exploreLabel: 'Explore Blinds →',
+          subItems: [
+            { label: 'Wood Blinds', href: '/services/blinds' },
+            { label: 'Faux Wood Blinds', href: '/services/blinds' },
+            { label: 'Aluminum Blinds', href: '/services/blinds' },
+            { label: 'Vertical Blinds', href: '/services/blinds' },
+            { label: 'Cellular Blinds', href: '/services/blinds' },
+          ],
+        },
+        {
+          label: 'Curtains & Drapery',
+          href: '/services/drapery',
+          exploreLabel: 'Explore Curtains & Drapery →',
+        },
+        {
+          label: 'Motorized & Smart Home',
+          href: '/services/motorized',
+          exploreLabel: 'Explore Smart Homes →',
+          subItems: [
+            { label: 'Motorized Shades', href: '/services/motorized' },
+            { label: 'Smart Home Integration', href: '/services/motorized' },
+            { label: 'Automated Window Treatments', href: '/services/motorized' },
+          ],
+        },
+        {
+          label: 'Repairs & Maintenance',
+          href: '/services/repairs',
+          exploreLabel: 'Explore Repairs →',
+          subItems: [
+            { label: 'Blind Repair', href: '/services/repairs' },
+            { label: 'Shade Repair', href: '/services/repairs' },
+            { label: 'Maintenance Services', href: '/services/repairs' },
+          ],
+        },
       ],
-      image: {
-        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/shared/ before then.
-        src: 'https://www.figma.com/api/mcp/asset/c177a296-3c62-4dba-af5b-be5be78f0efe.png',
-        alt: 'Living room window fitted with roller shades',
+      blogCard: {
+        image: {
+          src: '/images/home/hero_image.webp',
+          alt: 'Living room with modern window treatments',
+        },
+        title: 'Protect Your Florida Home from UV Damage',
+        description: 'Florida sunshine is one of the reasons people love living in the state. Bright natural light can make a home feel...',
+        buttonLabel: 'Explore Blogs',
+        buttonHref: '/resources',
       },
+      socialLinks: [
+        { platform: 'instagram', href: 'https://www.instagram.com', label: 'Instagram' },
+        { platform: 'facebook', href: 'https://www.facebook.com', label: 'Facebook' },
+        { platform: 'youtube', href: 'https://www.youtube.com', label: 'YouTube' },
+        { platform: 'linkedin', href: 'https://www.linkedin.com', label: 'LinkedIn' },
+      ],
     },
     links: [
       { label: 'Commercial', href: '/commercial' },
