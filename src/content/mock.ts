@@ -5,7 +5,7 @@ export const mockContent: PageContent = {
     heading: 'The Premier Window Covering Company for Modern Blinds & Shades',
     subheading: 'Enhance your South Florida home with elegant blinds and shades now!',
     ctaLabel: 'Book consultation',
-    ctaHref: '/consultation',
+    ctaHref: '#quote-form',
     backgroundImage: {
       // Organized by page: images/<page>/<name>, so the public/ folder scales
       // cleanly as more sections/pages get their own assets.
@@ -15,8 +15,7 @@ export const mockContent: PageContent = {
   },
   nav: {
     logo: {
-      // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/shared/ before then.
-      src: 'https://www.figma.com/api/mcp/asset/87bb244a-80b2-4339-b808-074721f46196.svg',
+      src: '/images/shared/logo.svg',
       alt: 'blindsndrapery logo',
       href: '/',
     },
@@ -54,7 +53,7 @@ export const mockContent: PageContent = {
       { label: 'Resources', href: '/resources' },
     ],
     ctaLabel: 'Book Consultation',
-    ctaHref: '/consultation',
+    ctaHref: '#quote-form',
   },
   trustBadges: {
     items: [
@@ -73,13 +72,11 @@ export const mockContent: PageContent = {
       'Start with a digital estimate, followed by precise in-home measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.',
     video: {
       poster: {
-        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/process/ before then.
-        src: 'https://www.figma.com/api/mcp/asset/0103d923-6e54-4d31-8141-dc41fd9bdb97',
+        src: '/images/home/process-poster.jpg',
         alt: 'Technician installing white venetian blinds on a large double window',
       },
       playIcon: {
-        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/process/ before then.
-        src: 'https://www.figma.com/api/mcp/asset/821a9744-0775-4280-9e76-4904d39e73b4.svg',
+        src: '/images/home/play-icon.svg',
         alt: '',
       },
     },
@@ -98,7 +95,7 @@ export const mockContent: PageContent = {
     cards: [
       {
         image: {
-          src: '/images/services/card-blinds.png',
+          src: '/images/services/card-blinds.webp',
           alt: 'Living room windows fitted with wood blinds',
         },
         title: 'Blinds',
@@ -107,7 +104,7 @@ export const mockContent: PageContent = {
       },
       {
         image: {
-          src: '/images/services/card-shutters.png',
+          src: '/images/services/card-shutters.webp',
           alt: 'Bedroom window fitted with plantation shutters',
         },
         title: 'Shutters',
@@ -116,7 +113,7 @@ export const mockContent: PageContent = {
       },
       {
         image: {
-          src: '/images/services/card-shades.png',
+          src: '/images/services/card-shades.webp',
           alt: 'Floor-to-ceiling windows fitted with roller shades',
         },
         title: 'Shades',
@@ -125,7 +122,7 @@ export const mockContent: PageContent = {
       },
       {
         image: {
-          src: '/images/services/card-motorized.png',
+          src: '/images/services/card-motorized.webp',
           alt: 'Wall-mounted smart home thermostat control panel',
         },
         title: 'Motorized & Smart Home',
@@ -134,7 +131,7 @@ export const mockContent: PageContent = {
       },
       {
         image: {
-          src: '/images/services/card-drapery.png',
+          src: '/images/services/card-drapery.webp',
           alt: 'Living room with floor-length drapery curtains',
         },
         title: 'Drapery & Curtains',
@@ -143,7 +140,7 @@ export const mockContent: PageContent = {
       },
       {
         image: {
-          src: '/images/services/card-repairs.png',
+          src: '/images/services/card-repairs.webp',
           alt: 'Technician performing window covering repair and maintenance',
         },
         title: 'Repairs & Maintenance',
@@ -200,7 +197,7 @@ export const mockContent: PageContent = {
       },
     ],
     ctaLabel: 'Book consultation',
-    ctaHref: '/consultation',
+    ctaHref: '#quote-form',
   },
   testimonials: {
     headingPrefix: 'Trusted Experts, Proven ',
@@ -243,7 +240,7 @@ export const mockContent: PageContent = {
     quoteIcon: {
       // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
       // nominal ~7 days, so export and commit to public/images/home/gallery/ soon.
-      src: 'https://www.figma.com/api/mcp/asset/f31084cb-81c1-4ec6-b8c7-916ca5dbf07c.svg',
+      src: '/images/shared/icons/footer-icon-1.svg',
       alt: '',
     },
     images: [
@@ -303,19 +300,19 @@ export const mockContent: PageContent = {
       {
         // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
         // nominal ~7 days, so export and commit to public/images/home/locations/ soon.
-        icon: { src: 'https://www.figma.com/api/mcp/asset/81eee0ef-de37-4890-9329-6a22b03f698a.svg', alt: '' },
+        icon: { src: '/images/shared/icons/footer-icon-2.svg', alt: '' },
         name: 'Fort Lauderdale',
       },
       {
         // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
         // nominal ~7 days, so export and commit to public/images/home/locations/ soon.
-        icon: { src: 'https://www.figma.com/api/mcp/asset/38910742-2058-4403-8f16-07ca120ebe8c.svg', alt: '' },
+        icon: { src: '/images/shared/icons/footer-icon-3.svg', alt: '' },
         name: 'Coral Springs',
       },
       {
         // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
         // nominal ~7 days, so export and commit to public/images/home/locations/ soon.
-        icon: { src: 'https://www.figma.com/api/mcp/asset/b9d61921-71d0-4866-a114-f1fd5f9f0231.svg', alt: '' },
+        icon: { src: '/images/shared/icons/footer-icon-4.svg', alt: '' },
         name: 'Deerfield Beach',
       },
     ],
@@ -490,7 +487,7 @@ export const mockContent: PageContent = {
           description:
             'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
           image: {
-            src: '/images/services/step-1.png',
+            src: '/images/services/step-1.webp',
             alt: 'Customer using a laptop to get an online quote for window blinds',
           },
         },
@@ -500,7 +497,7 @@ export const mockContent: PageContent = {
           description:
             'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
           image: {
-            src: '/images/services/step-2.png',
+            src: '/images/services/step-2.webp',
             alt: 'Installer taking precise window measurements in a home',
           },
         },
@@ -510,7 +507,7 @@ export const mockContent: PageContent = {
           description:
             'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
           image: {
-            src: '/images/services/step-3.png',
+            src: '/images/services/step-3.webp',
             alt: 'Custom blinds being fabricated in a workshop',
           },
         },
@@ -520,7 +517,7 @@ export const mockContent: PageContent = {
           description:
             'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
           image: {
-            src: '/images/services/step-4.png',
+            src: '/images/services/step-4.webp',
             alt: 'Installer mounting finished blinds on a window',
           },
         },
@@ -534,7 +531,7 @@ export const mockContent: PageContent = {
       paragraph:
         "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance.",
       image: {
-        src: '/images/services/about-shutters.png',
+        src: '/images/services/about-shutters.webp',
         alt: 'Living room with white plantation shutters covering large windows',
       },
     },
@@ -598,11 +595,11 @@ export const mockContent: PageContent = {
     timeline: {
       images: [
         {
-          src: '/images/services/blinds/timeline-photo-1.png',
+          src: '/images/services/blinds/timeline-photo-1.webp',
           alt: 'Installer showing a client blind options on a tablet in a bright hallway',
         },
         {
-          src: '/images/services/blinds/timeline-photo-2.png',
+          src: '/images/services/blinds/timeline-photo-2.webp',
           alt: 'Installer discussing window treatment options with a homeowner',
         },
       ],
@@ -637,7 +634,7 @@ export const mockContent: PageContent = {
       // content faithfully" rule as elsewhere in this file.
       body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
       ctaLabel: 'Book consultation',
-      ctaHref: '/consultation',
+      ctaHref: '#quote-form',
       image: {
         // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/services/blinds/ before then.
         src: 'https://www.figma.com/api/mcp/asset/eb69fb8f-4ca3-419b-8ec5-91235dd12411.png',
@@ -651,7 +648,7 @@ export const mockContent: PageContent = {
       heading: 'Premium Window Shades & Professional Installation Services',
       subheading: 'Digital estimate to in-home measurement to installation. Scalable language — works for any Florida city.',
       backgroundImage: {
-        src: '/images/services/card-shades.png',
+        src: '/images/services/card-shades.webp',
         alt: 'Floor-to-ceiling windows fitted with modern roller shades in a contemporary living room',
       },
     },
@@ -662,37 +659,37 @@ export const mockContent: PageContent = {
       headingSuffix: ' for Every Room and Style',
       cards: [
         {
-          image: { src: '/images/services/card-shades.png', alt: 'Living room with solar shades filtering sunlight' },
+          image: { src: '/images/services/card-shades.webp', alt: 'Living room with solar shades filtering sunlight' },
           title: 'Solar Shades',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/shades/solar-shades',
         },
         {
-          image: { src: '/images/services/card-shades.png', alt: 'Bedroom window with roller shades' },
+          image: { src: '/images/services/card-shades.webp', alt: 'Bedroom window with roller shades' },
           title: 'Roller Shades',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/shades/roller-shades',
         },
         {
-          image: { src: '/images/services/card-shades.png', alt: 'Kitchen window with cellular shades' },
+          image: { src: '/images/services/card-shades.webp', alt: 'Kitchen window with cellular shades' },
           title: 'Cellular Shades',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/shades/cellular-shades',
         },
         {
-          image: { src: '/images/services/card-shades.png', alt: 'Office with roman shades on large windows' },
+          image: { src: '/images/services/card-shades.webp', alt: 'Office with roman shades on large windows' },
           title: 'Roman Shades',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/shades/roman-shades',
         },
         {
-          image: { src: '/images/services/card-shades.png', alt: 'Living room with zebra shades providing partial privacy' },
+          image: { src: '/images/services/card-shades.webp', alt: 'Living room with zebra shades providing partial privacy' },
           title: 'Zebra Shades',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/shades/zebra-shades',
         },
         {
-          image: { src: '/images/services/card-shades.png', alt: 'Modern room with woven wood shades' },
+          image: { src: '/images/services/card-shades.webp', alt: 'Modern room with woven wood shades' },
           title: 'Woven Wood Shades',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/shades/woven-wood-shades',
@@ -733,11 +730,11 @@ export const mockContent: PageContent = {
     timeline: {
       images: [
         {
-          src: '/images/services/blinds/timeline-photo-1.png',
+          src: '/images/services/blinds/timeline-photo-1.webp',
           alt: 'Installer showing a client shade options on a tablet in a bright hallway',
         },
         {
-          src: '/images/services/blinds/timeline-photo-2.png',
+          src: '/images/services/blinds/timeline-photo-2.webp',
           alt: 'Installer discussing window treatment options with a homeowner',
         },
       ],
@@ -769,7 +766,7 @@ export const mockContent: PageContent = {
       heading: 'Arrange Your Consultation Appointment',
       body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
       ctaLabel: 'Book consultation',
-      ctaHref: '/consultation',
+      ctaHref: '#quote-form',
       image: {
         src: 'https://www.figma.com/api/mcp/asset/eb69fb8f-4ca3-419b-8ec5-91235dd12411.png',
         alt: 'Person relaxing on a sofa near large windows in a softly lit living room',
@@ -798,7 +795,7 @@ export const mockContent: PageContent = {
       // file, preserved rather than silently corrected.
       subheading: 'Enhance your South FLorida home with elegant blinds and shades now!',
       ctaLabel: 'Book consultation',
-      ctaHref: '/consultation',
+      ctaHref: '#quote-form',
       backgroundImage: {
         // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/commercial/ before then.
         src: 'https://www.figma.com/api/mcp/asset/8f97d591-8f3e-43a0-8575-150ce095a6fe.png',
@@ -999,7 +996,7 @@ export const mockContent: PageContent = {
       heading: 'Get Your Free Estimate Today',
       body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
       ctaLabel: 'Book consultation',
-      ctaHref: '/consultation',
+      ctaHref: '#quote-form',
       image: {
         // TODO: temporary Figma asset URL — export and commit to public/images/gallery/ before expiry.
         src: 'https://www.figma.com/api/mcp/asset/6609fe17-2c11-4423-bf86-504c76ddc180.png',
@@ -1020,7 +1017,7 @@ export const mockContent: PageContent = {
       description:
         "Our Florida-verified window specialists provide expert measurement and installation across the Sunshine State, with local teams based in key Broward County hubs.",
       mapImage: {
-        src: '/images/locations/florida-map.png',
+        src: '/images/locations/florida-map.webp',
         alt: 'Illustrated outline map of the state of Florida',
       },
       // Figma specifies no real hrefs for these 4 rows (they're plain nav-style
@@ -1078,7 +1075,7 @@ export const mockContent: PageContent = {
       heading: "Florida's Premier Window Coverings Company",
       subheading: 'Team at work — installers, operational, professional. Not a posed studio shot.',
       ctaLabel: 'Book consultation',
-      ctaHref: '/consultation',
+      ctaHref: '#quote-form',
       backgroundImage: {
         src: 'https://www.figma.com/api/mcp/asset/e7b4400b-29de-4d70-b827-6be2da39964f.png',
         alt: 'Team at work installing window coverings in a modern Florida home',
@@ -1423,9 +1420,9 @@ export const mockContent: PageContent = {
       heading: 'We proudly serve all South Florida communities',
       subheading: 'Enhance your South Florida home with elegant blinds and shades now!',
       ctaLabel: 'Book consultation',
-      ctaHref: '/consultation',
+      ctaHref: '#quote-form',
       backgroundImage: {
-        src: '/images/city/hero-bg.png',
+        src: '/images/city/hero-bg.webp',
         alt: 'Aerial view of South Florida waterfront community with palm trees',
       },
     },
@@ -1441,37 +1438,37 @@ export const mockContent: PageContent = {
         'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
       cards: [
         {
-          image: { src: '/images/city/service-blinds.png', alt: 'Modern window blinds in a bright living space' },
+          image: { src: '/images/city/service-blinds.webp', alt: 'Modern window blinds in a bright living space' },
           title: 'Blinds',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/blinds',
         },
         {
-          image: { src: '/images/city/service-shades.png', alt: 'Roller shades on a large window' },
+          image: { src: '/images/city/service-shades.webp', alt: 'Roller shades on a large window' },
           title: 'Shades',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/shades',
         },
         {
-          image: { src: '/images/city/service-drapery.png', alt: 'Elegant drapery and curtains in a living room' },
+          image: { src: '/images/city/service-drapery.webp', alt: 'Elegant drapery and curtains in a living room' },
           title: 'Drapery & Curtains',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/drapery',
         },
         {
-          image: { src: '/images/city/service-shutters.png', alt: 'Plantation shutters on a hallway window' },
+          image: { src: '/images/city/service-shutters.webp', alt: 'Plantation shutters on a hallway window' },
           title: 'Shutters',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/shutters',
         },
         {
-          image: { src: '/images/city/service-motorized.png', alt: 'Smart motorized blinds with home automation controls' },
+          image: { src: '/images/city/service-motorized.webp', alt: 'Smart motorized blinds with home automation controls' },
           title: 'Smart & Motorized Home',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/motorized',
         },
         {
-          image: { src: '/images/city/service-repairs.png', alt: 'Technician installing window blinds' },
+          image: { src: '/images/city/service-repairs.webp', alt: 'Technician installing window blinds' },
           title: 'Repairs & Maintenance',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/repairs',
