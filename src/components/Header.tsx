@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
@@ -16,6 +17,8 @@ import { Button } from "@/components/ui/Button";
 // with its own open/close state.
 export function Header() {
   const { logo, servicesLabel, servicesDropdown, links, ctaLabel, ctaHref } = useContent("nav");
+  const pathname = usePathname();
+  const isOnServicePage = pathname.startsWith("/services");
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -101,21 +104,24 @@ export function Header() {
           onClick={() => setServicesOpen((open) => !open)}
           aria-haspopup="true"
           aria-expanded={servicesOpen}
-          className="flex cursor-pointer items-center gap-2 text-base leading-[23px] text-navy"
+          className={`flex cursor-pointer items-center gap-2 text-base leading-[23px] transition-colors hover:text-teal ${isOnServicePage ? "text-teal" : "text-navy"}`}
         >
           {servicesLabel}
           <ChevronDown className={`size-3 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
         </button>
 
-        {links.map((link) => (
-          <Link
-            key={link.label}
-            href={link.href}
-            className="whitespace-nowrap text-base leading-[23px] text-navy transition-colors hover:text-teal"
-          >
-            {link.label}
-          </Link>
-        ))}
+        {links.map((link) => {
+          const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+          return (
+            <Link
+              key={link.label}
+              href={link.href}
+              className={`whitespace-nowrap text-base leading-[23px] transition-colors hover:text-teal ${isActive ? "text-teal" : "text-navy"}`}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
       </nav>
 
       <Button href={ctaHref} className="hidden xl:inline-flex">
@@ -140,40 +146,38 @@ export function Header() {
         <div className="absolute left-0 top-full z-50 hidden w-full items-start justify-between bg-white py-10 pl-20 shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
           <div className="flex items-start gap-[120px]">
             <div className="flex w-[220px] flex-col items-start gap-4">
-              {servicesDropdown.categories.map((category) =>
-                category.subItems ? (
+              {servicesDropdown.categories.map((category) => {
+                const isActive = pathname.startsWith(category.href);
+                return category.subItems ? (
                   <div key={category.label} className="flex w-full items-center gap-4 rounded p-1">
-                    {/* Design uses a one-off #4e7875 here rather than the
-                        established teal token (#5f8f8b); kept on-token per
-                        project convention instead of introducing a new hex. */}
                     <Link
                       href={category.href}
-                      className="whitespace-nowrap text-lg font-semibold tracking-[-0.0648px] text-teal"
+                      className={`whitespace-nowrap text-lg font-semibold tracking-[-0.0648px] transition-colors hover:text-teal ${isActive ? "text-teal" : "text-navy"}`}
                     >
                       {category.label}
                     </Link>
-                    {/* This chevron previously had a stray -rotate-90 left
-                        over from following the Figma source's own
-                        construction technique (Figma builds it from a
-                        down-pointing Vector rotated -90deg to end up
-                        pointing right) — applying that same -90 rotation to
-                        lucide's ChevronRight, which already points right,
-                        rotated it a second time into pointing up. Removed:
-                        ChevronRight needs no rotation to point right. */}
-                    <ChevronRight className="size-[10px] text-teal" />
+                    <ChevronRight className={`size-[10px] ${isActive ? "text-teal" : "text-navy"}`} />
                   </div>
                 ) : (
-                  <Link key={category.label} href={category.href} className="w-full text-base leading-[23px] text-navy">
+                  <Link
+                    key={category.label}
+                    href={category.href}
+                    className={`w-full text-base leading-[23px] font-semibold transition-colors hover:text-teal ${isActive ? "text-teal" : "text-navy"}`}
+                  >
                     {category.label}
                   </Link>
-                ),
-              )}
+                );
+              })}
             </div>
 
             {expandedCategories.map((category) => (
-              <div key={category.label} className="flex flex-col items-start gap-4 text-base leading-[23px] text-teal">
+              <div key={category.label} className="flex flex-col items-start gap-4 text-base leading-[23px]">
                 {category.subItems?.map((sub) => (
-                  <Link key={sub.label} href={sub.href} className="w-full whitespace-nowrap">
+                  <Link
+                    key={sub.label}
+                    href={sub.href}
+                    className={`w-full whitespace-nowrap transition-colors hover:text-teal ${pathname === sub.href ? "text-teal font-semibold" : "text-navy"}`}
+                  >
                     {sub.label}
                   </Link>
                 ))}
@@ -204,7 +208,7 @@ export function Header() {
               type="button"
               onClick={() => setMobileServicesOpen((open) => !open)}
               aria-expanded={mobileServicesOpen}
-              className="flex w-full cursor-pointer items-center justify-between text-base leading-[23px] text-navy"
+              className={`flex w-full cursor-pointer items-center justify-between text-base leading-[23px] ${isOnServicePage ? "text-teal" : "text-navy"}`}
             >
               {servicesLabel}
               <ChevronDown className={`size-4 transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`} />
@@ -212,19 +216,24 @@ export function Header() {
 
             {mobileServicesOpen && (
               <div className="flex w-full flex-col items-start gap-4 pl-4">
-                {servicesDropdown.categories.map((category) =>
-                  category.subItems ? (
+                {servicesDropdown.categories.map((category) => {
+                  const isActive = pathname.startsWith(category.href);
+                  return category.subItems ? (
                     <div key={category.label} className="flex w-full flex-col items-start gap-2">
-                      <p className="whitespace-nowrap text-base font-semibold tracking-[-0.0648px] text-teal">
+                      <Link
+                        href={category.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`whitespace-nowrap text-base font-semibold tracking-[-0.0648px] ${isActive ? "text-teal" : "text-navy"}`}
+                      >
                         {category.label}
-                      </p>
+                      </Link>
                       <div className="flex w-full flex-col items-start gap-2 pl-4">
                         {category.subItems.map((sub) => (
                           <Link
                             key={sub.label}
                             href={sub.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="w-full whitespace-nowrap text-sm text-navy"
+                            className={`w-full whitespace-nowrap text-sm ${pathname === sub.href ? "text-teal font-semibold" : "text-navy"}`}
                           >
                             {sub.label}
                           </Link>
@@ -236,26 +245,29 @@ export function Header() {
                       key={category.label}
                       href={category.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="w-full text-base text-navy"
+                      className={`w-full text-base font-semibold ${isActive ? "text-teal" : "text-navy"}`}
                     >
                       {category.label}
                     </Link>
-                  ),
-                )}
+                  );
+                })}
               </div>
             )}
           </div>
 
-          {links.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full whitespace-nowrap text-base leading-[23px] text-navy"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`w-full whitespace-nowrap text-base leading-[23px] ${isActive ? "text-teal" : "text-navy"}`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
 
           <Button href={ctaHref}>{ctaLabel}</Button>
         </div>
