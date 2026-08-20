@@ -1,0 +1,1496 @@
+import type { PageContent } from '@/types/content';
+
+export const mockContent: PageContent = {
+  hero: {
+    heading: 'The Premier Window Covering Company for Modern Blinds & Shades',
+    subheading: 'Enhance your South Florida home with elegant blinds and shades now!',
+    ctaLabel: 'Book consultation',
+    ctaHref: '#quote-form',
+    backgroundImage: {
+      // Organized by page: images/<page>/<name>, so the public/ folder scales
+      // cleanly as more sections/pages get their own assets.
+      src: '/images/home/hero_image.webp',
+      alt: 'Modern living room with floor-to-ceiling windows fitted with roller blinds, palm trees and a pool visible outside',
+    },
+  },
+  nav: {
+    logo: {
+      src: '/images/shared/logo.svg',
+      alt: 'blindsndrapery logo',
+      href: '/',
+    },
+    servicesLabel: 'Services',
+    servicesDropdown: {
+      categories: [
+        { label: 'Blinds', href: '/services/blinds' },
+        {
+          label: 'Shades',
+          href: '/services/shades',
+          subItems: [
+            { label: 'Roller Shades', href: '/services/shades/roller-shades' },
+            { label: 'Solar Shades', href: '/services/shades/solar-shades' },
+            { label: 'Cellular Shades', href: '/services/shades/cellular-shades' },
+            { label: 'Roman Shades', href: '/services/shades/roman-shades' },
+            { label: 'Zebra Shades', href: '/services/shades/zebra-shades' },
+          ],
+        },
+        { label: 'Curtains & Drapery', href: '/services/curtains-drapery' },
+        { label: 'Shutters', href: '/services/shutters' },
+        { label: 'Motorized & Smart Homes', href: '/services/motorized-smart-homes' },
+        { label: 'Repair & Maintenance', href: '/services/repair-maintenance' },
+      ],
+      image: {
+        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/shared/ before then.
+        src: 'https://www.figma.com/api/mcp/asset/c177a296-3c62-4dba-af5b-be5be78f0efe.png',
+        alt: 'Living room window fitted with roller shades',
+      },
+    },
+    links: [
+      { label: 'Commercial', href: '/commercial' },
+      { label: 'Locations', href: '/locations' },
+      { label: 'Gallery', href: '/gallery' },
+      { label: 'About', href: '/about' },
+      { label: 'Resources', href: '/resources' },
+    ],
+    ctaLabel: 'Book Consultation',
+    ctaHref: '#quote-form',
+  },
+  trustBadges: {
+    items: [
+      { icon: null, label: 'Google Reviews ★★★★★' },
+      { icon: '/images/shared/icons/shield-cog-corner.svg', label: 'BBB A+ Accredited' },
+      { icon: '/images/shared/icons/gavel.svg', label: 'Licensed & Insured' },
+      { icon: '/images/shared/icons/timer-reset.svg', label: '10+ Years in Business' },
+      { icon: '/images/shared/icons/badge-check.svg', label: 'Manufacturer Guarantee' },
+    ],
+  },
+  processIntro: {
+    eyebrow: 'PROCESS INTRODUCTION',
+    headingPrefix: 'Free in home consultation, Precise measurement, ',
+    headingHighlight: 'Custom Fabrication. Professional Installation.',
+    description:
+      'Start with a digital estimate, followed by precise in-home measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.',
+    video: {
+      poster: {
+        src: '/images/home/process-poster.jpg',
+        alt: 'Technician installing white venetian blinds on a large double window',
+      },
+      playIcon: {
+        src: '/images/home/play-icon.svg',
+        alt: '',
+      },
+    },
+  },
+  services: {
+    eyebrow: 'SERVICES GLIMPSE',
+    headingSegments: [
+      { text: 'Discover the ' },
+      { text: 'Best', emphasis: true },
+      { text: ' in Modern' },
+      { text: ' Window Blinds & Shades', emphasis: true },
+    ],
+    servicesSummary:
+      'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    ctaLabel: 'View Details',
+    cards: [
+      {
+        image: {
+          src: '/images/services/card-blinds.webp',
+          alt: 'Living room windows fitted with wood blinds',
+        },
+        title: 'Blinds',
+        description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+        href: '/services/blinds',
+      },
+      {
+        image: {
+          src: '/images/services/card-shutters.webp',
+          alt: 'Bedroom window fitted with plantation shutters',
+        },
+        title: 'Shutters',
+        description: 'Permanent architectural window furniture built for durability and South Florida humidity.',
+        href: '/services/shutters',
+      },
+      {
+        image: {
+          src: '/images/services/card-shades.webp',
+          alt: 'Floor-to-ceiling windows fitted with roller shades',
+        },
+        title: 'Shades',
+        description: 'Engineered for privacy and energy efficiency with roller, solar, and cellular options.',
+        href: '/services/shades',
+      },
+      {
+        image: {
+          src: '/images/services/card-motorized.webp',
+          alt: 'Wall-mounted smart home thermostat control panel',
+        },
+        title: 'Motorized & Smart Home',
+        description: 'Automated systems compatible with Alexa, Google Home, and professional control systems.',
+        href: '/services/motorized-smart-home',
+      },
+      {
+        image: {
+          src: '/images/services/card-drapery.webp',
+          alt: 'Living room with floor-length drapery curtains',
+        },
+        title: 'Drapery & Curtains',
+        description: 'Custom-tailored fabrics providing architectural scale and acoustic dampening.',
+        href: '/services/drapery-curtains',
+      },
+      {
+        image: {
+          src: '/images/services/card-repairs.webp',
+          alt: 'Technician performing window covering repair and maintenance',
+        },
+        title: 'Repairs & Maintenance',
+        description: 'Keep your investments functioning perfectly with our expert repair and tune-up services.',
+        href: '/services/repairs-maintenance',
+      },
+    ],
+  },
+  featuredCategory: {
+    eyebrow: 'INTERIOR SHUTTERS',
+    headingPrefix: 'Custom ',
+    headingHighlight: 'Interior Shutters',
+    headingSuffix: ' for Any Space',
+    paragraphs: [
+      'Elevate your home with our custom interior shutters, designed to fit any room perfectly. Crafted from premium materials, these shutters provide both style and functionality, enhancing your living space with timeless elegance.',
+      'Our expert team ensures precise measurements and flawless installation, delivering shutters that complement your décor and offer excellent light control and privacy. Discover the perfect shutters to transform your home today.',
+    ],
+    image: {
+      // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/shutters/ before then.
+      src: 'https://www.figma.com/api/mcp/asset/758ac310-96a9-4208-80ed-0049e29039ab.png',
+      alt: 'Elegant white plantation shutters framing a sunlit window in a cozy living room with neutral furnishings',
+    },
+  },
+  howItWorks: {
+    eyebrow: 'process',
+    headingPrefix: 'How We ',
+    headingHighlight: 'Work',
+    description:
+      'Elevate your home with our custom interior shutters, designed to fit any room perfectly. Crafted from premium materials, these shutters provide both style and functionality, enhancing your living space with timeless elegance.',
+    steps: [
+      {
+        stepLabel: 'STEP 1',
+        icon: 'Ruler',
+        title: 'Free in home consultation',
+        description: 'In-Home Measurement by our local Broward County installer',
+      },
+      {
+        stepLabel: 'STEP 4',
+        icon: 'Ruler',
+        title: 'Precise measurement',
+        description: 'Instant pricing based on your preliminary dimensions.',
+      },
+      {
+        stepLabel: 'STEP 2',
+        icon: 'Ruler',
+        title: 'Custom Fabrication',
+        description: 'Instant pricing based on your preliminary dimensions.',
+      },
+      {
+        stepLabel: 'STEP 3',
+        icon: 'Ruler',
+        title: 'Professional Installation',
+        description: 'Instant pricing based on your preliminary dimensions.',
+      },
+    ],
+    ctaLabel: 'Book consultation',
+    ctaHref: '#quote-form',
+  },
+  testimonials: {
+    headingPrefix: 'Trusted Experts, Proven ',
+    headingHighlight: 'Customer Satisfaction',
+    description:
+      'Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.',
+    // Both cards carry identical placeholder copy in the design (same quote,
+    // same "Riya Shankar" / "South Florida" author) — kept as-is per the
+    // source rather than inventing variety. The marquee-loop duplicate card
+    // seen in the design (id 3308:5083) is intentionally not included here;
+    // Testimonials.tsx re-renders this array to build the seamless loop.
+    testimonials: [
+      {
+        quote:
+          'Exceptional service from start to finish! The team was professional, punctual, and the custom blinds they installed have transformed my living room. Highly recommend for anyone looking for quality and style.',
+        authorName: 'Riya Shankar',
+        authorLocation: 'South Florida',
+        avatar: {
+          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/testimonials/ before then.
+          src: 'https://www.figma.com/api/mcp/asset/4cbb9a93-ad1c-425f-9867-d105ed183739.png',
+          alt: 'Portrait of Riya Shankar, a South Florida customer',
+        },
+      },
+      {
+        quote:
+          'Exceptional service from start to finish! The team was professional, punctual, and the custom blinds they installed have transformed my living room. Highly recommend for anyone looking for quality and style.',
+        authorName: 'Riya Shankar',
+        authorLocation: 'South Florida',
+        avatar: {
+          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/testimonials/ before then.
+          src: 'https://www.figma.com/api/mcp/asset/4cbb9a93-ad1c-425f-9867-d105ed183739.png',
+          alt: 'Portrait of Riya Shankar, a South Florida customer',
+        },
+      },
+    ],
+  },
+  quoteGallery: {
+    quote:
+      'Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.',
+    quoteIcon: {
+      // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
+      // nominal ~7 days, so export and commit to public/images/home/gallery/ soon.
+      src: '/images/shared/icons/footer-icon-1.svg',
+      alt: '',
+    },
+    images: [
+      {
+        // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
+        // nominal ~7 days, so export and commit to public/images/home/gallery/ soon.
+        src: 'https://www.figma.com/api/mcp/asset/8a9fbee6-3a97-483d-ba14-35e587ed0123.png',
+        alt: 'Two installers measuring and fitting a sliding glass door track in a South Florida home',
+      },
+      {
+        // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
+        // nominal ~7 days, so export and commit to public/images/home/gallery/ soon.
+        src: 'https://www.figma.com/api/mcp/asset/3d496cbf-72dc-4cc9-bd73-635fb02f7ade.png',
+        alt: 'Installer using a drill to mount a roller shade bracket above a large window while a colleague holds the shade fabric',
+      },
+      {
+        // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
+        // nominal ~7 days, so export and commit to public/images/home/gallery/ soon.
+        src: 'https://www.figma.com/api/mcp/asset/6b54a780-82bf-451e-8c6c-f4a48ea78f7b.png',
+        alt: 'Installer showing a smiling homeowner a cellular shade at her living room window',
+      },
+      {
+        // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
+        // nominal ~7 days, so export and commit to public/images/home/gallery/ soon.
+        src: 'https://www.figma.com/api/mcp/asset/b932c54a-333b-45ac-a5b1-b2feff686dc6.png',
+        alt: 'The full team of full-time installers standing together in a driveway in front of a company van',
+      },
+    ],
+  },
+  commercial: {
+    eyebrow: 'COMMERCIAL',
+    heading: 'Commercial Window Treatments & Office Solutions',
+    subheading: 'Need a solution for a commercial space?',
+    body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
+    ctaLabel: 'Browse our commercial solutions',
+    ctaHref: '/commercial',
+    image: {
+      // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/commercial/ before then.
+      src: 'https://www.figma.com/api/mcp/asset/93027c12-c2f3-4489-a1ab-ab4c2efc22a0.png',
+      alt: 'Hotel corridor with warm lighting, patterned carpet, and two people walking past guest room doors',
+    },
+  },
+  repairMaintenance: {
+    eyebrow: 'REPAIR & MAINTENANCE',
+    icon: 'Wrench',
+    headingPrefix: 'Professional ',
+    headingHighlight: 'Blind & Shade Repair',
+    headingSuffix: ' Services',
+    description:
+      'Our technical team provides professional repair services for all major brands and motorized systems. From cord replacements to motor recalibration, we ensure your window treatments operate with factory-level precision.',
+  },
+  locations: {
+    eyebrow: 'LOCATIONS',
+    heading: 'We bring everything to you',
+    description: 'Serving Broward County and South Florida with mobile showrooms.',
+    cities: [
+      {
+        // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
+        // nominal ~7 days, so export and commit to public/images/home/locations/ soon.
+        icon: { src: '/images/shared/icons/footer-icon-2.svg', alt: '' },
+        name: 'Fort Lauderdale',
+      },
+      {
+        // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
+        // nominal ~7 days, so export and commit to public/images/home/locations/ soon.
+        icon: { src: '/images/shared/icons/footer-icon-3.svg', alt: '' },
+        name: 'Coral Springs',
+      },
+      {
+        // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
+        // nominal ~7 days, so export and commit to public/images/home/locations/ soon.
+        icon: { src: '/images/shared/icons/footer-icon-4.svg', alt: '' },
+        name: 'Deerfield Beach',
+      },
+    ],
+  },
+  quoteForm: {
+    eyebrow: 'Quote form',
+    heading: 'Get Your Free Digital Estimate',
+    description:
+      'Complete the form below and one of our experts will provide a preliminary digital estimate for your project. No pressure, just professional data to help you plan.',
+    nameLabel: 'Name',
+    namePlaceholder: 'John Doe',
+    emailLabel: 'Email',
+    emailPlaceholder: 'john@example.com',
+    phoneLabel: 'Phone',
+    phonePlaceholder: '+ (954) 555-1234',
+    serviceLabel: 'Service Interest',
+    servicePlaceholder: 'Select a category',
+    serviceOptions: [
+      'Blinds',
+      'Shades',
+      'Curtains & Drapery',
+      'Shutters',
+      'Motorized Systems & Smart Home',
+      'Repairs & Maintenance',
+    ],
+    projectLabel: 'Tell us about your Project',
+    projectPlaceholder: 'Tell us about your project....',
+    submitLabel: 'Send my estimate request',
+    successMessage: "Thanks! We've received your request and one of our experts will follow up with your free digital estimate shortly.",
+  },
+  faq: {
+    eyebrow: 'FAQ',
+    heading: 'Frequently Asked Questions',
+    categories: ['Common Questions', 'Locations', 'Our Process', 'Timeline'],
+    items: [
+      {
+        question: 'How long does a custom installation take?',
+        // Placeholder — no answer copy in Figma. Grounded in ProcessIntro/HowWeWork steps.
+        answer:
+          'Most custom blinds and shades installations are completed in a single visit, typically 2 to 4 hours depending on the number of windows.',
+      },
+      {
+        question: 'Do you offer smart home integration for motorized shades?',
+        // Placeholder — grounded in the "Motorized & Smart Home" service card.
+        answer:
+          'Yes, our motorized shades integrate with popular smart home systems like Google Home, Amazon Alexa, and Lutron for seamless voice and app control.',
+      },
+      {
+        question: 'Are your shutters humidity resistant for Florida homes?',
+        // Placeholder — grounded in the Shutters featured category (South Florida climate).
+        answer:
+          "Yes, our shutters are built with moisture-resistant materials specifically selected to withstand South Florida's humidity and coastal climate.",
+      },
+      {
+        question: 'What is the difference between a digital and in-home estimate?',
+        // Placeholder — grounded in the estimate/process language elsewhere on the site.
+        answer:
+          'A digital estimate uses photos and measurements you provide for a quick online quote, while an in-home estimate has a professional measure your windows in person for guaranteed accuracy.',
+      },
+      {
+        question: 'Do you provide warranties on your products?',
+        // Placeholder — grounded in the TrustBadges warranty/licensed & insured badges.
+        answer:
+          'Yes, all of our products are backed by manufacturer warranties, and our installation work is covered by our own workmanship guarantee.',
+      },
+      {
+        question: 'Can you repair motorized blinds from other companies?',
+        // Placeholder — grounded in the "Repairs & Maintenance" service card.
+        answer:
+          "Yes, our technicians repair and service motorized blinds and shades from most major manufacturers, not just the products we originally installed.",
+      },
+    ],
+  },
+  footer: {
+    logo: {
+      // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/shared/ before then.
+      src: 'https://www.figma.com/api/mcp/asset/62cce112-c3b5-4d9a-b45a-4496679c5ae3.svg',
+      alt: 'blindsndrapery',
+      href: '/',
+    },
+    badges: [
+      {
+        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/shared/ before then.
+        src: 'https://www.figma.com/api/mcp/asset/2bf21edb-bec4-4d6d-9838-cf7707e8a433.png',
+        alt: 'BBB Accredited Business A+ rating badge',
+        aspectRatio: '269/187',
+      },
+      {
+        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/shared/ before then.
+        src: 'https://www.figma.com/api/mcp/asset/dfc5a07c-b6a3-4f08-9968-3196022150e0.png',
+        alt: 'Google Reviews five-star rating badge',
+        aspectRatio: '142/80',
+      },
+    ],
+    columns: [
+      {
+        title: 'Explore',
+        links: [
+          { label: 'How it Works', href: '/how-it-works' },
+          { label: 'Commercial Solutions', href: '/commercial' },
+          { label: 'About Us', href: '/about' },
+        ],
+      },
+      {
+        title: 'Services',
+        showChevron: true,
+        links: [
+          { label: 'Blinds', href: '/services/blinds' },
+          { label: 'Shades', href: '/services/shades' },
+          { label: 'Curtains & Drapery', href: '/services/curtains-drapery' },
+          { label: 'Shutters', href: '/services/shutters' },
+          { label: 'Motorized & Smart Homes', href: '/services/motorized-smart-homes' },
+          { label: 'Repairs & Maintenance', href: '/services/repairs-maintenance' },
+        ],
+      },
+      {
+        title: 'Inspiration',
+        links: [
+          { label: 'Gallery', href: '/gallery' },
+          { label: 'Blogs', href: '/blog' },
+          { label: 'Knowledge Base', href: '/knowledge-base' },
+        ],
+      },
+      {
+        title: 'Contact',
+        links: [
+          // Updated 2026-08-17: now points at the real /locations page built
+          // from Figma's "Desktop / Locations Hub" (node 2251:68) — this
+          // label is a near-exact match for that page's own content
+          // ("Now Serving @Florida", verified service areas), and the
+          // homepage nav's "Locations" link already points at the same
+          // route, so both site-wide references to this page now agree.
+          // Previously pointed at a separate, never-built "/areas-we-serve".
+          { label: 'Areas We Serve', href: '/locations' },
+          { label: 'FAQ', href: '/faq' },
+        ],
+      },
+    ],
+    copyright: '© 2024 Blinds & Drapery Co. All rights reserved',
+    legalLinks: [
+      { label: 'Terms of Use', href: '/terms-of-use' },
+      { label: 'Privacy Policy', href: '/privacy-policy' },
+    ],
+    socialLinks: [
+      { platform: 'instagram', href: 'https://www.instagram.com', label: 'Instagram' },
+      { platform: 'facebook', href: 'https://www.facebook.com', label: 'Facebook' },
+      { platform: 'youtube', href: 'https://www.youtube.com', label: 'YouTube' },
+      { platform: 'linkedin', href: 'https://www.linkedin.com', label: 'LinkedIn' },
+    ],
+  },
+  servicePage: {
+    heroBreadcrumb: 'HOME > SERVICES',
+    howItWorks: {
+      eyebrow: 'HOW IT WORKS',
+      headingPrefix: 'Professional ',
+      headingHighlight: 'Window Blind Installation',
+      headingSuffix: ' in Florida',
+      // Note: the Figma source reuses the About-Shutters intro paragraph
+      // here verbatim (a copy-paste leftover, not this section's own
+      // copy) — kept as-is per the project's rule of preserving the
+      // design's own content faithfully rather than silently rewriting it.
+      description:
+        'Elevate your home with our custom interior shutters, designed to fit any room perfectly. Crafted from premium materials, these shutters provide both style and functionality, enhancing your living space with timeless elegance.',
+      // Note: all 4 steps share identical body copy in the Figma source
+      // (a placeholder repeated verbatim, not a per-step description) —
+      // same "preserve the design's own content" call as HowWeWork's
+      // repeated step copy on the homepage.
+      steps: [
+        {
+          number: '01',
+          title: 'Estimate online.',
+          description:
+            'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
+          image: {
+            src: '/images/services/step-1.webp',
+            alt: 'Customer using a laptop to get an online quote for window blinds',
+          },
+        },
+        {
+          number: '02',
+          title: 'Broward County and South Florida installers conduct precise in-home measurement.',
+          description:
+            'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
+          image: {
+            src: '/images/services/step-2.webp',
+            alt: 'Installer taking precise window measurements in a home',
+          },
+        },
+        {
+          number: '03',
+          title: 'Custom fabrication.',
+          description:
+            'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
+          image: {
+            src: '/images/services/step-3.webp',
+            alt: 'Custom blinds being fabricated in a workshop',
+          },
+        },
+        {
+          number: '04',
+          title: 'Professional final installation.',
+          description:
+            'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
+          image: {
+            src: '/images/services/step-4.webp',
+            alt: 'Installer mounting finished blinds on a window',
+          },
+        },
+      ],
+    },
+    about: {
+      eyebrow: 'ABOUT SHUTTERS',
+      headingPrefix: 'Durable ',
+      headingHighlight: 'Shutters & Professional Window',
+      headingSuffix: ' Treatments',
+      paragraph:
+        "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance.",
+      image: {
+        src: '/images/services/about-shutters.webp',
+        alt: 'Living room with white plantation shutters covering large windows',
+      },
+    },
+  },
+  serviceBlinds: {
+    hero: {
+      // Preserved verbatim from Figma, including the odd lowercase "inline
+      // service" trailing segment — a placeholder crumb, not a real label,
+      // same "keep the design's own content faithfully" rule as elsewhere.
+      breadcrumb: 'HOME > SERVICES > inline service',
+      heading: 'Modern Window Blinds & Professional Installation Services',
+      subheading: 'Digital estimate to in-home measurement to installation. Scalable language — works for any Florida city.',
+      backgroundImage: {
+        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/services/blinds/ before then.
+        src: 'https://www.figma.com/api/mcp/asset/a8477728-5aec-45ac-8a20-3975d4727cd8.png',
+        alt: 'Two installers fitting roller shades on large windows in a bright, plant-filled living room',
+      },
+    },
+    about: {
+      // Note: the tablet/mobile Figma frames used as the structural/layout
+      // reference for this page (Tablet & Mobile "Service Inline 1" — see
+      // ServiceInlineHero.tsx etc.) show this eyebrow as "SOCIAL PROOF
+      // BLOCK" instead of "ABOUT". That's Inline 1's own (different service)
+      // content, not this page's — Desktop "Service Inline 2" (this page's
+      // actual confirmed source, node 2721:1622) says "ABOUT", so that's
+      // what's used here; only layout/spacing values were borrowed from the
+      // Inline 1 responsive frames, never their copy.
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Engineered Faux ',
+      headingHighlight: 'Wood, Aluminum, and Vertical',
+      headingSuffix: ' Blinds',
+      paragraphPrefix: 'Our window treatments are engineered specifically for the demands of the ',
+      paragraphHighlight: 'Broward County & South Florida',
+      paragraphSuffix:
+        ' environment. We prioritize high-performance, moisture-resistant materials like engineered faux-wood and marine-grade aluminum that withstand coastal humidity without warping or fading.',
+      features: ['Moisture Resistant', 'Waterproof', 'Light', 'UV Resistant'],
+      gallery: [
+        {
+          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/services/blinds/ before then.
+          src: 'https://www.figma.com/api/mcp/asset/d373d392-f595-4771-b699-e26901610eb6.png',
+          alt: 'Close-up of engineered faux-wood blind slats catching natural light',
+        },
+        {
+          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/services/blinds/ before then.
+          src: 'https://www.figma.com/api/mcp/asset/100854a9-8821-4f9a-a416-3a0e2bfc6106.png',
+          alt: 'Wood shutters fitted along a hallway window with warm afternoon light',
+        },
+        {
+          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/services/blinds/ before then.
+          src: 'https://www.figma.com/api/mcp/asset/13db3a87-6dd7-4c05-bd13-1ae5e9c79eca.png',
+          alt: 'Floor-to-ceiling shutters in a bright living room with a sofa and dining table',
+        },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        {
+          src: '/images/services/blinds/timeline-photo-1.webp',
+          alt: 'Installer showing a client blind options on a tablet in a bright hallway',
+        },
+        {
+          src: '/images/services/blinds/timeline-photo-2.webp',
+          alt: 'Installer discussing window treatment options with a homeowner',
+        },
+      ],
+      steps: [
+        {
+          number: '1',
+          title: 'In-Home Measurement',
+          description: 'We visit your home to discuss your vision and explore materials tailored to your space.',
+        },
+        {
+          number: '2',
+          title: 'Custom Fabrication',
+          description: 'We visit your home to discuss your vision and explore materials tailored to your space.',
+        },
+        {
+          number: '3',
+          title: 'Professional Installation',
+          description: 'We visit your home to discuss your vision and explore materials tailored to your space.',
+        },
+        {
+          number: '4',
+          title: 'Aftercare & Warranty Support',
+          description: 'We visit your home to discuss your vision and explore materials tailored to your space.',
+        },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      // Verbatim match of `commercial.body` in the Figma source — kept
+      // as-is rather than rewritten, same "preserve the design's own
+      // content faithfully" rule as elsewhere in this file.
+      body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: {
+        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/services/blinds/ before then.
+        src: 'https://www.figma.com/api/mcp/asset/eb69fb8f-4ca3-419b-8ec5-91235dd12411.png',
+        alt: 'Person relaxing on a sofa near large windows in a softly lit living room',
+      },
+    },
+  },
+  serviceShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > Shades',
+      heading: 'Premium Window Shades & Professional Installation Services',
+      subheading: 'Digital estimate to in-home measurement to installation. Scalable language — works for any Florida city.',
+      backgroundImage: {
+        src: '/images/services/card-shades.webp',
+        alt: 'Floor-to-ceiling windows fitted with modern roller shades in a contemporary living room',
+      },
+    },
+    subServices: {
+      eyebrow: 'SHADES CATEGORIES',
+      headingPrefix: 'Explore ',
+      headingHighlight: 'Premium Shades',
+      headingSuffix: ' for Every Room and Style',
+      cards: [
+        {
+          image: { src: '/images/services/card-shades.webp', alt: 'Living room with solar shades filtering sunlight' },
+          title: 'Solar Shades',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/shades/solar-shades',
+        },
+        {
+          image: { src: '/images/services/card-shades.webp', alt: 'Bedroom window with roller shades' },
+          title: 'Roller Shades',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/shades/roller-shades',
+        },
+        {
+          image: { src: '/images/services/card-shades.webp', alt: 'Kitchen window with cellular shades' },
+          title: 'Cellular Shades',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/shades/cellular-shades',
+        },
+        {
+          image: { src: '/images/services/card-shades.webp', alt: 'Office with roman shades on large windows' },
+          title: 'Roman Shades',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/shades/roman-shades',
+        },
+        {
+          image: { src: '/images/services/card-shades.webp', alt: 'Living room with zebra shades providing partial privacy' },
+          title: 'Zebra Shades',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/shades/zebra-shades',
+        },
+        {
+          image: { src: '/images/services/card-shades.webp', alt: 'Modern room with woven wood shades' },
+          title: 'Woven Wood Shades',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/shades/woven-wood-shades',
+        },
+      ],
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Engineered Faux ',
+      headingHighlight: 'Wood, Aluminum, and Vertical',
+      headingSuffix: ' Blinds',
+      paragraphPrefix: 'Our window treatments are engineered specifically for the demands of the ',
+      paragraphHighlight: 'Broward County & South Florida',
+      paragraphSuffix:
+        ' environment. We prioritize high-performance, moisture-resistant materials like engineered faux-wood and marine-grade aluminum that withstand coastal humidity without warping or fading.',
+      features: ['Moisture Resistant', 'Waterproof', 'Light', 'UV Resistant'],
+      gallery: [
+        {
+          src: 'https://www.figma.com/api/mcp/asset/d373d392-f595-4771-b699-e26901610eb6.png',
+          alt: 'Close-up of engineered faux-wood blind slats catching natural light',
+        },
+        {
+          src: 'https://www.figma.com/api/mcp/asset/100854a9-8821-4f9a-a416-3a0e2bfc6106.png',
+          alt: 'Wood shutters fitted along a hallway window with warm afternoon light',
+        },
+        {
+          src: 'https://www.figma.com/api/mcp/asset/13db3a87-6dd7-4c05-bd13-1ae5e9c79eca.png',
+          alt: 'Floor-to-ceiling shutters in a bright living room with a sofa and dining table',
+        },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        {
+          src: '/images/services/blinds/timeline-photo-1.webp',
+          alt: 'Installer showing a client shade options on a tablet in a bright hallway',
+        },
+        {
+          src: '/images/services/blinds/timeline-photo-2.webp',
+          alt: 'Installer discussing window treatment options with a homeowner',
+        },
+      ],
+      steps: [
+        {
+          number: '1',
+          title: 'Free in home consultation',
+          description: 'We visit your home to discuss your vision and explore materials tailored to your space.',
+        },
+        {
+          number: '2',
+          title: 'Precise measurement',
+          description: 'We visit your home to discuss your vision and explore materials tailored to your space.',
+        },
+        {
+          number: '3',
+          title: 'Custom Fabrication',
+          description: 'We visit your home to discuss your vision and explore materials tailored to your space.',
+        },
+        {
+          number: '4',
+          title: 'Professional Installation',
+          description: 'We visit your home to discuss your vision and explore materials tailored to your space.',
+        },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: {
+        src: 'https://www.figma.com/api/mcp/asset/eb69fb8f-4ca3-419b-8ec5-91235dd12411.png',
+        alt: 'Person relaxing on a sofa near large windows in a softly lit living room',
+      },
+    },
+  },
+  commercialPage: {
+    hero: {
+      // The confirmed desktop source (this page's own node 2220:843) says
+      // "HOME > commercial" — but the tablet AND mobile frames both instead
+      // say "HOME > SERVICES", identical to the /services page's own
+      // breadcrumb, on BOTH breakpoints consistently. That's not a one-off
+      // typo, it reads as a copy-pasted leftover from another page's
+      // breadcrumb component that never got updated for Commercial's
+      // responsive frames. Per this project's standing rule (content comes
+      // from the confirmed PRIMARY desktop source, tablet/mobile frames are
+      // for layout), this page uses desktop's own "HOME > commercial" value
+      // at every breakpoint rather than propagating that leftover.
+      breadcrumb: 'HOME > commercial',
+      heading: 'Commercial Window Treatments & Blinds Installation Services',
+      // Verbatim from Figma, including the "FLorida" typo (capital L) and
+      // the fact that this is near-word-for-word the SAME placeholder
+      // subheading as the homepage's own hero (`hero.subheading`, which
+      // spells it correctly as "Florida") — same "duplicated/inconsistent
+      // placeholder copy across pages" pattern documented elsewhere in this
+      // file, preserved rather than silently corrected.
+      subheading: 'Enhance your South FLorida home with elegant blinds and shades now!',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      backgroundImage: {
+        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/commercial/ before then.
+        src: 'https://www.figma.com/api/mcp/asset/8f97d591-8f3e-43a0-8575-150ce095a6fe.png',
+        alt: 'Two installers assembling window coverings on a rooftop terrace of a commercial building',
+      },
+    },
+    places: {
+      eyebrow: 'Commercial places',
+      headingPrefix: 'High-Volume Window Covering Supply for ',
+      headingHighlight: 'Offices, Hospitality & Healthcare',
+      description:
+        "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance.",
+      // All 4 cards literally share the identical description string
+      // "Custom Window Treatments for Office Buildings" in the Figma source
+      // (confirmed via get_metadata on nodes 2227:1351 / 2227:1342 /
+      // 2227:1360 — not a mistake introduced here) — only the title and icon
+      // actually differ per card in the design. Reproduced verbatim per this
+      // project's standing rule of preserving genuine Figma content
+      // inconsistencies rather than silently writing new copy.
+      cards: [
+        {
+          title: 'Office Buildings',
+          description: 'Custom Window Treatments for Office Buildings',
+          icon: 'Building2',
+        },
+        {
+          title: 'Hospitality & Hotels',
+          description: 'Custom Window Treatments for Office Buildings',
+          icon: 'Hotel',
+        },
+        {
+          title: 'Healthcare Facilities',
+          description: 'Custom Window Treatments for Office Buildings',
+          icon: 'SquareActivity',
+        },
+        {
+          title: 'Multi-Family & Retail',
+          description: 'Custom Window Treatments for Office Buildings',
+          icon: 'PaperBag',
+        },
+      ],
+    },
+    installation: {
+      eyebrow: 'INSTALLATION',
+      headingPrefix: 'Scalable ',
+      headingHighlight: 'Commercial Installation',
+      headingSuffix: ' Across Florida',
+      // Verbatim duplicate of `places.description` in the Figma source —
+      // same "reused placeholder paragraph across sections" pattern seen
+      // throughout this file (e.g. serviceBlinds.cta.body === commercial.body).
+      description:
+        "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance.",
+      images: [
+        {
+          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/commercial/ before then.
+          src: 'https://www.figma.com/api/mcp/asset/9a8c0037-445e-470d-8af1-6897f4cfa92b.png',
+          alt: 'Bright open-plan office with floor-to-ceiling windows fitted with roller shades',
+        },
+        {
+          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/commercial/ before then.
+          src: 'https://www.figma.com/api/mcp/asset/6fd99ca6-faaa-49f7-9bfe-bc704ee07525.png',
+          alt: 'Hotel corridor with large windows fitted with motorized shades',
+        },
+        {
+          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/commercial/ before then.
+          src: 'https://www.figma.com/api/mcp/asset/f5dd45f8-1d26-4908-97a3-6a59c35d1c13.png',
+          alt: 'Installer on a ladder fitting blinds in a commercial space',
+        },
+      ],
+    },
+    quoteForm: {
+      eyebrow: 'commercial quote form',
+      heading: 'Submit Your Commercial Bid Request',
+      description: 'Our commercial desk will review your scope and architectural requirements within 24 business hours.',
+      companyNameLabel: 'Company Name',
+      companyNamePlaceholder: 'Company Name',
+      contactNameLabel: 'Contact Name',
+      // Figma's own mockup literally reuses "Company Name" as this field's
+      // placeholder too (a copy-paste leftover, same pattern as the
+      // breadcrumb above) — corrected to a real name placeholder here rather
+      // than reproducing the leftover, since an actual site visitor typing
+      // their name would find "Company Name" inside a "Contact Name" field
+      // confusing, and nothing about the design intent depends on the
+      // literal wrong string.
+      contactNamePlaceholder: 'John Smith',
+      emailLabel: 'Email',
+      emailPlaceholder: 'john@example.com',
+      phoneLabel: 'Phone',
+      phonePlaceholder: '+ (954) 555-1234',
+      projectTypeLabel: 'Project Type',
+      // Figma shows this dropdown with "Commercial" as its resting display
+      // text (styled identically to every other field's gray placeholder) —
+      // treated as the placeholder here rather than a locked value, with the
+      // actual selectable options inferred from this page's own "places"
+      // card categories above plus a generic catch-all, since Figma doesn't
+      // specify a real options list for this field.
+      projectTypePlaceholder: 'Commercial',
+      projectTypeOptions: ['Office Buildings', 'Hospitality & Hotels', 'Healthcare Facilities', 'Multi-Family & Retail', 'Other'],
+      locationLabel: 'Location',
+      locationPlaceholder: 'City, State',
+      messageLabel: 'Project Scope & Message',
+      messagePlaceholder: 'Tell us about your project scope, timeline, and any specific requirements...',
+      uploadPrompt: 'Click to upload architectural drawings or blueprints',
+      uploadHint: 'PDF, DWG, OR JPG (MAX 25MB)',
+      submitLabel: 'Submit my bid request',
+      successMessage: "Thanks — your bid request has been received. Our commercial desk will follow up within 24 business hours.",
+    },
+  },
+  galleryPage: {
+    hero: {
+      breadcrumb: 'HOME > gallery',
+      headingPrefix: 'Modern Window Coverings',
+      headingHighlight: ' Inspiration Gallery',
+      subheading:
+        'Browse completed window treatment installations from South Florida homes and businesses. Copywriter to supply.',
+    },
+    filters: {
+      heading: 'Browse Photos of Custom Blinds, Shades, and Shutters',
+      filterGroups: [
+        {
+          label: 'By Product Type',
+          options: ['All', 'Blinds', 'Shades', 'Shutters', 'Drapery', 'Motorized'],
+        },
+        {
+          label: 'By Room',
+          options: ['All', 'Living Room', 'Bedroom', 'Kitchen', 'Office', 'Commercial'],
+        },
+      ],
+    },
+    grid: {
+      items: [
+        {
+          // TODO: temporary Figma asset URL — export and commit to public/images/gallery/ before expiry.
+          image: { src: 'https://www.figma.com/api/mcp/asset/c48521ed-488a-4396-946f-51176a467f13.png', alt: 'White venetian blinds catching light in a bright bathroom' },
+          category: 'Blinds',
+          title: 'Refined Classic Window Blinds',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/18291d5e-0899-4b30-a198-269dfce893d8.png', alt: 'Floor-length sheer curtains beside a coastal view' },
+          category: 'Curtains & Drapery',
+          title: 'Elegant Coastal Sheer Drapery',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/d8700be0-3216-45a4-aae8-b8d01069794e.png', alt: 'Blue horizontal blinds filtering afternoon light' },
+          category: 'Blinds',
+          title: 'Contemporary Horizontal Blinds',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/75b02106-d1f7-4e3d-b909-899e362695d0.png', alt: 'Modern living room with roller shades on large windows' },
+          category: 'Blinds',
+          title: 'Modern Living Room Roller Shades',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/466ef774-b07e-49ba-9a9c-b5dcf12b606d.png', alt: 'Large sliding glass doors with solar shades overlooking a pool' },
+          category: 'Shades',
+          title: 'Poolside Solar Shade Installation',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/dbb27973-024c-455e-ada2-73d4cc868a4a.png', alt: 'Bedroom with dark roller shades and sheer curtains' },
+          category: 'Curtains & Drapery',
+          title: 'Layered Bedroom Window Treatments',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/457b7513-67ec-4ce0-8837-e81fcc97f0f1.png', alt: 'Home office with floor-length curtains and a desk by the window' },
+          category: 'Curtains & Drapery',
+          title: 'Home Office Floor-Length Curtains',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/59fe285c-a741-47bf-ba35-b1e77ad5cfa0.png', alt: 'Living room with tall French-door blinds and natural light' },
+          category: 'Blinds',
+          title: 'French Door Blinds With Natural Light',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/2d8fc4af-a63a-4f19-87b0-e4bbcb323d5c.png', alt: 'Kitchen with white blinds and a breakfast nook' },
+          category: 'Blinds',
+          title: 'Bright Kitchen Window Blinds',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/ab335d76-33ff-4d71-bf60-d51090818a33.png', alt: 'Contemporary living room with automated blinds on large windows' },
+          category: 'Blinds',
+          title: 'Automated Contemporary Blinds',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/7730f05b-7091-4307-b2f5-b10d01001834.png', alt: 'Installer adjusting motorized blinds on a ladder' },
+          category: 'Blinds',
+          title: 'Professional Motorized Installation',
+        },
+        {
+          image: { src: 'https://www.figma.com/api/mcp/asset/53b7af90-8cd3-411e-9874-9c653bfaccb7.png', alt: 'Modern commercial office with floor-to-ceiling drapery panels' },
+          category: 'Curtains & Drapery',
+          title: 'Commercial Drapery Panels',
+        },
+      ],
+      loadMoreLabel: 'Load More',
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Get Your Free Estimate Today',
+      body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: {
+        // TODO: temporary Figma asset URL — export and commit to public/images/gallery/ before expiry.
+        src: 'https://www.figma.com/api/mcp/asset/6609fe17-2c11-4423-bf86-504c76ddc180.png',
+        alt: 'Person relaxing on a sofa near large windows with warm evening light',
+      },
+    },
+  },
+  locationsPage: {
+    hero: {
+      breadcrumb: 'HOME > locations hub',
+      heading: 'Window Treatment Services Across Florida',
+      subheading: 'Serving Broward County and South Florida — expanding to additional states soon.',
+    },
+    serviceArea: {
+      eyebrow: 'VERIFIED SERVICE AREA',
+      headingPrefix: 'Now Serving ',
+      headingHighlight: '@Florida',
+      description:
+        "Our Florida-verified window specialists provide expert measurement and installation across the Sunshine State, with local teams based in key Broward County hubs.",
+      mapImage: {
+        src: '/images/locations/florida-map.webp',
+        alt: 'Illustrated outline map of the state of Florida',
+      },
+      // Figma specifies no real hrefs for these 4 rows (they're plain nav-style
+      // link rows with no destination data in the file). No dedicated
+      // per-city location pages exist in this project yet — "Explore All
+      // Florida Services" links back to this hub page itself (a harmless
+      // self-link), and the 3 city rows use inferred `/locations/{slug}`
+      // routes, flagged here the same way other not-yet-built nav routes are
+      // flagged elsewhere in this file (e.g. `/gallery`, `/resources`).
+      primaryLink: { label: 'Explore All Florida Services', href: '/locations' },
+      cityLinks: [
+        { label: 'Fort Lauderdale', href: '/locations/fort-lauderdale' },
+        { label: 'Coral Springs', href: '/locations/coral-springs' },
+        { label: 'Deerfield Beach', href: '/locations/deerfield-beach' },
+      ],
+      photo: {
+        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/locations/ before then.
+        src: 'https://www.figma.com/api/mcp/asset/b575620d-d87a-4414-93da-f9c6401fa109.png',
+        alt: 'Installer fitting blinds on a window at a South Florida home',
+      },
+    },
+    comingSoon: {
+      headingPrefix: 'Coming Soon — ',
+      headingHighlight: 'Future States',
+      description:
+        'Expanding our expert window treatment services to Texas, California and much more. Stay tuned for updates on new locations and offerings coming your way soon.',
+      badgeLabel: 'COMING SOON',
+      // All 3 cards share the identical description string in the Figma
+      // source itself (confirmed via get_design_context on nodes 2280:379 /
+      // 2280:443 / 2280:453, byte-identical, including the leftover
+      // "Lone Star State" reference inside the California and Other States
+      // cards) — only the title differs per card in the design. Reproduced
+      // verbatim per this project's standing rule on preserving genuine
+      // Figma content inconsistencies rather than writing new copy, same
+      // pattern as the Commercial page's places cards.
+      cards: [
+        {
+          title: 'Texas',
+          description: 'Strategic expansion into the Lone Star State is currently in planning stages.',
+        },
+        {
+          title: 'California',
+          description: 'Strategic expansion into the Lone Star State is currently in planning stages.',
+        },
+        {
+          title: 'Other States',
+          description: 'Strategic expansion into the Lone Star State is currently in planning stages.',
+        },
+      ],
+    },
+  },
+  aboutPage: {
+    hero: {
+      breadcrumb: 'HOME > about us',
+      heading: "Florida's Premier Window Coverings Company",
+      subheading: 'Team at work — installers, operational, professional. Not a posed studio shot.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      backgroundImage: {
+        src: 'https://www.figma.com/api/mcp/asset/e7b4400b-29de-4d70-b827-6be2da39964f.png',
+        alt: 'Team at work installing window coverings in a modern Florida home',
+      },
+    },
+    mission: {
+      headingPrefix: 'Scalable Blinds and Shades for ',
+      headingHighlight: 'Homes & Commercial Spaces',
+      paragraphs: [
+        'Blindsndrapery.com delivers comprehensive window covering solutions tailored for both single-family residences and large-scale commercial properties.',
+        'Our integrated platform supports across diverse project sizes, ensuring consistent quality and service whether outfitting a single room or an entire multi-unit complex.',
+      ],
+    },
+    installation: {
+      eyebrow: 'INSTALLATION',
+      heading: 'Direct-to-Consumer Quoting & Statewide Installation',
+      description:
+        'Skip the traditional sales process with our direct-to-consumer quoting model. Get an exact estimate online instantly, then rely on our Florida-verified professional installers—no subcontractors involved. This means consistent quality, direct accountability, and seamless service from measurement to installation, all backed by local teams in key Broward County locations.',
+      features: [
+        {
+          icon: {
+            src: 'https://www.figma.com/api/mcp/asset/4eee8fc1-6faa-4f40-892c-09b33d8d825a.svg',
+            alt: '',
+          },
+          label: 'Strictly No subcontracting',
+        },
+        {
+          icon: {
+            src: 'https://www.figma.com/api/mcp/asset/e57c758e-78d1-4d04-b8c9-aa2842098ea1.svg',
+            alt: '',
+          },
+          label: 'Statewide Installation',
+        },
+        {
+          icon: {
+            src: 'https://www.figma.com/api/mcp/asset/a741ecfa-abb1-487d-b7f4-f41eca888b58.svg',
+            alt: '',
+          },
+          label: 'Free Estimate',
+        },
+        {
+          icon: {
+            src: 'https://www.figma.com/api/mcp/asset/d2bbf8a3-e810-4beb-b375-60f8f32339f9.svg',
+            alt: '',
+          },
+          label: 'Fort Lauderdale',
+        },
+      ],
+    },
+    team: {
+      badges: [
+        {
+          icon: {
+            src: 'https://www.figma.com/api/mcp/asset/d9da426a-ea1f-442f-a535-3a619c0a21de.svg',
+            alt: '',
+          },
+          label: 'Licensed & Insured',
+        },
+        {
+          icon: {
+            src: 'https://www.figma.com/api/mcp/asset/26ed175e-1079-4a4d-8ed7-f5653c10598c.svg',
+            alt: '',
+          },
+          label: 'BBB A+ Accredited',
+        },
+        {
+          icon: {
+            src: 'https://www.figma.com/api/mcp/asset/012d4938-0c82-4906-975a-cb942425c3cc.svg',
+            alt: '',
+          },
+          label: 'Years in Business',
+        },
+        {
+          icon: {
+            src: 'https://www.figma.com/api/mcp/asset/9464232d-78ee-4baa-a60c-42e9dc387c4a.svg',
+            alt: '',
+          },
+          label: '5–10yr Manufacturer Guarantee',
+        },
+      ],
+      members: [
+        {
+          image: {
+            src: 'https://www.figma.com/api/mcp/asset/245cad30-6b14-45e3-810d-593b9d1d17de.png',
+            alt: 'Team member portrait',
+          },
+          name: 'Name',
+          role: 'Role description',
+        },
+        {
+          image: {
+            src: 'https://www.figma.com/api/mcp/asset/245cad30-6b14-45e3-810d-593b9d1d17de.png',
+            alt: 'Team member portrait',
+          },
+          name: 'Name',
+          role: 'Role description',
+        },
+        {
+          image: {
+            src: 'https://www.figma.com/api/mcp/asset/245cad30-6b14-45e3-810d-593b9d1d17de.png',
+            alt: 'Team member portrait',
+          },
+          name: 'Name',
+          role: 'Role description',
+        },
+        {
+          image: {
+            src: 'https://www.figma.com/api/mcp/asset/245cad30-6b14-45e3-810d-593b9d1d17de.png',
+            alt: 'Team member portrait',
+          },
+          name: 'Name',
+          role: 'Role description',
+        },
+      ],
+    },
+  },
+
+  resourcesPage: {
+    heading: 'Window Treatment Tips & Industry Insights',
+    description:
+      'Explore expert installation tips, detailed product comparisons, and the latest Florida home decor trends. Stay informed on smart home integration and get practical advice for commercial window treatments to enhance your space.',
+    featured: {
+      badge: 'Featured',
+      category: 'Blog',
+      article: {
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/750f3c20-a0cb-483f-8b00-818520cc6a3f.png',
+          alt: 'Modern living room with large windows and natural light',
+        },
+        title: '5 Ways to Protect Your Florida Home from UV Damage',
+        description:
+          'Solar shades provide a critical barrier against intense Florida sunlight, preserving your interior furniture and flooring. Learn how the right UV protection ratings can significantly extend the life of your home investments.',
+        date: 'JULY 15, 2025',
+        href: '/resources/uv-damage-protection',
+      },
+    },
+    articles: [
+      {
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/3d891a94-3602-41dc-8a3e-bd28b9c2ac38.png',
+          alt: 'Elegant kitchen with patterned blinds on windows',
+        },
+        title: 'Choosing the Right Blinds for High-Humidity Rooms',
+        description:
+          'Solar shades provide a critical barrier against intense Florida sunlight, preserving your interior furniture and flooring. Learn how the right UV protection ratings can significantly extend the life of your home investments.',
+        date: 'July 2026',
+        href: '/resources/blinds-high-humidity',
+      },
+      {
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/ee8e1302-c513-4fff-a95e-6a569cb2228b.png',
+          alt: 'Person using smartphone to control motorized shades',
+        },
+        title: 'Smart Home Integration: Motorized Shades 101',
+        description:
+          'Solar shades provide a critical barrier against intense Florida sunlight, preserving your interior furniture and flooring. Learn how the right UV protection ratings can significantly extend the life of your home investments.',
+        date: 'July 2026',
+        href: '/resources/motorized-shades-101',
+      },
+    ],
+  },
+  knowledgeBasePage: {
+    heading: 'Window Treatment Knowledge Base',
+    subtitle: 'Expert answers to common window treatment questions.',
+    articles: [
+      {
+        category: 'Maintenance Tips',
+        title: 'How to Maintain Your Window Treatments Year-Round',
+        description:
+          'Regular maintenance extends the life of your blinds and shades. Learn simple seasonal routines that keep your window treatments looking fresh and functioning smoothly in Florida\'s climate.',
+        href: '/knowledge-base/maintenance-tips',
+      },
+      {
+        category: 'Cleaning Guidelines',
+        title: 'The Ultimate Guide to Cleaning Blinds & Shades',
+        description:
+          'From dusting to deep cleaning, discover the best methods for every type of window treatment. Our expert tips help you maintain pristine blinds without risking damage to delicate materials.',
+        href: '/knowledge-base/cleaning-guidelines',
+      },
+      {
+        category: 'Choosing Blinds',
+        title: 'How to Choose the Perfect Blinds for Every Room',
+        description:
+          'Selecting the right blinds involves balancing light control, privacy, and style. This comprehensive guide walks you through material options, sizing considerations, and design tips for each space.',
+        href: '/knowledge-base/choosing-blinds',
+      },
+      {
+        category: 'Fabric Care Guide',
+        title: 'Caring for Fabric Window Treatments in Humid Climates',
+        description:
+          'Florida\'s humidity presents unique challenges for fabric shades and drapes. Learn proven techniques to prevent mold, fading, and wear while keeping your treatments looking beautiful.',
+        href: '/knowledge-base/fabric-care',
+      },
+      {
+        category: 'Wooden Blinds Tutorial',
+        title: 'Everything You Need to Know About Wooden Blinds',
+        description:
+          'Wooden blinds add warmth and character to any room. Explore the differences between real wood and faux wood options, learn about finishing techniques, and find the perfect style for your home.',
+        href: '/knowledge-base/wooden-blinds',
+      },
+      {
+        category: 'Window Treatment Styles',
+        title: 'Trending Window Treatment Styles for Modern Homes',
+        description:
+          'Stay current with the latest design trends in window coverings. From minimalist roller shades to layered treatments, discover styles that complement contemporary Florida interiors.',
+        href: '/knowledge-base/treatment-styles',
+      },
+    ],
+  },
+  blogArticlePage: {
+    breadcrumb: 'HOME > BLOG > 5 Ways to Protect Your Florida Home from UV Damage',
+    heroImage: {
+      src: 'https://www.figma.com/api/mcp/asset/99427000-8259-43d3-9359-46cf1295b1fa.png',
+      alt: 'Modern living room with large windows overlooking a pool and tropical landscape',
+    },
+    heroBadge: 'Featured',
+    date: 'JULY 15, 2025',
+    author: {
+      name: 'Professional Name',
+      avatar: {
+        src: 'https://www.figma.com/api/mcp/asset/cec6e836-c931-4680-b22e-6cecd8f7b27e.png',
+        alt: 'Author portrait',
+      },
+    },
+    readTime: '05 MIN READ',
+    title: '5 Ways to Protect Your Florida Home from UV Damage',
+    blocks: [
+      {
+        type: 'intro',
+        paragraphs: [
+          'Florida sunshine is one of the reasons people love living in the state. Bright natural light can make a home feel warm, spacious, and welcoming. However, constant exposure to intense sunlight can also cause gradual UV damage to your home\'s interiors.',
+          'Over time, UV rays can contribute to fading furniture, flooring, rugs, artwork, and fabrics. Direct sunlight can also create uncomfortable glare and increase indoor heat, making your air-conditioning system work harder.',
+          'Fortunately, protecting your home does not mean blocking out natural light completely. With the right window treatments and a few practical strategies, you can enjoy the sunshine while helping protect your interiors.',
+          'Here are five effective ways to protect your Florida home from UV damage.',
+        ],
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/40d5295f-1f60-416e-be2f-27a6f3777832.png',
+          alt: 'Window with blinds filtering sunlight in a modern room',
+        },
+      },
+      {
+        type: 'heading',
+        text: '1. Install UV-Blocking Window Treatments',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Your windows are one of the primary ways sunlight enters your home. Large windows, sliding glass doors, and floor-to-ceiling glass can expose interiors to significant amounts of sunlight throughout the day.',
+          'UV-blocking window treatments can help reduce the amount of harmful sunlight reaching your interior spaces. Depending on the fabric and design, blinds and shades can filter sunlight while still allowing comfortable levels of natural light into your home.',
+          'This protection is particularly valuable for rooms containing expensive furniture, hardwood flooring, artwork, or delicate fabrics. When choosing window treatments, consider the direction your windows face. South- and west-facing windows may receive stronger sunlight during certain parts of the day and could benefit from additional solar protection.',
+        ],
+      },
+      {
+        type: 'pullQuote',
+        text: 'The goal isn\'t necessarily to eliminate sunlight. Instead, choose a solution that provides the right balance of natural light, UV protection, privacy, and visibility.',
+      },
+      {
+        type: 'image',
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/0f4927d2-c64b-4453-bb4a-48372835c610.png',
+          alt: 'Elegant living space with premium window treatments installed',
+        },
+      },
+      {
+        type: 'heading',
+        text: '2. Protect Furniture, Flooring, and Décor',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.',
+          'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.',
+          'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring',
+        ],
+      },
+      {
+        type: 'pullQuote',
+        text: 'Lastly, educate yourself and your family about the importance of UV protection. Understanding the risks associated with prolonged UV exposure can motivate everyone to take proactive measures. Regularly check UV index levels and plan outdoor activities accordingly. By combining these strategies, you can effectively safeguard your Florida home from UV damage, ensuring a comfortable and stylish living environment.',
+      },
+    ],
+  },
+  knowledgeArticlePage: {
+    breadcrumb: 'HOME > BLOG > 5 Ways to Protect Your Florida Home from UV Damage',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Modern living room with large windows overlooking tropical landscape',
+    },
+    categoryTag: 'Blog',
+    date: 'JULY 15, 2025',
+    readTime: '05 MIN READ',
+    title: '5 Ways to Protect Your Florida Home from UV Damage',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Install UV-Blocking Window Treatments',
+        paragraphs: [
+          'Your windows are one of the primary ways sunlight enters your home. Large windows, sliding glass doors, and floor-to-ceiling glass can expose interiors to significant amounts of sunlight throughout the day.',
+          'UV-blocking window treatments can help reduce the amount of harmful sunlight reaching your interior spaces. Depending on the fabric and design, blinds and shades can filter sunlight while still allowing comfortable levels of natural light into your home.',
+          'This protection is particularly valuable for rooms containing expensive furniture, hardwood flooring, artwork, or delicate fabrics. When choosing window treatments, consider the direction your windows face. South- and west-facing windows may receive stronger sunlight during certain parts of the day and could benefit from additional solar protection.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Protect Furniture, Flooring, and Décor',
+        paragraphs: [
+          'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.',
+          'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.',
+          'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Consider Window Films and Coatings',
+        paragraphs: [
+          'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.',
+          'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.',
+          'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Modern home with elegant window treatments' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Interior room with UV-blocking blinds installed' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Living space featuring protective window shades' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. Create a Comprehensive Protection Plan',
+        paragraphs: [
+          'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.',
+          'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.',
+          'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring',
+        ],
+      },
+    ],
+  },
+  cityPage: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES',
+      heading: 'We proudly serve all South Florida communities',
+      subheading: 'Enhance your South Florida home with elegant blinds and shades now!',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      backgroundImage: {
+        src: '/images/city/hero-bg.webp',
+        alt: 'Aerial view of South Florida waterfront community with palm trees',
+      },
+    },
+    serviceGrid: {
+      eyebrow: 'SERVICE GLIMPSE',
+      headingSegments: [
+        { text: 'Discover the ' },
+        { text: 'Best', emphasis: true },
+        { text: ' in Modern ' },
+        { text: 'Window Blinds & Shades', emphasis: true },
+      ],
+      summary:
+        'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      cards: [
+        {
+          image: { src: '/images/city/service-blinds.webp', alt: 'Modern window blinds in a bright living space' },
+          title: 'Blinds',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/blinds',
+        },
+        {
+          image: { src: '/images/city/service-shades.webp', alt: 'Roller shades on a large window' },
+          title: 'Shades',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/shades',
+        },
+        {
+          image: { src: '/images/city/service-drapery.webp', alt: 'Elegant drapery and curtains in a living room' },
+          title: 'Drapery & Curtains',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/drapery',
+        },
+        {
+          image: { src: '/images/city/service-shutters.webp', alt: 'Plantation shutters on a hallway window' },
+          title: 'Shutters',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/shutters',
+        },
+        {
+          image: { src: '/images/city/service-motorized.webp', alt: 'Smart motorized blinds with home automation controls' },
+          title: 'Smart & Motorized Home',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/motorized',
+        },
+        {
+          image: { src: '/images/city/service-repairs.webp', alt: 'Technician installing window blinds' },
+          title: 'Repairs & Maintenance',
+          description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
+          href: '/services/repairs',
+        },
+      ],
+    },
+    consultation: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Schedule Your Consultation',
+      description:
+        'Complete the form below and one of our experts will provide a preliminary estimate for your project. No pressure, just professional data to help you plan.',
+      ctaLabel: 'Send my estimate request',
+    },
+  },
+  legalPage: {
+    heading: 'Privacy Policy / Terms & Conditions',
+    paragraphs: [
+      'Welcome to the Blinds & Drapery Privacy Policy and Terms of Service. This document details the conditions for using our expert window treatment solutions, including bespoke blinds, stylish drapery, expert installation, and reliable maintenance. By choosing our services, you agree to adhere to all relevant laws and regulations governing our industry and your use of our products.',
+      'At Blinds & Drapery, your privacy is paramount. We gather only the essential information needed to provide and improve our offerings, such as your contact information, design preferences, and payment details. All personal data is stored securely with state-of-the-art encryption and protection protocols.',
+      'We do not share your personal information with third parties except when necessary to process your orders, comply with legal obligations, or protect our rights. We are dedicated to openness and will notify you promptly of any changes to this policy or any data-related incidents.',
+      'By continuing to use Blinds & Drapery services, you accept the terms outlined here. We recommend reviewing this policy regularly to stay updated on how we safeguard your privacy and rights. For any questions or concerns, our customer support team is ready to assist you.',
+      'Thank you for trusting Blinds & Drapery to bring elegance and privacy to your home.',
+    ],
+  },
+};
