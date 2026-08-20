@@ -149,7 +149,7 @@ export function Header() {
             onClick={() => setServicesOpen(false)}
             aria-hidden="true"
           />
-          <div className="absolute left-1/2 top-full z-50 hidden w-[1280px] -translate-x-1/2 flex-col rounded-b-lg bg-white shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
+          <div className="absolute left-1/2 top-full z-50 hidden w-[90dvw] -translate-x-1/2 flex-col rounded-b-lg bg-white shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
             <div className="flex items-start justify-between px-20 pt-10">
               {desktopColumns.map((column, colIdx) => (
                 <div key={colIdx} className="flex flex-col gap-10">
