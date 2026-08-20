@@ -20,7 +20,9 @@ import { useContent } from "@/hooks/useContent";
 // carries a 12%-black overlay in the confirmed desktop source; kept on all
 // breakpoints as a content-level styling choice (no evidence either way for
 // tablet/mobile, since those frames come from a different page instance).
-export function AboutMaterials({ dark = false, contentKey = "serviceBlinds" }: { dark?: boolean; contentKey?: "serviceBlinds" | "serviceShades" } = {}) {
+import type { ServiceContentKey } from "@/types/content";
+
+export function AboutMaterials({ dark = false, contentKey = "serviceBlinds" }: { dark?: boolean; contentKey?: ServiceContentKey } = {}) {
   const {
     eyebrow,
     headingPrefix,

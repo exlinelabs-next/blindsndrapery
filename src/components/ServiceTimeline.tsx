@@ -4,7 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
 
-export function ServiceTimeline({ contentKey = "serviceBlinds" }: { contentKey?: "serviceBlinds" | "serviceShades" } = {}) {
+import type { ServiceContentKey } from "@/types/content";
+
+export function ServiceTimeline({ contentKey = "serviceBlinds" }: { contentKey?: ServiceContentKey } = {}) {
   const { images, steps } = useContent(contentKey).timeline;
   const [activeIndex, setActiveIndex] = useState(0);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);

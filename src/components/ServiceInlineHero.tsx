@@ -30,7 +30,9 @@ import { useContent } from "@/hooks/useContent";
 // identical rendered result for this content (short, centered text well
 // inside the padding either way), so this component uses one shared padded
 // wrapper at every breakpoint rather than splitting structure needlessly.
-export function ServiceInlineHero({ contentKey = "serviceBlinds" }: { contentKey?: "serviceBlinds" | "serviceShades" } = {}) {
+import type { ServiceContentKey } from "@/types/content";
+
+export function ServiceInlineHero({ contentKey = "serviceBlinds" }: { contentKey?: ServiceContentKey } = {}) {
   const { breadcrumb, heading, subheading, backgroundImage } = useContent(contentKey).hero;
 
   return (
