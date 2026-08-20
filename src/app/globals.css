@@ -7,12 +7,12 @@
   --color-navy: #0f1e3c; /* Primary/BHD Navy/Normal */
   --color-navy-light-hover: #dbdde2; /* Primary/BHD Navy/Light :hover */
   --color-navy-light-active: #b5b9c3; /* Primary/BHD Navy/Light :active */
-  --color-teal: #5f8f8b; /* Accent/Smoky Teal/Normal */
-  --color-teal-pressed: #56817d; /* Accent/Smoky Teal/Normal :hover — the primary Button's hover fill */
+  --color-teal: #4d7d79; /* Accent/Smoky Teal/Normal — darkened from Figma's #5f8f8b to pass WCAG AA 4.5:1 contrast for white text on teal buttons */
+  --color-teal-pressed: #457471; /* Accent/Smoky Teal/Normal :hover — darkened proportionally from #56817d */
   --color-teal-hover: #e4ebea; /* Accent/Hover Teal/Light :hover */
   --color-ice: #eef2f7; /* Secondary BND Ice/Normal */
   --color-ice-dark: #b3b6b9; /* Secondary BND Ice/Dark */
-  --color-white-dark-hover: #999999; /* Primary/White/Dark :hover */
+  --color-white-dark-hover: #6b6b6b; /* Primary/White/Dark :hover — darkened from Figma's #999 to pass WCAG AA 4.5:1 on ice background */
 
   /* Fonts — see src/app/layout.tsx for the next/font/google setup */
   --font-heading: var(--font-plus-jakarta-sans);
