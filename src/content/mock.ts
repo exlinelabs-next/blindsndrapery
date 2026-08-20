@@ -34,10 +34,10 @@ export const mockContent: PageContent = {
             { label: 'Zebra Shades', href: '/services/shades/zebra-shades' },
           ],
         },
-        { label: 'Curtains & Drapery', href: '/services/curtains-drapery' },
+        { label: 'Curtains & Drapery', href: '/services/drapery' },
         { label: 'Shutters', href: '/services/shutters' },
-        { label: 'Motorized & Smart Homes', href: '/services/motorized-smart-homes' },
-        { label: 'Repair & Maintenance', href: '/services/repair-maintenance' },
+        { label: 'Motorized & Smart Homes', href: '/services/motorized' },
+        { label: 'Repair & Maintenance', href: '/services/repairs' },
       ],
       image: {
         // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/shared/ before then.
@@ -127,7 +127,7 @@ export const mockContent: PageContent = {
         },
         title: 'Motorized & Smart Home',
         description: 'Automated systems compatible with Alexa, Google Home, and professional control systems.',
-        href: '/services/motorized-smart-home',
+        href: '/services/motorized',
       },
       {
         image: {
@@ -136,7 +136,7 @@ export const mockContent: PageContent = {
         },
         title: 'Drapery & Curtains',
         description: 'Custom-tailored fabrics providing architectural scale and acoustic dampening.',
-        href: '/services/drapery-curtains',
+        href: '/services/drapery',
       },
       {
         image: {
@@ -145,7 +145,7 @@ export const mockContent: PageContent = {
         },
         title: 'Repairs & Maintenance',
         description: 'Keep your investments functioning perfectly with our expert repair and tune-up services.',
-        href: '/services/repairs-maintenance',
+        href: '/services/repairs',
       },
     ],
   },
@@ -349,40 +349,112 @@ export const mockContent: PageContent = {
     categories: ['Common Questions', 'Locations', 'Our Process', 'Timeline'],
     items: [
       {
+        category: 'Common Questions',
         question: 'How long does a custom installation take?',
-        // Placeholder — no answer copy in Figma. Grounded in ProcessIntro/HowWeWork steps.
         answer:
           'Most custom blinds and shades installations are completed in a single visit, typically 2 to 4 hours depending on the number of windows.',
       },
       {
+        category: 'Common Questions',
         question: 'Do you offer smart home integration for motorized shades?',
-        // Placeholder — grounded in the "Motorized & Smart Home" service card.
         answer:
           'Yes, our motorized shades integrate with popular smart home systems like Google Home, Amazon Alexa, and Lutron for seamless voice and app control.',
       },
       {
+        category: 'Common Questions',
         question: 'Are your shutters humidity resistant for Florida homes?',
-        // Placeholder — grounded in the Shutters featured category (South Florida climate).
         answer:
           "Yes, our shutters are built with moisture-resistant materials specifically selected to withstand South Florida's humidity and coastal climate.",
       },
       {
-        question: 'What is the difference between a digital and in-home estimate?',
-        // Placeholder — grounded in the estimate/process language elsewhere on the site.
-        answer:
-          'A digital estimate uses photos and measurements you provide for a quick online quote, while an in-home estimate has a professional measure your windows in person for guaranteed accuracy.',
-      },
-      {
+        category: 'Common Questions',
         question: 'Do you provide warranties on your products?',
-        // Placeholder — grounded in the TrustBadges warranty/licensed & insured badges.
         answer:
           'Yes, all of our products are backed by manufacturer warranties, and our installation work is covered by our own workmanship guarantee.',
       },
       {
+        category: 'Common Questions',
         question: 'Can you repair motorized blinds from other companies?',
-        // Placeholder — grounded in the "Repairs & Maintenance" service card.
         answer:
           "Yes, our technicians repair and service motorized blinds and shades from most major manufacturers, not just the products we originally installed.",
+      },
+      {
+        category: 'Common Questions',
+        question: 'What types of window coverings do you offer?',
+        answer:
+          'We offer a full range including blinds, shades, shutters, drapery and curtains, and motorized smart home solutions, all custom-made to fit your windows perfectly.',
+      },
+      {
+        category: 'Locations',
+        question: 'Which areas in South Florida do you serve?',
+        answer:
+          'We serve all of South Florida including Fort Lauderdale, Coral Springs, Deerfield Beach, Boca Raton, Pompano Beach, and surrounding Broward County communities.',
+      },
+      {
+        category: 'Locations',
+        question: 'Do you offer services outside of Broward County?',
+        answer:
+          'Our primary service area is Broward County, but we also serve parts of Palm Beach and Miami-Dade counties. Contact us to confirm availability in your area.',
+      },
+      {
+        category: 'Locations',
+        question: 'Is there an additional charge for distant locations?',
+        answer:
+          'There is no additional charge for locations within our standard service area. For locations outside our primary zone, a small travel fee may apply — we will let you know upfront.',
+      },
+      {
+        category: 'Locations',
+        question: 'Can I visit a showroom to see products in person?',
+        answer:
+          'We operate primarily as an in-home consultation service, bringing samples directly to you so you can see how materials look in your own space with your lighting.',
+      },
+      {
+        category: 'Our Process',
+        question: 'What is the difference between a digital and in-home estimate?',
+        answer:
+          'A digital estimate uses photos and measurements you provide for a quick online quote, while an in-home estimate has a professional measure your windows in person for guaranteed accuracy.',
+      },
+      {
+        category: 'Our Process',
+        question: 'How do I get started with a consultation?',
+        answer:
+          'Simply fill out our online quote form or call us to schedule a free in-home consultation. Our specialist will visit your home with samples to help you choose the perfect window coverings.',
+      },
+      {
+        category: 'Our Process',
+        question: 'How long does the entire process take from estimate to installation?',
+        answer:
+          'The typical timeline from your initial consultation to completed installation is 2 to 4 weeks, depending on the product type and any custom manufacturing requirements.',
+      },
+      {
+        category: 'Our Process',
+        question: 'Do I need to be home during the installation?',
+        answer:
+          'Yes, an adult (18+) must be present during installation to grant access, confirm placement preferences, and sign off on the completed work.',
+      },
+      {
+        category: 'Timeline',
+        question: 'How quickly can I get a digital estimate?',
+        answer:
+          'Digital estimates are typically delivered within 24 hours of submitting your window measurements and product preferences through our online form.',
+      },
+      {
+        category: 'Timeline',
+        question: 'How long does manufacturing take for custom orders?',
+        answer:
+          'Custom manufacturing typically takes 1 to 3 weeks depending on the product type, materials selected, and current production schedules.',
+      },
+      {
+        category: 'Timeline',
+        question: 'Can I expedite my order if I need it sooner?',
+        answer:
+          'Rush options are available for select products at an additional cost. Let your consultant know your timeline and we will do our best to accommodate your needs.',
+      },
+      {
+        category: 'Timeline',
+        question: 'What happens if my installation needs to be rescheduled?',
+        answer:
+          'We understand schedules change. You can reschedule your installation with at least 48 hours notice at no additional charge by contacting our team.',
       },
     ],
   },
@@ -422,10 +494,10 @@ export const mockContent: PageContent = {
         links: [
           { label: 'Blinds', href: '/services/blinds' },
           { label: 'Shades', href: '/services/shades' },
-          { label: 'Curtains & Drapery', href: '/services/curtains-drapery' },
+          { label: 'Curtains & Drapery', href: '/services/drapery' },
           { label: 'Shutters', href: '/services/shutters' },
-          { label: 'Motorized & Smart Homes', href: '/services/motorized-smart-homes' },
-          { label: 'Repairs & Maintenance', href: '/services/repairs-maintenance' },
+          { label: 'Motorized & Smart Homes', href: '/services/motorized' },
+          { label: 'Repairs & Maintenance', href: '/services/repairs' },
         ],
       },
       {
@@ -771,6 +843,512 @@ export const mockContent: PageContent = {
         src: 'https://www.figma.com/api/mcp/asset/eb69fb8f-4ca3-419b-8ec5-91235dd12411.png',
         alt: 'Person relaxing on a sofa near large windows in a softly lit living room',
       },
+    },
+  },
+  subServiceRollerShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Roller Shades',
+      heading: 'Custom Roller Shades & Professional Installation',
+      subheading: 'Sleek, modern roller shades with smooth operation and clean lines for any room in your South Florida home.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Modern roller shades on a large window' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Modern ',
+      headingHighlight: 'Roller Shade',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'Our roller shades combine sleek aesthetics with practical functionality for ',
+      paragraphHighlight: 'South Florida homes',
+      paragraphSuffix: '. Available in light-filtering and blackout fabrics, they roll up neatly into a compact cassette for a clean, uncluttered look.',
+      features: ['Light Filtering', 'Blackout Options', 'Motorized Available', 'Easy Maintenance'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Roller shades in a living room' },
+        { src: '/images/services/card-shades.webp', alt: 'Blackout roller shade in a bedroom' },
+        { src: '/images/services/card-shades.webp', alt: 'Motorized roller shade close-up' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Installer showing roller shade fabric samples' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Professional mounting roller shades' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We visit your home to discuss your vision and explore roller shade options tailored to your space.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists take exact measurements for a perfect fit in every window.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your roller shades are crafted with your chosen fabric and operating mechanism.' },
+        { number: '4', title: 'Professional Installation', description: 'Our expert installers mount your roller shades for smooth, reliable operation.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready for sleek, modern roller shades? Schedule a free in-home consultation and explore our fabric and color options.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with modern roller shades' },
+    },
+  },
+  subServiceSolarShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Solar Shades',
+      heading: 'Custom Solar Shades & Professional Installation',
+      subheading: 'Reduce glare and UV rays while maintaining your view with premium solar shades for South Florida homes.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Solar shades filtering sunlight in a living room' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Premium ',
+      headingHighlight: 'Solar Shade',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'Our solar shades are designed to reduce heat and glare while preserving your view of ',
+      paragraphHighlight: 'South Florida\'s beautiful outdoors',
+      paragraphSuffix: '. Choose from a range of openness factors to control how much light and visibility you want, with UV-blocking fabrics that protect your furnishings.',
+      features: ['UV Protection', 'Glare Reduction', 'View Preservation', 'Energy Efficient'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Solar shades on floor-to-ceiling windows' },
+        { src: '/images/services/card-shades.webp', alt: 'Solar shades filtering afternoon sun' },
+        { src: '/images/services/card-shades.webp', alt: 'Exterior view through solar shades' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Consultant showing solar shade samples' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer fitting solar shades' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We assess your sun exposure and recommend the ideal openness factor for each window.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure your windows for a perfect custom fit.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your solar shades are made with UV-blocking fabric in your chosen color and openness.' },
+        { number: '4', title: 'Professional Installation', description: 'We install your solar shades for smooth operation and optimal sun protection.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to reduce glare while keeping your view? Schedule a free consultation to explore our solar shade options.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with solar shades' },
+    },
+  },
+  subServiceCellularShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Cellular Shades',
+      heading: 'Custom Cellular Shades & Professional Installation',
+      subheading: 'Energy-efficient honeycomb shades that insulate your home while providing elegant light control.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Cellular shades on a kitchen window' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Energy-Efficient ',
+      headingHighlight: 'Cellular Shade',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'Our cellular shades feature a unique honeycomb construction that traps air for superior insulation in ',
+      paragraphHighlight: 'South Florida\'s warm climate',
+      paragraphSuffix: '. Available in single, double, and triple cell configurations, they reduce energy costs while providing soft, diffused light.',
+      features: ['Energy Saving', 'Sound Dampening', 'Cordless Options', 'Top-Down Bottom-Up'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Cellular shades in a bedroom' },
+        { src: '/images/services/card-shades.webp', alt: 'Honeycomb shade cross-section' },
+        { src: '/images/services/card-shades.webp', alt: 'Top-down bottom-up cellular shades' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Consultant showing cellular shade options' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer mounting cellular shades' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We evaluate your insulation needs and recommend the right cell configuration for each room.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure every window for a perfect inside or outside mount fit.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your cellular shades are built with precision honeycomb cells in your chosen color and opacity.' },
+        { number: '4', title: 'Professional Installation', description: 'We install your shades with the operating system of your choice — cordless, motorized, or top-down.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to improve your home\'s energy efficiency? Schedule a free consultation to explore our cellular shade options.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with cellular shades' },
+    },
+  },
+  subServiceRomanShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Roman Shades',
+      heading: 'Custom Roman Shades & Professional Installation',
+      subheading: 'Classic fabric shades that fold into elegant pleats, adding warmth and sophistication to any room.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Roman shades on large windows' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Classic ',
+      headingHighlight: 'Roman Shade',
+      headingSuffix: ' Designs',
+      paragraphPrefix: 'Our roman shades bring a timeless, tailored look to ',
+      paragraphHighlight: 'South Florida interiors',
+      paragraphSuffix: '. Choose from flat, hobbled, or cascade fold styles in hundreds of designer fabrics. They combine the softness of drapery with the clean function of a shade.',
+      features: ['Designer Fabrics', 'Multiple Fold Styles', 'Blackout Linings', 'Cordless Safety'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Flat-fold roman shades in a dining room' },
+        { src: '/images/services/card-shades.webp', alt: 'Hobbled roman shade in a bedroom' },
+        { src: '/images/services/card-shades.webp', alt: 'Cascade roman shade fabric detail' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Designer showing roman shade fabric samples' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer hanging roman shades' },
+      ],
+      steps: [
+        { number: '1', title: 'Design Consultation', description: 'We bring fabric samples and help you choose the perfect fold style for your room.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure for the ideal fit and drop length.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your roman shades are sewn to order with your chosen fabric, lining, and fold pattern.' },
+        { number: '4', title: 'Professional Installation', description: 'We install your roman shades and ensure smooth, balanced operation.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready for the elegance of custom roman shades? Schedule a free consultation to explore our fabric collections.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with roman shades' },
+    },
+  },
+  subServiceZebraShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Zebra Shades',
+      heading: 'Custom Zebra Shades & Professional Installation',
+      subheading: 'Dual-layer shades with alternating sheer and opaque bands for versatile light and privacy control.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Zebra shades providing partial privacy' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Versatile ',
+      headingHighlight: 'Zebra Shade',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'Our zebra shades offer a modern twist on light control with alternating sheer and solid bands that slide past each other for ',
+      paragraphHighlight: 'infinite adjustment',
+      paragraphSuffix: '. Align the bands for filtered light and a view, or overlap them for full privacy — all without raising the shade.',
+      features: ['Dual Layer Control', 'Modern Aesthetic', 'No Cords', 'Motorized Available'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Zebra shades in open position' },
+        { src: '/images/services/card-shades.webp', alt: 'Zebra shades in closed position' },
+        { src: '/images/services/card-shades.webp', alt: 'Close-up of zebra shade bands' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Consultant showing zebra shade options' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer fitting zebra shades' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We help you choose the right fabric density and color for your light control needs.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure each window for a seamless inside-mount fit.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your zebra shades are crafted with precision-aligned alternating bands.' },
+        { number: '4', title: 'Professional Installation', description: 'We install and calibrate your shades for smooth, even band alignment.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready for versatile light control with modern style? Schedule a free consultation to explore our zebra shades.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with zebra shades' },
+    },
+  },
+  subServiceWovenWoodShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Woven Wood Shades',
+      heading: 'Custom Woven Wood Shades & Professional Installation',
+      subheading: 'Natural bamboo, grass, and reed shades that bring organic warmth and texture to your South Florida home.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Woven wood shades in a modern room' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Natural ',
+      headingHighlight: 'Woven Wood Shade',
+      headingSuffix: ' Options',
+      paragraphPrefix: 'Our woven wood shades are handcrafted from natural materials like bamboo, jute, and grasses, bringing an organic, textured look to ',
+      paragraphHighlight: 'South Florida living spaces',
+      paragraphSuffix: '. Each shade is unique in pattern and tone, adding warmth and character while filtering light naturally.',
+      features: ['Natural Materials', 'Unique Textures', 'Liner Options', 'Eco-Friendly'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Bamboo woven shades in a sunroom' },
+        { src: '/images/services/card-shades.webp', alt: 'Woven grass shade texture close-up' },
+        { src: '/images/services/card-shades.webp', alt: 'Woven wood shades with privacy liner' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Consultant showing woven shade material samples' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer mounting woven wood shades' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We bring natural material samples so you can see how different weaves and tones complement your decor.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure each window for the perfect fit and drop.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your woven shades are handcrafted from natural materials with optional privacy liners.' },
+        { number: '4', title: 'Professional Installation', description: 'We install your woven wood shades and ensure smooth, reliable operation.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to bring natural warmth to your windows? Schedule a free consultation to explore our woven wood shade collection.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with woven wood shades' },
+    },
+  },
+  serviceShutters: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > Shutters',
+      heading: 'Custom Interior Shutters & Professional Installation Services',
+      subheading: 'Premium plantation and composite shutters crafted for South Florida homes. Free in-home consultation available.',
+      backgroundImage: {
+        src: '/images/services/card-shutters.webp',
+        alt: 'Bedroom window fitted with white plantation shutters',
+      },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Premium ',
+      headingHighlight: 'Plantation & Composite',
+      headingSuffix: ' Shutters',
+      paragraphPrefix: 'Our shutters are crafted from premium materials designed to thrive in ',
+      paragraphHighlight: 'South Florida\'s coastal climate',
+      paragraphSuffix:
+        '. Choose from classic plantation styles, tier-on-tier configurations, and composite options that resist moisture, warping, and fading while providing elegant light control.',
+      features: ['Moisture Resistant', 'UV Protected', 'Energy Efficient', 'Custom Fitted'],
+      gallery: [
+        { src: '/images/services/card-shutters.webp', alt: 'White plantation shutters on a large window' },
+        { src: '/images/services/card-shutters.webp', alt: 'Tier-on-tier shutters in a living room' },
+        { src: '/images/services/card-shutters.webp', alt: 'Composite shutters fitted in a bathroom' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Installer measuring a window for custom shutters' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Professional installing plantation shutters' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We visit your home to discuss your vision and explore shutter styles tailored to your space.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists take exact measurements to ensure a perfect custom fit for every window.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your shutters are handcrafted using premium materials selected for durability and style.' },
+        { number: '4', title: 'Professional Installation', description: 'Our expert installers mount your shutters with precision for a flawless finish.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to transform your windows with premium shutters? Schedule a free in-home consultation and let our experts help you choose the perfect style for your home.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shutters.webp', alt: 'Living room with elegant plantation shutters' },
+    },
+  },
+  serviceDrapery: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > Drapery & Curtains',
+      heading: 'Custom Drapery & Curtains Installation Services',
+      subheading: 'Elegant custom drapery and curtains designed to complement your South Florida home. Professional measuring and installation included.',
+      backgroundImage: {
+        src: '/images/services/card-drapery.webp',
+        alt: 'Living room with floor-length drapery curtains',
+      },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Elegant ',
+      headingHighlight: 'Custom Drapery & Curtain',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'From sheer panels to blackout drapes, our custom drapery is designed for ',
+      paragraphHighlight: 'South Florida living',
+      paragraphSuffix:
+        '. We offer a wide selection of fabrics, linings, and hardware options to create the perfect look for any room, combining beauty with practical light and privacy control.',
+      features: ['Custom Fabrics', 'Blackout Options', 'Motorized Tracks', 'UV Protection'],
+      gallery: [
+        { src: '/images/services/card-drapery.webp', alt: 'Floor-length sheer curtains in a sunlit room' },
+        { src: '/images/services/card-drapery.webp', alt: 'Elegant blackout drapery in a bedroom' },
+        { src: '/images/services/card-drapery.webp', alt: 'Custom curtains with decorative hardware' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Designer showing fabric samples to a homeowner' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer hanging custom drapery on a rod' },
+      ],
+      steps: [
+        { number: '1', title: 'Design Consultation', description: 'We bring fabric samples to your home so you can see how materials look with your decor and lighting.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure your windows to ensure perfect drape length and fullness.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your drapery is sewn to order using your chosen fabric, lining, and finishing details.' },
+        { number: '4', title: 'Professional Installation', description: 'We install your drapery hardware and curtains, ensuring smooth operation and a polished look.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to add elegance to your home with custom drapery? Schedule a free in-home consultation and explore our fabric collections.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-drapery.webp', alt: 'Room with elegant custom curtains' },
+    },
+  },
+  serviceMotorized: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > Motorized & Smart Home',
+      heading: 'Motorized Window Coverings & Smart Home Integration',
+      subheading: 'Automate your blinds, shades, and curtains with smart home technology. Voice control, scheduling, and seamless integration.',
+      backgroundImage: {
+        src: '/images/services/card-motorized.webp',
+        alt: 'Smart motorized blinds with home automation controls',
+      },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Smart ',
+      headingHighlight: 'Motorized & Automated Window',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'Our motorized systems bring convenience and energy savings to ',
+      paragraphHighlight: 'modern South Florida homes',
+      paragraphSuffix:
+        '. Integrate with Google Home, Amazon Alexa, and Lutron for voice and app control. Schedule your window coverings to adjust automatically with the sun for optimal comfort and energy efficiency.',
+      features: ['Voice Control', 'App Scheduling', 'Energy Efficient', 'Battery & Hardwired'],
+      gallery: [
+        { src: '/images/services/card-motorized.webp', alt: 'Motorized roller shades in a living room' },
+        { src: '/images/services/card-motorized.webp', alt: 'Smart home tablet controlling window coverings' },
+        { src: '/images/services/card-motorized.webp', alt: 'Motorized curtain track system' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Technician demonstrating motorized shade controls' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Smart home integration setup for window coverings' },
+      ],
+      steps: [
+        { number: '1', title: 'Smart Home Assessment', description: 'We evaluate your home automation setup and recommend the best motorized solutions for your needs.' },
+        { number: '2', title: 'System Design', description: 'We design a motorized window covering system with the right motors, controls, and integration points.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your motorized window coverings are built with precision motors and premium materials.' },
+        { number: '4', title: 'Installation & Setup', description: 'We install, wire, and program your system, including smart home integration and scheduling.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to automate your window coverings? Schedule a free consultation to explore motorized and smart home solutions for your space.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-motorized.webp', alt: 'Modern living room with motorized window coverings' },
+    },
+  },
+  serviceRepairs: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > Repairs & Maintenance',
+      heading: 'Window Covering Repairs & Maintenance Services',
+      subheading: 'Expert repair and maintenance for all types of blinds, shades, shutters, and motorized systems across South Florida.',
+      backgroundImage: {
+        src: '/images/services/card-repairs.webp',
+        alt: 'Technician performing window covering repair and maintenance',
+      },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Professional ',
+      headingHighlight: 'Repair & Maintenance',
+      headingSuffix: ' Services',
+      paragraphPrefix: 'We service and repair window coverings from all major manufacturers across ',
+      paragraphHighlight: 'Broward County and South Florida',
+      paragraphSuffix:
+        '. From broken cords and stuck mechanisms to motorized system troubleshooting, our experienced technicians diagnose and fix issues quickly to restore your window coverings to perfect working order.',
+      features: ['All Brands Serviced', 'Motorized Repairs', 'Cord Replacement', 'Same-Week Service'],
+      gallery: [
+        { src: '/images/services/card-repairs.webp', alt: 'Technician repairing a window blind mechanism' },
+        { src: '/images/services/card-repairs.webp', alt: 'Blind cord replacement service' },
+        { src: '/images/services/card-repairs.webp', alt: 'Motorized shade motor servicing' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Technician inspecting a window covering issue' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Repair specialist fixing a motorized shade motor' },
+      ],
+      steps: [
+        { number: '1', title: 'Diagnosis Visit', description: 'Our technician visits your home to inspect the issue and provide a clear repair estimate.' },
+        { number: '2', title: 'Parts Sourcing', description: 'We source genuine replacement parts from the original manufacturer when available.' },
+        { number: '3', title: 'Expert Repair', description: 'Our trained technicians complete the repair on-site or in our workshop for complex jobs.' },
+        { number: '4', title: 'Quality Check', description: 'We test every repaired unit thoroughly before sign-off to ensure smooth, reliable operation.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Schedule Your Repair Service',
+      body: 'Have a broken blind, stuck shade, or motorized system issue? Schedule a repair visit and our technicians will get your window coverings working like new.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-repairs.webp', alt: 'Technician servicing window coverings' },
     },
   },
   commercialPage: {

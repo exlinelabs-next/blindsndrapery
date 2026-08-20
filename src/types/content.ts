@@ -202,7 +202,7 @@ export interface FaqContent {
   eyebrow: string;
   heading: string;
   categories: string[];
-  items: Array<{ question: string; answer: string }>;
+  items: Array<{ question: string; answer: string; category: string }>;
 }
 
 export interface FooterLink {
@@ -702,6 +702,16 @@ export interface PageContent {
   servicePage: ServicePageContent;
   serviceBlinds: ServiceInlinePageContent;
   serviceShades: ServiceInlinePageContent;
+  serviceShutters: ServiceInlinePageContent;
+  serviceDrapery: ServiceInlinePageContent;
+  serviceMotorized: ServiceInlinePageContent;
+  serviceRepairs: ServiceInlinePageContent;
+  subServiceRollerShades: ServiceInlinePageContent;
+  subServiceSolarShades: ServiceInlinePageContent;
+  subServiceCellularShades: ServiceInlinePageContent;
+  subServiceRomanShades: ServiceInlinePageContent;
+  subServiceZebraShades: ServiceInlinePageContent;
+  subServiceWovenWoodShades: ServiceInlinePageContent;
   commercialPage: CommercialPageContent;
   locationsPage: LocationsPageContent;
   galleryPage: GalleryPageContent;
@@ -713,3 +723,17 @@ export interface PageContent {
   knowledgeArticlePage: KnowledgeArticlePageContent;
   cityPage: CityPageContent;
 }
+
+export type ServiceContentKey =
+  | "serviceBlinds"
+  | "serviceShades"
+  | "serviceShutters"
+  | "serviceDrapery"
+  | "serviceMotorized"
+  | "serviceRepairs"
+  | "subServiceRollerShades"
+  | "subServiceSolarShades"
+  | "subServiceCellularShades"
+  | "subServiceRomanShades"
+  | "subServiceZebraShades"
+  | "subServiceWovenWoodShades";
