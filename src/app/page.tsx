@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/Hero";
 import { TrustBadges } from "@/components/TrustBadges";
 import { ProcessIntro } from "@/components/ProcessIntro";
@@ -9,8 +10,9 @@ import { QuoteGallery } from "@/components/QuoteGallery";
 import { Commercial } from "@/components/Commercial";
 import { RepairMaintenance } from "@/components/RepairMaintenance";
 import { Locations } from "@/components/Locations";
-import { QuoteForm } from "@/components/QuoteForm";
-import { FAQ } from "@/components/FAQ";
+
+const QuoteForm = dynamic(() => import("@/components/QuoteForm").then(m => ({ default: m.QuoteForm })));
+const FAQ = dynamic(() => import("@/components/FAQ").then(m => ({ default: m.FAQ })));
 
 // Section order matches the Figma homepage frame top-to-bottom (node
 // 2722:1367). Header and Footer are site-wide chrome, rendered once in
