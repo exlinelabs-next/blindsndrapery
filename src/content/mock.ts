@@ -1,4 +1,4 @@
-import type { PageContent } from '@/types/content';
+import type { PageContent, KnowledgeArticlePageContent, BlogArticlePageContent } from '@/types/content';
 
 export const mockContent: PageContent = {
   hero: {
@@ -257,7 +257,7 @@ export const mockContent: PageContent = {
     headingPrefix: 'Trusted Experts, Proven ',
     headingHighlight: 'Customer Satisfaction',
     description:
-      'Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.',
+      '“Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.”',
     // Both cards carry identical placeholder copy in the design (same quote,
     // same "Riya Shankar" / "South Florida" author) — kept as-is per the
     // source rather than inventing variety. The marquee-loop duplicate card
@@ -270,8 +270,9 @@ export const mockContent: PageContent = {
         authorName: 'Riya Shankar',
         authorLocation: 'South Florida',
         avatar: {
-          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/testimonials/ before then.
-          src: 'https://www.figma.com/api/mcp/asset/4cbb9a93-ad1c-425f-9867-d105ed183739.png',
+          // Figma temp asset URL expired (404) and was replaced with a local placeholder;
+          // swap in the real exported portrait when available.
+          src: '/images/home/testimonials/avatar-placeholder.png',
           alt: 'Portrait of Riya Shankar, a South Florida customer',
         },
       },
@@ -281,8 +282,9 @@ export const mockContent: PageContent = {
         authorName: 'Riya Shankar',
         authorLocation: 'South Florida',
         avatar: {
-          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/testimonials/ before then.
-          src: 'https://www.figma.com/api/mcp/asset/4cbb9a93-ad1c-425f-9867-d105ed183739.png',
+          // Figma temp asset URL expired (404) and was replaced with a local placeholder;
+          // swap in the real exported portrait when available.
+          src: '/images/home/testimonials/avatar-placeholder.png',
           alt: 'Portrait of Riya Shankar, a South Florida customer',
         },
       },
@@ -290,7 +292,7 @@ export const mockContent: PageContent = {
   },
   quoteGallery: {
     quote:
-      'Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.',
+      '“Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.”',
     quoteIcon: {
       // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
       // nominal ~7 days, so export and commit to public/images/home/gallery/ soon.
@@ -558,7 +560,7 @@ export const mockContent: PageContent = {
         title: 'Inspiration',
         links: [
           { label: 'Gallery', href: '/gallery' },
-          { label: 'Blogs', href: '/blog' },
+          { label: 'Blogs', href: '/resources' },
           { label: 'Knowledge Base', href: '/knowledge-base' },
         ],
       },
@@ -579,7 +581,9 @@ export const mockContent: PageContent = {
     ],
     copyright: '© 2024 Blinds & Drapery Co. All rights reserved',
     legalLinks: [
-      { label: 'Terms of Use', href: '/terms-of-use' },
+      // Same combined-document destination as the real backend mapping in
+      // api.ts's fetchFooter — no separate /terms-of-use page exists.
+      { label: 'Terms of Use', href: '/privacy-policy' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
     ],
     socialLinks: [
@@ -783,6 +787,8 @@ export const mockContent: PageContent = {
       headingPrefix: 'Explore ',
       headingHighlight: 'Premium Shades',
       headingSuffix: ' for Every Room and Style',
+      description:
+        'From light-filtering solar shades to blackout-ready cellular and roller options, find the right fit for every window in your South Florida home.',
       cards: [
         {
           image: { src: '/images/services/card-shades.webp', alt: 'Living room with solar shades filtering sunlight' },
@@ -2064,7 +2070,7 @@ export const mockContent: PageContent = {
         { text: 'Discover the ' },
         { text: 'Best', emphasis: true },
         { text: ' in Modern ' },
-        { text: 'Window Blinds & Shades', emphasis: true },
+        { text: 'Window Blinds, Shades & Drapery', emphasis: true },
       ],
       summary:
         'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
@@ -2115,6 +2121,93 @@ export const mockContent: PageContent = {
       ctaLabel: 'Send my estimate request',
     },
   },
+  freeQuotePage: {
+    hero: {
+      breadcrumb: 'HOME > FREE QUOTE',
+      heading: 'Get Your Free Quote Today',
+      subheading: 'Serving Broward County and South Florida — expanding to additional states soon.',
+    },
+    process: {
+      eyebrow: 'PROCESS',
+      headingPrefix: "Here's How ",
+      headingHighlight: 'It Works',
+      subtitle:
+        'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      steps: [
+        {
+          number: '01',
+          title: 'Submit your estimate request online — instantly',
+          description:
+            'Easily submit your estimate request online and receive a prompt, personalized quote tailored to your project needs.',
+        },
+        {
+          number: '02',
+          title: 'What happens after submission: call? email? automated response?',
+          description:
+            'Easily submit your estimate request online and receive a prompt, personalized quote tailored to your project needs.',
+        },
+        {
+          number: '03',
+          title: 'Our local installer visits your property for exact measurements',
+          description:
+            'Easily submit your estimate request online and receive a prompt, personalized quote tailored to your project needs.',
+        },
+        {
+          number: '04',
+          title: 'You receive a detailed quote',
+          description:
+            'Easily submit your estimate request online and receive a prompt, personalized quote tailored to your project needs.',
+        },
+        {
+          number: '05',
+          title: 'We arrange custom fabrication and professional installation',
+          description:
+            'Easily submit your estimate request online and receive a prompt, personalized quote tailored to your project needs.',
+        },
+      ],
+    },
+    processIntro: {
+      eyebrow: 'PROCESS INTRODUCTION',
+      headingPrefix: 'In-home measurement, installation, or ',
+      headingHighlight: 'digital process. Autoplay muted.',
+      description:
+        'Start with a digital estimate, followed by precise in-home measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.',
+      image: {
+        src: '/images/free-quote/process-intro.webp',
+        alt: 'Technician adjusting white venetian blinds by a sunlit window',
+      },
+    },
+    form: {
+      eyebrow: 'Quote form',
+      headingPrefix: 'Request Your ',
+      headingHighlight: 'Estimate Quickly',
+      subtitle: 'Fill out the form below and our team will contact you within 24 hours',
+      nameLabel: 'Name',
+      namePlaceholder: 'John Doe',
+      emailLabel: 'Email',
+      emailPlaceholder: 'john@example.com',
+      phoneLabel: 'Phone',
+      phonePlaceholder: '+ (954) 555-1234',
+      serviceLabel: 'Service Interest',
+      servicePlaceholder: 'Select a category',
+      serviceOptions: [
+        'Blinds',
+        'Shades',
+        'Curtains & Drapery',
+        'Shutters',
+        'Motorized Systems & Smart Home',
+        'Repairs & Maintenance',
+      ],
+      projectLabel: 'Tell us about your Project',
+      projectPlaceholder: 'Tell us about your project....',
+      submitLabel: 'Send my Estimate Request',
+      assistanceHeading: 'Need immediate assistance?',
+      callLabel: 'Call',
+      callNumber: '+ (954) 555-1234',
+      textLabel: 'Text us',
+      trustLine: 'Licensed & Insured · No obligation · We come to you',
+    },
+  },
   legalPage: {
     heading: 'Privacy Policy / Terms & Conditions',
     paragraphs: [
@@ -2126,3 +2219,521 @@ export const mockContent: PageContent = {
     ],
   },
 };
+
+const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
+  'maintenance-tips': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > How to Maintain Your Window Treatments Year-Round',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Well-maintained window treatments in a bright living room',
+    },
+    categoryTag: 'Maintenance Tips',
+    date: 'JUNE 20, 2025',
+    readTime: '06 MIN READ',
+    title: 'How to Maintain Your Window Treatments Year-Round',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Establish a Regular Dusting Routine',
+        paragraphs: [
+          'Dust is one of the most common enemies of window treatments. In Florida\'s humid climate, dust can combine with moisture and create stubborn residue that becomes increasingly difficult to remove over time.',
+          'For blinds and shutters, use a microfiber cloth or a specialized blind duster to wipe each slat individually. Work from top to bottom to prevent redistributing dust onto already-cleaned surfaces. For fabric shades and drapes, a vacuum with a soft brush attachment works best.',
+          'Aim to dust your window treatments at least once every two weeks. High-traffic rooms or homes near the coast may benefit from weekly attention due to increased dust and salt air exposure.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Seasonal Deep Cleaning',
+        paragraphs: [
+          'Beyond regular dusting, schedule a thorough deep cleaning at least twice a year — ideally at the start of Florida\'s dry season and again before the humid summer months arrive.',
+          'For aluminum and faux wood blinds, you can remove them and soak in a bathtub with mild soap. Real wood blinds should never be soaked — instead, use a damp cloth with wood-safe cleaner. Fabric treatments may benefit from professional cleaning, especially if they\'ve absorbed cooking odors or pet dander.',
+          'Deep cleaning not only improves appearance but also extends the functional lifespan of your window treatments by preventing material degradation from built-up grime.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Inspect Hardware and Mechanisms',
+        paragraphs: [
+          'Window treatment hardware — brackets, cords, chains, and motorized components — needs periodic inspection to ensure smooth operation. A stuck cord or misaligned bracket can cause uneven wear on your blinds or shades.',
+          'Check that all mounting brackets are secure and that the treatments hang level. For corded systems, inspect for fraying or tangling. Motorized systems should have their batteries replaced or recharged according to manufacturer guidelines.',
+          'Addressing small mechanical issues early prevents costly replacements down the line and keeps your window treatments operating safely.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Person cleaning window blinds with microfiber cloth' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Well-maintained plantation shutters in a sunlit room' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Close-up of window treatment hardware inspection' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. Protect Against Humidity and Mold',
+        paragraphs: [
+          'Florida\'s humidity presents a unique challenge for window treatment maintenance. Excess moisture can lead to mold growth, fabric discoloration, and warping of wood components.',
+          'Ensure adequate ventilation in rooms with fabric window treatments. In bathrooms and kitchens, consider moisture-resistant materials like faux wood or aluminum. If you notice any signs of mold, address it immediately with a mild bleach solution for hard surfaces or professional cleaning for fabrics.',
+          'Running a dehumidifier during the wettest months can significantly reduce moisture-related damage across all your window treatments.',
+        ],
+      },
+    ],
+  },
+  'cleaning-guidelines': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > The Ultimate Guide to Cleaning Blinds & Shades',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Sparkling clean blinds in a modern Florida home',
+    },
+    categoryTag: 'Cleaning Guidelines',
+    date: 'MAY 28, 2025',
+    readTime: '07 MIN READ',
+    title: 'The Ultimate Guide to Cleaning Blinds & Shades',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Understanding Different Material Needs',
+        paragraphs: [
+          'Not all window treatments should be cleaned the same way. The material of your blinds or shades determines the best cleaning approach, and using the wrong method can cause permanent damage.',
+          'Wood blinds are sensitive to moisture and should only be cleaned with a dry or slightly damp cloth. Faux wood and vinyl can handle more moisture, making them ideal for kitchens and bathrooms. Aluminum blinds are the most durable and can even be soaked in water for deep cleaning.',
+          'Fabric shades require the gentlest approach — spot cleaning with appropriate fabric cleaners is usually safest. Always test any cleaning solution on a small, inconspicuous area first.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Daily and Weekly Maintenance',
+        paragraphs: [
+          'The key to keeping blinds and shades looking their best is consistent, light maintenance rather than infrequent heavy cleaning sessions.',
+          'Daily, close your blinds fully and give them a quick once-over with a feather duster or dry microfiber cloth. Weekly, use a vacuum with a brush attachment on fabric shades, running it gently along each fold or pleat.',
+          'For horizontal blinds, close them in one direction, dust, then reverse and dust again to reach both sides of each slat. This simple routine prevents dust buildup that leads to more intensive cleaning needs.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Deep Cleaning Techniques',
+        paragraphs: [
+          'When regular dusting is no longer enough, it\'s time for a deeper clean. Remove blinds from their brackets and lay them flat on a clean surface or hang them on a clothesline outdoors.',
+          'For non-fabric treatments, fill a bathtub or large basin with warm water and a few drops of mild dish soap. Submerge the blinds and let them soak for 15-20 minutes. Use a soft sponge to gently scrub each slat, paying extra attention to the bottom slats that collect the most grime.',
+          'Rinse thoroughly with clean water and allow to dry completely before rehanging. Never rehang damp blinds, as trapped moisture can promote mold growth — especially important in Florida\'s humid environment.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Cleaning supplies arranged for blind maintenance' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Freshly cleaned roller shades in a bedroom' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Professional deep cleaning of fabric drapes' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. When to Call a Professional',
+        paragraphs: [
+          'Some cleaning jobs are best left to professionals. Delicate fabrics, motorized systems with integrated components, and heavily soiled treatments may require specialized equipment and expertise.',
+          'Professional cleaning services use ultrasonic cleaning technology that can remove deep-set dirt without the agitation that damages delicate materials. They can also treat stains, apply UV protectants, and identify early signs of wear.',
+          'As a rule of thumb, if your window treatments haven\'t been cleaned in over a year, or if you notice persistent odors or visible staining, a professional cleaning is a worthwhile investment.',
+        ],
+      },
+    ],
+  },
+  'choosing-blinds': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > How to Choose the Perfect Blinds for Every Room',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Variety of blind samples displayed in a showroom',
+    },
+    categoryTag: 'Choosing Blinds',
+    date: 'APRIL 10, 2025',
+    readTime: '08 MIN READ',
+    title: 'How to Choose the Perfect Blinds for Every Room',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Assess Your Room\'s Primary Function',
+        paragraphs: [
+          'The purpose of each room should drive your blind selection. A bedroom prioritizes blackout capability and privacy, while a living room may favor filtered natural light and aesthetic appeal.',
+          'Kitchens and bathrooms need moisture-resistant materials that can handle steam and splashes. Home offices benefit from blinds that reduce glare on screens while maintaining comfortable ambient light levels.',
+          'Consider how you use the room throughout the day. A south-facing family room might need adjustable blinds that can handle intense afternoon sun, while a north-facing study may need treatments that maximize the softer light available.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Material Matters',
+        paragraphs: [
+          'Your choice of material affects durability, maintenance, appearance, and cost. Real wood blinds offer warmth and natural beauty but are susceptible to humidity damage — a critical consideration in Florida.',
+          'Faux wood provides a similar aesthetic with significantly better moisture resistance, making it the most popular choice for Florida homes. Aluminum blinds are lightweight, affordable, and ideal for contemporary spaces or high-humidity areas.',
+          'Fabric blinds and cellular shades offer excellent insulation and a soft, elegant look. They\'re particularly effective at reducing energy costs by creating an insulating air pocket between the window and the room.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Sizing and Mounting Options',
+        paragraphs: [
+          'Proper sizing is crucial for both appearance and function. Inside-mount blinds fit within the window frame for a clean, built-in look, while outside-mount blinds cover the entire frame and can make windows appear larger.',
+          'Measure each window individually — even windows that appear identical can vary by fractions of an inch, which matters for inside mounts. Width should be measured at the top, middle, and bottom; use the narrowest measurement.',
+          'For depth, check that your window frame is deep enough for an inside mount. Most blinds need at least 2-3 inches of depth. If your frames are too shallow, outside mount is the better option.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Real wood blinds in a traditional living room' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Faux wood blinds installed in a modern bathroom' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Cellular shades providing insulation in a bedroom' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. Light Control and Privacy Features',
+        paragraphs: [
+          'Different blind types offer varying degrees of light control. Venetian blinds allow precise angle adjustment for filtering light throughout the day. Roller shades come in light-filtering and blackout varieties.',
+          'For maximum versatility, consider top-down/bottom-up shades that let you adjust coverage from either direction — allowing natural light from above while maintaining privacy at eye level.',
+          'Layering treatments (such as sheer shades behind drapes) gives you the most flexibility, letting you shift between full light, filtered light, and complete privacy without compromising on style.',
+        ],
+      },
+    ],
+  },
+  'fabric-care': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > Caring for Fabric Window Treatments in Humid Climates',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Elegant fabric drapes in a coastal Florida home',
+    },
+    categoryTag: 'Fabric Care Guide',
+    date: 'MARCH 15, 2025',
+    readTime: '06 MIN READ',
+    title: 'Caring for Fabric Window Treatments in Humid Climates',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Choose Humidity-Resistant Fabrics',
+        paragraphs: [
+          'Prevention starts with selection. In Florida\'s subtropical climate, not all fabrics perform equally. Synthetic materials like polyester and acrylic resist moisture absorption far better than natural fibers like cotton or linen.',
+          'If you prefer natural fabrics for their look and feel, consider blends that combine aesthetic appeal with practical durability. A cotton-polyester blend, for example, offers the softness of cotton with improved moisture resistance.',
+          'For rooms with the highest humidity exposure — bathrooms, kitchens, and covered patios — look for fabrics specifically rated for high-humidity environments or consider alternatives like faux wood or vinyl.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Managing Moisture and Preventing Mold',
+        paragraphs: [
+          'Mold and mildew are the primary threats to fabric window treatments in humid climates. These organisms thrive in warm, moist environments — exactly the conditions found in many Florida rooms.',
+          'Improve air circulation around your window treatments by leaving a small gap between the fabric and the wall. Avoid bunching or tying back drapes in ways that trap moisture against the fabric.',
+          'Use a dehumidifier in rooms where you notice condensation on windows. If your windows sweat regularly, the moisture will inevitably transfer to adjacent fabric treatments, creating ideal conditions for mold growth.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Cleaning and Stain Removal',
+        paragraphs: [
+          'Regular vacuuming with a soft brush attachment removes dust before it can combine with humidity to create stubborn stains. Focus on folds, pleats, and the bottom hems where dust accumulates most.',
+          'For spot cleaning, always blot — never rub — to avoid spreading the stain or damaging the fabric weave. Use a cleaning solution appropriate for the specific fabric type and test on a hidden area first.',
+          'Schedule professional cleaning at least once a year for drapes and curtains. Professional services can treat the fabric with anti-microbial solutions that help prevent mold growth between cleanings.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Close-up of humidity-resistant fabric shades' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Proper air circulation around drapes demonstration' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Professional fabric treatment cleaning process' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. UV Protection for Fabric Longevity',
+        paragraphs: [
+          'Florida\'s intense sunlight doesn\'t just fade fabrics — it weakens the fibers themselves over time. UV-degraded fabric becomes brittle and can tear or fray even with gentle handling.',
+          'Consider lining your fabric treatments with UV-blocking liner material. This protects both the treatment itself and the furnishings behind it. Many manufacturers offer UV-protective coatings that can be applied during or after installation.',
+          'Rotate or reposition fabric treatments periodically to ensure even UV exposure across the full width. This prevents the uneven fading patterns that are telltale signs of sun damage.',
+        ],
+      },
+    ],
+  },
+  'wooden-blinds': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > Everything You Need to Know About Wooden Blinds',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Beautiful wooden blinds in a contemporary living space',
+    },
+    categoryTag: 'Wooden Blinds Tutorial',
+    date: 'FEBRUARY 22, 2025',
+    readTime: '07 MIN READ',
+    title: 'Everything You Need to Know About Wooden Blinds',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Real Wood vs. Faux Wood',
+        paragraphs: [
+          'The first decision when considering wooden blinds is whether to go with genuine wood or faux wood alternatives. Both offer the classic warmth and beauty of wood grain, but they differ significantly in performance and maintenance.',
+          'Real wood blinds are typically made from basswood, oak, or cherry. They\'re lighter, available in more stain options, and have the authentic look and feel that many homeowners prefer. However, they\'re more susceptible to warping and discoloration in humid environments.',
+          'Faux wood blinds are made from PVC, composite materials, or vinyl. They\'re heavier but more durable, completely moisture-resistant, and typically cost 20-30% less. For Florida homes, faux wood is often the more practical choice without sacrificing visual appeal.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Slat Sizes and Their Impact',
+        paragraphs: [
+          'Wooden blinds come in several slat widths, each creating a different visual effect. The most common sizes are 1 inch, 2 inches, and 2.5 inches.',
+          'Narrower 1-inch slats create a more refined, traditional look and work well on smaller windows. They provide more precise light control due to the greater number of slats per window.',
+          'Wider 2-inch and 2.5-inch slats offer a bolder, more contemporary appearance and allow a clearer view when open. They also collect less dust per unit area and are easier to clean. For large windows, wider slats maintain better proportions.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Finishes and Customization',
+        paragraphs: [
+          'Wood blinds offer extensive customization options. Stains range from light natural tones to deep espresso, and painted finishes in white, ivory, or custom colors complement any interior design scheme.',
+          'Decorative tapes — fabric strips that cover the ladder cords — add a design element and come in dozens of colors and patterns. They also hide the small holes where the lift cords pass through each slat.',
+          'Valances, cornices, and holdbacks provide finishing touches. A contoured or crown valance gives a polished, furniture-like appearance that elevates the entire window treatment.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Side-by-side comparison of real wood and faux wood blinds' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Different slat widths displayed on adjacent windows' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Decorative tape options on wooden blinds' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. Installation and Care Tips',
+        paragraphs: [
+          'Proper installation is critical for wooden blinds. Ensure your window frame has sufficient depth for inside mounting — most wood blinds require at least 2.75 inches. Verify that the frame is square and level before drilling.',
+          'For ongoing care, dust regularly with a soft cloth or blind-specific duster. Avoid water on real wood — use a wood-safe cleaner applied to the cloth, not directly to the blinds. Faux wood can handle a damp cloth for heavier cleaning.',
+          'If real wood blinds begin to show signs of humidity damage (warping or discoloration), consider moving them to a drier room and replacing them with faux wood in the humid location. Early intervention prevents further damage.',
+        ],
+      },
+    ],
+  },
+  'treatment-styles': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > Trending Window Treatment Styles for Modern Homes',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Contemporary styled room with modern window treatments',
+    },
+    categoryTag: 'Window Treatment Styles',
+    date: 'JANUARY 18, 2025',
+    readTime: '05 MIN READ',
+    title: 'Trending Window Treatment Styles for Modern Homes',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Minimalist Roller Shades',
+        paragraphs: [
+          'Clean lines and simplicity define the current trend toward minimalist roller shades. These treatments offer a sleek, unobtrusive look that complements modern and contemporary interiors without competing for attention.',
+          'Solar roller shades are particularly popular in Florida, providing UV protection while maintaining outward visibility. Available in a range of openness factors (1% to 14%), they let you fine-tune the balance between sun protection and view preservation.',
+          'Motorized options with smart home integration represent the cutting edge of this category. Voice-controlled or app-scheduled shades that adjust automatically based on time of day or sun position are increasingly standard in new Florida homes.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Natural and Woven Textures',
+        paragraphs: [
+          'Organic materials are experiencing a major resurgence in window treatment design. Woven wood shades, bamboo blinds, and jute roller shades bring natural texture and warmth to contemporary spaces.',
+          'These materials pair beautifully with Florida\'s coastal and tropical design aesthetics. The natural imperfections in woven materials create visual interest that mass-produced alternatives can\'t replicate.',
+          'For practicality, look for woven options with UV-protective liner backing. This preserves the natural look from the room side while adding the sun protection and privacy that raw natural materials alone can\'t provide.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Layered Treatment Combinations',
+        paragraphs: [
+          'The trend toward layering multiple window treatments offers both design flexibility and functional versatility. A common combination pairs sheer curtain panels with cellular shades behind them.',
+          'Layering allows you to shift between different levels of light, privacy, and insulation throughout the day without changing any single treatment. Sheers soften harsh sunlight; the shade behind provides full blackout when needed.',
+          'Color coordination across layers creates depth and sophistication. A monochromatic approach (varying shades of the same color) reads as elegant, while contrasting layers make a bolder design statement.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Minimalist motorized roller shade in a modern office' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Woven bamboo shades in a coastal living room' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Layered sheer curtains with cellular shades behind' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. Bold Color and Pattern Revival',
+        paragraphs: [
+          'After years of neutral dominance, bold colors and patterns are returning to window treatments. Deep jewel tones — emerald, sapphire, and burgundy — add drama and sophistication to rooms that previously played it safe.',
+          'Geometric patterns and botanical prints on roller shades and roman shades bring personality without requiring a full room redesign. These statement treatments work best when the rest of the room maintains a neutral palette.',
+          'For those not ready to commit fully, colored trim, banding, and borders on otherwise neutral treatments offer a measured way to incorporate the trend while keeping the flexibility to update the look seasonally.',
+        ],
+      },
+    ],
+  },
+};
+
+const blogArticles: Record<string, BlogArticlePageContent> = {
+  'uv-damage-protection': mockContent.blogArticlePage,
+  'blinds-high-humidity': {
+    breadcrumb: 'HOME > BLOG > Choosing the Right Blinds for High-Humidity Rooms',
+    heroImage: {
+      src: 'https://www.figma.com/api/mcp/asset/3d891a94-3602-41dc-8a3e-bd28b9c2ac38.png',
+      alt: 'Elegant kitchen with patterned blinds on windows',
+    },
+    heroBadge: 'Latest',
+    date: 'JULY 2026',
+    author: {
+      name: 'Professional Name',
+      avatar: {
+        src: 'https://www.figma.com/api/mcp/asset/cec6e836-c931-4680-b22e-6cecd8f7b27e.png',
+        alt: 'Author portrait',
+      },
+    },
+    readTime: '06 MIN READ',
+    title: 'Choosing the Right Blinds for High-Humidity Rooms',
+    blocks: [
+      {
+        type: 'intro',
+        paragraphs: [
+          'Bathrooms, kitchens, laundry rooms, and covered patios all share one common challenge: elevated moisture levels. Standard window treatments that perform beautifully in a living room can warp, discolor, or develop mold within months when exposed to persistent humidity.',
+          'In Florida, where outdoor humidity regularly exceeds 70%, even interior rooms can feel the effects — especially those with poor ventilation or proximity to water sources.',
+          'Choosing the right blinds for these spaces means prioritizing materials and designs that shrug off moisture while still delivering the style and light control you expect from quality window treatments.',
+          'Here\'s what you need to know to make the right choice.',
+        ],
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/3d891a94-3602-41dc-8a3e-bd28b9c2ac38.png',
+          alt: 'Modern bathroom with moisture-resistant blinds',
+        },
+      },
+      {
+        type: 'heading',
+        text: '1. Why Humidity Destroys Standard Blinds',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Real wood blinds are the most vulnerable to humidity damage. Wood absorbs moisture from the air, causing slats to swell, warp, and eventually crack. The finish can bubble or peel, and trapped moisture creates ideal conditions for mold growth.',
+          'Fabric shades face similar risks. Natural fibers absorb moisture and can develop musty odors, mildew spots, and structural weakness. Even with regular cleaning, fabric treatments in high-humidity rooms tend to degrade faster than their expected lifespan.',
+          'Even metal components aren\'t immune — steel hardware can rust, and the cords in corded systems can weaken and fray when exposed to persistent moisture.',
+        ],
+      },
+      {
+        type: 'heading',
+        text: '2. Best Materials for Wet Environments',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Faux wood blinds top the list for high-humidity rooms. Made from PVC or composite materials, they\'re completely impervious to moisture. Modern faux wood options are nearly indistinguishable from real wood, offering the same warmth and elegance without the vulnerability.',
+          'Aluminum blinds are another excellent choice — lightweight, rust-resistant, and available in a wide range of finishes. They\'re particularly well-suited for kitchens where grease and steam are constant companions.',
+          'For a softer look, consider vinyl roller shades or polyester cellular shades. Both resist moisture absorption and can be wiped clean easily. Cellular shades also provide insulation, helping to regulate the temperature swings common in humid rooms.',
+        ],
+      },
+      {
+        type: 'pullQuote',
+        text: 'The best window treatment for a humid room is one that looks great on day one and still looks great after a year of daily showers, cooking steam, or Florida rain blowing through an open window.',
+      },
+      {
+        type: 'heading',
+        text: '3. Ventilation and Installation Tips',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Even with moisture-resistant materials, proper ventilation extends the life of your window treatments. Ensure bathroom exhaust fans are running during and after showers. In kitchens, use range hoods to redirect steam away from nearby windows.',
+          'Mount blinds with enough clearance from the window glass to allow air circulation behind them. Condensation on window glass is common in air-conditioned Florida homes, and trapped moisture between glass and blinds accelerates any potential issues.',
+          'Consider outside-mount installations in humid rooms. This allows more airflow around the treatment and makes cleaning easier — simply lift the blinds away from the window for a thorough wipe-down.',
+        ],
+      },
+    ],
+  },
+  'motorized-shades-101': {
+    breadcrumb: 'HOME > BLOG > Smart Home Integration: Motorized Shades 101',
+    heroImage: {
+      src: 'https://www.figma.com/api/mcp/asset/ee8e1302-c513-4fff-a95e-6a569cb2228b.png',
+      alt: 'Person using smartphone to control motorized shades',
+    },
+    heroBadge: 'Latest',
+    date: 'JULY 2026',
+    author: {
+      name: 'Professional Name',
+      avatar: {
+        src: 'https://www.figma.com/api/mcp/asset/cec6e836-c931-4680-b22e-6cecd8f7b27e.png',
+        alt: 'Author portrait',
+      },
+    },
+    readTime: '07 MIN READ',
+    title: 'Smart Home Integration: Motorized Shades 101',
+    blocks: [
+      {
+        type: 'intro',
+        paragraphs: [
+          'Motorized window shades have evolved from a luxury feature to an increasingly standard component of modern Florida homes. Today\'s systems integrate seamlessly with popular smart home platforms, offering convenience, energy savings, and enhanced security.',
+          'Whether you\'re building a new home, renovating, or simply upgrading your existing window treatments, understanding the options available helps you make an informed investment.',
+          'This guide covers everything from basic motorization concepts to advanced smart home integration, helping you decide what\'s right for your lifestyle and budget.',
+          'Let\'s start with the fundamentals.',
+        ],
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/ee8e1302-c513-4fff-a95e-6a569cb2228b.png',
+          alt: 'Smart home control panel for motorized shades',
+        },
+      },
+      {
+        type: 'heading',
+        text: '1. How Motorized Shades Work',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'At their core, motorized shades use a small electric motor housed within the roller tube or headrail. This motor drives the shade up or down via a control signal — either from a remote, a wall switch, a smartphone app, or an automated schedule.',
+          'Power sources vary by system. Hardwired installations connect directly to your home\'s electrical system and never need battery changes. Battery-powered motors offer easier installation with no wiring required, though batteries need replacement or recharging every 6-12 months.',
+          'Solar-powered options use a small panel attached to the window frame to keep an internal battery charged. These work particularly well in Florida, where abundant sunlight keeps the system running indefinitely with zero maintenance.',
+        ],
+      },
+      {
+        type: 'heading',
+        text: '2. Smart Home Platform Integration',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Modern motorized shades connect to the major smart home ecosystems: Apple HomeKit, Google Home, Amazon Alexa, and Samsung SmartThings. This means you can control your shades with voice commands, include them in automated routines, and monitor their position remotely.',
+          'Integration unlocks powerful automation possibilities. Set your shades to lower automatically when the indoor temperature exceeds a threshold, raise when your morning alarm goes off, or close at sunset for privacy — all without touching a button.',
+          'For the most seamless experience, choose a shade system that supports your existing smart home platform natively rather than requiring a separate bridge or hub. This reduces latency and improves reliability.',
+        ],
+      },
+      {
+        type: 'pullQuote',
+        text: 'The real value of motorized shades isn\'t the convenience of a remote control — it\'s the automation that makes your home more comfortable, efficient, and secure without you having to think about it.',
+      },
+      {
+        type: 'image',
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/ee8e1302-c513-4fff-a95e-6a569cb2228b.png',
+          alt: 'Motorized shade system integrated with smart home display',
+        },
+      },
+      {
+        type: 'heading',
+        text: '3. Energy Savings and UV Protection',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Automated shades can meaningfully reduce your energy costs. By programming shades to close during peak sun hours, you reduce solar heat gain and ease the burden on your air conditioning system — a significant consideration in Florida where cooling costs dominate energy bills.',
+          'Studies suggest that properly automated window treatments can reduce cooling costs by 15-25%. Sun-tracking schedules that adjust shade positions throughout the day based on the sun\'s angle maximize this benefit.',
+          'UV protection is an added bonus. Automated schedules ensure your shades are always closed when the sun is strongest, protecting furniture, flooring, and artwork from fading even when you\'re not home to manually adjust them.',
+        ],
+      },
+    ],
+  },
+};
+
+export function getKnowledgeArticle(slug: string): KnowledgeArticlePageContent | undefined {
+  return knowledgeArticles[slug];
+}
+
+export function getKnowledgeArticleSlugs(): string[] {
+  return Object.keys(knowledgeArticles);
+}
+
+export function getBlogArticle(slug: string): BlogArticlePageContent | undefined {
+  return blogArticles[slug];
+}
+
+export function getBlogArticleSlugs(): string[] {
+  return Object.keys(blogArticles);
+}
