@@ -10,29 +10,29 @@ import { QuoteGallery } from "@/components/QuoteGallery";
 import { Commercial } from "@/components/Commercial";
 import { RepairMaintenance } from "@/components/RepairMaintenance";
 import { Locations } from "@/components/Locations";
+import { fetchHomePage } from "@/lib/api";
 
 const QuoteForm = dynamic(() => import("@/components/QuoteForm").then(m => ({ default: m.QuoteForm })));
 const FAQ = dynamic(() => import("@/components/FAQ").then(m => ({ default: m.FAQ })));
 
-// Section order matches the Figma homepage frame top-to-bottom (node
-// 2722:1367). Header and Footer are site-wide chrome, rendered once in
-// src/app/layout.tsx rather than per-page.
-export default function Home() {
+export default async function Home() {
+  const data = await fetchHomePage().catch(() => undefined);
+
   return (
     <main>
-      <Hero />
-      <TrustBadges />
-      <ProcessIntro />
-      <ServicesGlimpse />
-      <FeaturedCategory />
-      <HowWeWork />
+      <Hero content={data?.hero} headingScalesOnMobile />
+      <TrustBadges content={data?.trustBadges} />
+      <ProcessIntro content={data?.processIntro} />
+      <ServicesGlimpse content={data?.servicesGlimpse} />
+      <FeaturedCategory content={data?.featuredCategory} />
+      <HowWeWork content={data?.howItWorks} />
       <Testimonials />
-      <QuoteGallery />
-      <Commercial />
-      <RepairMaintenance />
-      <Locations />
-      <QuoteForm />
-      <FAQ />
+      <QuoteGallery content={data?.quoteGallery} />
+      <Commercial content={data?.commercial} />
+      <RepairMaintenance content={data?.repairMaintenance} />
+      <Locations content={data?.locations} />
+      <QuoteForm content={data?.quoteForm} />
+      <FAQ content={data?.faq} />
     </main>
   );
 }

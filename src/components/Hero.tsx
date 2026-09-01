@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import type { HeroContent } from "@/types/content";
 
 interface HeroProps {
   breadcrumb?: string;
@@ -10,6 +11,7 @@ interface HeroProps {
   ctaHref?: string;
   backgroundImage?: { src: string; alt: string };
   headingScalesOnMobile?: boolean;
+  content?: HeroContent;
 }
 
 export function Hero({
@@ -20,8 +22,9 @@ export function Hero({
   ctaHref: ctaHrefOverride,
   backgroundImage: backgroundImageOverride,
   headingScalesOnMobile = false,
+  content,
 }: HeroProps = {}) {
-  const defaults = useContent("hero");
+  const defaults = content ?? useContent("hero");
   const heading = headingOverride ?? defaults.heading;
   const subheading = subheadingOverride ?? defaults.subheading;
   const ctaLabel = ctaLabelOverride ?? defaults.ctaLabel;

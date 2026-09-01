@@ -1,7 +1,9 @@
 import { useContent } from "@/hooks/useContent";
 
-export function KnowledgeHero() {
-  const { heading, subtitle } = useContent("knowledgeBasePage");
+export function KnowledgeHero({ heading: headingProp, subtitle: subtitleProp }: { heading?: string; subtitle?: string }) {
+  const fallback = useContent("knowledgeBasePage");
+  const heading = headingProp ?? fallback.heading;
+  const subtitle = subtitleProp ?? fallback.subtitle;
 
   return (
     <section className="px-8 pt-16 md:px-12 xl:px-20 xl:pt-20">

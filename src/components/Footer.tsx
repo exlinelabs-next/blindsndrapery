@@ -4,7 +4,7 @@ import { ChevronRight } from "lucide-react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa6";
 import type { IconType } from "react-icons";
 import { useContent } from "@/hooks/useContent";
-import type { FooterSocialLink } from "@/types/content";
+import type { FooterContent, FooterSocialLink } from "@/types/content";
 
 const socialIcons: Record<FooterSocialLink["platform"], IconType> = {
   instagram: FaInstagram,
@@ -13,9 +13,10 @@ const socialIcons: Record<FooterSocialLink["platform"], IconType> = {
   linkedin: FaLinkedin,
 };
 
-export function Footer() {
+export function Footer({ footerContent }: { footerContent?: FooterContent }) {
+  const fallback = useContent("footer");
   const { logo, badges, columns, copyright, legalLinks, socialLinks } =
-    useContent("footer");
+    footerContent ?? fallback;
 
   function renderColumn(
     column: (typeof columns)[number],

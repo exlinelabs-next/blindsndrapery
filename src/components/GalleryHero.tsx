@@ -1,8 +1,9 @@
 import { useContent } from "@/hooks/useContent";
+import type { GalleryHeroContent } from "@/types/content";
 
-export function GalleryHero() {
+export function GalleryHero({ content }: { content?: GalleryHeroContent }) {
   const { breadcrumb, headingPrefix, headingHighlight, subheading } =
-    useContent("galleryPage").hero;
+    content ?? useContent("galleryPage").hero;
 
   return (
     <section className="flex flex-col gap-4 px-8 pb-10 pt-10 md:px-12 xl:px-20">

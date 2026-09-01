@@ -1,5 +1,6 @@
 import { Wrench, type LucideIcon } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import type { RepairMaintenanceContent } from "@/types/content";
 
 // Maps the content-driven `icon` name (a lucide-react export name) to the
 // actual component, same pattern as TrustBadges/HowWeWork. Note: the Figma
@@ -14,9 +15,10 @@ const icons: Record<string, LucideIcon> = {
 // No "use client" here on purpose: this section has no state or event
 // handlers, so per the project's server-first rule it stays a plain Server
 // Component — renders on the server, ships no extra JS to the browser.
-export function RepairMaintenance() {
+export function RepairMaintenance({ content }: { content?: RepairMaintenanceContent }) {
   const { eyebrow, icon, headingPrefix, headingHighlight, headingSuffix, description } =
-    useContent("repairMaintenance");
+    content ?? useContent("repairMaintenance");
+  const isUrl = icon.startsWith("http");
   const Icon = icons[icon];
 
   return (
@@ -29,7 +31,12 @@ export function RepairMaintenance() {
         </div>
         <div className="flex w-full flex-col items-center gap-4">
           <div className="flex items-center justify-center">
-            {Icon && <Icon className="size-8 text-navy" strokeWidth={1.5} />}
+            {isUrl ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img src={icon} alt="" className="size-8" />
+            ) : (
+              Icon && <Icon className="size-8 text-navy" strokeWidth={1.5} />
+            )}
           </div>
           <h2 className="w-full text-center font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-navy">
             {headingPrefix}

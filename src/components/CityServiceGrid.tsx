@@ -2,14 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import type { CityServiceGridContent } from "@/types/content";
 
-export function CityServiceGrid() {
-  const { eyebrow, headingSegments, summary, cards } = useContent("cityPage").serviceGrid;
+export function CityServiceGrid({ content }: { content?: CityServiceGridContent }) {
+  const { eyebrow, headingSegments, summary, cards } = content ?? useContent("cityPage").serviceGrid;
 
   return (
-    <section className="flex flex-col gap-10 px-4 py-14 md:px-12 md:py-16 xl:px-20 xl:py-[120px]">
+    <section className="flex flex-col gap-10 px-4 py-14 md:px-12 md:py-16 xl:px-20 xl:pt-[120px] xl:pb-[100px]">
       {/* Header */}
-      <div className="flex flex-col items-center gap-4 xl:px-10">
+      <div className="flex flex-col items-center gap-4">
         <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
           <p className="whitespace-nowrap text-center font-mono text-[11px] uppercase leading-[16px] tracking-[1.1px] text-black">
             {eyebrow}
@@ -28,7 +29,7 @@ export function CityServiceGrid() {
       </div>
 
       {/* Service cards — 1 col mobile, 2 col tablet, 3 col desktop */}
-      <div className="grid grid-cols-1 gap-6 gap-y-10 md:grid-cols-2 xl:grid-cols-3 xl:px-10">
+      <div className="grid grid-cols-1 gap-6 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
         {cards.map((card) => (
           <div key={card.title} className="flex flex-col gap-2.5">
             <div className="relative h-[392px] w-full overflow-hidden rounded-lg">
@@ -45,7 +46,7 @@ export function CityServiceGrid() {
               </div>
               <Link
                 href={card.href}
-                className="flex w-fit items-center gap-2 rounded-[24px] border border-navy-light-active bg-white px-4 py-2"
+                className="flex w-fit items-center gap-2 rounded-lg border border-navy-light-active bg-white px-4 py-2"
               >
                 <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy">
                   View Details

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LegalContent } from "@/components/LegalContent";
+import { fetchPrivacyPolicyPage } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Privacy Policy & Terms | Blinds & Drapery",
@@ -7,10 +8,12 @@ export const metadata: Metadata = {
     "Read the Blinds & Drapery privacy policy and terms of service for our window treatment solutions.",
 };
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const data = await fetchPrivacyPolicyPage().catch(() => undefined);
+
   return (
     <main>
-      <LegalContent />
+      <LegalContent content={data} />
     </main>
   );
 }

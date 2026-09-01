@@ -1,20 +1,8 @@
 import { useContent } from "@/hooks/useContent";
+import type { LocationsContent } from "@/types/content";
 
-// No "use client" here on purpose: this section has no state or event
-// handlers, so per the project's server-first rule it stays a plain Server
-// Component — renders on the server, ships no extra JS to the browser.
-//
-// Pin icon: the Figma "Vector" layer here is a solid teardrop map pin, not
-// a real lucide-react export (lucide's MapPin is an outline glyph with a
-// hollow center ring — visibly different from the design). Per the
-// design-to-code icon rule, a non-matching icon gets rendered from its
-// exported Figma asset instead of substituted with a "close enough" library
-// icon, same pattern as the QuoteGallery quote mark. get_design_context on
-// each pin node (2722:1630 / 1633 / 1636) shows the glyph itself is tilted
-// `rotate-[26.03deg]` inside its bounding box — that rotation is
-// reproduced exactly below, not left out.
-export function Locations() {
-  const { eyebrow, heading, description, cities } = useContent("locations");
+export function Locations({ content }: { content?: LocationsContent }) {
+  const { eyebrow, heading, description, cities } = content ?? useContent("locations");
 
   return (
     <section className="flex flex-col items-start gap-4 bg-ice px-8 py-14 md:px-12 md:py-16 xl:px-20 xl:py-[100px]">
@@ -40,7 +28,10 @@ export function Locations() {
         </div>
         <div className="flex w-full flex-col items-stretch gap-4 md:flex-row md:flex-wrap md:items-center md:gap-6 xl:w-auto xl:shrink-0 xl:justify-end">
           {cities.map(({ icon, name }) => (
-            <div key={name} className="flex w-full items-center gap-2 rounded-lg bg-white p-3 md:w-auto md:shrink-0">
+            <div
+              key={name}
+              className="flex w-full items-center gap-2 rounded-lg border border-transparent bg-white p-3 transition-all hover:border-teal/33 hover:shadow-[0px_4px_4px_rgba(0,0,0,0.05)] md:w-auto md:shrink-0"
+            >
               {/* Plain <img>, not next/image: it's an SVG, and Next's image
                   optimizer rejects SVGs unless `images.dangerouslyAllowSVG`
                   is set in next.config.ts, which this project doesn't
@@ -49,17 +40,19 @@ export function Locations() {
                   carries the 26.03deg tilt so the glyph rotates in place
                   instead of skewing its container. */}
               {/* TODO: temporary Figma asset URL, see mock.ts — export and commit to public/images/home/locations/ before it expires. */}
-              <div className="flex h-[24.115px] w-[21.357px] shrink-0 items-center justify-center">
-                <div className="h-5 w-3.5 rotate-[26.03deg]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={icon.src}
-                    alt={icon.alt}
-                    className="block h-full w-full"
-                    aria-hidden={icon.alt === ""}
-                  />
+              {icon.src && (
+                <div className="flex h-[24.115px] w-[21.357px] shrink-0 items-center justify-center">
+                  <div className="h-5 w-3.5 rotate-[26.03deg]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={icon.src}
+                      alt={icon.alt}
+                      className="block h-full w-full"
+                      aria-hidden={icon.alt === ""}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
               <p className="whitespace-nowrap font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-navy">
                 {name}
               </p>

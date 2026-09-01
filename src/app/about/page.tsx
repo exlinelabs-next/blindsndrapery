@@ -4,6 +4,7 @@ import { AboutMission } from "@/components/AboutMission";
 import { AboutInstallation } from "@/components/AboutInstallation";
 import { AboutTeam } from "@/components/AboutTeam";
 import { FAQ } from "@/components/FAQ";
+import { fetchAboutPage } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "About Us | Blinds & Drapery",
@@ -11,14 +12,16 @@ export const metadata: Metadata = {
     "Florida's premier window coverings company — learn about our team, direct-to-consumer quoting, and statewide installation services.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const data = await fetchAboutPage().catch(() => undefined);
+
   return (
     <main>
-      <AboutHero />
-      <AboutMission />
-      <AboutInstallation />
-      <AboutTeam />
-      <FAQ />
+      <AboutHero content={data?.hero} />
+      <AboutMission content={data?.mission} />
+      <AboutInstallation content={data?.installation} />
+      <AboutTeam content={data?.team} />
+      <FAQ content={data?.faq} />
     </main>
   );
 }

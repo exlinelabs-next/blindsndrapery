@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter, DM_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { fetchNav, fetchFooter } from "@/lib/api";
 import "./globals.css";
 
 // Font choices come straight from the Figma variable defs, not a guess:
@@ -34,16 +35,21 @@ export const metadata: Metadata = {
     "Custom blinds, shades, shutters, and drapery for South Florida homes and businesses. Free in-home consultation.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const [navData, footerData] = await Promise.all([
+    fetchNav().catch(() => undefined),
+    fetchFooter().catch(() => undefined),
+  ]);
+
   return (
     <html
       lang="en"
       className={`${plusJakartaSans.variable} ${inter.variable} ${dmMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-body text-navy">
-        <Header />
+        <Header navContent={navData} />
         {children}
-        <Footer />
+        <Footer footerContent={footerData} />
       </body>
     </html>
   );

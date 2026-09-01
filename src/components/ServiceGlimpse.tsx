@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import type { ServicesGlimpseContent } from "@/types/content";
 
 const COLUMNS: readonly (readonly [number, number])[] = [
   [0, 1],
@@ -18,9 +19,9 @@ const CARD_HEIGHT_CLASSES = [
   "h-[500px] xl:h-[498px]",
 ];
 
-export function ServiceGlimpse() {
+export function ServiceGlimpse({ content }: { content?: ServicesGlimpseContent }) {
   const { eyebrow, headingSegments, servicesSummary, ctaLabel, cards } =
-    useContent("services");
+    content ?? useContent("services");
 
   function renderCard(cardIdx: number) {
     const card = cards[cardIdx];

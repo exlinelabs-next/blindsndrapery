@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { Button } from "./ui/Button";
 import { useContent } from "@/hooks/useContent";
+import type { ResourcesFeaturedContent } from "@/types/content";
 
-export function ResourcesFeatured() {
-  const { featured } = useContent("resourcesPage");
-  const { badge, category, article } = featured;
+export function ResourcesFeatured({ content }: { content?: ResourcesFeaturedContent }) {
+  const { badge, category, article } = content ?? useContent("resourcesPage").featured;
 
   return (
     <section className="px-8 py-12 md:px-12 md:py-16 xl:px-20 xl:py-20">
       <div className="flex flex-col gap-6 xl:flex-row xl:gap-6">
-        <div className="relative aspect-[759/487] w-full overflow-hidden rounded-lg xl:h-[487px] xl:w-[759px] xl:shrink-0">
+        <div className="relative aspect-[759/487] w-full min-w-0 overflow-hidden rounded-lg xl:w-[759px]">
           <Image
             src={article.image.src}
             alt={article.image.alt}
@@ -23,7 +23,7 @@ export function ResourcesFeatured() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between xl:w-[497px] xl:shrink-0">
+        <div className="flex min-w-0 flex-col justify-between xl:w-[497px]">
           <div className="flex flex-col gap-6">
             <div className="flex w-fit items-center justify-center rounded-lg border border-black/36 p-2">
               <span className="text-[16px] leading-[23px] text-black">

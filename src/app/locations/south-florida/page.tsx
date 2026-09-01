@@ -3,7 +3,7 @@ import { Hero } from "@/components/Hero";
 import { CityServiceGrid } from "@/components/CityServiceGrid";
 import { CityConsultationForm } from "@/components/CityConsultationForm";
 import { FAQ } from "@/components/FAQ";
-import { useContent } from "@/hooks/useContent";
+import { fetchLocationSinglePage } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "South Florida Window Treatments | Blinds & Drapery",
@@ -11,22 +11,22 @@ export const metadata: Metadata = {
     "Custom blinds, shades, shutters, and drapery for South Florida homes. Professional installation and consultation.",
 };
 
-export default function CityPage() {
-  const { hero } = useContent("cityPage");
+export default async function CityPage() {
+  const data = await fetchLocationSinglePage("/locations-hub/florida/").catch(() => undefined);
 
   return (
     <main>
       <Hero
-        breadcrumb={hero.breadcrumb}
-        heading={hero.heading}
-        subheading={hero.subheading}
-        ctaLabel={hero.ctaLabel}
-        ctaHref={hero.ctaHref}
-        backgroundImage={hero.backgroundImage}
+        breadcrumb={data?.hero.breadcrumb}
+        heading={data?.hero.heading}
+        subheading={data?.hero.subheading}
+        ctaLabel={data?.hero.ctaLabel}
+        ctaHref={data?.hero.ctaHref}
+        backgroundImage={data?.hero.backgroundImage}
       />
-      <CityServiceGrid />
-      <CityConsultationForm />
-      <FAQ />
+      <CityServiceGrid content={data?.serviceGrid} />
+      <CityConsultationForm content={data?.consultation} />
+      <FAQ variant="flat" content={data?.faq} />
     </main>
   );
 }

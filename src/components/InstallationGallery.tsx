@@ -1,26 +1,10 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import type { InstallationGalleryContent } from "@/types/content";
 
-// No "use client" here on purpose: no state or event handlers, so per the
-// project's server-first rule this stays a plain Server Component.
-//
-// Eyebrow + centered heading + paragraph, above a 3-image row. Confirmed via
-// get_design_context on "Desktop Commercial" node 2220:843's "Frame 143"
-// (desktop) plus this page's own confirmed Tablet/Mobile frames.
-//
-// The image row genuinely changes shape at every breakpoint, not just
-// scale — reproduced exactly rather than picking one pattern and stretching
-// it across breakpoints:
-//  - Desktop: row layout, asymmetric heights (332/385/332px — the middle
-//    photo is deliberately taller, a real confirmed design detail).
-//  - Tablet: still a row, but all 3 photos share one flat 332px height (the
-//    desktop's asymmetry doesn't carry over).
-//  - Mobile: stacks to a single column (269/270/269px — a 1px rounding
-//    difference between photos in the source, not meaningful, reproduced
-//    as one flat 270px rather than three near-identical hardcoded values).
-export function InstallationGallery() {
+export function InstallationGallery({ content }: { content?: InstallationGalleryContent }) {
   const { eyebrow, headingPrefix, headingHighlight, headingSuffix, description, images } =
-    useContent("commercialPage").installation;
+    content ?? useContent("commercialPage").installation;
 
   return (
     <section className="flex flex-col items-center gap-6 px-8 pb-14 md:px-12 md:pb-16 xl:gap-16 xl:px-20 xl:pb-[100px]">

@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import type { AboutInstallationContent } from "@/types/content";
 
-export function AboutInstallation() {
+export function AboutInstallation({ content }: { content?: AboutInstallationContent }) {
   const { eyebrow, heading, description, features } =
-    useContent("aboutPage").installation;
+    content ?? useContent("aboutPage").installation;
 
   return (
     <section className="px-8 pb-[100px] md:px-12 xl:px-20">
@@ -32,12 +33,7 @@ export function AboutInstallation() {
               } ${i === 0 ? "h-[72px] w-full xl:w-[297px] xl:shrink-0" : "h-[60px] xl:flex-1"}`}
             >
               <div className="relative size-[24px] shrink-0">
-                <Image
-                  src={feature.icon.src}
-                  alt={feature.icon.alt}
-                  fill
-                  className="object-contain"
-                />
+                <Image src={feature.icon.src} alt={feature.icon.alt} fill className="object-contain" />
               </div>
               <p
                 className={`font-heading text-[16px] font-semibold leading-[27px] tracking-[-0.0648px] xl:text-[18px] ${

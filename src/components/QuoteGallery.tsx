@@ -1,16 +1,9 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import type { QuoteGalleryContent } from "@/types/content";
 
-// No "use client" here on purpose: this section has no state or event
-// handlers, so per the project's server-first rule it stays a plain Server
-// Component — renders on the server, ships no extra JS to the browser.
-//
-// This renders "Frame 418" from the Figma SOCIAL PROOF BLOCK: a centered
-// pull-quote followed by an asymmetric 2x2 photo gallery. The testimonial
-// cards above this (in the same SOCIAL PROOF BLOCK) live in the sibling
-// Testimonials.tsx component and are not duplicated here.
-export function QuoteGallery() {
-  const { quote, quoteIcon, images } = useContent("quoteGallery");
+export function QuoteGallery({ content }: { content?: QuoteGalleryContent }) {
+  const { quote, quoteIcon, images } = content ?? useContent("quoteGallery");
   const [topLeft, topRight, bottomLeft, bottomRight] = images;
 
   return (
@@ -20,7 +13,7 @@ export function QuoteGallery() {
     // it confirms a genuine single-column stack, image heights identical to
     // desktop (429/428px, not scaled down), and 12px gaps between stacked
     // images (not 8px).
-    <section className="flex flex-col items-center gap-12 px-8 py-16 md:gap-14 xl:gap-16 xl:px-20 xl:py-[100px]">
+    <section className="flex flex-col items-center gap-12 px-8 pb-16 pt-0 md:gap-14 xl:gap-16 xl:px-20 xl:pb-[100px] xl:pt-0">
       <div className="flex flex-col items-center gap-4">
         {/* Decorative mark above the quote — not a lucide icon, so it's
             rendered from the exported Figma vector rather than hand-drawn.
@@ -28,10 +21,12 @@ export function QuoteGallery() {
             unless `images.dangerouslyAllowSVG` is set in next.config.ts,
             which this project doesn't enable. */}
         {/* TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/gallery/ before then. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={quoteIcon.src} alt={quoteIcon.alt} className="size-8" aria-hidden={quoteIcon.alt === ""} />
+        {quoteIcon.src && (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img src={quoteIcon.src} alt={quoteIcon.alt} className="size-8" aria-hidden={quoteIcon.alt === ""} />
+        )}
         <p className="w-full max-w-[1043px] text-center font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-navy">
-          &ldquo;{quote}&rdquo;
+          {quote}
         </p>
       </div>
       <div className="flex w-full flex-col gap-3">

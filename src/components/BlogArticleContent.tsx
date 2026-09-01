@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { useContent } from "@/hooks/useContent";
-import type { BlogContentBlock } from "@/types/content";
+import type { BlogArticlePageContent, BlogContentBlock } from "@/types/content";
 
 function IntroBlock({
   block,
@@ -83,10 +82,13 @@ function ImageBlock({
   );
 }
 
-export function BlogArticleContent() {
-  const { date, author, readTime, title, blocks } =
-    useContent("blogArticlePage");
-
+export function BlogArticleContent({
+  date,
+  author,
+  readTime,
+  title,
+  blocks,
+}: Omit<BlogArticlePageContent, "breadcrumb" | "heroImage" | "heroBadge">) {
   return (
     <section className="px-8 pt-12 pb-[100px] md:px-12 md:pt-16 xl:px-40 xl:pt-20">
       <div className="flex flex-col items-center justify-between gap-6 md:flex-row xl:gap-0">
