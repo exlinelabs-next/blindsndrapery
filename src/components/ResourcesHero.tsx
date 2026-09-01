@@ -1,7 +1,9 @@
 import { useContent } from "@/hooks/useContent";
 
-export function ResourcesHero() {
-  const { heading, description } = useContent("resourcesPage");
+export function ResourcesHero({ heading: headingProp, description: descProp }: { heading?: string; description?: string }) {
+  const fallback = useContent("resourcesPage");
+  const heading = headingProp ?? fallback.heading;
+  const description = descProp ?? fallback.description;
 
   return (
     <section className="px-8 pt-16 md:px-12 xl:px-20 xl:pt-20">

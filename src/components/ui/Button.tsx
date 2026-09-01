@@ -28,9 +28,22 @@ interface ButtonProps {
 // itself a static Figma variant, but a natural extension of the "press
 // forward" feel).
 export function Button({ children, href, type = "button", showArrow = true, className }: ButtonProps) {
+  // The outer teal ring and inner white-bordered box both need to stretch
+  // together when a caller wants a full-width button (e.g. the mobile nav
+  // drawer's "Book Consultation") — matching the Figma source, where the
+  // outer frame is `w-full` and the inner border box is `flex-[1_0_0]`.
+  // This only applies when the caller actually asked for `w-full` on the
+  // wrapping Link/button — applying it unconditionally would stretch every
+  // Button instance (Hero, header CTA, etc.) to fill whatever ancestor
+  // block happens to be nearby, regardless of intent.
+  const isFullWidth = className?.includes("w-full") ?? false;
   const content = (
-    <span className="group flex items-center rounded-[8px] bg-teal p-[2px] shadow-[0px_4px_2px_rgba(0,0,0,0.1)] transition-all duration-200 hover:bg-teal-pressed hover:p-[5px]">
-      <span className="flex items-center justify-center gap-2 rounded-[6px] border border-white/33 px-6 py-3.5 transition-all duration-200 group-hover:rounded-[3px] group-hover:px-[21px] group-hover:py-[11px]">
+    <span
+      className={`group flex items-center rounded-[8px] bg-teal p-[2px] shadow-[0px_4px_2px_rgba(0,0,0,0.1)] transition-all duration-200 hover:bg-teal-pressed hover:p-[5px] ${isFullWidth ? "w-full" : ""}`}
+    >
+      <span
+        className={`flex items-center justify-center gap-2 rounded-[6px] border border-white/33 px-6 py-3.5 transition-all duration-200 group-hover:rounded-[3px] group-hover:px-[21px] group-hover:py-[11px] ${isFullWidth ? "flex-1" : ""}`}
+      >
         <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-white">
           {children}
         </span>

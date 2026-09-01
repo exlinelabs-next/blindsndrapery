@@ -1,8 +1,9 @@
 import { useContent } from "@/hooks/useContent";
+import type { AboutMissionContent } from "@/types/content";
 
-export function AboutMission() {
+export function AboutMission({ content }: { content?: AboutMissionContent }) {
   const { headingPrefix, headingHighlight, paragraphs } =
-    useContent("aboutPage").mission;
+    content ?? useContent("aboutPage").mission;
 
   return (
     <section className="flex flex-col gap-8 px-8 py-16 md:px-12 xl:flex-row xl:items-start xl:gap-[61px] xl:px-20 xl:pb-[100px] xl:pt-20">

@@ -1,9 +1,10 @@
 import Image from "next/image";
-import { useContent } from "@/hooks/useContent";
+import type { KnowledgeArticlePageContent } from "@/types/content";
 
-export function KnowledgeArticleHero() {
-  const { breadcrumb, heroImage } = useContent("knowledgeArticlePage");
-
+export function KnowledgeArticleHero({
+  breadcrumb,
+  heroImage,
+}: Pick<KnowledgeArticlePageContent, "breadcrumb" | "heroImage">) {
   return (
     <section className="relative h-[300px] w-full md:h-[420px] xl:h-[546px]">
       <Image

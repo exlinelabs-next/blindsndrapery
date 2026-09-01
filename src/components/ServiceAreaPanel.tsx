@@ -2,8 +2,9 @@ import Image from "next/image";
 import { Navigation } from "lucide-react";
 import Link from "next/link";
 import { useContent } from "@/hooks/useContent";
+import type { ServiceAreaPanelContent } from "@/types/content";
 
-export function ServiceAreaPanel() {
+export function ServiceAreaPanel({ content }: { content?: ServiceAreaPanelContent }) {
   const {
     eyebrow,
     headingPrefix,
@@ -13,7 +14,7 @@ export function ServiceAreaPanel() {
     primaryLink,
     cityLinks,
     photo,
-  } = useContent("locationsPage").serviceArea;
+  } = content ?? useContent("locationsPage").serviceArea;
 
   return (
     <section className="flex flex-col items-center gap-10 px-4 pb-14 pt-[100px] md:px-12 md:pb-16 xl:flex-row xl:gap-6 xl:px-20 xl:pb-[100px]">

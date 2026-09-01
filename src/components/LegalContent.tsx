@@ -1,7 +1,8 @@
 import { useContent } from "@/hooks/useContent";
+import type { LegalPageContent } from "@/types/content";
 
-export function LegalContent() {
-  const { heading, paragraphs } = useContent("legalPage");
+export function LegalContent({ content }: { content?: LegalPageContent }) {
+  const { heading, paragraphs } = content ?? useContent("legalPage");
 
   return (
     <section className="px-8 py-16 pb-[100px] md:px-12 xl:px-20 xl:py-20 xl:pb-[100px]">

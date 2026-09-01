@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { ChevronDown, FileUp } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import type { CommercialQuoteFormContent } from "@/types/content";
 
 interface FormState {
   companyName: string;
@@ -56,8 +57,8 @@ const FIELD_CLASSES =
 // identically to every other field's gray placeholder in the source) with
 // real selectable options inferred from this page's own "places" cards,
 // since Figma doesn't specify a real options list.
-export function CommercialQuoteForm() {
-  const content = useContent("commercialPage").quoteForm;
+export function CommercialQuoteForm({ content: contentProp }: { content?: CommercialQuoteFormContent }) {
+  const content = contentProp ?? useContent("commercialPage").quoteForm;
   const [formData, setFormData] = useState<FormState>(INITIAL_STATE);
   const [fileName, setFileName] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);

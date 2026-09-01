@@ -1,6 +1,8 @@
 import Image from "next/image";
-import { useContent } from "@/hooks/useContent";
-import type { KnowledgeContentBlock } from "@/types/content";
+import type {
+  KnowledgeArticlePageContent,
+  KnowledgeContentBlock,
+} from "@/types/content";
 
 function SectionBlock({
   block,
@@ -45,10 +47,13 @@ function ImageGridBlock({
   );
 }
 
-export function KnowledgeArticleContent() {
-  const { categoryTag, date, readTime, title, blocks } =
-    useContent("knowledgeArticlePage");
-
+export function KnowledgeArticleContent({
+  categoryTag,
+  date,
+  readTime,
+  title,
+  blocks,
+}: Omit<KnowledgeArticlePageContent, "breadcrumb" | "heroImage">) {
   return (
     <section className="px-8 pb-[100px] md:px-12 xl:px-20">
       <div className="flex flex-col items-center justify-between gap-4 pt-[22px] md:flex-row xl:px-[60px]">

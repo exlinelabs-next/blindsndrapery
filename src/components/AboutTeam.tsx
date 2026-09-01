@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import type { AboutTeamContent } from "@/types/content";
 
-export function AboutTeam() {
-  const { badges, members } = useContent("aboutPage").team;
+export function AboutTeam({ content }: { content?: AboutTeamContent }) {
+  const { badges, members } = content ?? useContent("aboutPage").team;
 
   return (
     <section className="flex flex-col gap-16 bg-navy px-4 py-14 md:px-12 md:py-16 xl:px-20 xl:py-[100px]">

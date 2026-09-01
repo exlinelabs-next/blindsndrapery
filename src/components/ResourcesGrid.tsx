@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { Button } from "./ui/Button";
 import { useContent } from "@/hooks/useContent";
+import type { ResourcesArticle } from "@/types/content";
 
-export function ResourcesGrid() {
-  const { articles } = useContent("resourcesPage");
+export function ResourcesGrid({ articles: articlesProp }: { articles?: [ResourcesArticle, ResourcesArticle] }) {
+  const { articles } = articlesProp ? { articles: articlesProp } : useContent("resourcesPage");
 
   return (
     <section className="px-8 pb-[100px] md:px-12 xl:px-20">

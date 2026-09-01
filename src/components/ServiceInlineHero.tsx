@@ -30,13 +30,15 @@ import { useContent } from "@/hooks/useContent";
 // identical rendered result for this content (short, centered text well
 // inside the padding either way), so this component uses one shared padded
 // wrapper at every breakpoint rather than splitting structure needlessly.
-export function ServiceInlineHero({ contentKey = "serviceBlinds" }: { contentKey?: "serviceBlinds" | "serviceShades" } = {}) {
-  const { breadcrumb, heading, subheading, backgroundImage } = useContent(contentKey).hero;
+import type { ServiceContentKey, ServiceInlineHeroContent } from "@/types/content";
+
+export function ServiceInlineHero({ contentKey = "serviceBlinds", content }: { contentKey?: ServiceContentKey; content?: ServiceInlineHeroContent } = {}) {
+  const { breadcrumb, heading, subheading, backgroundImage } = content ?? useContent(contentKey).hero;
 
   return (
     <section className="flex flex-col items-center gap-10 pb-14 md:pb-16 xl:gap-16 xl:pb-[100px]">
       <div className="relative h-[490px] w-full shrink-0 overflow-hidden xl:h-[482px]">
-        <Image src={backgroundImage.src} alt={backgroundImage.alt} fill priority className="object-cover" />
+        {backgroundImage.src && <Image src={backgroundImage.src} alt={backgroundImage.alt} fill priority className="object-cover" />}
         {/* Exact gradient from the Figma node: transparent to rgba(44,40,53,0.8) */}
         <div
           className="absolute inset-0"

@@ -23,6 +23,15 @@ export interface NavDropdownCategory {
   label: string;
   href: string;
   subItems?: NavDropdownSubItem[];
+  exploreLabel: string;
+}
+
+export interface NavDropdownBlogCard {
+  image: { src: string; alt: string };
+  title: string;
+  description: string;
+  buttonLabel: string;
+  buttonHref: string;
 }
 
 export interface NavContent {
@@ -34,10 +43,8 @@ export interface NavContent {
   servicesLabel: string;
   servicesDropdown: {
     categories: NavDropdownCategory[];
-    image: {
-      src: string;
-      alt: string;
-    };
+    blogCard: NavDropdownBlogCard;
+    socialLinks: FooterSocialLink[];
   };
   links: NavLinkContent[];
   ctaLabel: string;
@@ -202,7 +209,7 @@ export interface FaqContent {
   eyebrow: string;
   heading: string;
   categories: string[];
-  items: Array<{ question: string; answer: string }>;
+  items: Array<{ question: string; answer: string; category: string }>;
 }
 
 export interface FooterLink {
@@ -342,6 +349,7 @@ export interface SubServicesGridContent {
   headingPrefix: string;
   headingHighlight: string;
   headingSuffix: string;
+  description: string;
   cards: SubServiceCard[];
 }
 
@@ -683,6 +691,65 @@ export interface CityPageContent {
   consultation: CityConsultationContent;
 }
 
+export interface FreeQuoteHeroContent {
+  breadcrumb: string;
+  heading: string;
+  subheading: string;
+}
+
+export interface FreeQuoteProcessStep {
+  number: string;
+  title: string;
+  description: string;
+}
+
+export interface FreeQuoteProcessContent {
+  eyebrow: string;
+  headingPrefix: string;
+  headingHighlight: string;
+  subtitle: string;
+  steps: [FreeQuoteProcessStep, FreeQuoteProcessStep, FreeQuoteProcessStep, FreeQuoteProcessStep, FreeQuoteProcessStep];
+}
+
+export interface FreeQuoteProcessIntroContent {
+  eyebrow: string;
+  headingPrefix: string;
+  headingHighlight: string;
+  description: string;
+  image: { src: string; alt: string };
+}
+
+export interface FreeQuoteFormContent {
+  eyebrow: string;
+  headingPrefix: string;
+  headingHighlight: string;
+  subtitle: string;
+  nameLabel: string;
+  namePlaceholder: string;
+  emailLabel: string;
+  emailPlaceholder: string;
+  phoneLabel: string;
+  phonePlaceholder: string;
+  serviceLabel: string;
+  servicePlaceholder: string;
+  serviceOptions: string[];
+  projectLabel: string;
+  projectPlaceholder: string;
+  submitLabel: string;
+  assistanceHeading: string;
+  callLabel: string;
+  callNumber: string;
+  textLabel: string;
+  trustLine: string;
+}
+
+export interface FreeQuotePageContent {
+  hero: FreeQuoteHeroContent;
+  process: FreeQuoteProcessContent;
+  processIntro: FreeQuoteProcessIntroContent;
+  form: FreeQuoteFormContent;
+}
+
 export interface PageContent {
   hero: HeroContent;
   nav: NavContent;
@@ -702,6 +769,16 @@ export interface PageContent {
   servicePage: ServicePageContent;
   serviceBlinds: ServiceInlinePageContent;
   serviceShades: ServiceInlinePageContent;
+  serviceShutters: ServiceInlinePageContent;
+  serviceDrapery: ServiceInlinePageContent;
+  serviceMotorized: ServiceInlinePageContent;
+  serviceRepairs: ServiceInlinePageContent;
+  subServiceRollerShades: ServiceInlinePageContent;
+  subServiceSolarShades: ServiceInlinePageContent;
+  subServiceCellularShades: ServiceInlinePageContent;
+  subServiceRomanShades: ServiceInlinePageContent;
+  subServiceZebraShades: ServiceInlinePageContent;
+  subServiceWovenWoodShades: ServiceInlinePageContent;
   commercialPage: CommercialPageContent;
   locationsPage: LocationsPageContent;
   galleryPage: GalleryPageContent;
@@ -712,4 +789,19 @@ export interface PageContent {
   blogArticlePage: BlogArticlePageContent;
   knowledgeArticlePage: KnowledgeArticlePageContent;
   cityPage: CityPageContent;
+  freeQuotePage: FreeQuotePageContent;
 }
+
+export type ServiceContentKey =
+  | "serviceBlinds"
+  | "serviceShades"
+  | "serviceShutters"
+  | "serviceDrapery"
+  | "serviceMotorized"
+  | "serviceRepairs"
+  | "subServiceRollerShades"
+  | "subServiceSolarShades"
+  | "subServiceCellularShades"
+  | "subServiceRomanShades"
+  | "subServiceZebraShades"
+  | "subServiceWovenWoodShades";

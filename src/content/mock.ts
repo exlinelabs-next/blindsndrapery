@@ -1,4 +1,4 @@
-import type { PageContent } from '@/types/content';
+import type { PageContent, KnowledgeArticlePageContent, BlogArticlePageContent } from '@/types/content';
 
 export const mockContent: PageContent = {
   hero: {
@@ -22,28 +22,82 @@ export const mockContent: PageContent = {
     servicesLabel: 'Services',
     servicesDropdown: {
       categories: [
-        { label: 'Blinds', href: '/services/blinds' },
         {
           label: 'Shades',
           href: '/services/shades',
+          exploreLabel: 'Explore Shades →',
           subItems: [
             { label: 'Roller Shades', href: '/services/shades/roller-shades' },
             { label: 'Solar Shades', href: '/services/shades/solar-shades' },
             { label: 'Cellular Shades', href: '/services/shades/cellular-shades' },
             { label: 'Roman Shades', href: '/services/shades/roman-shades' },
-            { label: 'Zebra Shades', href: '/services/shades/zebra-shades' },
+            { label: 'Woven Shades', href: '/services/shades/woven-wood-shades' },
           ],
         },
-        { label: 'Curtains & Drapery', href: '/services/curtains-drapery' },
-        { label: 'Shutters', href: '/services/shutters' },
-        { label: 'Motorized & Smart Homes', href: '/services/motorized-smart-homes' },
-        { label: 'Repair & Maintenance', href: '/services/repair-maintenance' },
+        {
+          label: 'Shutters',
+          href: '/services/shutters',
+          exploreLabel: 'Explore Shutters →',
+          subItems: [
+            { label: 'Composite Shutters', href: '/services/shutters' },
+            { label: 'Natural Wood Shutters', href: '/services/shutters' },
+            { label: 'Tier-on-Tier Shutters', href: '/services/shutters' },
+          ],
+        },
+        {
+          label: 'Blinds',
+          href: '/services/blinds',
+          exploreLabel: 'Explore Blinds →',
+          subItems: [
+            { label: 'Wood Blinds', href: '/services/blinds' },
+            { label: 'Faux Wood Blinds', href: '/services/blinds' },
+            { label: 'Aluminum Blinds', href: '/services/blinds' },
+            { label: 'Vertical Blinds', href: '/services/blinds' },
+            { label: 'Cellular Blinds', href: '/services/blinds' },
+          ],
+        },
+        {
+          label: 'Curtains & Drapery',
+          href: '/services/drapery',
+          exploreLabel: 'Explore Curtains & Drapery →',
+        },
+        {
+          label: 'Motorized & Smart Home',
+          href: '/services/motorized',
+          exploreLabel: 'Explore Smart Homes →',
+          subItems: [
+            { label: 'Motorized Shades', href: '/services/motorized' },
+            { label: 'Smart Home Integration', href: '/services/motorized' },
+            { label: 'Automated Window Treatments', href: '/services/motorized' },
+          ],
+        },
+        {
+          label: 'Repairs & Maintenance',
+          href: '/services/repairs',
+          exploreLabel: 'Explore Repairs →',
+          subItems: [
+            { label: 'Blind Repair', href: '/services/repairs' },
+            { label: 'Shade Repair', href: '/services/repairs' },
+            { label: 'Maintenance Services', href: '/services/repairs' },
+          ],
+        },
       ],
-      image: {
-        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/shared/ before then.
-        src: 'https://www.figma.com/api/mcp/asset/c177a296-3c62-4dba-af5b-be5be78f0efe.png',
-        alt: 'Living room window fitted with roller shades',
+      blogCard: {
+        image: {
+          src: '/images/home/hero_image.webp',
+          alt: 'Living room with modern window treatments',
+        },
+        title: 'Protect Your Florida Home from UV Damage',
+        description: 'Florida sunshine is one of the reasons people love living in the state. Bright natural light can make a home feel...',
+        buttonLabel: 'Explore Blogs',
+        buttonHref: '/resources',
       },
+      socialLinks: [
+        { platform: 'instagram', href: 'https://www.instagram.com', label: 'Instagram' },
+        { platform: 'facebook', href: 'https://www.facebook.com', label: 'Facebook' },
+        { platform: 'youtube', href: 'https://www.youtube.com', label: 'YouTube' },
+        { platform: 'linkedin', href: 'https://www.linkedin.com', label: 'LinkedIn' },
+      ],
     },
     links: [
       { label: 'Commercial', href: '/commercial' },
@@ -127,7 +181,7 @@ export const mockContent: PageContent = {
         },
         title: 'Motorized & Smart Home',
         description: 'Automated systems compatible with Alexa, Google Home, and professional control systems.',
-        href: '/services/motorized-smart-home',
+        href: '/services/motorized',
       },
       {
         image: {
@@ -136,7 +190,7 @@ export const mockContent: PageContent = {
         },
         title: 'Drapery & Curtains',
         description: 'Custom-tailored fabrics providing architectural scale and acoustic dampening.',
-        href: '/services/drapery-curtains',
+        href: '/services/drapery',
       },
       {
         image: {
@@ -145,7 +199,7 @@ export const mockContent: PageContent = {
         },
         title: 'Repairs & Maintenance',
         description: 'Keep your investments functioning perfectly with our expert repair and tune-up services.',
-        href: '/services/repairs-maintenance',
+        href: '/services/repairs',
       },
     ],
   },
@@ -203,7 +257,7 @@ export const mockContent: PageContent = {
     headingPrefix: 'Trusted Experts, Proven ',
     headingHighlight: 'Customer Satisfaction',
     description:
-      'Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.',
+      '“Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.”',
     // Both cards carry identical placeholder copy in the design (same quote,
     // same "Riya Shankar" / "South Florida" author) — kept as-is per the
     // source rather than inventing variety. The marquee-loop duplicate card
@@ -216,8 +270,9 @@ export const mockContent: PageContent = {
         authorName: 'Riya Shankar',
         authorLocation: 'South Florida',
         avatar: {
-          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/testimonials/ before then.
-          src: 'https://www.figma.com/api/mcp/asset/4cbb9a93-ad1c-425f-9867-d105ed183739.png',
+          // Figma temp asset URL expired (404) and was replaced with a local placeholder;
+          // swap in the real exported portrait when available.
+          src: '/images/home/testimonials/avatar-placeholder.png',
           alt: 'Portrait of Riya Shankar, a South Florida customer',
         },
       },
@@ -227,8 +282,9 @@ export const mockContent: PageContent = {
         authorName: 'Riya Shankar',
         authorLocation: 'South Florida',
         avatar: {
-          // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/testimonials/ before then.
-          src: 'https://www.figma.com/api/mcp/asset/4cbb9a93-ad1c-425f-9867-d105ed183739.png',
+          // Figma temp asset URL expired (404) and was replaced with a local placeholder;
+          // swap in the real exported portrait when available.
+          src: '/images/home/testimonials/avatar-placeholder.png',
           alt: 'Portrait of Riya Shankar, a South Florida customer',
         },
       },
@@ -236,7 +292,7 @@ export const mockContent: PageContent = {
   },
   quoteGallery: {
     quote:
-      'Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.',
+      '“Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.”',
     quoteIcon: {
       // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
       // nominal ~7 days, so export and commit to public/images/home/gallery/ soon.
@@ -349,40 +405,112 @@ export const mockContent: PageContent = {
     categories: ['Common Questions', 'Locations', 'Our Process', 'Timeline'],
     items: [
       {
+        category: 'Common Questions',
         question: 'How long does a custom installation take?',
-        // Placeholder — no answer copy in Figma. Grounded in ProcessIntro/HowWeWork steps.
         answer:
           'Most custom blinds and shades installations are completed in a single visit, typically 2 to 4 hours depending on the number of windows.',
       },
       {
+        category: 'Common Questions',
         question: 'Do you offer smart home integration for motorized shades?',
-        // Placeholder — grounded in the "Motorized & Smart Home" service card.
         answer:
           'Yes, our motorized shades integrate with popular smart home systems like Google Home, Amazon Alexa, and Lutron for seamless voice and app control.',
       },
       {
+        category: 'Common Questions',
         question: 'Are your shutters humidity resistant for Florida homes?',
-        // Placeholder — grounded in the Shutters featured category (South Florida climate).
         answer:
           "Yes, our shutters are built with moisture-resistant materials specifically selected to withstand South Florida's humidity and coastal climate.",
       },
       {
-        question: 'What is the difference between a digital and in-home estimate?',
-        // Placeholder — grounded in the estimate/process language elsewhere on the site.
-        answer:
-          'A digital estimate uses photos and measurements you provide for a quick online quote, while an in-home estimate has a professional measure your windows in person for guaranteed accuracy.',
-      },
-      {
+        category: 'Common Questions',
         question: 'Do you provide warranties on your products?',
-        // Placeholder — grounded in the TrustBadges warranty/licensed & insured badges.
         answer:
           'Yes, all of our products are backed by manufacturer warranties, and our installation work is covered by our own workmanship guarantee.',
       },
       {
+        category: 'Common Questions',
         question: 'Can you repair motorized blinds from other companies?',
-        // Placeholder — grounded in the "Repairs & Maintenance" service card.
         answer:
           "Yes, our technicians repair and service motorized blinds and shades from most major manufacturers, not just the products we originally installed.",
+      },
+      {
+        category: 'Common Questions',
+        question: 'What types of window coverings do you offer?',
+        answer:
+          'We offer a full range including blinds, shades, shutters, drapery and curtains, and motorized smart home solutions, all custom-made to fit your windows perfectly.',
+      },
+      {
+        category: 'Locations',
+        question: 'Which areas in South Florida do you serve?',
+        answer:
+          'We serve all of South Florida including Fort Lauderdale, Coral Springs, Deerfield Beach, Boca Raton, Pompano Beach, and surrounding Broward County communities.',
+      },
+      {
+        category: 'Locations',
+        question: 'Do you offer services outside of Broward County?',
+        answer:
+          'Our primary service area is Broward County, but we also serve parts of Palm Beach and Miami-Dade counties. Contact us to confirm availability in your area.',
+      },
+      {
+        category: 'Locations',
+        question: 'Is there an additional charge for distant locations?',
+        answer:
+          'There is no additional charge for locations within our standard service area. For locations outside our primary zone, a small travel fee may apply — we will let you know upfront.',
+      },
+      {
+        category: 'Locations',
+        question: 'Can I visit a showroom to see products in person?',
+        answer:
+          'We operate primarily as an in-home consultation service, bringing samples directly to you so you can see how materials look in your own space with your lighting.',
+      },
+      {
+        category: 'Our Process',
+        question: 'What is the difference between a digital and in-home estimate?',
+        answer:
+          'A digital estimate uses photos and measurements you provide for a quick online quote, while an in-home estimate has a professional measure your windows in person for guaranteed accuracy.',
+      },
+      {
+        category: 'Our Process',
+        question: 'How do I get started with a consultation?',
+        answer:
+          'Simply fill out our online quote form or call us to schedule a free in-home consultation. Our specialist will visit your home with samples to help you choose the perfect window coverings.',
+      },
+      {
+        category: 'Our Process',
+        question: 'How long does the entire process take from estimate to installation?',
+        answer:
+          'The typical timeline from your initial consultation to completed installation is 2 to 4 weeks, depending on the product type and any custom manufacturing requirements.',
+      },
+      {
+        category: 'Our Process',
+        question: 'Do I need to be home during the installation?',
+        answer:
+          'Yes, an adult (18+) must be present during installation to grant access, confirm placement preferences, and sign off on the completed work.',
+      },
+      {
+        category: 'Timeline',
+        question: 'How quickly can I get a digital estimate?',
+        answer:
+          'Digital estimates are typically delivered within 24 hours of submitting your window measurements and product preferences through our online form.',
+      },
+      {
+        category: 'Timeline',
+        question: 'How long does manufacturing take for custom orders?',
+        answer:
+          'Custom manufacturing typically takes 1 to 3 weeks depending on the product type, materials selected, and current production schedules.',
+      },
+      {
+        category: 'Timeline',
+        question: 'Can I expedite my order if I need it sooner?',
+        answer:
+          'Rush options are available for select products at an additional cost. Let your consultant know your timeline and we will do our best to accommodate your needs.',
+      },
+      {
+        category: 'Timeline',
+        question: 'What happens if my installation needs to be rescheduled?',
+        answer:
+          'We understand schedules change. You can reschedule your installation with at least 48 hours notice at no additional charge by contacting our team.',
       },
     ],
   },
@@ -422,17 +550,17 @@ export const mockContent: PageContent = {
         links: [
           { label: 'Blinds', href: '/services/blinds' },
           { label: 'Shades', href: '/services/shades' },
-          { label: 'Curtains & Drapery', href: '/services/curtains-drapery' },
+          { label: 'Curtains & Drapery', href: '/services/drapery' },
           { label: 'Shutters', href: '/services/shutters' },
-          { label: 'Motorized & Smart Homes', href: '/services/motorized-smart-homes' },
-          { label: 'Repairs & Maintenance', href: '/services/repairs-maintenance' },
+          { label: 'Motorized & Smart Homes', href: '/services/motorized' },
+          { label: 'Repairs & Maintenance', href: '/services/repairs' },
         ],
       },
       {
         title: 'Inspiration',
         links: [
           { label: 'Gallery', href: '/gallery' },
-          { label: 'Blogs', href: '/blog' },
+          { label: 'Blogs', href: '/resources' },
           { label: 'Knowledge Base', href: '/knowledge-base' },
         ],
       },
@@ -453,7 +581,9 @@ export const mockContent: PageContent = {
     ],
     copyright: '© 2024 Blinds & Drapery Co. All rights reserved',
     legalLinks: [
-      { label: 'Terms of Use', href: '/terms-of-use' },
+      // Same combined-document destination as the real backend mapping in
+      // api.ts's fetchFooter — no separate /terms-of-use page exists.
+      { label: 'Terms of Use', href: '/privacy-policy' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
     ],
     socialLinks: [
@@ -657,6 +787,8 @@ export const mockContent: PageContent = {
       headingPrefix: 'Explore ',
       headingHighlight: 'Premium Shades',
       headingSuffix: ' for Every Room and Style',
+      description:
+        'From light-filtering solar shades to blackout-ready cellular and roller options, find the right fit for every window in your South Florida home.',
       cards: [
         {
           image: { src: '/images/services/card-shades.webp', alt: 'Living room with solar shades filtering sunlight' },
@@ -771,6 +903,512 @@ export const mockContent: PageContent = {
         src: 'https://www.figma.com/api/mcp/asset/eb69fb8f-4ca3-419b-8ec5-91235dd12411.png',
         alt: 'Person relaxing on a sofa near large windows in a softly lit living room',
       },
+    },
+  },
+  subServiceRollerShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Roller Shades',
+      heading: 'Custom Roller Shades & Professional Installation',
+      subheading: 'Sleek, modern roller shades with smooth operation and clean lines for any room in your South Florida home.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Modern roller shades on a large window' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Modern ',
+      headingHighlight: 'Roller Shade',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'Our roller shades combine sleek aesthetics with practical functionality for ',
+      paragraphHighlight: 'South Florida homes',
+      paragraphSuffix: '. Available in light-filtering and blackout fabrics, they roll up neatly into a compact cassette for a clean, uncluttered look.',
+      features: ['Light Filtering', 'Blackout Options', 'Motorized Available', 'Easy Maintenance'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Roller shades in a living room' },
+        { src: '/images/services/card-shades.webp', alt: 'Blackout roller shade in a bedroom' },
+        { src: '/images/services/card-shades.webp', alt: 'Motorized roller shade close-up' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Installer showing roller shade fabric samples' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Professional mounting roller shades' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We visit your home to discuss your vision and explore roller shade options tailored to your space.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists take exact measurements for a perfect fit in every window.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your roller shades are crafted with your chosen fabric and operating mechanism.' },
+        { number: '4', title: 'Professional Installation', description: 'Our expert installers mount your roller shades for smooth, reliable operation.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready for sleek, modern roller shades? Schedule a free in-home consultation and explore our fabric and color options.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with modern roller shades' },
+    },
+  },
+  subServiceSolarShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Solar Shades',
+      heading: 'Custom Solar Shades & Professional Installation',
+      subheading: 'Reduce glare and UV rays while maintaining your view with premium solar shades for South Florida homes.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Solar shades filtering sunlight in a living room' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Premium ',
+      headingHighlight: 'Solar Shade',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'Our solar shades are designed to reduce heat and glare while preserving your view of ',
+      paragraphHighlight: 'South Florida\'s beautiful outdoors',
+      paragraphSuffix: '. Choose from a range of openness factors to control how much light and visibility you want, with UV-blocking fabrics that protect your furnishings.',
+      features: ['UV Protection', 'Glare Reduction', 'View Preservation', 'Energy Efficient'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Solar shades on floor-to-ceiling windows' },
+        { src: '/images/services/card-shades.webp', alt: 'Solar shades filtering afternoon sun' },
+        { src: '/images/services/card-shades.webp', alt: 'Exterior view through solar shades' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Consultant showing solar shade samples' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer fitting solar shades' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We assess your sun exposure and recommend the ideal openness factor for each window.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure your windows for a perfect custom fit.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your solar shades are made with UV-blocking fabric in your chosen color and openness.' },
+        { number: '4', title: 'Professional Installation', description: 'We install your solar shades for smooth operation and optimal sun protection.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to reduce glare while keeping your view? Schedule a free consultation to explore our solar shade options.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with solar shades' },
+    },
+  },
+  subServiceCellularShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Cellular Shades',
+      heading: 'Custom Cellular Shades & Professional Installation',
+      subheading: 'Energy-efficient honeycomb shades that insulate your home while providing elegant light control.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Cellular shades on a kitchen window' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Energy-Efficient ',
+      headingHighlight: 'Cellular Shade',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'Our cellular shades feature a unique honeycomb construction that traps air for superior insulation in ',
+      paragraphHighlight: 'South Florida\'s warm climate',
+      paragraphSuffix: '. Available in single, double, and triple cell configurations, they reduce energy costs while providing soft, diffused light.',
+      features: ['Energy Saving', 'Sound Dampening', 'Cordless Options', 'Top-Down Bottom-Up'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Cellular shades in a bedroom' },
+        { src: '/images/services/card-shades.webp', alt: 'Honeycomb shade cross-section' },
+        { src: '/images/services/card-shades.webp', alt: 'Top-down bottom-up cellular shades' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Consultant showing cellular shade options' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer mounting cellular shades' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We evaluate your insulation needs and recommend the right cell configuration for each room.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure every window for a perfect inside or outside mount fit.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your cellular shades are built with precision honeycomb cells in your chosen color and opacity.' },
+        { number: '4', title: 'Professional Installation', description: 'We install your shades with the operating system of your choice — cordless, motorized, or top-down.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to improve your home\'s energy efficiency? Schedule a free consultation to explore our cellular shade options.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with cellular shades' },
+    },
+  },
+  subServiceRomanShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Roman Shades',
+      heading: 'Custom Roman Shades & Professional Installation',
+      subheading: 'Classic fabric shades that fold into elegant pleats, adding warmth and sophistication to any room.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Roman shades on large windows' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Classic ',
+      headingHighlight: 'Roman Shade',
+      headingSuffix: ' Designs',
+      paragraphPrefix: 'Our roman shades bring a timeless, tailored look to ',
+      paragraphHighlight: 'South Florida interiors',
+      paragraphSuffix: '. Choose from flat, hobbled, or cascade fold styles in hundreds of designer fabrics. They combine the softness of drapery with the clean function of a shade.',
+      features: ['Designer Fabrics', 'Multiple Fold Styles', 'Blackout Linings', 'Cordless Safety'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Flat-fold roman shades in a dining room' },
+        { src: '/images/services/card-shades.webp', alt: 'Hobbled roman shade in a bedroom' },
+        { src: '/images/services/card-shades.webp', alt: 'Cascade roman shade fabric detail' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Designer showing roman shade fabric samples' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer hanging roman shades' },
+      ],
+      steps: [
+        { number: '1', title: 'Design Consultation', description: 'We bring fabric samples and help you choose the perfect fold style for your room.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure for the ideal fit and drop length.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your roman shades are sewn to order with your chosen fabric, lining, and fold pattern.' },
+        { number: '4', title: 'Professional Installation', description: 'We install your roman shades and ensure smooth, balanced operation.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready for the elegance of custom roman shades? Schedule a free consultation to explore our fabric collections.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with roman shades' },
+    },
+  },
+  subServiceZebraShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Zebra Shades',
+      heading: 'Custom Zebra Shades & Professional Installation',
+      subheading: 'Dual-layer shades with alternating sheer and opaque bands for versatile light and privacy control.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Zebra shades providing partial privacy' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Versatile ',
+      headingHighlight: 'Zebra Shade',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'Our zebra shades offer a modern twist on light control with alternating sheer and solid bands that slide past each other for ',
+      paragraphHighlight: 'infinite adjustment',
+      paragraphSuffix: '. Align the bands for filtered light and a view, or overlap them for full privacy — all without raising the shade.',
+      features: ['Dual Layer Control', 'Modern Aesthetic', 'No Cords', 'Motorized Available'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Zebra shades in open position' },
+        { src: '/images/services/card-shades.webp', alt: 'Zebra shades in closed position' },
+        { src: '/images/services/card-shades.webp', alt: 'Close-up of zebra shade bands' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Consultant showing zebra shade options' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer fitting zebra shades' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We help you choose the right fabric density and color for your light control needs.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure each window for a seamless inside-mount fit.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your zebra shades are crafted with precision-aligned alternating bands.' },
+        { number: '4', title: 'Professional Installation', description: 'We install and calibrate your shades for smooth, even band alignment.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready for versatile light control with modern style? Schedule a free consultation to explore our zebra shades.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with zebra shades' },
+    },
+  },
+  subServiceWovenWoodShades: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > SHADES > Woven Wood Shades',
+      heading: 'Custom Woven Wood Shades & Professional Installation',
+      subheading: 'Natural bamboo, grass, and reed shades that bring organic warmth and texture to your South Florida home.',
+      backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Woven wood shades in a modern room' },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Natural ',
+      headingHighlight: 'Woven Wood Shade',
+      headingSuffix: ' Options',
+      paragraphPrefix: 'Our woven wood shades are handcrafted from natural materials like bamboo, jute, and grasses, bringing an organic, textured look to ',
+      paragraphHighlight: 'South Florida living spaces',
+      paragraphSuffix: '. Each shade is unique in pattern and tone, adding warmth and character while filtering light naturally.',
+      features: ['Natural Materials', 'Unique Textures', 'Liner Options', 'Eco-Friendly'],
+      gallery: [
+        { src: '/images/services/card-shades.webp', alt: 'Bamboo woven shades in a sunroom' },
+        { src: '/images/services/card-shades.webp', alt: 'Woven grass shade texture close-up' },
+        { src: '/images/services/card-shades.webp', alt: 'Woven wood shades with privacy liner' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Consultant showing woven shade material samples' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer mounting woven wood shades' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We bring natural material samples so you can see how different weaves and tones complement your decor.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure each window for the perfect fit and drop.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your woven shades are handcrafted from natural materials with optional privacy liners.' },
+        { number: '4', title: 'Professional Installation', description: 'We install your woven wood shades and ensure smooth, reliable operation.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to bring natural warmth to your windows? Schedule a free consultation to explore our woven wood shade collection.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shades.webp', alt: 'Room with woven wood shades' },
+    },
+  },
+  serviceShutters: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > Shutters',
+      heading: 'Custom Interior Shutters & Professional Installation Services',
+      subheading: 'Premium plantation and composite shutters crafted for South Florida homes. Free in-home consultation available.',
+      backgroundImage: {
+        src: '/images/services/card-shutters.webp',
+        alt: 'Bedroom window fitted with white plantation shutters',
+      },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Premium ',
+      headingHighlight: 'Plantation & Composite',
+      headingSuffix: ' Shutters',
+      paragraphPrefix: 'Our shutters are crafted from premium materials designed to thrive in ',
+      paragraphHighlight: 'South Florida\'s coastal climate',
+      paragraphSuffix:
+        '. Choose from classic plantation styles, tier-on-tier configurations, and composite options that resist moisture, warping, and fading while providing elegant light control.',
+      features: ['Moisture Resistant', 'UV Protected', 'Energy Efficient', 'Custom Fitted'],
+      gallery: [
+        { src: '/images/services/card-shutters.webp', alt: 'White plantation shutters on a large window' },
+        { src: '/images/services/card-shutters.webp', alt: 'Tier-on-tier shutters in a living room' },
+        { src: '/images/services/card-shutters.webp', alt: 'Composite shutters fitted in a bathroom' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Installer measuring a window for custom shutters' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Professional installing plantation shutters' },
+      ],
+      steps: [
+        { number: '1', title: 'In-Home Consultation', description: 'We visit your home to discuss your vision and explore shutter styles tailored to your space.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists take exact measurements to ensure a perfect custom fit for every window.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your shutters are handcrafted using premium materials selected for durability and style.' },
+        { number: '4', title: 'Professional Installation', description: 'Our expert installers mount your shutters with precision for a flawless finish.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to transform your windows with premium shutters? Schedule a free in-home consultation and let our experts help you choose the perfect style for your home.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-shutters.webp', alt: 'Living room with elegant plantation shutters' },
+    },
+  },
+  serviceDrapery: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > Drapery & Curtains',
+      heading: 'Custom Drapery & Curtains Installation Services',
+      subheading: 'Elegant custom drapery and curtains designed to complement your South Florida home. Professional measuring and installation included.',
+      backgroundImage: {
+        src: '/images/services/card-drapery.webp',
+        alt: 'Living room with floor-length drapery curtains',
+      },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Elegant ',
+      headingHighlight: 'Custom Drapery & Curtain',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'From sheer panels to blackout drapes, our custom drapery is designed for ',
+      paragraphHighlight: 'South Florida living',
+      paragraphSuffix:
+        '. We offer a wide selection of fabrics, linings, and hardware options to create the perfect look for any room, combining beauty with practical light and privacy control.',
+      features: ['Custom Fabrics', 'Blackout Options', 'Motorized Tracks', 'UV Protection'],
+      gallery: [
+        { src: '/images/services/card-drapery.webp', alt: 'Floor-length sheer curtains in a sunlit room' },
+        { src: '/images/services/card-drapery.webp', alt: 'Elegant blackout drapery in a bedroom' },
+        { src: '/images/services/card-drapery.webp', alt: 'Custom curtains with decorative hardware' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Designer showing fabric samples to a homeowner' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Installer hanging custom drapery on a rod' },
+      ],
+      steps: [
+        { number: '1', title: 'Design Consultation', description: 'We bring fabric samples to your home so you can see how materials look with your decor and lighting.' },
+        { number: '2', title: 'Precise Measurement', description: 'Our specialists measure your windows to ensure perfect drape length and fullness.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your drapery is sewn to order using your chosen fabric, lining, and finishing details.' },
+        { number: '4', title: 'Professional Installation', description: 'We install your drapery hardware and curtains, ensuring smooth operation and a polished look.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to add elegance to your home with custom drapery? Schedule a free in-home consultation and explore our fabric collections.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-drapery.webp', alt: 'Room with elegant custom curtains' },
+    },
+  },
+  serviceMotorized: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > Motorized & Smart Home',
+      heading: 'Motorized Window Coverings & Smart Home Integration',
+      subheading: 'Automate your blinds, shades, and curtains with smart home technology. Voice control, scheduling, and seamless integration.',
+      backgroundImage: {
+        src: '/images/services/card-motorized.webp',
+        alt: 'Smart motorized blinds with home automation controls',
+      },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Smart ',
+      headingHighlight: 'Motorized & Automated Window',
+      headingSuffix: ' Solutions',
+      paragraphPrefix: 'Our motorized systems bring convenience and energy savings to ',
+      paragraphHighlight: 'modern South Florida homes',
+      paragraphSuffix:
+        '. Integrate with Google Home, Amazon Alexa, and Lutron for voice and app control. Schedule your window coverings to adjust automatically with the sun for optimal comfort and energy efficiency.',
+      features: ['Voice Control', 'App Scheduling', 'Energy Efficient', 'Battery & Hardwired'],
+      gallery: [
+        { src: '/images/services/card-motorized.webp', alt: 'Motorized roller shades in a living room' },
+        { src: '/images/services/card-motorized.webp', alt: 'Smart home tablet controlling window coverings' },
+        { src: '/images/services/card-motorized.webp', alt: 'Motorized curtain track system' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Technician demonstrating motorized shade controls' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Smart home integration setup for window coverings' },
+      ],
+      steps: [
+        { number: '1', title: 'Smart Home Assessment', description: 'We evaluate your home automation setup and recommend the best motorized solutions for your needs.' },
+        { number: '2', title: 'System Design', description: 'We design a motorized window covering system with the right motors, controls, and integration points.' },
+        { number: '3', title: 'Custom Fabrication', description: 'Your motorized window coverings are built with precision motors and premium materials.' },
+        { number: '4', title: 'Installation & Setup', description: 'We install, wire, and program your system, including smart home integration and scheduling.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Arrange Your Consultation Appointment',
+      body: 'Ready to automate your window coverings? Schedule a free consultation to explore motorized and smart home solutions for your space.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-motorized.webp', alt: 'Modern living room with motorized window coverings' },
+    },
+  },
+  serviceRepairs: {
+    hero: {
+      breadcrumb: 'HOME > SERVICES > Repairs & Maintenance',
+      heading: 'Window Covering Repairs & Maintenance Services',
+      subheading: 'Expert repair and maintenance for all types of blinds, shades, shutters, and motorized systems across South Florida.',
+      backgroundImage: {
+        src: '/images/services/card-repairs.webp',
+        alt: 'Technician performing window covering repair and maintenance',
+      },
+    },
+    about: {
+      eyebrow: 'ABOUT',
+      headingPrefix: 'Professional ',
+      headingHighlight: 'Repair & Maintenance',
+      headingSuffix: ' Services',
+      paragraphPrefix: 'We service and repair window coverings from all major manufacturers across ',
+      paragraphHighlight: 'Broward County and South Florida',
+      paragraphSuffix:
+        '. From broken cords and stuck mechanisms to motorized system troubleshooting, our experienced technicians diagnose and fix issues quickly to restore your window coverings to perfect working order.',
+      features: ['All Brands Serviced', 'Motorized Repairs', 'Cord Replacement', 'Same-Week Service'],
+      gallery: [
+        { src: '/images/services/card-repairs.webp', alt: 'Technician repairing a window blind mechanism' },
+        { src: '/images/services/card-repairs.webp', alt: 'Blind cord replacement service' },
+        { src: '/images/services/card-repairs.webp', alt: 'Motorized shade motor servicing' },
+      ],
+    },
+    howItWorksHeader: {
+      eyebrow: 'PROCESS',
+      headingPrefix: 'How It ',
+      headingHighlight: 'Works',
+      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+    },
+    timeline: {
+      images: [
+        { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Technician inspecting a window covering issue' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Repair specialist fixing a motorized shade motor' },
+      ],
+      steps: [
+        { number: '1', title: 'Diagnosis Visit', description: 'Our technician visits your home to inspect the issue and provide a clear repair estimate.' },
+        { number: '2', title: 'Parts Sourcing', description: 'We source genuine replacement parts from the original manufacturer when available.' },
+        { number: '3', title: 'Expert Repair', description: 'Our trained technicians complete the repair on-site or in our workshop for complex jobs.' },
+        { number: '4', title: 'Quality Check', description: 'We test every repaired unit thoroughly before sign-off to ensure smooth, reliable operation.' },
+      ],
+    },
+    cta: {
+      eyebrow: 'BOOK CONSULTATION',
+      heading: 'Schedule Your Repair Service',
+      body: 'Have a broken blind, stuck shade, or motorized system issue? Schedule a repair visit and our technicians will get your window coverings working like new.',
+      ctaLabel: 'Book consultation',
+      ctaHref: '#quote-form',
+      image: { src: '/images/services/card-repairs.webp', alt: 'Technician servicing window coverings' },
     },
   },
   commercialPage: {
@@ -1432,7 +2070,7 @@ export const mockContent: PageContent = {
         { text: 'Discover the ' },
         { text: 'Best', emphasis: true },
         { text: ' in Modern ' },
-        { text: 'Window Blinds & Shades', emphasis: true },
+        { text: 'Window Blinds, Shades & Drapery', emphasis: true },
       ],
       summary:
         'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
@@ -1483,6 +2121,93 @@ export const mockContent: PageContent = {
       ctaLabel: 'Send my estimate request',
     },
   },
+  freeQuotePage: {
+    hero: {
+      breadcrumb: 'HOME > FREE QUOTE',
+      heading: 'Get Your Free Quote Today',
+      subheading: 'Serving Broward County and South Florida — expanding to additional states soon.',
+    },
+    process: {
+      eyebrow: 'PROCESS',
+      headingPrefix: "Here's How ",
+      headingHighlight: 'It Works',
+      subtitle:
+        'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      steps: [
+        {
+          number: '01',
+          title: 'Submit your estimate request online — instantly',
+          description:
+            'Easily submit your estimate request online and receive a prompt, personalized quote tailored to your project needs.',
+        },
+        {
+          number: '02',
+          title: 'What happens after submission: call? email? automated response?',
+          description:
+            'Easily submit your estimate request online and receive a prompt, personalized quote tailored to your project needs.',
+        },
+        {
+          number: '03',
+          title: 'Our local installer visits your property for exact measurements',
+          description:
+            'Easily submit your estimate request online and receive a prompt, personalized quote tailored to your project needs.',
+        },
+        {
+          number: '04',
+          title: 'You receive a detailed quote',
+          description:
+            'Easily submit your estimate request online and receive a prompt, personalized quote tailored to your project needs.',
+        },
+        {
+          number: '05',
+          title: 'We arrange custom fabrication and professional installation',
+          description:
+            'Easily submit your estimate request online and receive a prompt, personalized quote tailored to your project needs.',
+        },
+      ],
+    },
+    processIntro: {
+      eyebrow: 'PROCESS INTRODUCTION',
+      headingPrefix: 'In-home measurement, installation, or ',
+      headingHighlight: 'digital process. Autoplay muted.',
+      description:
+        'Start with a digital estimate, followed by precise in-home measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.',
+      image: {
+        src: '/images/free-quote/process-intro.webp',
+        alt: 'Technician adjusting white venetian blinds by a sunlit window',
+      },
+    },
+    form: {
+      eyebrow: 'Quote form',
+      headingPrefix: 'Request Your ',
+      headingHighlight: 'Estimate Quickly',
+      subtitle: 'Fill out the form below and our team will contact you within 24 hours',
+      nameLabel: 'Name',
+      namePlaceholder: 'John Doe',
+      emailLabel: 'Email',
+      emailPlaceholder: 'john@example.com',
+      phoneLabel: 'Phone',
+      phonePlaceholder: '+ (954) 555-1234',
+      serviceLabel: 'Service Interest',
+      servicePlaceholder: 'Select a category',
+      serviceOptions: [
+        'Blinds',
+        'Shades',
+        'Curtains & Drapery',
+        'Shutters',
+        'Motorized Systems & Smart Home',
+        'Repairs & Maintenance',
+      ],
+      projectLabel: 'Tell us about your Project',
+      projectPlaceholder: 'Tell us about your project....',
+      submitLabel: 'Send my Estimate Request',
+      assistanceHeading: 'Need immediate assistance?',
+      callLabel: 'Call',
+      callNumber: '+ (954) 555-1234',
+      textLabel: 'Text us',
+      trustLine: 'Licensed & Insured · No obligation · We come to you',
+    },
+  },
   legalPage: {
     heading: 'Privacy Policy / Terms & Conditions',
     paragraphs: [
@@ -1494,3 +2219,521 @@ export const mockContent: PageContent = {
     ],
   },
 };
+
+const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
+  'maintenance-tips': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > How to Maintain Your Window Treatments Year-Round',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Well-maintained window treatments in a bright living room',
+    },
+    categoryTag: 'Maintenance Tips',
+    date: 'JUNE 20, 2025',
+    readTime: '06 MIN READ',
+    title: 'How to Maintain Your Window Treatments Year-Round',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Establish a Regular Dusting Routine',
+        paragraphs: [
+          'Dust is one of the most common enemies of window treatments. In Florida\'s humid climate, dust can combine with moisture and create stubborn residue that becomes increasingly difficult to remove over time.',
+          'For blinds and shutters, use a microfiber cloth or a specialized blind duster to wipe each slat individually. Work from top to bottom to prevent redistributing dust onto already-cleaned surfaces. For fabric shades and drapes, a vacuum with a soft brush attachment works best.',
+          'Aim to dust your window treatments at least once every two weeks. High-traffic rooms or homes near the coast may benefit from weekly attention due to increased dust and salt air exposure.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Seasonal Deep Cleaning',
+        paragraphs: [
+          'Beyond regular dusting, schedule a thorough deep cleaning at least twice a year — ideally at the start of Florida\'s dry season and again before the humid summer months arrive.',
+          'For aluminum and faux wood blinds, you can remove them and soak in a bathtub with mild soap. Real wood blinds should never be soaked — instead, use a damp cloth with wood-safe cleaner. Fabric treatments may benefit from professional cleaning, especially if they\'ve absorbed cooking odors or pet dander.',
+          'Deep cleaning not only improves appearance but also extends the functional lifespan of your window treatments by preventing material degradation from built-up grime.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Inspect Hardware and Mechanisms',
+        paragraphs: [
+          'Window treatment hardware — brackets, cords, chains, and motorized components — needs periodic inspection to ensure smooth operation. A stuck cord or misaligned bracket can cause uneven wear on your blinds or shades.',
+          'Check that all mounting brackets are secure and that the treatments hang level. For corded systems, inspect for fraying or tangling. Motorized systems should have their batteries replaced or recharged according to manufacturer guidelines.',
+          'Addressing small mechanical issues early prevents costly replacements down the line and keeps your window treatments operating safely.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Person cleaning window blinds with microfiber cloth' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Well-maintained plantation shutters in a sunlit room' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Close-up of window treatment hardware inspection' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. Protect Against Humidity and Mold',
+        paragraphs: [
+          'Florida\'s humidity presents a unique challenge for window treatment maintenance. Excess moisture can lead to mold growth, fabric discoloration, and warping of wood components.',
+          'Ensure adequate ventilation in rooms with fabric window treatments. In bathrooms and kitchens, consider moisture-resistant materials like faux wood or aluminum. If you notice any signs of mold, address it immediately with a mild bleach solution for hard surfaces or professional cleaning for fabrics.',
+          'Running a dehumidifier during the wettest months can significantly reduce moisture-related damage across all your window treatments.',
+        ],
+      },
+    ],
+  },
+  'cleaning-guidelines': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > The Ultimate Guide to Cleaning Blinds & Shades',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Sparkling clean blinds in a modern Florida home',
+    },
+    categoryTag: 'Cleaning Guidelines',
+    date: 'MAY 28, 2025',
+    readTime: '07 MIN READ',
+    title: 'The Ultimate Guide to Cleaning Blinds & Shades',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Understanding Different Material Needs',
+        paragraphs: [
+          'Not all window treatments should be cleaned the same way. The material of your blinds or shades determines the best cleaning approach, and using the wrong method can cause permanent damage.',
+          'Wood blinds are sensitive to moisture and should only be cleaned with a dry or slightly damp cloth. Faux wood and vinyl can handle more moisture, making them ideal for kitchens and bathrooms. Aluminum blinds are the most durable and can even be soaked in water for deep cleaning.',
+          'Fabric shades require the gentlest approach — spot cleaning with appropriate fabric cleaners is usually safest. Always test any cleaning solution on a small, inconspicuous area first.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Daily and Weekly Maintenance',
+        paragraphs: [
+          'The key to keeping blinds and shades looking their best is consistent, light maintenance rather than infrequent heavy cleaning sessions.',
+          'Daily, close your blinds fully and give them a quick once-over with a feather duster or dry microfiber cloth. Weekly, use a vacuum with a brush attachment on fabric shades, running it gently along each fold or pleat.',
+          'For horizontal blinds, close them in one direction, dust, then reverse and dust again to reach both sides of each slat. This simple routine prevents dust buildup that leads to more intensive cleaning needs.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Deep Cleaning Techniques',
+        paragraphs: [
+          'When regular dusting is no longer enough, it\'s time for a deeper clean. Remove blinds from their brackets and lay them flat on a clean surface or hang them on a clothesline outdoors.',
+          'For non-fabric treatments, fill a bathtub or large basin with warm water and a few drops of mild dish soap. Submerge the blinds and let them soak for 15-20 minutes. Use a soft sponge to gently scrub each slat, paying extra attention to the bottom slats that collect the most grime.',
+          'Rinse thoroughly with clean water and allow to dry completely before rehanging. Never rehang damp blinds, as trapped moisture can promote mold growth — especially important in Florida\'s humid environment.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Cleaning supplies arranged for blind maintenance' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Freshly cleaned roller shades in a bedroom' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Professional deep cleaning of fabric drapes' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. When to Call a Professional',
+        paragraphs: [
+          'Some cleaning jobs are best left to professionals. Delicate fabrics, motorized systems with integrated components, and heavily soiled treatments may require specialized equipment and expertise.',
+          'Professional cleaning services use ultrasonic cleaning technology that can remove deep-set dirt without the agitation that damages delicate materials. They can also treat stains, apply UV protectants, and identify early signs of wear.',
+          'As a rule of thumb, if your window treatments haven\'t been cleaned in over a year, or if you notice persistent odors or visible staining, a professional cleaning is a worthwhile investment.',
+        ],
+      },
+    ],
+  },
+  'choosing-blinds': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > How to Choose the Perfect Blinds for Every Room',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Variety of blind samples displayed in a showroom',
+    },
+    categoryTag: 'Choosing Blinds',
+    date: 'APRIL 10, 2025',
+    readTime: '08 MIN READ',
+    title: 'How to Choose the Perfect Blinds for Every Room',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Assess Your Room\'s Primary Function',
+        paragraphs: [
+          'The purpose of each room should drive your blind selection. A bedroom prioritizes blackout capability and privacy, while a living room may favor filtered natural light and aesthetic appeal.',
+          'Kitchens and bathrooms need moisture-resistant materials that can handle steam and splashes. Home offices benefit from blinds that reduce glare on screens while maintaining comfortable ambient light levels.',
+          'Consider how you use the room throughout the day. A south-facing family room might need adjustable blinds that can handle intense afternoon sun, while a north-facing study may need treatments that maximize the softer light available.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Material Matters',
+        paragraphs: [
+          'Your choice of material affects durability, maintenance, appearance, and cost. Real wood blinds offer warmth and natural beauty but are susceptible to humidity damage — a critical consideration in Florida.',
+          'Faux wood provides a similar aesthetic with significantly better moisture resistance, making it the most popular choice for Florida homes. Aluminum blinds are lightweight, affordable, and ideal for contemporary spaces or high-humidity areas.',
+          'Fabric blinds and cellular shades offer excellent insulation and a soft, elegant look. They\'re particularly effective at reducing energy costs by creating an insulating air pocket between the window and the room.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Sizing and Mounting Options',
+        paragraphs: [
+          'Proper sizing is crucial for both appearance and function. Inside-mount blinds fit within the window frame for a clean, built-in look, while outside-mount blinds cover the entire frame and can make windows appear larger.',
+          'Measure each window individually — even windows that appear identical can vary by fractions of an inch, which matters for inside mounts. Width should be measured at the top, middle, and bottom; use the narrowest measurement.',
+          'For depth, check that your window frame is deep enough for an inside mount. Most blinds need at least 2-3 inches of depth. If your frames are too shallow, outside mount is the better option.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Real wood blinds in a traditional living room' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Faux wood blinds installed in a modern bathroom' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Cellular shades providing insulation in a bedroom' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. Light Control and Privacy Features',
+        paragraphs: [
+          'Different blind types offer varying degrees of light control. Venetian blinds allow precise angle adjustment for filtering light throughout the day. Roller shades come in light-filtering and blackout varieties.',
+          'For maximum versatility, consider top-down/bottom-up shades that let you adjust coverage from either direction — allowing natural light from above while maintaining privacy at eye level.',
+          'Layering treatments (such as sheer shades behind drapes) gives you the most flexibility, letting you shift between full light, filtered light, and complete privacy without compromising on style.',
+        ],
+      },
+    ],
+  },
+  'fabric-care': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > Caring for Fabric Window Treatments in Humid Climates',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Elegant fabric drapes in a coastal Florida home',
+    },
+    categoryTag: 'Fabric Care Guide',
+    date: 'MARCH 15, 2025',
+    readTime: '06 MIN READ',
+    title: 'Caring for Fabric Window Treatments in Humid Climates',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Choose Humidity-Resistant Fabrics',
+        paragraphs: [
+          'Prevention starts with selection. In Florida\'s subtropical climate, not all fabrics perform equally. Synthetic materials like polyester and acrylic resist moisture absorption far better than natural fibers like cotton or linen.',
+          'If you prefer natural fabrics for their look and feel, consider blends that combine aesthetic appeal with practical durability. A cotton-polyester blend, for example, offers the softness of cotton with improved moisture resistance.',
+          'For rooms with the highest humidity exposure — bathrooms, kitchens, and covered patios — look for fabrics specifically rated for high-humidity environments or consider alternatives like faux wood or vinyl.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Managing Moisture and Preventing Mold',
+        paragraphs: [
+          'Mold and mildew are the primary threats to fabric window treatments in humid climates. These organisms thrive in warm, moist environments — exactly the conditions found in many Florida rooms.',
+          'Improve air circulation around your window treatments by leaving a small gap between the fabric and the wall. Avoid bunching or tying back drapes in ways that trap moisture against the fabric.',
+          'Use a dehumidifier in rooms where you notice condensation on windows. If your windows sweat regularly, the moisture will inevitably transfer to adjacent fabric treatments, creating ideal conditions for mold growth.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Cleaning and Stain Removal',
+        paragraphs: [
+          'Regular vacuuming with a soft brush attachment removes dust before it can combine with humidity to create stubborn stains. Focus on folds, pleats, and the bottom hems where dust accumulates most.',
+          'For spot cleaning, always blot — never rub — to avoid spreading the stain or damaging the fabric weave. Use a cleaning solution appropriate for the specific fabric type and test on a hidden area first.',
+          'Schedule professional cleaning at least once a year for drapes and curtains. Professional services can treat the fabric with anti-microbial solutions that help prevent mold growth between cleanings.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Close-up of humidity-resistant fabric shades' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Proper air circulation around drapes demonstration' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Professional fabric treatment cleaning process' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. UV Protection for Fabric Longevity',
+        paragraphs: [
+          'Florida\'s intense sunlight doesn\'t just fade fabrics — it weakens the fibers themselves over time. UV-degraded fabric becomes brittle and can tear or fray even with gentle handling.',
+          'Consider lining your fabric treatments with UV-blocking liner material. This protects both the treatment itself and the furnishings behind it. Many manufacturers offer UV-protective coatings that can be applied during or after installation.',
+          'Rotate or reposition fabric treatments periodically to ensure even UV exposure across the full width. This prevents the uneven fading patterns that are telltale signs of sun damage.',
+        ],
+      },
+    ],
+  },
+  'wooden-blinds': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > Everything You Need to Know About Wooden Blinds',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Beautiful wooden blinds in a contemporary living space',
+    },
+    categoryTag: 'Wooden Blinds Tutorial',
+    date: 'FEBRUARY 22, 2025',
+    readTime: '07 MIN READ',
+    title: 'Everything You Need to Know About Wooden Blinds',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Real Wood vs. Faux Wood',
+        paragraphs: [
+          'The first decision when considering wooden blinds is whether to go with genuine wood or faux wood alternatives. Both offer the classic warmth and beauty of wood grain, but they differ significantly in performance and maintenance.',
+          'Real wood blinds are typically made from basswood, oak, or cherry. They\'re lighter, available in more stain options, and have the authentic look and feel that many homeowners prefer. However, they\'re more susceptible to warping and discoloration in humid environments.',
+          'Faux wood blinds are made from PVC, composite materials, or vinyl. They\'re heavier but more durable, completely moisture-resistant, and typically cost 20-30% less. For Florida homes, faux wood is often the more practical choice without sacrificing visual appeal.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Slat Sizes and Their Impact',
+        paragraphs: [
+          'Wooden blinds come in several slat widths, each creating a different visual effect. The most common sizes are 1 inch, 2 inches, and 2.5 inches.',
+          'Narrower 1-inch slats create a more refined, traditional look and work well on smaller windows. They provide more precise light control due to the greater number of slats per window.',
+          'Wider 2-inch and 2.5-inch slats offer a bolder, more contemporary appearance and allow a clearer view when open. They also collect less dust per unit area and are easier to clean. For large windows, wider slats maintain better proportions.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Finishes and Customization',
+        paragraphs: [
+          'Wood blinds offer extensive customization options. Stains range from light natural tones to deep espresso, and painted finishes in white, ivory, or custom colors complement any interior design scheme.',
+          'Decorative tapes — fabric strips that cover the ladder cords — add a design element and come in dozens of colors and patterns. They also hide the small holes where the lift cords pass through each slat.',
+          'Valances, cornices, and holdbacks provide finishing touches. A contoured or crown valance gives a polished, furniture-like appearance that elevates the entire window treatment.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Side-by-side comparison of real wood and faux wood blinds' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Different slat widths displayed on adjacent windows' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Decorative tape options on wooden blinds' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. Installation and Care Tips',
+        paragraphs: [
+          'Proper installation is critical for wooden blinds. Ensure your window frame has sufficient depth for inside mounting — most wood blinds require at least 2.75 inches. Verify that the frame is square and level before drilling.',
+          'For ongoing care, dust regularly with a soft cloth or blind-specific duster. Avoid water on real wood — use a wood-safe cleaner applied to the cloth, not directly to the blinds. Faux wood can handle a damp cloth for heavier cleaning.',
+          'If real wood blinds begin to show signs of humidity damage (warping or discoloration), consider moving them to a drier room and replacing them with faux wood in the humid location. Early intervention prevents further damage.',
+        ],
+      },
+    ],
+  },
+  'treatment-styles': {
+    breadcrumb: 'HOME > KNOWLEDGE BASE > Trending Window Treatment Styles for Modern Homes',
+    heroImage: {
+      src: '/images/resources/knowledge-hero.webp',
+      alt: 'Contemporary styled room with modern window treatments',
+    },
+    categoryTag: 'Window Treatment Styles',
+    date: 'JANUARY 18, 2025',
+    readTime: '05 MIN READ',
+    title: 'Trending Window Treatment Styles for Modern Homes',
+    blocks: [
+      {
+        type: 'section',
+        heading: '1. Minimalist Roller Shades',
+        paragraphs: [
+          'Clean lines and simplicity define the current trend toward minimalist roller shades. These treatments offer a sleek, unobtrusive look that complements modern and contemporary interiors without competing for attention.',
+          'Solar roller shades are particularly popular in Florida, providing UV protection while maintaining outward visibility. Available in a range of openness factors (1% to 14%), they let you fine-tune the balance between sun protection and view preservation.',
+          'Motorized options with smart home integration represent the cutting edge of this category. Voice-controlled or app-scheduled shades that adjust automatically based on time of day or sun position are increasingly standard in new Florida homes.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '2. Natural and Woven Textures',
+        paragraphs: [
+          'Organic materials are experiencing a major resurgence in window treatment design. Woven wood shades, bamboo blinds, and jute roller shades bring natural texture and warmth to contemporary spaces.',
+          'These materials pair beautifully with Florida\'s coastal and tropical design aesthetics. The natural imperfections in woven materials create visual interest that mass-produced alternatives can\'t replicate.',
+          'For practicality, look for woven options with UV-protective liner backing. This preserves the natural look from the room side while adding the sun protection and privacy that raw natural materials alone can\'t provide.',
+        ],
+      },
+      {
+        type: 'section',
+        heading: '3. Layered Treatment Combinations',
+        paragraphs: [
+          'The trend toward layering multiple window treatments offers both design flexibility and functional versatility. A common combination pairs sheer curtain panels with cellular shades behind them.',
+          'Layering allows you to shift between different levels of light, privacy, and insulation throughout the day without changing any single treatment. Sheers soften harsh sunlight; the shade behind provides full blackout when needed.',
+          'Color coordination across layers creates depth and sophistication. A monochromatic approach (varying shades of the same color) reads as elegant, while contrasting layers make a bolder design statement.',
+        ],
+      },
+      {
+        type: 'imageGrid',
+        images: [
+          { src: '/images/resources/knowledge-grid-1.webp', alt: 'Minimalist motorized roller shade in a modern office' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Woven bamboo shades in a coastal living room' },
+          { src: '/images/resources/knowledge-grid-3.webp', alt: 'Layered sheer curtains with cellular shades behind' },
+        ],
+      },
+      {
+        type: 'section',
+        heading: '4. Bold Color and Pattern Revival',
+        paragraphs: [
+          'After years of neutral dominance, bold colors and patterns are returning to window treatments. Deep jewel tones — emerald, sapphire, and burgundy — add drama and sophistication to rooms that previously played it safe.',
+          'Geometric patterns and botanical prints on roller shades and roman shades bring personality without requiring a full room redesign. These statement treatments work best when the rest of the room maintains a neutral palette.',
+          'For those not ready to commit fully, colored trim, banding, and borders on otherwise neutral treatments offer a measured way to incorporate the trend while keeping the flexibility to update the look seasonally.',
+        ],
+      },
+    ],
+  },
+};
+
+const blogArticles: Record<string, BlogArticlePageContent> = {
+  'uv-damage-protection': mockContent.blogArticlePage,
+  'blinds-high-humidity': {
+    breadcrumb: 'HOME > BLOG > Choosing the Right Blinds for High-Humidity Rooms',
+    heroImage: {
+      src: 'https://www.figma.com/api/mcp/asset/3d891a94-3602-41dc-8a3e-bd28b9c2ac38.png',
+      alt: 'Elegant kitchen with patterned blinds on windows',
+    },
+    heroBadge: 'Latest',
+    date: 'JULY 2026',
+    author: {
+      name: 'Professional Name',
+      avatar: {
+        src: 'https://www.figma.com/api/mcp/asset/cec6e836-c931-4680-b22e-6cecd8f7b27e.png',
+        alt: 'Author portrait',
+      },
+    },
+    readTime: '06 MIN READ',
+    title: 'Choosing the Right Blinds for High-Humidity Rooms',
+    blocks: [
+      {
+        type: 'intro',
+        paragraphs: [
+          'Bathrooms, kitchens, laundry rooms, and covered patios all share one common challenge: elevated moisture levels. Standard window treatments that perform beautifully in a living room can warp, discolor, or develop mold within months when exposed to persistent humidity.',
+          'In Florida, where outdoor humidity regularly exceeds 70%, even interior rooms can feel the effects — especially those with poor ventilation or proximity to water sources.',
+          'Choosing the right blinds for these spaces means prioritizing materials and designs that shrug off moisture while still delivering the style and light control you expect from quality window treatments.',
+          'Here\'s what you need to know to make the right choice.',
+        ],
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/3d891a94-3602-41dc-8a3e-bd28b9c2ac38.png',
+          alt: 'Modern bathroom with moisture-resistant blinds',
+        },
+      },
+      {
+        type: 'heading',
+        text: '1. Why Humidity Destroys Standard Blinds',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Real wood blinds are the most vulnerable to humidity damage. Wood absorbs moisture from the air, causing slats to swell, warp, and eventually crack. The finish can bubble or peel, and trapped moisture creates ideal conditions for mold growth.',
+          'Fabric shades face similar risks. Natural fibers absorb moisture and can develop musty odors, mildew spots, and structural weakness. Even with regular cleaning, fabric treatments in high-humidity rooms tend to degrade faster than their expected lifespan.',
+          'Even metal components aren\'t immune — steel hardware can rust, and the cords in corded systems can weaken and fray when exposed to persistent moisture.',
+        ],
+      },
+      {
+        type: 'heading',
+        text: '2. Best Materials for Wet Environments',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Faux wood blinds top the list for high-humidity rooms. Made from PVC or composite materials, they\'re completely impervious to moisture. Modern faux wood options are nearly indistinguishable from real wood, offering the same warmth and elegance without the vulnerability.',
+          'Aluminum blinds are another excellent choice — lightweight, rust-resistant, and available in a wide range of finishes. They\'re particularly well-suited for kitchens where grease and steam are constant companions.',
+          'For a softer look, consider vinyl roller shades or polyester cellular shades. Both resist moisture absorption and can be wiped clean easily. Cellular shades also provide insulation, helping to regulate the temperature swings common in humid rooms.',
+        ],
+      },
+      {
+        type: 'pullQuote',
+        text: 'The best window treatment for a humid room is one that looks great on day one and still looks great after a year of daily showers, cooking steam, or Florida rain blowing through an open window.',
+      },
+      {
+        type: 'heading',
+        text: '3. Ventilation and Installation Tips',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Even with moisture-resistant materials, proper ventilation extends the life of your window treatments. Ensure bathroom exhaust fans are running during and after showers. In kitchens, use range hoods to redirect steam away from nearby windows.',
+          'Mount blinds with enough clearance from the window glass to allow air circulation behind them. Condensation on window glass is common in air-conditioned Florida homes, and trapped moisture between glass and blinds accelerates any potential issues.',
+          'Consider outside-mount installations in humid rooms. This allows more airflow around the treatment and makes cleaning easier — simply lift the blinds away from the window for a thorough wipe-down.',
+        ],
+      },
+    ],
+  },
+  'motorized-shades-101': {
+    breadcrumb: 'HOME > BLOG > Smart Home Integration: Motorized Shades 101',
+    heroImage: {
+      src: 'https://www.figma.com/api/mcp/asset/ee8e1302-c513-4fff-a95e-6a569cb2228b.png',
+      alt: 'Person using smartphone to control motorized shades',
+    },
+    heroBadge: 'Latest',
+    date: 'JULY 2026',
+    author: {
+      name: 'Professional Name',
+      avatar: {
+        src: 'https://www.figma.com/api/mcp/asset/cec6e836-c931-4680-b22e-6cecd8f7b27e.png',
+        alt: 'Author portrait',
+      },
+    },
+    readTime: '07 MIN READ',
+    title: 'Smart Home Integration: Motorized Shades 101',
+    blocks: [
+      {
+        type: 'intro',
+        paragraphs: [
+          'Motorized window shades have evolved from a luxury feature to an increasingly standard component of modern Florida homes. Today\'s systems integrate seamlessly with popular smart home platforms, offering convenience, energy savings, and enhanced security.',
+          'Whether you\'re building a new home, renovating, or simply upgrading your existing window treatments, understanding the options available helps you make an informed investment.',
+          'This guide covers everything from basic motorization concepts to advanced smart home integration, helping you decide what\'s right for your lifestyle and budget.',
+          'Let\'s start with the fundamentals.',
+        ],
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/ee8e1302-c513-4fff-a95e-6a569cb2228b.png',
+          alt: 'Smart home control panel for motorized shades',
+        },
+      },
+      {
+        type: 'heading',
+        text: '1. How Motorized Shades Work',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'At their core, motorized shades use a small electric motor housed within the roller tube or headrail. This motor drives the shade up or down via a control signal — either from a remote, a wall switch, a smartphone app, or an automated schedule.',
+          'Power sources vary by system. Hardwired installations connect directly to your home\'s electrical system and never need battery changes. Battery-powered motors offer easier installation with no wiring required, though batteries need replacement or recharging every 6-12 months.',
+          'Solar-powered options use a small panel attached to the window frame to keep an internal battery charged. These work particularly well in Florida, where abundant sunlight keeps the system running indefinitely with zero maintenance.',
+        ],
+      },
+      {
+        type: 'heading',
+        text: '2. Smart Home Platform Integration',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Modern motorized shades connect to the major smart home ecosystems: Apple HomeKit, Google Home, Amazon Alexa, and Samsung SmartThings. This means you can control your shades with voice commands, include them in automated routines, and monitor their position remotely.',
+          'Integration unlocks powerful automation possibilities. Set your shades to lower automatically when the indoor temperature exceeds a threshold, raise when your morning alarm goes off, or close at sunset for privacy — all without touching a button.',
+          'For the most seamless experience, choose a shade system that supports your existing smart home platform natively rather than requiring a separate bridge or hub. This reduces latency and improves reliability.',
+        ],
+      },
+      {
+        type: 'pullQuote',
+        text: 'The real value of motorized shades isn\'t the convenience of a remote control — it\'s the automation that makes your home more comfortable, efficient, and secure without you having to think about it.',
+      },
+      {
+        type: 'image',
+        image: {
+          src: 'https://www.figma.com/api/mcp/asset/ee8e1302-c513-4fff-a95e-6a569cb2228b.png',
+          alt: 'Motorized shade system integrated with smart home display',
+        },
+      },
+      {
+        type: 'heading',
+        text: '3. Energy Savings and UV Protection',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Automated shades can meaningfully reduce your energy costs. By programming shades to close during peak sun hours, you reduce solar heat gain and ease the burden on your air conditioning system — a significant consideration in Florida where cooling costs dominate energy bills.',
+          'Studies suggest that properly automated window treatments can reduce cooling costs by 15-25%. Sun-tracking schedules that adjust shade positions throughout the day based on the sun\'s angle maximize this benefit.',
+          'UV protection is an added bonus. Automated schedules ensure your shades are always closed when the sun is strongest, protecting furniture, flooring, and artwork from fading even when you\'re not home to manually adjust them.',
+        ],
+      },
+    ],
+  },
+};
+
+export function getKnowledgeArticle(slug: string): KnowledgeArticlePageContent | undefined {
+  return knowledgeArticles[slug];
+}
+
+export function getKnowledgeArticleSlugs(): string[] {
+  return Object.keys(knowledgeArticles);
+}
+
+export function getBlogArticle(slug: string): BlogArticlePageContent | undefined {
+  return blogArticles[slug];
+}
+
+export function getBlogArticleSlugs(): string[] {
+  return Object.keys(blogArticles);
+}

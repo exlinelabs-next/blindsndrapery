@@ -1,14 +1,9 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import type { ProcessIntroContent } from "@/types/content";
 
-// No "use client" here on purpose: this section has no state or event
-// handlers, so per the project's server-first rule it stays a plain Server
-// Component — renders on the server, ships no extra JS to the browser.
-// Note: "Frame 19" in Figma isn't empty — it's a full-bleed installation
-// photo in a rounded card with a centered play-button glyph overlaid on
-// top (a video-thumbnail treatment), not a blank placeholder.
-export function ProcessIntro() {
-  const { eyebrow, headingPrefix, headingHighlight, description, video } = useContent("processIntro");
+export function ProcessIntro({ content }: { content?: ProcessIntroContent }) {
+  const { eyebrow, headingPrefix, headingHighlight, description, video } = content ?? useContent("processIntro");
 
   return (
     // Font sizes are constant across breakpoints (confirmed via
@@ -31,11 +26,15 @@ export function ProcessIntro() {
         </div>
       </div>
       <div className="relative h-[435px] w-full overflow-hidden rounded-2xl md:h-[596px]">
-        {/* TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/process/ before then. */}
-        <Image src={video.poster.src} alt={video.poster.alt} fill sizes="(min-width: 1024px) 1280px, 100vw" className="object-cover" />
+        {video.poster.src.match(/\.(mp4|webm|mov)$/i) ? (
+          <video src={video.poster.src} muted playsInline className="absolute inset-0 h-full w-full object-cover" />
+        ) : video.poster.src ? (
+          <Image src={video.poster.src} alt={video.poster.alt} fill sizes="(min-width: 1024px) 1280px, 100vw" className="object-cover" />
+        ) : null}
         <div className="absolute inset-0 flex items-center justify-center">
-          {/* TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/process/ before then. */}
-          <Image src={video.playIcon.src} alt="" aria-hidden="true" width={64} height={64} className="size-[64px]" />
+          {video.playIcon.src && (
+            <Image src={video.playIcon.src} alt="" aria-hidden="true" width={64} height={64} className="size-[64px]" />
+          )}
         </div>
       </div>
     </section>

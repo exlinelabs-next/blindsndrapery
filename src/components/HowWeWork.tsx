@@ -1,6 +1,7 @@
 import { ArrowDown, ArrowRight, Ruler, type LucideIcon } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import type { HowItWorksContent } from "@/types/content";
 
 // Maps the content-driven `icon` name (a lucide-react export name) to the
 // actual component, same pattern as TrustBadges. Note: the Figma source
@@ -16,9 +17,9 @@ const icons: Record<string, LucideIcon> = {
 // No "use client" here on purpose: this section has no state or event
 // handlers, so per the project's server-first rule it stays a plain Server
 // Component — renders on the server, ships no extra JS to the browser.
-export function HowWeWork() {
+export function HowWeWork({ content }: { content?: HowItWorksContent }) {
   const { eyebrow, headingPrefix, headingHighlight, description, steps, ctaLabel, ctaHref } =
-    useContent("howItWorks");
+    content ?? useContent("howItWorks");
 
   return (
     // Padding here jumps straight to the desktop 80px inset at `md` (not the
@@ -50,12 +51,18 @@ export function HowWeWork() {
         <div className="relative flex w-full max-w-[1056px] flex-col items-stretch gap-2 xl:flex-row xl:items-center">
           {steps.map(({ stepLabel, icon, title, description: stepDescription }, i) => {
             const Icon = icons[icon];
+            const isUrl = icon.startsWith("http");
             return (
               <div key={stepLabel} className="relative xl:flex-1">
                 <div className="flex w-full flex-col items-start gap-4 overflow-clip rounded-lg bg-white/10 p-6 md:h-[196px] md:flex-row md:items-start md:justify-between md:gap-0 xl:h-[316px] xl:flex-col xl:justify-between">
                   <p className="text-[16px] leading-[23px] text-[#e6f8f6]">{stepLabel}</p>
                   <div className="flex w-full flex-col items-start gap-2 md:w-[399px] xl:w-full">
-                    {Icon && <Icon className="size-8 text-white" strokeWidth={1.5} />}
+                    {isUrl ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={icon} alt="" className="size-8" />
+                    ) : (
+                      Icon && <Icon className="size-8 text-white" strokeWidth={1.5} />
+                    )}
                     <div className="flex w-full flex-col items-start gap-2 text-white">
                       <p className="w-full font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px]">
                         {title}
