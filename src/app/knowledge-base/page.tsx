@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { KnowledgeHero } from "@/components/KnowledgeHero";
 import { KnowledgeGrid } from "@/components/KnowledgeGrid";
+import { fetchKnowledgeBasePage } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Knowledge Base | Blinds & Drapery",
@@ -8,11 +9,13 @@ export const metadata: Metadata = {
     "Expert answers to common window treatment questions. Browse maintenance tips, cleaning guides, and style advice for blinds and shades.",
 };
 
-export default function KnowledgeBasePage() {
+export default async function KnowledgeBasePage() {
+  const data = await fetchKnowledgeBasePage().catch(() => undefined);
+
   return (
     <main>
-      <KnowledgeHero />
-      <KnowledgeGrid />
+      <KnowledgeHero heading={data?.heading} subtitle={data?.subtitle} />
+      <KnowledgeGrid articles={data?.articles} />
     </main>
   );
 }
