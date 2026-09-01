@@ -4,10 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
 
-import type { ServiceContentKey } from "@/types/content";
+import type { ServiceContentKey, ServiceTimelineContent } from "@/types/content";
 
-export function ServiceTimeline({ contentKey = "serviceBlinds" }: { contentKey?: ServiceContentKey } = {}) {
-  const { images, steps } = useContent(contentKey).timeline;
+export function ServiceTimeline({ contentKey = "serviceBlinds", content }: { contentKey?: ServiceContentKey; content?: ServiceTimelineContent } = {}) {
+  const { images, steps } = content ?? useContent(contentKey).timeline;
   const [activeIndex, setActiveIndex] = useState(0);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -37,15 +37,20 @@ export function ServiceTimeline({ contentKey = "serviceBlinds" }: { contentKey?:
   }, [updateActive]);
 
   return (
-    <section className="flex flex-col items-center gap-10 px-4 py-14 md:px-12 md:py-16 xl:flex-row xl:items-start xl:gap-10 xl:px-20 xl:py-[80px]">
-      {/* Photo — sticky on desktop so it stays visible while cards scroll */}
-      <div className="relative h-[419px] w-full shrink-0 overflow-hidden rounded-lg md:h-[600px] xl:sticky xl:top-[100px] xl:h-[calc(100vh-200px)] xl:flex-1">
-        <Image
-          src={activeIndex < 2 ? images[0].src : images[1].src}
-          alt={activeIndex < 2 ? images[0].alt : images[1].alt}
-          fill
-          className="object-cover transition-opacity duration-500"
-        />
+    <section className="flex flex-col items-center gap-10 px-4 pt-10 pb-14 md:px-12 md:pb-16 xl:flex-row xl:items-stretch xl:gap-10 xl:px-20 xl:pb-[100px]">
+      {/* Photo — sticky on desktop so it stays visible while cards scroll.
+          Height is left to flex's default stretch (matches the timeline
+          list's natural height) rather than a viewport-relative calc, so it
+          scales with actual content instead of the window's height. */}
+      <div className="relative h-[419px] w-full shrink-0 overflow-hidden rounded-lg md:h-[600px] xl:sticky xl:top-[100px] xl:h-auto xl:flex-1">
+        {(activeIndex < 2 ? images[0].src : images[1].src) && (
+          <Image
+            src={activeIndex < 2 ? images[0].src : images[1].src}
+            alt={activeIndex < 2 ? images[0].alt : images[1].alt}
+            fill
+            className="object-cover transition-opacity duration-500"
+          />
+        )}
       </div>
 
       {/* Timeline */}
@@ -90,6 +95,11 @@ export function ServiceTimeline({ contentKey = "serviceBlinds" }: { contentKey?:
           );
         })}
       </div>
+
+      {/* Decorative connectors between step cards — not content, so
+          positioned/rendered directly rather than pulled from useContent.
+          Centered on each card-to-card boundary (25% / 50% / 75% across
+          the row), matching the fixed pixel offsets in the Figma source. */}
     </section>
   );
 }

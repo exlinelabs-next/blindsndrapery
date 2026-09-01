@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { Button } from "./ui/Button";
 import { useContent } from "@/hooks/useContent";
+import type { AboutHeroContent } from "@/types/content";
 
-export function AboutHero() {
+export function AboutHero({ content }: { content?: AboutHeroContent }) {
   const { breadcrumb, heading, subheading, ctaLabel, ctaHref, backgroundImage } =
-    useContent("aboutPage").hero;
+    content ?? useContent("aboutPage").hero;
 
   return (
     <section className="relative h-[600px] w-full overflow-hidden md:h-[650px] xl:h-[722px]">

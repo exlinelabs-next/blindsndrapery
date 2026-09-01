@@ -2,9 +2,15 @@
 
 import { useState } from "react";
 import { useContent } from "@/hooks/useContent";
+import type { FaqContent } from "@/types/content";
 
-export function FAQ() {
-  const { eyebrow, heading, categories, items } = useContent("faq");
+interface FAQProps {
+  variant?: "card" | "flat";
+  content?: FaqContent;
+}
+
+export function FAQ({ variant = "card", content: contentProp }: FAQProps) {
+  const { eyebrow, heading, categories, items } = contentProp ?? useContent("faq");
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -15,8 +21,8 @@ export function FAQ() {
   const headingRest = words.join(" ");
 
   return (
-    <section className="px-6 py-14 md:py-16 xl:px-10 xl:py-[100px]">
-      <div className="flex w-full flex-col items-center gap-10 rounded-lg bg-ice p-6 md:p-12 xl:p-20">
+    <section className={variant === "card" ? "px-6 py-14 md:py-16 xl:px-10 xl:py-[100px]" : "px-4 py-14 md:px-12 md:py-16 xl:px-10 xl:pb-[100px]"}>
+      <div className={`flex w-full flex-col items-center gap-10 ${variant === "card" ? "rounded-lg bg-ice p-6 md:p-12 xl:p-20" : "xl:mx-auto xl:max-w-[1360px] xl:p-20"}`}>
         <div className="flex w-full flex-col items-center justify-center gap-4">
           <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
             <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
@@ -51,7 +57,7 @@ export function FAQ() {
               const isOpen = openIndex === i;
 
               return (
-                <div key={question} className="w-full border-b-[0.5px] border-black/27">
+                <div key={`${i}-${question}`} className="w-full border-b-[0.5px] border-black/27">
                   <button
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? null : i)}

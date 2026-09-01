@@ -20,9 +20,9 @@ import { useContent } from "@/hooks/useContent";
 // carries a 12%-black overlay in the confirmed desktop source; kept on all
 // breakpoints as a content-level styling choice (no evidence either way for
 // tablet/mobile, since those frames come from a different page instance).
-import type { ServiceContentKey } from "@/types/content";
+import type { ServiceContentKey, ServiceInlineAboutContent } from "@/types/content";
 
-export function AboutMaterials({ dark = false, contentKey = "serviceBlinds" }: { dark?: boolean; contentKey?: ServiceContentKey } = {}) {
+export function AboutMaterials({ dark = false, contentKey = "serviceBlinds", content }: { dark?: boolean; contentKey?: ServiceContentKey; content?: ServiceInlineAboutContent } = {}) {
   const {
     eyebrow,
     headingPrefix,
@@ -33,7 +33,7 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds" }: {
     paragraphSuffix,
     features,
     gallery,
-  } = useContent(contentKey).about;
+  } = content ?? useContent(contentKey).about;
 
   return (
     <section
@@ -63,8 +63,8 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds" }: {
             </p>
           </div>
           <div className="flex w-full flex-col items-start gap-4">
-            {features.map((feature) => (
-              <div key={feature} className={`flex w-full items-center justify-center border-b pb-3 ${dark ? "border-white/28" : "border-black/28"}`}>
+            {features.map((feature, i) => (
+              <div key={i} className={`flex w-full items-center justify-center border-b pb-3 ${dark ? "border-white/28" : "border-black/28"}`}>
                 <p className={`flex-1 text-[16px] leading-[23px] ${dark ? "text-white/76" : "text-black/49"}`}>{feature}</p>
               </div>
             ))}
@@ -72,15 +72,15 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds" }: {
         </div>
       </div>
       <div className="flex w-full flex-col items-start gap-2 md:flex-row md:items-center xl:h-[501px] xl:pt-12">
-        <div className="relative h-[294px] w-full shrink-0 md:h-[452px] md:flex-1 xl:h-[453px]">
-          <Image src={gallery[0].src} alt={gallery[0].alt} fill className="object-cover" />
+        <div className="relative h-[294px] w-full shrink-0 overflow-hidden rounded-[4px] md:h-[452px] md:flex-1 xl:h-[453px]">
+          {gallery[0].src && <Image src={gallery[0].src} alt={gallery[0].alt} fill className="object-cover" />}
           <div className="absolute inset-0 bg-black/12" />
         </div>
-        <div className="relative h-[295px] w-full shrink-0 md:h-[452px] md:flex-1 xl:h-[453px]">
-          <Image src={gallery[1].src} alt={gallery[1].alt} fill className="object-cover" />
+        <div className="relative h-[295px] w-full shrink-0 overflow-hidden rounded-[4px] md:h-[452px] md:flex-1 xl:h-[453px]">
+          {gallery[1].src && <Image src={gallery[1].src} alt={gallery[1].alt} fill className="object-cover" />}
         </div>
-        <div className="relative h-[294px] w-full shrink-0 md:h-[452px] md:flex-1 xl:h-[453px]">
-          <Image src={gallery[2].src} alt={gallery[2].alt} fill className="object-cover" />
+        <div className="relative h-[294px] w-full shrink-0 overflow-hidden rounded-[4px] md:h-[452px] md:flex-1 xl:h-[453px]">
+          {gallery[2].src && <Image src={gallery[2].src} alt={gallery[2].alt} fill className="object-cover" />}
         </div>
       </div>
     </section>

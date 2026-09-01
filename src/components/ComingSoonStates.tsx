@@ -1,30 +1,9 @@
 import { MapPinHouse } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import type { ComingSoonStatesContent } from "@/types/content";
 
-// No "use client" here on purpose: no state or event handlers, so per the
-// project's server-first rule this stays a plain Server Component.
-//
-// Centered eyebrow-less heading + description above a 3-card row (Texas /
-// California / Other States), each card an icon + muted title + description
-// + a "COMING SOON" footer bar. Confirmed via get_design_context on "Desktop
-// Locations Hub" node 2251:68's "Frame 233" (desktop `2269:299`) plus this
-// page's own confirmed tablet (`2879:2424`) and mobile (`2879:2457`) frames.
-//
-// The 3-card row switches to a vertical stack below `xl` (desktop only gets
-// the row; both tablet and mobile stack full-width) — a different breakpoint
-// than ServiceAreaPanel's outer card/photo switch, which is also `xl`, so
-// they happen to agree here, but each was verified independently against
-// its own frame data rather than assumed to match.
-//
-// Card inner content padding is an explicit `px-[24px]` on tablet/mobile;
-// desktop has no explicit padding there at all — its ~35px left/right
-// margin emerges automatically from the parent's `items-center` centering a
-// fixed-width (308px) description column inside a fixed-width (378px) card.
-// Reproduced here with one flat `px-6` (24px) at every breakpoint rather
-// than reconstructing desktop's auto-centering math — visually equivalent
-// (~11px narrower content column at desktop, not perceptible) and simpler.
-export function ComingSoonStates() {
-  const { headingPrefix, headingHighlight, description, badgeLabel, cards } = useContent("locationsPage").comingSoon;
+export function ComingSoonStates({ content }: { content?: ComingSoonStatesContent }) {
+  const { headingPrefix, headingHighlight, description, badgeLabel, cards } = content ?? useContent("locationsPage").comingSoon;
 
   return (
     <section className="flex flex-col items-center gap-10 px-8 pb-14 md:px-12 md:pb-16 xl:px-20 xl:pb-[100px]">

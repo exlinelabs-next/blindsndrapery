@@ -2,9 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import type { ServicesGlimpseContent } from "@/types/content";
 
-export function ServicesGlimpse() {
-  const { eyebrow, headingSegments, servicesSummary, ctaLabel, cards } = useContent("services");
+export function ServicesGlimpse({ content }: { content?: ServicesGlimpseContent }) {
+  const { eyebrow, headingSegments, servicesSummary, ctaLabel, cards } = content ?? useContent("services");
 
   return (
     <section className="flex flex-col gap-14 bg-ice px-8 py-16 md:px-12 xl:gap-14 xl:px-20 xl:py-[100px]">
@@ -26,37 +27,49 @@ export function ServicesGlimpse() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-6 xl:grid xl:grid-cols-3 xl:gap-[10px]">
-        {cards.map((card, i) => (
-          <Link
-            key={card.href}
-            href={card.href}
-            className="relative flex h-[495px] flex-col justify-end overflow-hidden rounded-[8px] p-6"
-          >
-            <Image src={card.image.src} alt={card.image.alt} fill className="object-cover" />
-            <div
-              className="absolute inset-0"
-              style={
-                i === 0
-                  ? { backgroundImage: "linear-gradient(180deg, rgba(0, 0, 0, 0) 6.7989%, rgba(44, 40, 53, 0.84) 100%)" }
-                  : { backgroundColor: "rgba(30, 30, 30, 0.42)" }
-              }
-            />
-            <div className="relative flex flex-col gap-3">
-              <div className="flex flex-col gap-2 text-left text-white">
-                <p className="font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px]">
-                  {card.title}
-                </p>
-                <p className="text-[16px] leading-[23px]">{card.description}</p>
-              </div>
-              <span className="flex w-fit items-center justify-center gap-2 rounded-[8px] bg-white px-4 py-2">
-                <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy">
-                  {ctaLabel}
-                </span>
-                <ArrowRight className="size-[14px] text-navy" strokeWidth={2.5} />
-              </span>
-            </div>
-          </Link>
+      <div className="flex flex-col gap-6 xl:flex-row xl:gap-[10px]">
+        {[
+          { indices: [0, 3], heights: ["xl:h-[495px]", "xl:h-[715px]"] },
+          { indices: [1, 4], heights: ["xl:h-[613px]", "xl:h-[600px]"] },
+          { indices: [2, 5], heights: ["xl:h-[715px]", "xl:h-[498px]"] },
+        ].map((col, colIdx) => (
+          <div key={colIdx} className="flex flex-col gap-6 xl:flex-1 xl:gap-[10px]">
+            {col.indices.map((cardIdx, slot) => {
+              const card = cards[cardIdx];
+              if (!card) return null;
+              return (
+                <Link
+                  key={card.href}
+                  href={card.href}
+                  className={`relative flex h-[495px] flex-col justify-end overflow-hidden rounded-[8px] p-6 ${col.heights[slot]}`}
+                >
+                  <Image src={card.image.src} alt={card.image.alt} fill className="object-cover" />
+                  <div
+                    className="absolute inset-0"
+                    style={
+                      cardIdx === 0
+                        ? { backgroundImage: "linear-gradient(180deg, rgba(0, 0, 0, 0) 6.7989%, rgba(44, 40, 53, 0.84) 100%)" }
+                        : { backgroundColor: "rgba(30, 30, 30, 0.42)" }
+                    }
+                  />
+                  <div className="relative flex flex-col gap-3">
+                    <div className="flex flex-col gap-2 text-left text-white">
+                      <p className="font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px]">
+                        {card.title}
+                      </p>
+                      <p className="text-[16px] leading-[23px]">{card.description}</p>
+                    </div>
+                    <span className="flex w-fit items-center justify-center gap-2 rounded-[8px] bg-white px-4 py-2">
+                      <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy">
+                        {ctaLabel}
+                      </span>
+                      <ArrowRight className="size-[14px] text-navy" strokeWidth={2.5} />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         ))}
       </div>
     </section>

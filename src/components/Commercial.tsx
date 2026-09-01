@@ -1,12 +1,10 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import type { CommercialContent } from "@/types/content";
 
-// No "use client" here on purpose: this section has no state or event
-// handlers, so per the project's server-first rule it stays a plain Server
-// Component — renders on the server, ships no extra JS to the browser.
-export function Commercial() {
-  const { eyebrow, heading, subheading, body, ctaLabel, ctaHref, image } = useContent("commercial");
+export function Commercial({ content }: { content?: CommercialContent }) {
+  const { eyebrow, heading, subheading, body, ctaLabel, ctaHref, image } = content ?? useContent("commercial");
 
   return (
     // Outer margin around the navy card is 8px on mobile (not the original

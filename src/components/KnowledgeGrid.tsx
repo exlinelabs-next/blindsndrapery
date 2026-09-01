@@ -1,8 +1,9 @@
 import { Button } from "./ui/Button";
 import { useContent } from "@/hooks/useContent";
+import type { KnowledgeBasePageContent } from "@/types/content";
 
-export function KnowledgeGrid() {
-  const { articles } = useContent("knowledgeBasePage");
+export function KnowledgeGrid({ articles: articlesProp }: { articles?: KnowledgeBasePageContent["articles"] }) {
+  const { articles } = articlesProp ? { articles: articlesProp } : useContent("knowledgeBasePage");
 
   return (
     <section className="px-8 py-12 pb-[100px] md:px-12 md:py-16 xl:px-20 xl:py-20 xl:pb-[100px]">

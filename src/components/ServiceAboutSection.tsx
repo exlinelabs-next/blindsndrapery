@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import type { ServiceAboutContent } from "@/types/content";
 
-export function ServiceAboutSection() {
+export function ServiceAboutSection({ content }: { content?: ServiceAboutContent }) {
   const { eyebrow, headingPrefix, headingHighlight, headingSuffix, paragraph, image } =
-    useContent("servicePage").about;
+    content ?? useContent("servicePage").about;
 
   return (
     <section className="flex flex-col gap-10 px-4 pt-14 md:px-12 md:pt-16 xl:px-20 xl:pt-[100px]">

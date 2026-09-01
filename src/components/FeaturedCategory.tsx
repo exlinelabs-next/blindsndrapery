@@ -1,12 +1,10 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import type { FeaturedCategoryContent } from "@/types/content";
 
-// No "use client" here on purpose: this section has no state or event
-// handlers, so per the project's server-first rule it stays a plain Server
-// Component — renders on the server, ships no extra JS to the browser.
-export function FeaturedCategory() {
+export function FeaturedCategory({ content }: { content?: FeaturedCategoryContent }) {
   const { eyebrow, headingPrefix, headingHighlight, headingSuffix, paragraphs, image } =
-    useContent("featuredCategory");
+    content ?? useContent("featuredCategory");
 
   return (
     <section className="px-8 py-14 md:px-12 md:py-16 xl:px-20 xl:py-[100px]">

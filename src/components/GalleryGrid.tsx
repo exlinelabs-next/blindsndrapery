@@ -3,17 +3,19 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
-import type { GalleryItem } from "@/types/content";
+import type { GalleryItem, GalleryGridContent } from "@/types/content";
 
 const INITIAL_COUNT = 12;
 const LOAD_MORE_COUNT = 6;
 
 export function GalleryGrid({
   activeProductType,
+  content,
 }: {
   activeProductType: string;
+  content?: GalleryGridContent;
 }) {
-  const { items, loadMoreLabel } = useContent("galleryPage").grid;
+  const { items, loadMoreLabel } = content ?? useContent("galleryPage").grid;
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
 
   const filtered =

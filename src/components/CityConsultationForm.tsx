@@ -4,12 +4,13 @@ import { useState, type FormEvent } from "react";
 import { ChevronDown } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import type { CityConsultationContent } from "@/types/content";
 
 const FIELD_CLASSES =
   "w-full rounded-lg border border-ice-dark px-6 py-4 text-[16px] leading-[23px] text-black placeholder:text-black/50 focus:border-teal focus:outline-none";
 
-export function CityConsultationForm() {
-  const { eyebrow, heading, description, ctaLabel } = useContent("cityPage").consultation;
+export function CityConsultationForm({ content }: { content?: CityConsultationContent }) {
+  const { eyebrow, heading, description, ctaLabel } = content ?? useContent("cityPage").consultation;
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
 
   function handleSubmit(e: FormEvent) {
@@ -107,7 +108,7 @@ export function CityConsultationForm() {
             </div>
           </div>
 
-          <Button type="submit">{ctaLabel}</Button>
+          <Button type="submit" className="w-fit">{ctaLabel}</Button>
         </form>
       </div>
     </section>

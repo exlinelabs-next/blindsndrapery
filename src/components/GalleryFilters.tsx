@@ -1,19 +1,22 @@
 "use client";
 
 import { useContent } from "@/hooks/useContent";
+import type { GalleryFiltersContent } from "@/types/content";
 
 export function GalleryFilters({
   activeProductType,
   activeRoom,
   onProductTypeChange,
   onRoomChange,
+  content,
 }: {
   activeProductType: string;
   activeRoom: string;
   onProductTypeChange: (value: string) => void;
   onRoomChange: (value: string) => void;
+  content?: GalleryFiltersContent;
 }) {
-  const { heading, filterGroups } = useContent("galleryPage").filters;
+  const { heading, filterGroups } = content ?? useContent("galleryPage").filters;
   const [productGroup, roomGroup] = filterGroups;
 
   return (

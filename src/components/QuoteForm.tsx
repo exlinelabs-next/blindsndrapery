@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { ChevronDown } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import type { QuoteFormContent } from "@/types/content";
 
 interface FormState {
   name: string;
@@ -23,8 +24,8 @@ const FIELD_CLASSES =
 
 // This is a real, interactive form (controlled inputs + submit handling), so
 // per the project's server-first rule it has to opt into the client runtime.
-export function QuoteForm() {
-  const content = useContent("quoteForm");
+export function QuoteForm({ content: contentProp }: { content?: QuoteFormContent }) {
+  const content = contentProp ?? useContent("quoteForm");
   const [formData, setFormData] = useState<FormState>(INITIAL_STATE);
   const [submitted, setSubmitted] = useState(false);
 
