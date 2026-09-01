@@ -349,6 +349,7 @@ export interface SubServicesGridContent {
   headingPrefix: string;
   headingHighlight: string;
   headingSuffix: string;
+  description: string;
   cards: SubServiceCard[];
 }
 
@@ -690,6 +691,65 @@ export interface CityPageContent {
   consultation: CityConsultationContent;
 }
 
+export interface FreeQuoteHeroContent {
+  breadcrumb: string;
+  heading: string;
+  subheading: string;
+}
+
+export interface FreeQuoteProcessStep {
+  number: string;
+  title: string;
+  description: string;
+}
+
+export interface FreeQuoteProcessContent {
+  eyebrow: string;
+  headingPrefix: string;
+  headingHighlight: string;
+  subtitle: string;
+  steps: [FreeQuoteProcessStep, FreeQuoteProcessStep, FreeQuoteProcessStep, FreeQuoteProcessStep, FreeQuoteProcessStep];
+}
+
+export interface FreeQuoteProcessIntroContent {
+  eyebrow: string;
+  headingPrefix: string;
+  headingHighlight: string;
+  description: string;
+  image: { src: string; alt: string };
+}
+
+export interface FreeQuoteFormContent {
+  eyebrow: string;
+  headingPrefix: string;
+  headingHighlight: string;
+  subtitle: string;
+  nameLabel: string;
+  namePlaceholder: string;
+  emailLabel: string;
+  emailPlaceholder: string;
+  phoneLabel: string;
+  phonePlaceholder: string;
+  serviceLabel: string;
+  servicePlaceholder: string;
+  serviceOptions: string[];
+  projectLabel: string;
+  projectPlaceholder: string;
+  submitLabel: string;
+  assistanceHeading: string;
+  callLabel: string;
+  callNumber: string;
+  textLabel: string;
+  trustLine: string;
+}
+
+export interface FreeQuotePageContent {
+  hero: FreeQuoteHeroContent;
+  process: FreeQuoteProcessContent;
+  processIntro: FreeQuoteProcessIntroContent;
+  form: FreeQuoteFormContent;
+}
+
 export interface PageContent {
   hero: HeroContent;
   nav: NavContent;
@@ -729,6 +789,7 @@ export interface PageContent {
   blogArticlePage: BlogArticlePageContent;
   knowledgeArticlePage: KnowledgeArticlePageContent;
   cityPage: CityPageContent;
+  freeQuotePage: FreeQuotePageContent;
 }
 
 export type ServiceContentKey =
