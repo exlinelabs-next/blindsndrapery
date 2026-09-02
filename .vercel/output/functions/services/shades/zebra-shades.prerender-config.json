@@ -1,0 +1,45 @@
+{
+  "type": "Prerender",
+  "expiration": 3600,
+  "staleExpiration": 31536000,
+  "sourcePath": "/services/shades/[sub]",
+  "prerenderClassification": {
+    "routeType": "page",
+    "response": "complete",
+    "compute": "static",
+    "htmlSize": 125827
+  },
+  "group": 34,
+  "bypassToken": "65dc20267392c1621e1422e6a02f9f8c",
+  "experimentalBypassFor": [
+    {
+      "type": "header",
+      "key": "next-action"
+    },
+    {
+      "type": "header",
+      "key": "content-type",
+      "value": "multipart/form-data;.*"
+    }
+  ],
+  "fallback": {
+    "type": "FileFsRef",
+    "mode": 33188,
+    "fsPath": "zebra-shades.prerender-fallback.html"
+  },
+  "initialHeaders": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/services/layout,_N_T_/services/shades/layout,_N_T_/services/shades/[sub]/layout,_N_T_/services/shades/[sub]/page,_N_T_/services/shades/zebra-shades",
+    "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch"
+  },
+  "allowQuery": [],
+  "allowHeader": [
+    "host",
+    "x-matched-path",
+    "x-prerender-revalidate",
+    "x-prerender-revalidate-if-generated",
+    "x-next-revalidated-tags",
+    "x-next-revalidate-tag-token"
+  ]
+}

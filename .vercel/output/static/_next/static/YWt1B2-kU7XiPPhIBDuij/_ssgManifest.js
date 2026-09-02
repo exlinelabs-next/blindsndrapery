@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fknowledge-base\u002F[slug]","\u002Fresources\u002F[slug]","\u002Fservices\u002Fshades\u002F[sub]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
