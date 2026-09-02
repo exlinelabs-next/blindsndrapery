@@ -45,6 +45,7 @@ jobs:
       - name: Deploy
         id: deploy
         run: |
+          rm -rf .git
           url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
           echo "url=$url" >> "$GITHUB_OUTPUT"
           echo "### Deployed to Vercel :rocket:" >> "$GITHUB_STEP_SUMMARY"
