@@ -31,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: Install Vercel CLI
-        run: npm i -g vercel@39
+        run: npm i -g vercel@latest
 
       - name: Link Vercel project
         run: vercel link --yes --token=${{ secrets.VERCEL_TOKEN }}
