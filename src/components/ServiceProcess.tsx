@@ -130,7 +130,7 @@ export function ServiceProcess({ content }: { content?: ServiceHowItWorksContent
   }, [isPinned, advance, steps.length]);
 
   return (
-    <section ref={wrapperRef} className="relative bg-navy" style={{ height: `calc(100dvh + ${RELEASE_TRACK_PX}px)` }}>
+    <section ref={wrapperRef} className="relative z-[51] bg-navy" style={{ height: `calc(100dvh + ${RELEASE_TRACK_PX}px)` }}>
       <div className="sticky top-0 flex h-dvh flex-col items-center justify-center gap-6 overflow-hidden px-4 py-8 md:gap-10 md:px-12 md:py-10 xl:gap-[80px] xl:px-20 xl:py-[100px]">
         <div className="flex shrink-0 flex-col items-center gap-2 md:gap-4">
           <div className="flex items-center justify-center rounded-[8px] border border-navy-light-active p-1.5 md:p-2">
