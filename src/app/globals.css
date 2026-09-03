@@ -18,6 +18,14 @@
   --font-heading: var(--font-plus-jakarta-sans);
   --font-body: var(--font-inter);
   --font-mono: var(--font-dm-mono);
+
+  /* Animations */
+  --animate-marquee: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 body {
