@@ -25,9 +25,11 @@ export function Commercial({ content }: { content?: CommercialContent }) {
             <h2 className="w-full font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-white">
               {heading}
             </h2>
-            <p className="w-full font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-white">
-              {subheading}
-            </p>
+            {subheading && (
+              <p className="w-full font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-white">
+                {subheading}
+              </p>
+            )}
             <p className="w-full text-[16px] leading-[23px] text-white">{body}</p>
             <Button href={ctaHref}>{ctaLabel}</Button>
           </div>
