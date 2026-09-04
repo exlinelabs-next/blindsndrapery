@@ -64,7 +64,7 @@ export function ServiceAreaPanel({ content }: { content?: ServiceAreaPanelConten
           <div className="flex w-full flex-col items-start gap-4">
             <Link
               href={primaryLink.href}
-              className="flex w-full items-center gap-2.5 rounded-lg border border-teal/33 bg-white p-6 shadow-[0px_4px_2px_rgba(0,0,0,0.05)]"
+              className="flex h-[59px] w-full items-center gap-2.5 rounded-lg border border-teal/33 bg-white px-6 shadow-[0px_4px_2px_rgba(0,0,0,0.05)]"
             >
               <Navigation
                 className="size-[18px] shrink-0 text-navy"
