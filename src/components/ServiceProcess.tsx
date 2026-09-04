@@ -129,8 +129,50 @@ export function ServiceProcess({ content }: { content?: ServiceHowItWorksContent
     };
   }, [isPinned, advance, steps.length]);
 
+  // Catch fast scrolling that bypasses the wheel/touch capture zone.
+  // A single high-velocity scroll tick can jump the section from "not
+  // pinned" to "past the pin zone" so the wheel handler never sees
+  // isPinned() === true and can't preventDefault. This listener detects
+  // the overshoot and snaps back to the pin point.
+  useEffect(() => {
+    let prevScrollY = window.scrollY;
+
+    const onScroll = () => {
+      const el = wrapperRef.current;
+      if (!el) return;
+      const scrollY = window.scrollY;
+      const goingDown = scrollY > prevScrollY;
+      prevScrollY = scrollY;
+
+      const rect = el.getBoundingClientRect();
+
+      // Reset carousel when section is completely out of view so the
+      // next forward traversal starts from step 1.
+      if (rect.bottom < 0 || rect.top > window.innerHeight) {
+        if (activeIndexRef.current !== 0) setActiveIndex(0);
+        return;
+      }
+
+      // Downward bypass: section top is above viewport but bottom is
+      // nearing/past viewport bottom — carousel hasn't finished.
+      if (
+        goingDown &&
+        rect.top < 0 &&
+        rect.bottom > 0 &&
+        rect.bottom < window.innerHeight &&
+        activeIndexRef.current < steps.length - 1
+      ) {
+        const pinY = rect.top + scrollY;
+        window.scrollTo(0, pinY + 1);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [steps.length]);
+
   return (
-    <section ref={wrapperRef} className="relative bg-navy" style={{ height: `calc(100dvh + ${RELEASE_TRACK_PX}px)` }}>
+    <section ref={wrapperRef} className="relative z-[51] bg-navy" style={{ height: `calc(100dvh + ${RELEASE_TRACK_PX}px)` }}>
       <div className="sticky top-0 flex h-dvh flex-col items-center justify-center gap-6 overflow-hidden px-4 py-8 md:gap-10 md:px-12 md:py-10 xl:gap-[80px] xl:px-20 xl:py-[100px]">
         <div className="flex shrink-0 flex-col items-center gap-2 md:gap-4">
           <div className="flex items-center justify-center rounded-[8px] border border-navy-light-active p-1.5 md:p-2">
