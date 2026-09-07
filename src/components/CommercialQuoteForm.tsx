@@ -77,7 +77,7 @@ export function CommercialQuoteForm({ content: contentProp }: { content?: Commer
   return (
     <section className="bg-navy flex flex-col items-center gap-10 px-4 py-14 md:px-12 xl:gap-16 xl:px-20 xl:py-[100px]">
       <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
-        <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-white uppercase">
+        <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-white">
           {content.eyebrow}
         </p>
       </div>

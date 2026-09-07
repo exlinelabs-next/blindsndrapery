@@ -48,7 +48,7 @@ export function ServiceInlineHero({ contentKey = "serviceBlinds", content }: { c
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="flex items-center justify-center rounded-lg bg-[#e7e9ec] p-3 backdrop-blur-[25px]">
-            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy uppercase">
+            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy">
               {breadcrumb}
             </p>
           </div>

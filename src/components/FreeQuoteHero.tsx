@@ -8,7 +8,7 @@ export function FreeQuoteHero({ content }: { content?: FreeQuoteHeroContent }) {
     <section className="flex items-center bg-navy py-14 md:py-16 xl:py-20">
       <div className="flex flex-col gap-4 px-6 md:px-12 xl:px-20">
         <div className="flex w-fit items-center justify-center rounded-lg bg-[#e7e9ec] p-3 backdrop-blur-[25px]">
-          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy uppercase">
+          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy">
             {breadcrumb}
           </p>
         </div>

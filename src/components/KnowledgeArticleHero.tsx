@@ -15,7 +15,7 @@ export function KnowledgeArticleHero({
       />
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="flex items-center justify-center rounded-lg bg-white p-3 backdrop-blur-[25px]">
-          <span className="font-mono text-[11px] uppercase leading-[16px] tracking-[1.1px] text-navy">
+          <span className="font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy">
             {breadcrumb}
           </span>
         </div>

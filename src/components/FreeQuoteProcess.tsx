@@ -10,7 +10,7 @@ export function FreeQuoteProcess({ content }: { content?: FreeQuoteProcessConten
       <div className="flex flex-col gap-10">
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
-            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
               {eyebrow}
             </p>
           </div>

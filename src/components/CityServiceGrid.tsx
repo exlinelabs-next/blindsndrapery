@@ -12,7 +12,7 @@ export function CityServiceGrid({ content }: { content?: CityServiceGridContent 
       {/* Header */}
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
-          <p className="whitespace-nowrap text-center font-mono text-[11px] uppercase leading-[16px] tracking-[1.1px] text-black">
+          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
             {eyebrow}
           </p>
         </div>

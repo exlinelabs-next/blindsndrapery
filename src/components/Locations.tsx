@@ -7,7 +7,7 @@ export function Locations({ content }: { content?: LocationsContent }) {
   return (
     <section className="flex flex-col items-start gap-4 bg-ice px-8 py-14 md:px-12 md:py-16 xl:px-20 xl:py-[100px]">
       <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
-        <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+        <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
           {eyebrow}
         </p>
       </div>

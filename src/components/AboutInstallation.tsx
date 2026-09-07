@@ -11,7 +11,7 @@ export function AboutInstallation({ content }: { content?: AboutInstallationCont
       <div className="flex flex-col items-center gap-10 overflow-hidden rounded-lg bg-ice px-6 py-16 md:px-10 xl:px-[40px] xl:py-[80px]">
         <div className="flex w-full flex-col items-center gap-4">
           <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
-            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
               {eyebrow}
             </p>
           </div>

@@ -13,7 +13,7 @@ export function ProcessIntro({ content }: { content?: ProcessIntroContent }) {
     <section className="flex flex-col items-center gap-12 px-8 pt-14 pb-14 md:gap-14 md:px-12 md:pt-16 md:pb-16 xl:gap-16 xl:px-20 xl:pt-[120px] xl:pb-[100px]">
       <div className="flex w-full flex-col items-center justify-center gap-4">
         <div className="flex items-center justify-center rounded-lg border border-navy-light-hover p-2">
-          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
             {eyebrow}
           </p>
         </div>

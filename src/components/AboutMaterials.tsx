@@ -43,7 +43,7 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds", con
     >
       <div className="flex w-full flex-col items-start gap-4 xl:w-[518px] xl:shrink-0">
         <div className={`flex items-center justify-center rounded-lg border p-2 ${dark ? "border-navy-light-hover" : "border-navy-light-hover"}`}>
-          <p className={`whitespace-nowrap font-mono text-[11px] leading-[16px] tracking-[1.1px] uppercase ${dark ? "text-white" : "text-black"}`}>
+          <p className={`whitespace-nowrap font-mono text-[11px] leading-[16px] tracking-[1.1px] ${dark ? "text-white" : "text-black"}`}>
             {eyebrow}
           </p>
         </div>

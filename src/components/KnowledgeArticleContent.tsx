@@ -62,10 +62,10 @@ export function KnowledgeArticleContent({
             {categoryTag}
           </span>
         </div>
-        <p className="text-[14px] uppercase leading-[16px] tracking-[1.1px] text-navy">
+        <p className="text-[14px] leading-[16px] tracking-[1.1px] text-navy">
           {date}
         </p>
-        <p className="text-[14px] uppercase leading-[16px] tracking-[1.1px] text-navy">
+        <p className="text-[14px] leading-[16px] tracking-[1.1px] text-navy">
           {readTime}
         </p>
       </div>

@@ -70,7 +70,7 @@ export function ServiceGlimpse({ content }: { content?: ServicesGlimpseContent }
     <section className="flex flex-col gap-10 px-4 pb-14 pt-[120px] md:px-12 md:pb-16 xl:px-20 xl:pb-[100px]">
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center justify-center rounded-[8px] border border-navy-light-hover p-2">
-          <p className="whitespace-nowrap text-center font-mono text-[11px] uppercase leading-[16px] tracking-[1.1px] text-black">
+          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
             {eyebrow}
           </p>
         </div>

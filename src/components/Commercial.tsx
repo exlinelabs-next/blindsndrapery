@@ -17,7 +17,7 @@ export function Commercial({ content }: { content?: CommercialContent }) {
       <div className="flex w-full flex-col items-start gap-10 rounded-2xl bg-navy p-8 md:gap-14 md:p-14 xl:flex-row xl:items-center xl:gap-16 xl:p-20">
         <div className="flex w-full flex-1 flex-col items-start gap-4">
           <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
-            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-white uppercase">
+            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-white">
               {eyebrow}
             </p>
           </div>

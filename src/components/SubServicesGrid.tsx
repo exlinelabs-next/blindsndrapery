@@ -46,7 +46,7 @@ export function SubServicesGrid({ content }: { content: SubServicesGridContent }
       <div className="flex flex-col gap-10 xl:px-5">
         <div className="flex flex-col items-start gap-4">
           <div className="flex items-center justify-center rounded-lg border border-navy-light-hover p-2">
-            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-white uppercase">
+            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-white">
               {eyebrow}
             </p>
           </div>

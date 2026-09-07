@@ -10,7 +10,7 @@ export function FreeQuoteProcessIntro({ content }: { content?: FreeQuoteProcessI
     <section className="flex flex-col gap-10 px-4 py-14 md:px-12 md:py-16 xl:flex-row xl:items-center xl:gap-10 xl:px-20 xl:pb-[100px] xl:pt-0">
       <div className="flex flex-col gap-4 xl:w-[527px] xl:shrink-0">
         <div className="flex w-fit items-center justify-center rounded-lg border border-[#dbdde2] p-2">
-          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
             {eyebrow}
           </p>
         </div>

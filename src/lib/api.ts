@@ -92,6 +92,13 @@ function stripHtml(html: string | null | undefined): string {
     .trim();
 }
 
+function toTitleCase(s: string): string {
+  if (!s) return s;
+  return s
+    .toLowerCase()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 function parseSplHeading(raw: string): {
   prefix: string;
   highlight: string;
@@ -219,7 +226,7 @@ export async function fetchNav(): Promise<NavContent> {
       socialLinks,
     },
     links: otherLinks,
-    ctaLabel: hf.headerButtonText,
+    ctaLabel: toTitleCase(hf.headerButtonText),
     ctaHref: hf.headerButtonUrl,
   };
 }
@@ -332,7 +339,7 @@ export async function fetchHero(): Promise<HeroContent> {
   return {
     heading: hp.heroSectionHeading as string,
     subheading: hp.heroSectionText as string,
-    ctaLabel: hp.heroSectionButtonText as string,
+    ctaLabel: toTitleCase(hp.heroSectionButtonText as string),
     ctaHref: hp.heroSectionButtonUrl as string,
     backgroundImage: img(data.page.featuredImage),
   };
@@ -355,7 +362,7 @@ export async function fetchProcessIntro(): Promise<ProcessIntroContent> {
   const hp = data.page.homePageFields;
   const heading = parseSplHeading(hp.section2Heading as string);
   return {
-    eyebrow: hp.section2SubHeading as string,
+    eyebrow: toTitleCase(hp.section2SubHeading as string),
     headingPrefix: heading.prefix,
     headingHighlight: heading.highlight,
     description: hp.section2Text as string,
@@ -395,7 +402,7 @@ export async function fetchServicesGlimpse(): Promise<ServicesGlimpseContent> {
     cards.push({ image: { src: "", alt: "" }, title: "", description: "", href: "#" });
 
   return {
-    eyebrow: hp.serviceSectionSubHeading as string,
+    eyebrow: toTitleCase(hp.serviceSectionSubHeading as string),
     headingSegments: segments,
     servicesSummary: hp.serviceSectionText as string,
     ctaLabel: "Learn More",
@@ -413,7 +420,7 @@ export async function fetchFeaturedCategory(): Promise<FeaturedCategoryContent> 
     .map((s) => s.trim())
     .filter(Boolean);
   return {
-    eyebrow: hp.section3SubHeading as string,
+    eyebrow: toTitleCase(hp.section3SubHeading as string),
     headingPrefix: heading.prefix,
     headingHighlight: heading.highlight,
     headingSuffix: heading.suffix,
@@ -436,12 +443,12 @@ export async function fetchHowItWorks(): Promise<HowItWorksContent> {
     });
   }
   return {
-    eyebrow: hp.howWeWorkSectionSubHeading as string,
+    eyebrow: toTitleCase(hp.howWeWorkSectionSubHeading as string),
     headingPrefix: heading.prefix,
     headingHighlight: heading.highlight,
     description: hp.howWeWorkSectionText as string,
     steps,
-    ctaLabel: hp.howWeWorkSectionButtonText as string,
+    ctaLabel: toTitleCase(hp.howWeWorkSectionButtonText as string),
     ctaHref: hp.howWeWorkSectionButtonUrl as string,
   };
 }
@@ -466,11 +473,11 @@ export async function fetchCommercial(): Promise<CommercialContent> {
   const hp = data.page.homePageFields;
   const bodyRaw = hp.commercialSectionText as string;
   return {
-    eyebrow: hp.commercialSectionSubHeading as string,
+    eyebrow: toTitleCase(hp.commercialSectionSubHeading as string),
     heading: hp.commercialSectionHeading as string,
     subheading: "",
     body: stripHtml(bodyRaw),
-    ctaLabel: hp.commercialSectionButtonText as string,
+    ctaLabel: toTitleCase(hp.commercialSectionButtonText as string),
     ctaHref: hp.commercialSectionButtonUrl as string,
     image: img(hp.commercialSectionImage as WPImage),
   };
@@ -481,7 +488,7 @@ export async function fetchRepairMaintenance(): Promise<RepairMaintenanceContent
   const hp = data.page.homePageFields;
   const heading = parseSplHeading(hp.repairSectionHeading as string);
   return {
-    eyebrow: hp.repairSectionSubHeading as string,
+    eyebrow: toTitleCase(hp.repairSectionSubHeading as string),
     icon: img(hp.repairSectionIcon as WPImage).src,
     headingPrefix: heading.prefix,
     headingHighlight: heading.highlight,
@@ -510,7 +517,7 @@ export async function fetchLocations(): Promise<LocationsContent> {
   }));
 
   return {
-    eyebrow: hp.locationsSectionSubHeading as string,
+    eyebrow: toTitleCase(hp.locationsSectionSubHeading as string),
     heading: hp.locationsSectionHeading as string,
     description: hp.locationsSectionText as string,
     cities,
@@ -521,7 +528,7 @@ export async function fetchQuoteForm(): Promise<QuoteFormContent> {
   const data = await fetchGraphQL<HomePageResponse>(HOME_PAGE_QUERY);
   const hp = data.page.homePageFields;
   return {
-    eyebrow: hp.formSubHeading as string,
+    eyebrow: toTitleCase(hp.formSubHeading as string),
     heading: hp.formHeading as string,
     description: stripHtml(hp.formParagraph as string),
     nameLabel: "Name",
@@ -632,7 +639,7 @@ export async function fetchHomePage() {
   const heroContent: HeroContent = {
     heading: hp.heroSectionHeading as string,
     subheading: hp.heroSectionText as string,
-    ctaLabel: hp.heroSectionButtonText as string,
+    ctaLabel: toTitleCase(hp.heroSectionButtonText as string),
     ctaHref: hp.heroSectionButtonUrl as string,
     backgroundImage: img(homeData.page.featuredImage),
   };
@@ -647,7 +654,7 @@ export async function fetchHomePage() {
 
   const piHeading = parseSplHeading(hp.section2Heading as string);
   const processIntroContent: ProcessIntroContent = {
-    eyebrow: hp.section2SubHeading as string,
+    eyebrow: toTitleCase(hp.section2SubHeading as string),
     headingPrefix: piHeading.prefix,
     headingHighlight: piHeading.highlight,
     description: hp.section2Text as string,
@@ -667,7 +674,7 @@ export async function fetchHomePage() {
     serviceCards.push({ image: { src: "", alt: "" }, title: "", description: "", href: "#" });
 
   const servicesGlimpseContent: ServicesGlimpseContent = {
-    eyebrow: hp.serviceSectionSubHeading as string,
+    eyebrow: toTitleCase(hp.serviceSectionSubHeading as string),
     headingSegments: parseSplSegments(hp.serviceSectionHeading as string),
     servicesSummary: hp.serviceSectionText as string,
     ctaLabel: "Learn More",
@@ -677,7 +684,7 @@ export async function fetchHomePage() {
   const fcHeading = parseSplHeading(hp.section3Heading as string);
   const fcText = hp.section3Text as string;
   const featuredCategoryContent: FeaturedCategoryContent = {
-    eyebrow: hp.section3SubHeading as string,
+    eyebrow: toTitleCase(hp.section3SubHeading as string),
     headingPrefix: fcHeading.prefix,
     headingHighlight: fcHeading.highlight,
     headingSuffix: fcHeading.suffix,
@@ -699,12 +706,12 @@ export async function fetchHomePage() {
     });
   }
   const howItWorksContent: HowItWorksContent = {
-    eyebrow: hp.howWeWorkSectionSubHeading as string,
+    eyebrow: toTitleCase(hp.howWeWorkSectionSubHeading as string),
     headingPrefix: hwwHeading.prefix,
     headingHighlight: hwwHeading.highlight,
     description: hp.howWeWorkSectionText as string,
     steps: hwwSteps,
-    ctaLabel: hp.howWeWorkSectionButtonText as string,
+    ctaLabel: toTitleCase(hp.howWeWorkSectionButtonText as string),
     ctaHref: hp.howWeWorkSectionButtonUrl as string,
   };
 
@@ -720,18 +727,18 @@ export async function fetchHomePage() {
   };
 
   const commercialContent: CommercialContent = {
-    eyebrow: hp.commercialSectionSubHeading as string,
+    eyebrow: toTitleCase(hp.commercialSectionSubHeading as string),
     heading: hp.commercialSectionHeading as string,
     subheading: "",
     body: stripHtml(hp.commercialSectionText as string),
-    ctaLabel: hp.commercialSectionButtonText as string,
+    ctaLabel: toTitleCase(hp.commercialSectionButtonText as string),
     ctaHref: hp.commercialSectionButtonUrl as string,
     image: img(hp.commercialSectionImage as WPImage),
   };
 
   const rmHeading = parseSplHeading(hp.repairSectionHeading as string);
   const repairMaintenanceContent: RepairMaintenanceContent = {
-    eyebrow: hp.repairSectionSubHeading as string,
+    eyebrow: toTitleCase(hp.repairSectionSubHeading as string),
     icon: img(hp.repairSectionIcon as WPImage).src,
     headingPrefix: rmHeading.prefix,
     headingHighlight: rmHeading.highlight,
@@ -740,7 +747,7 @@ export async function fetchHomePage() {
   };
 
   const locationsContent: LocationsContent = {
-    eyebrow: hp.locationsSectionSubHeading as string,
+    eyebrow: toTitleCase(hp.locationsSectionSubHeading as string),
     heading: hp.locationsSectionHeading as string,
     description: hp.locationsSectionText as string,
     cities: locationsData.locations.nodes.map((loc, i) => ({
@@ -750,7 +757,7 @@ export async function fetchHomePage() {
   };
 
   const quoteFormContent: QuoteFormContent = {
-    eyebrow: hp.formSubHeading as string,
+    eyebrow: toTitleCase(hp.formSubHeading as string),
     heading: hp.formHeading as string,
     description: stripHtml(hp.formParagraph as string),
     nameLabel: "Name",
@@ -838,7 +845,7 @@ export async function fetchServicePage() {
   const hero: HeroContent = {
     heading: sp.heroSectionHeading as string,
     subheading: sp.heroSectionText as string,
-    ctaLabel: sp.heroSectionButtonText as string,
+    ctaLabel: toTitleCase(sp.heroSectionButtonText as string),
     ctaHref: sp.heroSectionButtonUrl as string,
     backgroundImage: img(pageData.page.featuredImage),
   };
@@ -853,7 +860,7 @@ export async function fetchServicePage() {
     serviceCards.push({ image: { src: "", alt: "" }, title: "", description: "", href: "#" });
 
   const serviceGlimpse: ServicesGlimpseContent = {
-    eyebrow: sp.serviceSectionSubHeading as string,
+    eyebrow: toTitleCase(sp.serviceSectionSubHeading as string),
     headingSegments: parseSplSegments(sp.serviceSectionHeading as string),
     servicesSummary: sp.serviceSectionText as string,
     ctaLabel: "Learn More",
@@ -871,7 +878,7 @@ export async function fetchServicePage() {
     });
   }
   const howItWorks: ServiceHowItWorksContent = {
-    eyebrow: sp.howItWorksSectionSubHeading as string,
+    eyebrow: toTitleCase(sp.howItWorksSectionSubHeading as string),
     headingPrefix: hiwHeading.prefix,
     headingHighlight: hiwHeading.highlight,
     headingSuffix: hiwHeading.suffix,
@@ -881,7 +888,7 @@ export async function fetchServicePage() {
 
   const aboutHeading = parseSplHeading(sp.section3Heading as string);
   const about: ServiceAboutContent = {
-    eyebrow: sp.section3SubHeading as string,
+    eyebrow: toTitleCase(sp.section3SubHeading as string),
     headingPrefix: aboutHeading.prefix,
     headingHighlight: aboutHeading.highlight,
     headingSuffix: aboutHeading.suffix,
@@ -935,7 +942,7 @@ export async function fetchCommercialPage() {
     breadcrumb: "HOME > commercial",
     heading: cp.heroSectionHeading as string,
     subheading: cp.heroSectionText as string,
-    ctaLabel: cp.heroSectionButtonText as string,
+    ctaLabel: toTitleCase(cp.heroSectionButtonText as string),
     ctaHref: cp.heroSectionButtonUrl as string,
     backgroundImage: img(pageData.page.featuredImage),
   };
@@ -951,7 +958,7 @@ export async function fetchCommercialPage() {
     });
   }
   const places: CommercialPlacesContent = {
-    eyebrow: cp.section2SubHeading as string,
+    eyebrow: toTitleCase(cp.section2SubHeading as string),
     headingPrefix: placesHeading.prefix,
     headingHighlight: placesHeading.highlight,
     description: stripHtml(cp.section2Text as string),
@@ -966,7 +973,7 @@ export async function fetchCommercialPage() {
   }));
   while (installImages.length < 3) installImages.push({ src: "", alt: "" });
   const installation: InstallationGalleryContent = {
-    eyebrow: cp.section3SubHeading as string,
+    eyebrow: toTitleCase(cp.section3SubHeading as string),
     headingPrefix: installHeading.prefix,
     headingHighlight: installHeading.highlight,
     headingSuffix: installHeading.suffix,
@@ -975,7 +982,7 @@ export async function fetchCommercialPage() {
   };
 
   const quoteForm: CommercialQuoteFormContent = {
-    eyebrow: cp.formSectionSubHeading as string,
+    eyebrow: toTitleCase(cp.formSectionSubHeading as string),
     heading: "Submit Your Commercial Bid Request",
     description: "Our commercial desk will review your scope and architectural requirements within 24 business hours.",
     companyNameLabel: "Company Name",
@@ -1055,11 +1062,11 @@ export async function fetchLocationsPage() {
     href: loc.uri.replace(/\/$/, ""),
   }));
   const serviceArea: ServiceAreaPanelContent = {
-    eyebrow: lp.serviceAreaSectionSubHeading as string,
+    eyebrow: toTitleCase(lp.serviceAreaSectionSubHeading as string),
     headingPrefix: saHeading.prefix,
     headingHighlight: saHeading.highlight,
     description: stripHtml(lp.serviceAreaSectionParagraph as string),
-    mapImage: img(lp.serviceAreaSectionMapImage as WPImage),
+    mapImage: { src: "/images/locations/florida-map.webp", alt: "Florida map" },
     primaryLink: { label: "Explore All Florida Services", href: "/locations" },
     cityLinks,
     photo: img(lp.serviceAreaSectionImage as WPImage),
@@ -1153,7 +1160,7 @@ export async function fetchServiceSinglePage(uri: string) {
   if (childServices.length > 0) {
     const subCategoryHeading = parseSplHeading(sf.serviceSubCategorySectionHeading as string);
     subServices = {
-      eyebrow: sf.serviceSubCategorySectionSubHeading as string,
+      eyebrow: toTitleCase(sf.serviceSubCategorySectionSubHeading as string),
       headingPrefix: subCategoryHeading.prefix,
       headingHighlight: subCategoryHeading.highlight,
       headingSuffix: subCategoryHeading.suffix,
@@ -1176,7 +1183,7 @@ export async function fetchServiceSinglePage(uri: string) {
     },
     subServices,
     about: {
-      eyebrow: sf.section2SubHeading as string,
+      eyebrow: toTitleCase(sf.section2SubHeading as string),
       headingPrefix: aboutHeading.prefix,
       headingHighlight: aboutHeading.highlight,
       headingSuffix: aboutHeading.suffix,
@@ -1191,7 +1198,7 @@ export async function fetchServiceSinglePage(uri: string) {
       ] as ServiceInlinePageContent["about"]["gallery"],
     },
     howItWorksHeader: {
-      eyebrow: sf.howItWorksSectionSubHeading as string,
+      eyebrow: toTitleCase(sf.howItWorksSectionSubHeading as string),
       headingPrefix: hiwHeaderHeading.prefix,
       headingHighlight: hiwHeaderHeading.highlight,
       subtitle: sf.howItWorksSectionText as string,
@@ -1201,10 +1208,10 @@ export async function fetchServiceSinglePage(uri: string) {
       steps: timelineSteps as ServiceInlinePageContent["timeline"]["steps"],
     },
     cta: {
-      eyebrow: sf.ctaBannerSubHeading as string,
+      eyebrow: toTitleCase(sf.ctaBannerSubHeading as string),
       heading: sf.ctaBannerHeading as string,
       body: sf.ctaBannerText as string,
-      ctaLabel: sf.ctaBannerButtonText as string,
+      ctaLabel: toTitleCase(sf.ctaBannerButtonText as string),
       ctaHref: sf.ctaBannerButtonUrl as string,
       image: img(sf.ctaBannerBackgroundImage as WPImage),
     },
@@ -1255,7 +1262,7 @@ export async function fetchAboutPage() {
     breadcrumb: "HOME > ABOUT",
     heading: ap.heroSectionHeading as string,
     subheading: ap.heroSectionParagraph as string,
-    ctaLabel: ap.heroSectionButtonText as string,
+    ctaLabel: toTitleCase(ap.heroSectionButtonText as string),
     ctaHref: ap.heroSectionButtonUrl as string,
     backgroundImage: img(aboutData.page.featuredImage),
   };
@@ -1284,7 +1291,7 @@ export async function fetchAboutPage() {
 
   const installHeading = parseSplHeading(ap.section3Heading as string);
   const installation: AboutPageContent["installation"] = {
-    eyebrow: ap.section3SubHeading as string,
+    eyebrow: toTitleCase(ap.section3SubHeading as string),
     heading: installHeading.prefix + installHeading.highlight + installHeading.suffix,
     description: stripHtml(ap.section3Text as string),
     features: installationFeatures,
@@ -1360,7 +1367,7 @@ export async function fetchFreeQuotePage() {
     { number: "Step 05", title: qp.titleStep5 as string || "", description: qp.textStep5 as string || "" },
   ];
   const process: FreeQuotePageContent["process"] = {
-    eyebrow: qp.section2SubHeading as string,
+    eyebrow: toTitleCase(qp.section2SubHeading as string),
     headingPrefix: processHeading.prefix,
     headingHighlight: processHeading.highlight,
     subtitle: qp.section2Text as string,
@@ -1370,7 +1377,7 @@ export async function fetchFreeQuotePage() {
   const introHeading = parseSplHeading(qp.section3Heading as string);
   const videoNode = (qp.section3Video as WPImage)?.node;
   const processIntro: FreeQuotePageContent["processIntro"] = {
-    eyebrow: qp.section3SubHeading as string,
+    eyebrow: toTitleCase(qp.section3SubHeading as string),
     headingPrefix: introHeading.prefix,
     headingHighlight: introHeading.highlight,
     description: stripHtml(qp.section3Text as string),
@@ -1379,7 +1386,7 @@ export async function fetchFreeQuotePage() {
 
   const formHeading = parseSplHeading(qp.formHeading as string);
   const form: FreeQuotePageContent["form"] = {
-    eyebrow: qp.formSubHeading as string,
+    eyebrow: toTitleCase(qp.formSubHeading as string),
     headingPrefix: formHeading.prefix,
     headingHighlight: formHeading.highlight,
     subtitle: qp.formText as string,
@@ -1498,10 +1505,10 @@ export async function fetchGalleryPage() {
 
   const ctaHeading = parseSplHeading(gp.ctaBannerHeading as string || "");
   const cta: ConsultationCtaContent = {
-    eyebrow: gp.ctaBannerSubHeading as string || "",
+    eyebrow: toTitleCase(gp.ctaBannerSubHeading as string || ""),
     heading: ctaHeading.prefix + ctaHeading.highlight + ctaHeading.suffix,
     body: gp.ctaBannerText as string || "",
-    ctaLabel: gp.ctaBannerButtonText as string || "",
+    ctaLabel: toTitleCase(gp.ctaBannerButtonText as string || ""),
     ctaHref: gp.ctaBannerButtonUrl as string || "",
     image: img(gp.ctaBannerImage as WPImage),
   };
@@ -1561,7 +1568,7 @@ export async function fetchLocationSinglePage(uri: string) {
     breadcrumb,
     heading: lp.heroSectionHeading as string,
     subheading: lp.heroSectionParagraph as string,
-    ctaLabel: lp.heroSectionButtonText as string,
+    ctaLabel: toTitleCase(lp.heroSectionButtonText as string),
     ctaHref: lp.heroSectionButtonUrl as string,
     backgroundImage: img(locData.location.featuredImage),
   };
@@ -1577,14 +1584,14 @@ export async function fetchLocationSinglePage(uri: string) {
     serviceCards.push({ image: { src: "", alt: "" }, title: "", description: "", href: "#" });
 
   const serviceGrid: CityPageContent["serviceGrid"] = {
-    eyebrow: lp.serviceSectionSubHeading as string,
+    eyebrow: toTitleCase(lp.serviceSectionSubHeading as string),
     headingSegments: serviceHeading,
     summary: lp.serviceSectionText as string,
     cards: serviceCards.slice(0, 6) as CityPageContent["serviceGrid"]["cards"],
   };
 
   const consultation: CityPageContent["consultation"] = {
-    eyebrow: lp.formSectionSubHeading as string,
+    eyebrow: toTitleCase(lp.formSectionSubHeading as string),
     heading: lp.formSectionHeading as string,
     description: stripHtml(lp.formSectionText as string),
     ctaLabel: "Submit",

@@ -11,7 +11,7 @@ export function ServicesGlimpse({ content }: { content?: ServicesGlimpseContent 
     <section className="flex flex-col gap-14 bg-ice px-8 py-16 md:px-12 xl:gap-14 xl:px-20 xl:py-[100px]">
       <div className="flex flex-col items-start gap-4">
         <div className="flex items-center justify-center rounded-[8px] border border-navy-light-active p-2">
-          <p className="font-mono text-[11px] uppercase leading-[16px] tracking-[1.1px] text-black">{eyebrow}</p>
+          <p className="font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">{eyebrow}</p>
         </div>
         <div className="flex w-full flex-col items-start gap-4 xl:flex-row xl:items-center xl:justify-between">
           <h2 className="w-full font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-navy xl:w-[662px]">

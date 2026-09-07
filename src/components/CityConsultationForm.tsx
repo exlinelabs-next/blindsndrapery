@@ -23,7 +23,7 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
         {/* Info panel */}
         <div className="flex flex-col items-start gap-4 rounded-lg bg-navy p-10 md:p-16 xl:w-[584px] xl:shrink-0 xl:justify-center">
           <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
-            <p className="whitespace-nowrap text-center font-mono text-[11px] uppercase leading-[16px] tracking-[1.1px] text-white">
+            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-white">
               {eyebrow}
             </p>
           </div>

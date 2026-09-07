@@ -8,7 +8,7 @@ export function GalleryHero({ content }: { content?: GalleryHeroContent }) {
   return (
     <section className="flex flex-col gap-4 px-8 pb-10 pt-10 md:px-12 xl:px-20">
       <div className="flex w-fit items-center justify-center rounded-lg bg-[#e7e9ec] p-3 backdrop-blur-[25px]">
-        <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy uppercase">
+        <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy">
           {breadcrumb}
         </p>
       </div>
