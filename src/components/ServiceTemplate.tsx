@@ -1,4 +1,5 @@
 import { ServiceInlineHero } from "@/components/ServiceInlineHero";
+import { ServiceIntro } from "@/components/ServiceIntro";
 import { SubServicesGrid } from "@/components/SubServicesGrid";
 import { AboutMaterials } from "@/components/AboutMaterials";
 import { ServiceTimeline } from "@/components/ServiceTimeline";
@@ -23,6 +24,7 @@ export function ServiceTemplate({
   return (
     <main>
       <ServiceInlineHero contentKey={contentKey} content={content?.hero} />
+      <ServiceIntro contentKey={contentKey} content={content?.intro} />
       {subServices && <SubServicesGrid content={subServices} />}
       {/* Only the leaf service templates (no sub-categories, e.g. /services/blinds)
           get the navy About section from the Figma "Service Inline 2" spec —

@@ -60,7 +60,7 @@ export function Hero({
           <p className="w-full font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-white xl:max-w-3xl">
             {subheading}
           </p>
-          <Button href={ctaHref}>{ctaLabel}</Button>
+          {ctaLabel && <Button href={ctaHref}>{ctaLabel}</Button>}
         </div>
       </div>
     </section>

@@ -311,6 +311,22 @@ export interface ServiceInlineHeroContent {
   backgroundImage: { src: string; alt: string };
 }
 
+// New section confirmed via get_design_context on node 4481:4451/4463 — sits
+// directly under the hero, before the (optional) sub-services grid and the
+// existing "about" (materials/features) section below. A light ice-colored
+// card (eyebrow + 2-segment heading + paragraphs) beside a photo, both at
+// equal width. Figma repeats this exact copy verbatim across every single-
+// service page (confirmed on both the Blinds and Shades source frames) —
+// a placeholder, not page-specific content, same "preserve the design's own
+// repeated copy faithfully" rule as the timeline steps' identical body text.
+export interface ServiceIntroContent {
+  eyebrow: string;
+  headingPrefix: string;
+  headingHighlight: string;
+  paragraphs: string[];
+  image: { src: string; alt: string };
+}
+
 // The intro paragraph has one inline highlighted phrase mid-sentence (bigger,
 // semibold, teal) rather than a heading-style prefix/highlight/suffix split —
 // modeled as 3 plain string segments joined in order, same idiom as the
@@ -374,6 +390,7 @@ export interface ServiceHowItWorksHeader {
 
 export interface ServiceInlinePageContent {
   hero: ServiceInlineHeroContent;
+  intro: ServiceIntroContent;
   subServices?: SubServicesGridContent;
   about: ServiceInlineAboutContent;
   howItWorksHeader: ServiceHowItWorksHeader;

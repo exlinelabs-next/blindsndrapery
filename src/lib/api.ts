@@ -1,4 +1,5 @@
 import { fetchGraphQL } from "./graphql";
+import { serviceIntroPlaceholder } from "@/content/mock";
 import {
   HEADER_NAV_AND_BUTTON,
   SITE_ICON_AND_LOGO,
@@ -1192,6 +1193,12 @@ export async function fetchServiceSinglePage(uri: string) {
       subheading: sf.mainParagraph as string,
       backgroundImage: img(serviceData.service.featuredImage),
     },
+    // No CMS field group exists for this section yet (confirmed against
+    // SERVICE_SINGLE_PAGE_QUERY) — same "hardcode rather than guess at an
+    // unverified GraphQL field" call as serviceGlimpse.ctaLabel elsewhere in
+    // this file. Figma itself repeats this exact copy on every service page,
+    // so the shared placeholder is the right content here, not a stopgap.
+    intro: serviceIntroPlaceholder,
     subServices,
     about: {
       eyebrow: toTitleCase(sf.section2SubHeading as string),
