@@ -167,6 +167,16 @@ interface HeaderAPIResponse {
   };
 }
 
+const NAV_CATEGORY_IMAGE_BY_LABEL: Record<string, string> = {
+  Blinds: "/images/services/card-blinds.webp",
+  Shades: "/images/services/card-shades.webp",
+  Shutters: "/images/services/card-shutters.webp",
+  "Curtains & Drapery": "/images/services/card-drapery.webp",
+  "Drapery & Curtains": "/images/services/card-drapery.webp",
+  "Motorized & Smart Home": "/images/services/card-motorized.webp",
+  "Repairs & Maintenance": "/images/services/card-repairs.webp",
+};
+
 export async function fetchNav(): Promise<NavContent> {
   const [logoData, navData] = await Promise.all([
     fetchGraphQL<{ page: { headerFields: { headerSiteLogo: WPImage } } }>(
@@ -190,6 +200,10 @@ export async function fetchNav(): Promise<NavContent> {
   const categories = (servicesItem?.childItems?.nodes ?? []).map((child) => ({
     label: child.label,
     href: child.uri.replace(/\/$/, ""),
+    // WP menu items have no image field of their own, so this mirrors the
+    // mock fallback: reuse each service's existing card image asset rather
+    // than an unverified CMS field.
+    image: { src: NAV_CATEGORY_IMAGE_BY_LABEL[child.label] ?? "/images/services/card-shades.webp", alt: child.label },
     subItems: (child.childItems?.nodes ?? []).map((sub) => ({
       label: sub.label,
       href: sub.uri.replace(/\/$/, ""),
@@ -225,6 +239,14 @@ export async function fetchNav(): Promise<NavContent> {
           }
         : { image: { src: "", alt: "" }, title: "", description: "", buttonLabel: "", buttonHref: "" },
       socialLinks,
+      // No CMS field confirmed for this block yet; copy and placeholder
+      // phone number mirror the mock fallback (see mock.ts nav.helpBar).
+      helpBar: {
+        prefix: "Need help measuring?",
+        ctaLabel: "Book Free Consultation",
+        ctaHref: "#quote-form",
+        phoneLabel: "Call Us: (800) XXX-XXXX",
+      },
     },
     links: otherLinks,
     ctaLabel: toTitleCase(hf.headerButtonText),

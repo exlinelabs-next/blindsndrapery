@@ -22,6 +22,7 @@ export interface NavDropdownSubItem {
 export interface NavDropdownCategory {
   label: string;
   href: string;
+  image: { src: string; alt: string };
   subItems?: NavDropdownSubItem[];
   exploreLabel: string;
 }
@@ -32,6 +33,13 @@ export interface NavDropdownBlogCard {
   description: string;
   buttonLabel: string;
   buttonHref: string;
+}
+
+export interface NavHelpBarContent {
+  prefix: string;
+  ctaLabel: string;
+  ctaHref: string;
+  phoneLabel: string;
 }
 
 export interface NavContent {
@@ -45,6 +53,7 @@ export interface NavContent {
     categories: NavDropdownCategory[];
     blogCard: NavDropdownBlogCard;
     socialLinks: FooterSocialLink[];
+    helpBar: NavHelpBarContent;
   };
   links: NavLinkContent[];
   ctaLabel: string;

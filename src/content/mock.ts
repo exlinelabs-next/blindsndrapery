@@ -43,11 +43,22 @@ export const mockContent: PageContent = {
     },
     servicesLabel: 'Services',
     servicesDropdown: {
+      // Order and per-category images confirmed via get_design_context on
+      // 4311:2976 (desktop hover mega-menu) — only Shades has real distinct
+      // sub-pages in this app, matching Figma's own example (every other
+      // category shows just its image + explore button, no subitem grid).
       categories: [
+        {
+          label: 'Blinds',
+          href: '/services/blinds',
+          image: { src: '/images/services/card-blinds.webp', alt: 'Blinds' },
+          exploreLabel: 'Explore Blinds',
+        },
         {
           label: 'Shades',
           href: '/services/shades',
-          exploreLabel: 'Explore Shades →',
+          image: { src: '/images/services/card-shades.webp', alt: 'Shades' },
+          exploreLabel: 'Explore Shades',
           subItems: [
             { label: 'Roller Shades', href: '/services/shades/roller-shades' },
             { label: 'Solar Shades', href: '/services/shades/solar-shades' },
@@ -59,49 +70,26 @@ export const mockContent: PageContent = {
         {
           label: 'Shutters',
           href: '/services/shutters',
-          exploreLabel: 'Explore Shutters →',
-          subItems: [
-            { label: 'Composite Shutters', href: '/services/shutters' },
-            { label: 'Natural Wood Shutters', href: '/services/shutters' },
-            { label: 'Tier-on-Tier Shutters', href: '/services/shutters' },
-          ],
-        },
-        {
-          label: 'Blinds',
-          href: '/services/blinds',
-          exploreLabel: 'Explore Blinds →',
-          subItems: [
-            { label: 'Wood Blinds', href: '/services/blinds' },
-            { label: 'Faux Wood Blinds', href: '/services/blinds' },
-            { label: 'Aluminum Blinds', href: '/services/blinds' },
-            { label: 'Vertical Blinds', href: '/services/blinds' },
-            { label: 'Cellular Blinds', href: '/services/blinds' },
-          ],
+          image: { src: '/images/services/card-shutters.webp', alt: 'Shutters' },
+          exploreLabel: 'Explore Shutters',
         },
         {
           label: 'Curtains & Drapery',
           href: '/services/drapery',
-          exploreLabel: 'Explore Curtains & Drapery →',
+          image: { src: '/images/services/card-drapery.webp', alt: 'Curtains & Drapery' },
+          exploreLabel: 'Explore Curtains & Drapery',
         },
         {
           label: 'Motorized & Smart Home',
           href: '/services/motorized',
-          exploreLabel: 'Explore Smart Homes →',
-          subItems: [
-            { label: 'Motorized Shades', href: '/services/motorized' },
-            { label: 'Smart Home Integration', href: '/services/motorized' },
-            { label: 'Automated Window Treatments', href: '/services/motorized' },
-          ],
+          image: { src: '/images/services/card-motorized.webp', alt: 'Motorized & Smart Home' },
+          exploreLabel: 'Explore Smart Homes',
         },
         {
           label: 'Repairs & Maintenance',
           href: '/services/repairs',
-          exploreLabel: 'Explore Repairs →',
-          subItems: [
-            { label: 'Blind Repair', href: '/services/repairs' },
-            { label: 'Shade Repair', href: '/services/repairs' },
-            { label: 'Maintenance Services', href: '/services/repairs' },
-          ],
+          image: { src: '/images/services/card-repairs.webp', alt: 'Repairs & Maintenance' },
+          exploreLabel: 'Explore Repairs',
         },
       ],
       blogCard: {
@@ -120,6 +108,16 @@ export const mockContent: PageContent = {
         { platform: 'youtube', href: 'https://www.youtube.com', label: 'YouTube' },
         { platform: 'linkedin', href: 'https://www.linkedin.com', label: 'LinkedIn' },
       ],
+      // Copy and placeholder phone number preserved verbatim from Figma
+      // (node 4311:2976) — the design itself uses "(800) XXX-XXXX" as an
+      // unfilled placeholder, so it's reproduced as plain text rather than
+      // a tel: link.
+      helpBar: {
+        prefix: 'Need help measuring?',
+        ctaLabel: 'Book Free Consultation',
+        ctaHref: '#quote-form',
+        phoneLabel: 'Call Us: (800) XXX-XXXX',
+      },
     },
     links: [
       { label: 'Commercial', href: '/commercial' },

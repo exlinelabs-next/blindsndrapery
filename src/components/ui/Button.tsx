@@ -15,6 +15,7 @@ interface ButtonProps {
   // elsewhere, without the solid variant's press-inward animation.
   variant?: "solid" | "outline";
   className?: string;
+  onClick?: () => void;
 }
 
 // Mirrors the "Button" component instance from Figma exactly (it's reused
@@ -34,7 +35,7 @@ interface ButtonProps {
 // that, the arrow nudges 3px to the right on hover (user-requested, not
 // itself a static Figma variant, but a natural extension of the "press
 // forward" feel).
-export function Button({ children, href, type = "button", showArrow = true, variant = "solid", className }: ButtonProps) {
+export function Button({ children, href, type = "button", showArrow = true, variant = "solid", className, onClick }: ButtonProps) {
   // The outer teal ring and inner white-bordered box both need to stretch
   // together when a caller wants a full-width button (e.g. the mobile nav
   // drawer's "Book Consultation") — matching the Figma source, where the
@@ -70,14 +71,14 @@ export function Button({ children, href, type = "button", showArrow = true, vari
 
   if (href) {
     return (
-      <Link href={href} className={className}>
+      <Link href={href} className={className} onClick={onClick}>
         {content}
       </Link>
     );
   }
 
   return (
-    <button type={type} className={className}>
+    <button type={type} className={className} onClick={onClick}>
       {content}
     </button>
   );
