@@ -1150,12 +1150,6 @@ export async function fetchServiceSinglePage(uri: string) {
     paragraphSuffix = stripHtml(paragraphMatch[3]);
   }
 
-  const features: string[] = [];
-  for (let i = 1; i <= 4; i++) {
-    const point = sf[`section2Point${i}`] as string | null;
-    if (point) features.push(point.trim());
-  }
-
   const hiwHeaderHeading = parseSplHeading(sf.howItWorksSectionHeading as string);
   const timelineImage = img(sf.howItWorksSectionImage as WPImage);
   const timelineSteps = [];
@@ -1202,7 +1196,7 @@ export async function fetchServiceSinglePage(uri: string) {
       paragraphPrefix,
       paragraphHighlight,
       paragraphSuffix,
-      features,
+      features: [],
       gallery: [
         img(sf.section2Image1 as WPImage),
         img(sf.section2Image2 as WPImage),
