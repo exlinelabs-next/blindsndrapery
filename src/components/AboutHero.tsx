@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "./ui/Button";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useContent } from "@/hooks/useContent";
 import type { AboutHeroContent } from "@/types/content";
 
@@ -26,7 +27,7 @@ export function AboutHero({ content }: { content?: AboutHeroContent }) {
       <div className="absolute bottom-0 left-0 right-0 flex flex-col items-start px-8 pb-10 md:px-12 xl:px-20 xl:pb-16">
         <div className="flex w-fit items-center justify-center rounded-lg bg-[#e7e9ec] p-3 backdrop-blur-[25px]">
           <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy">
-            {breadcrumb}
+            <Breadcrumb trail={breadcrumb} />
           </p>
         </div>
         <h1 className="mt-[10px] font-heading text-[36px] font-bold leading-[44px] tracking-[-0.5376px] text-white md:text-[42px] md:leading-[52px] xl:text-[48px] xl:leading-[64px]">

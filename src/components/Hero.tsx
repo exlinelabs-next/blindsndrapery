@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import type { HeroContent } from "@/types/content";
 
 interface HeroProps {
@@ -44,7 +45,7 @@ export function Hero({
         {breadcrumb && (
           <div className="flex w-fit items-center justify-center rounded-lg bg-[#e7e9ec] p-3 backdrop-blur-[25px]">
             <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy">
-              {breadcrumb}
+              <Breadcrumb trail={breadcrumb} />
             </p>
           </div>
         )}
