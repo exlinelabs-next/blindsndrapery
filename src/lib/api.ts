@@ -300,9 +300,10 @@ export async function fetchFooter(): Promise<FooterContent> {
 
   return {
     logo: { src: logoImg.src, alt: logoImg.alt, href: "/" },
+    description: "Custom window coverings, measured and fitted across Florida.",
     badges: [
       { src: img(ff.footerLogo1).src, alt: img(ff.footerLogo1).alt, aspectRatio: "269/187" },
-      { src: img(ff.footerLogo2).src, alt: img(ff.footerLogo2).alt, aspectRatio: "314/187" },
+      { src: img(ff.footerLogo2).src, alt: img(ff.footerLogo2).alt, aspectRatio: "142/80" },
     ],
     columns: [
       menuColumn(menusData.footerCol1, "Explore"),
@@ -310,11 +311,19 @@ export async function fetchFooter(): Promise<FooterContent> {
       menuColumn(menusData.footerCol3, "Inspiration"),
       menuColumn(menusData.footerCol4, "Contact"),
     ],
-    copyright: "© 2024 Blinds & Drapery Co. All rights reserved",
+    contact: {
+      servingAreaText: "Serving Broward County and Florida statewide",
+      phone: "(555) 010-3456",
+      email: "info@blindsndrapery.com",
+      cta: { label: "Book consultation", href: "/free-quote" },
+    },
+    trustHighlights: [
+      "Licensed & Insured",
+      "10+ Years in Business",
+      "Manufacturer Guarantee",
+    ],
+    copyright: `© ${new Date().getFullYear()} Blinds & Drapery Co. All rights reserved`,
     legalLinks: [
-      // The WP backend serves one combined document (page 490 is literally
-      // titled "Privacy Policy / Terms & Conditions") at /privacy-policy —
-      // there's no separate /terms-of-use page, so both labels point there.
       { label: "Terms of Use", href: "/privacy-policy" },
       { label: "Privacy Policy", href: "/privacy-policy" },
     ],

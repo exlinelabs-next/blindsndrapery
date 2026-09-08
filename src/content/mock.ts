@@ -535,13 +535,15 @@ export const mockContent: PageContent = {
         aspectRatio: '142/80',
       },
     ],
+    description: 'Custom window coverings, measured and fitted across Florida.',
     columns: [
       {
         title: 'Explore',
         links: [
-          { label: 'How it Works', href: '/how-it-works' },
-          { label: 'Commercial Solutions', href: '/commercial' },
-          { label: 'About Us', href: '/about' },
+          { label: 'Commercial', href: '/commercial' },
+          { label: 'Company', href: '/about' },
+          { label: 'Legal', href: '/privacy-policy' },
+          { label: 'Locations', href: '/locations' },
         ],
       },
       {
@@ -567,19 +569,19 @@ export const mockContent: PageContent = {
       {
         title: 'Contact',
         links: [
-          // Updated 2026-08-17: now points at the real /locations page built
-          // from Figma's "Desktop / Locations Hub" (node 2251:68) — this
-          // label is a near-exact match for that page's own content
-          // ("Now Serving @Florida", verified service areas), and the
-          // homepage nav's "Locations" link already points at the same
-          // route, so both site-wide references to this page now agree.
-          // Previously pointed at a separate, never-built "/areas-we-serve".
           { label: 'Areas We Serve', href: '/locations' },
           { label: 'FAQ', href: '/faq' },
         ],
       },
     ],
-    copyright: '© 2024 Blinds & Drapery Co. All rights reserved',
+    contact: {
+      servingAreaText: 'Serving Broward County and Florida statewide',
+      phone: '(555) 010-3456',
+      email: 'info@blindsndrapery.com',
+      cta: { label: 'Book consultation', href: '/free-quote' },
+    },
+    trustHighlights: ['Licensed & Insured', '10+ Years in Business', 'Manufacturer Guarantee'],
+    copyright: '© 2026 Blinds & Drapery Co. All rights reserved',
     legalLinks: [
       // Same combined-document destination as the real backend mapping in
       // api.ts's fetchFooter — no separate /terms-of-use page exists.

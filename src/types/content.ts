@@ -239,14 +239,24 @@ export interface FooterSocialLink {
   label: string;
 }
 
+export interface FooterContact {
+  servingAreaText?: string;
+  phone?: string;
+  email?: string;
+  cta?: { label: string; href: string };
+}
+
 export interface FooterContent {
   logo: {
     src: string;
     alt: string;
     href: string;
   };
+  description?: string;
   badges: FooterBadge[];
   columns: FooterColumn[];
+  contact?: FooterContact;
+  trustHighlights?: string[];
   copyright: string;
   legalLinks: FooterLink[];
   socialLinks: FooterSocialLink[];
