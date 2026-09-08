@@ -286,6 +286,7 @@ export interface ServiceAboutContent {
   headingSuffix: string;
   paragraph: string;
   image: { src: string; alt: string };
+  cta?: { label: string; href: string };
 }
 
 // Content specific to the "/services" hub page (Figma "Desktop / Service",

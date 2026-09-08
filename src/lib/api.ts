@@ -906,6 +906,11 @@ export async function fetchServicePage() {
     headingSuffix: aboutHeading.suffix,
     paragraph: stripHtml(sp.section3Paragraph as string),
     image: img(sp.section3Image as WPImage),
+    // Figma's "Explore Shutters" CTA on this fixed Shutters showcase block
+    // has no corresponding WP field (the query has no section3Button*
+    // fields) — same "Learn More" precedent as serviceGlimpse.ctaLabel
+    // above, hardcoded rather than risking an unknown-field GraphQL error.
+    cta: { label: "Explore Shutters", href: "/services/shutters" },
   };
 
   const faqCategories = faqData.faqCategories.nodes.map((c) => c.name);

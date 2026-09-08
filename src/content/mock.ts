@@ -666,6 +666,7 @@ export const mockContent: PageContent = {
         src: '/images/services/about-shutters.webp',
         alt: 'Living room with white plantation shutters covering large windows',
       },
+      cta: { label: 'Explore Shutters', href: '/services/shutters' },
     },
   },
   serviceBlinds: {
