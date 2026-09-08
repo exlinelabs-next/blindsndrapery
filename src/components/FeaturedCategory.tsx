@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import type { FeaturedCategoryContent } from "@/types/content";
 
 export function FeaturedCategory({ content }: { content?: FeaturedCategoryContent }) {
-  const { eyebrow, headingPrefix, headingHighlight, headingSuffix, paragraphs, image } =
+  const { eyebrow, headingPrefix, headingHighlight, headingSuffix, paragraphs, image, cta } =
     content ?? useContent("featuredCategory");
 
   return (
@@ -26,6 +28,19 @@ export function FeaturedCategory({ content }: { content?: FeaturedCategoryConten
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
+            {cta && (
+              <Link
+                href={cta.href}
+                className="rounded-lg bg-teal p-[2px] shadow-[0px_4px_2px_rgba(0,0,0,0.1)]"
+              >
+                <div className="flex items-center justify-center gap-2 rounded-[6px] border border-white/33 px-6 py-[14px]">
+                  <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-white">
+                    {cta.label}
+                  </span>
+                  <ArrowRight className="size-[14px] text-white" strokeWidth={2.5} />
+                </div>
+              </Link>
+            )}
           </div>
         </div>
         <div className="relative h-[411px] w-full shrink-0 overflow-hidden rounded-lg md:h-[529px] xl:w-[645px]">

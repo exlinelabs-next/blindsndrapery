@@ -50,7 +50,7 @@ export function CityServiceGrid({ content }: { content?: CityServiceGridContent 
                 <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy">
                   View Details
                 </span>
-                <ArrowRight className="size-[14px] text-navy" strokeWidth={2.5} />
+                <ArrowRight className="size-[14px] text-navy transition-all duration-300 group-hover:-rotate-45" strokeWidth={2.5} />
               </div>
             </div>
           </Link>

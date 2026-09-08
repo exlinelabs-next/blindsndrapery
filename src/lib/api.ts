@@ -702,6 +702,9 @@ export async function fetchHomePage() {
       .map((s) => s.trim())
       .filter(Boolean),
     image: img(hp.section3Image as WPImage),
+    ...(hp.section3ButtonText && hp.section3ButtonUrl
+      ? { cta: { label: toTitleCase(hp.section3ButtonText as string), href: hp.section3ButtonUrl as string } }
+      : {}),
   };
 
   const hwwHeading = parseSplHeading(hp.howWeWorkSectionHeading as string);

@@ -22,7 +22,7 @@ function ServiceCard({ card }: { card: SubServiceCard }) {
           <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy transition-colors duration-300 group-hover:text-white/90">
             View Details
           </span>
-          <ArrowRight className="size-[14px] text-navy transition-colors duration-300 group-hover:text-white/90" strokeWidth={2.5} />
+          <ArrowRight className="size-[14px] text-navy transition-all duration-300 group-hover:-rotate-45 group-hover:text-white/90" strokeWidth={2.5} />
         </div>
       </div>
     </Link>

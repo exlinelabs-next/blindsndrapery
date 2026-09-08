@@ -99,6 +99,7 @@ export interface FeaturedCategoryContent {
     src: string;
     alt: string;
   };
+  cta?: { label: string; href: string };
 }
 
 export interface HowItWorksStep {
