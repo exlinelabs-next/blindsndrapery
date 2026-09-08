@@ -31,9 +31,9 @@ export function CityServiceGrid({ content }: { content?: CityServiceGridContent 
       {/* Service cards — 1 col mobile, 2 col tablet, 3 col desktop */}
       <div className="grid grid-cols-1 gap-6 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
         {cards.map((card) => (
-          <div key={card.title} className="flex flex-col gap-2.5">
+          <Link key={card.title} href={card.href} className="group flex flex-col gap-2.5">
             <div className="relative h-[392px] w-full overflow-hidden rounded-lg">
-              <Image src={card.image.src} alt={card.image.alt} fill className="object-cover" />
+              <Image src={card.image.src} alt={card.image.alt} fill className="object-cover transition-transform duration-300 group-hover:scale-110" />
             </div>
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2 text-navy">
@@ -44,17 +44,16 @@ export function CityServiceGrid({ content }: { content?: CityServiceGridContent 
                   {card.description}
                 </p>
               </div>
-              <Link
-                href={card.href}
-                className="flex w-fit items-center gap-2 rounded-lg border border-navy-light-active bg-white px-4 py-2"
+              <div
+                className="flex w-fit items-center gap-2 rounded-lg border border-navy-light-active bg-white px-4 py-2 transition-all duration-300 group-hover:border-navy group-hover:bg-transparent"
               >
                 <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy">
                   View Details
                 </span>
                 <ArrowRight className="size-[14px] text-navy" strokeWidth={2.5} />
-              </Link>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

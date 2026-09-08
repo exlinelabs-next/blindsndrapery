@@ -5,9 +5,9 @@ import type { SubServiceCard, SubServicesGridContent } from "@/types/content";
 
 function ServiceCard({ card }: { card: SubServiceCard }) {
   return (
-    <div className="flex flex-col gap-[10px]">
+    <Link href={card.href} className="group flex flex-col gap-[10px]">
       <div className="relative h-[300px] w-full overflow-hidden rounded-lg md:h-[392px]">
-        <Image src={card.image.src} alt={card.image.alt} fill className="object-cover" />
+        <Image src={card.image.src} alt={card.image.alt} fill className="object-cover transition-transform duration-300 group-hover:scale-110" />
       </div>
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-2 text-white">
@@ -16,17 +16,16 @@ function ServiceCard({ card }: { card: SubServiceCard }) {
           </p>
           <p className="text-[16px] leading-[23px]">{card.description}</p>
         </div>
-        <Link
-          href={card.href}
-          className="flex w-fit items-center justify-center gap-2 rounded-lg border border-navy-light-active bg-white px-4 py-2"
+        <div
+          className="flex w-fit items-center justify-center gap-2 rounded-lg border border-navy-light-active bg-white px-4 py-2 transition-all duration-300 group-hover:border-white group-hover:bg-transparent"
         >
-          <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy">
+          <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy transition-colors duration-300 group-hover:text-white/90">
             View Details
           </span>
-          <ArrowRight className="size-[14px] text-navy" strokeWidth={2.5} />
-        </Link>
+          <ArrowRight className="size-[14px] text-navy transition-colors duration-300 group-hover:text-white/90" strokeWidth={2.5} />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
