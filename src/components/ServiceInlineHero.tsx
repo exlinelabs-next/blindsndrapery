@@ -22,6 +22,7 @@ export function ServiceInlineHero({ contentKey = "serviceBlinds", content }: { c
       backgroundImage={backgroundImage}
       ctaLabel=""
       ctaHref=""
+      headingScalesOnMobile
     />
   );
 }
