@@ -22,8 +22,8 @@ const CARD_LAYOUT: Record<string, { column: 0 | 1 | 2; row: 0 | 1; heightClass: 
 const COLUMN_GAP_CLASSES = ["gap-[13px]", "gap-[10px]", "gap-[10px]"];
 
 export function ServiceGlimpse({ content }: { content?: ServicesGlimpseContent }) {
-  const { eyebrow, headingSegments, servicesSummary, ctaLabel, cards } =
-    content ?? useContent("services");
+  const fallback = useContent("services");
+  const { eyebrow, headingSegments, servicesSummary, ctaLabel, cards } = content ?? fallback;
 
   const columns: (typeof cards)[number][][] = [[], [], []];
   for (const card of cards) {
@@ -37,13 +37,13 @@ export function ServiceGlimpse({ content }: { content?: ServicesGlimpseContent }
       <Link
         key={card.href}
         href={card.href}
-        className={`relative flex flex-col justify-end overflow-hidden rounded-[8px] p-6 ${heightClass}`}
+        className={`group relative flex flex-col justify-end overflow-hidden rounded-[8px] p-6 ${heightClass}`}
       >
         <Image
           src={card.image.src}
           alt={card.image.alt}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-300 group-hover:scale-110"
         />
         <div
           className="absolute inset-0"
@@ -63,11 +63,11 @@ export function ServiceGlimpse({ content }: { content?: ServicesGlimpseContent }
             </p>
             <p className="text-[16px] leading-[23px]">{card.description}</p>
           </div>
-          <span className="flex w-fit items-center justify-center gap-2 rounded-[8px] bg-white px-4 py-2">
-            <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy">
+          <span className="flex w-fit items-center justify-center gap-2 rounded-[8px] border border-transparent bg-white px-4 py-2 transition-all duration-300 group-hover:border-white group-hover:bg-transparent">
+            <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-navy transition-colors duration-300 group-hover:text-white/90">
               {ctaLabel}
             </span>
-            <ArrowRight className="size-[14px] text-navy" strokeWidth={2.5} />
+            <ArrowRight className="size-[14px] text-navy transition-all duration-300 group-hover:-rotate-45 group-hover:text-white/90" strokeWidth={2.5} />
           </span>
         </div>
       </Link>

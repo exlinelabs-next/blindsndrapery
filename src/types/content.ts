@@ -501,7 +501,11 @@ export interface CommercialPageContent {
 export interface LocationsHeroContent {
   breadcrumb: string;
   heading: string;
-  subheading: string;
+  // The CMS field is WYSIWYG rich text (multiple <p> blocks), so this is
+  // pre-split into plain paragraph strings at the data layer — same
+  // pattern as FeaturedCategoryContent.paragraphs — rather than rendered
+  // with dangerouslySetInnerHTML.
+  subheading: string[];
 }
 
 export interface ServiceAreaLinkContent {

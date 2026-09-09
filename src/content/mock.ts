@@ -237,6 +237,7 @@ export const mockContent: PageContent = {
       src: 'https://www.figma.com/api/mcp/asset/758ac310-96a9-4208-80ed-0049e29039ab.png',
       alt: 'Elegant white plantation shutters framing a sunlit window in a cozy living room with neutral furnishings',
     },
+    cta: { label: 'Explore Shutters', href: '/services/shutters' },
   },
   howItWorks: {
     eyebrow: 'process',
@@ -1681,7 +1682,7 @@ export const mockContent: PageContent = {
     hero: {
       breadcrumb: 'HOME > locations hub',
       heading: 'Window Treatment Services Across Florida',
-      subheading: 'Serving Broward County and South Florida — expanding to additional states soon.',
+      subheading: ['Serving Broward County and South Florida — expanding to additional states soon.'],
     },
     serviceArea: {
       eyebrow: 'VERIFIED SERVICE AREA',

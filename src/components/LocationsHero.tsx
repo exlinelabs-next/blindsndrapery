@@ -3,7 +3,8 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import type { LocationsHeroContent } from "@/types/content";
 
 export function LocationsHero({ content }: { content?: LocationsHeroContent }) {
-  const { breadcrumb, heading, subheading } = content ?? useContent("locationsPage").hero;
+  const fallback = useContent("locationsPage").hero;
+  const { breadcrumb, heading, subheading } = content ?? fallback;
 
   return (
     <section className="flex items-center bg-navy px-8 py-20 md:px-12 xl:px-20">
@@ -16,9 +17,16 @@ export function LocationsHero({ content }: { content?: LocationsHeroContent }) {
         <p className="w-full text-center font-heading text-[48px] font-bold leading-[64px] tracking-[-0.5376px] text-white">
           {heading}
         </p>
-        <p className="w-full text-center font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-white">
-          {subheading}
-        </p>
+        <div className="flex w-full flex-col items-center gap-4">
+          {subheading.map((paragraph, i) => (
+            <p
+              key={i}
+              className="w-full text-center font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-white"
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
       </div>
     </section>
   );

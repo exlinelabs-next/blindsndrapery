@@ -30,7 +30,7 @@ export function Breadcrumb({ trail }: { trail: string }) {
     .filter(Boolean);
 
   return (
-    <>
+    <span className="uppercase">
       {segments.map((label, i) => {
         const isLast = i === segments.length - 1;
         const href = i === 0 ? "/" : SECTION_HREFS[label.toLowerCase()];
@@ -48,6 +48,6 @@ export function Breadcrumb({ trail }: { trail: string }) {
           </span>
         );
       })}
-    </>
+    </span>
   );
 }
