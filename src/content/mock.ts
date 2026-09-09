@@ -1682,7 +1682,7 @@ export const mockContent: PageContent = {
     hero: {
       breadcrumb: 'HOME > locations hub',
       heading: 'Window Treatment Services Across Florida',
-      subheading: 'Serving Broward County and South Florida — expanding to additional states soon.',
+      subheading: ['Serving Broward County and South Florida — expanding to additional states soon.'],
     },
     serviceArea: {
       eyebrow: 'VERIFIED SERVICE AREA',

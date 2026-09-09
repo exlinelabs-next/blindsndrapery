@@ -1095,7 +1095,10 @@ export async function fetchLocationsPage() {
   const hero: LocationsHeroContent = {
     breadcrumb: "HOME > locations hub",
     heading: lp.mainHeading as string,
-    subheading: lp.mainParagraph as string,
+    subheading: (lp.mainParagraph as string)
+      .split(/<\/?p>/)
+      .map((s) => stripHtml(s))
+      .filter(Boolean),
   };
 
   const saHeading = parseSplHeading(lp.serviceAreaSectionHeading as string);
