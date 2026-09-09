@@ -8,11 +8,15 @@ interface ButtonProps {
   type?: "button" | "submit";
   showArrow?: boolean;
   // "outline" mirrors the second Button instance in the Figma file (node
-  // 4450:5377, e.g. the Services page's "Explore Shutters" CTA): a teal
-  // border/text on a transparent fill, instead of the default solid-teal
-  // button. No hover variant is documented for it in the source, so hover
-  // here just darkens the border to the same teal-pressed token used
-  // elsewhere, without the solid variant's press-inward animation.
+  // 4450:5377 default / 4450:5376 hover, e.g. the Services page's "Explore
+  // Shutters" CTA): a teal border/text on a transparent fill, instead of
+  // the default solid-teal button. It gets its own press-inward animation
+  // (outer 2px -> 5px, inner 24/14/6 -> 21/11/3), same shape as the solid
+  // variant's but with different specifics confirmed from that hover
+  // node: the OUTER border stays a constant teal (#5f8f8b) in both states
+  // — it's the INNER ring that changes, from translucent white (33%) to
+  // translucent teal (33%) — and the label/arrow darken to #476b68
+  // ("Accent/Smoky Teal/Dark"), not the solid button's teal-pressed token.
   variant?: "solid" | "outline";
   className?: string;
   onClick?: () => void;
@@ -48,22 +52,26 @@ export function Button({ children, href, type = "button", showArrow = true, vari
   const isOutline = variant === "outline";
   const content = (
     <span
-      className={`group flex items-center rounded-[8px] p-[2px] transition-all duration-200 ${
+      className={`group flex items-center rounded-[8px] p-[2px] transition-all duration-200 hover:p-[5px] ${
         isOutline
-          ? "border border-teal hover:border-teal-pressed"
-          : "bg-teal shadow-[0px_4px_2px_rgba(0,0,0,0.1)] hover:bg-teal-pressed hover:p-[5px]"
+          ? "border border-teal"
+          : "bg-teal shadow-[0px_4px_2px_rgba(0,0,0,0.1)] hover:bg-teal-pressed"
       } ${isFullWidth ? "w-full" : ""}`}
     >
       <span
-        className={`flex items-center justify-center gap-2 rounded-[6px] px-6 py-3.5 transition-all duration-200 ${
-          isOutline ? "" : "border border-white/33 group-hover:rounded-[3px] group-hover:px-[21px] group-hover:py-[11px]"
+        className={`flex items-center justify-center gap-2 rounded-[6px] px-6 py-3.5 transition-all duration-200 group-hover:rounded-[3px] group-hover:px-[21px] group-hover:py-[11px] ${
+          isOutline ? "border border-white/33 group-hover:border-teal/33" : "border border-white/33"
         } ${isFullWidth ? "flex-1" : ""}`}
       >
-        <span className={`whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] ${isOutline ? "text-teal" : "text-white"}`}>
+        <span
+          className={`whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] ${isOutline ? "text-teal group-hover:text-[#476b68]" : "text-white"}`}
+        >
           {children}
         </span>
         {showArrow && (
-          <ArrowRightIcon className={`size-[14px] shrink-0 transition-transform duration-200 group-hover:translate-x-[3px] ${isOutline ? "text-teal" : "text-white"}`} />
+          <ArrowRightIcon
+            className={`size-[14px] shrink-0 transition-transform duration-200 group-hover:translate-x-[3px] ${isOutline ? "text-teal group-hover:text-[#476b68]" : "text-white"}`}
+          />
         )}
       </span>
     </span>

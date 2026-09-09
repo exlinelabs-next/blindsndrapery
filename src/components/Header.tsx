@@ -4,10 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, ChevronLeft, Menu, X, ArrowRight } from "lucide-react";
+import { ChevronDown, X, ArrowRight } from "lucide-react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa6";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import { MenuIcon } from "@/components/ui/MenuIcon";
+import { ChevronDownIcon } from "@/components/ui/ChevronDownIcon";
+import { ArrowLeftIcon } from "@/components/ui/ArrowLeftIcon";
 import type { NavContent, NavDropdownCategory, NavDropdownBlogCard, NavHelpBarContent, FooterSocialLink } from "@/types/content";
 
 const SOCIAL_ICONS = {
@@ -32,7 +35,7 @@ function CategoryPanel({ category, widthClassName, onNavigate }: { category: Nav
     <div className={`flex shrink-0 flex-col gap-4 ${widthClassName}`}>
       {hasSubItems && (
         <div className="flex flex-col gap-4">
-          <p className="font-heading text-[16px] leading-[23px] font-semibold tracking-[2.5px] text-[#476b68] uppercase">
+          <p className="font-heading text-[16px] leading-[23px] font-semibold tracking-[0.4px] text-[#476b68] uppercase">
             {category.label.toUpperCase()} COLLECTION
           </p>
           <div className="flex flex-wrap gap-4">
@@ -52,7 +55,7 @@ function CategoryPanel({ category, widthClassName, onNavigate }: { category: Nav
       <Link
         href={category.href}
         onClick={onNavigate}
-        className={`relative block w-full overflow-hidden rounded-lg ${hasSubItems ? "h-[259px]" : "h-[378px]"}`}
+        className={`relative block w-full overflow-hidden rounded-lg ${hasSubItems ? "h-[259px]" : "h-[338px]"}`}
       >
         <Image src={category.image.src} alt={category.image.alt} fill className="object-cover" />
         <div className="absolute inset-0 bg-black/20" />
@@ -73,13 +76,13 @@ function BlogCard({ blogCard, imageClassName, onNavigate }: { blogCard: NavDropd
   if (!blogCard.title) return null;
 
   return (
-    <div className="flex w-full flex-col gap-2 rounded-lg">
+    <div className="flex h-full w-full flex-col gap-2 rounded-lg">
       {blogCard.image.src && (
-        <div className={`relative w-full overflow-hidden rounded-lg ${imageClassName}`}>
+        <div className={`relative w-full shrink-0 overflow-hidden rounded-lg ${imageClassName}`}>
           <Image src={blogCard.image.src} alt={blogCard.image.alt} fill className="object-cover" />
         </div>
       )}
-      <div className="flex flex-col items-end gap-2.5 rounded-lg bg-[#e7eeee] p-6">
+      <div className="flex flex-1 flex-col items-end gap-2.5 rounded-lg bg-[#e7eeee] p-6">
         <div className="flex w-full flex-col gap-2.5 text-black">
           <p className="font-heading text-base leading-[23px] font-semibold tracking-[0.16px]">{blogCard.title}</p>
           <p className="line-clamp-3 text-sm leading-6 md:line-clamp-2">{blogCard.description}</p>
@@ -242,17 +245,18 @@ export function Header({ navContent }: { navContent?: NavContent }) {
       </Link>
 
       <nav className="hidden h-10 shrink-0 items-center gap-8 xl:flex">
-        <button
-          type="button"
+        <Link
+          href="/services"
           onMouseEnter={() => setServicesOpen(true)}
-          onClick={() => setServicesOpen(true)}
+          onFocus={() => setServicesOpen(true)}
+          onClick={closeDesktopMega}
           aria-haspopup="true"
           aria-expanded={servicesOpen}
           className={`flex cursor-pointer items-center gap-2 text-base leading-[23px] transition-colors hover:text-teal ${isOnServicePage ? "text-teal" : "text-navy"}`}
         >
           {servicesLabel}
           <ChevronDown className={`size-3 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
-        </button>
+        </Link>
 
         {links.map((link) => {
           const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
@@ -280,35 +284,36 @@ export function Header({ navContent }: { navContent?: NavContent }) {
         aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
         className="flex size-8 shrink-0 items-center justify-center text-navy xl:hidden"
       >
-        {mobileMenuOpen ? <X className="size-8" /> : <Menu className="size-8" />}
+        {mobileMenuOpen ? <X className="size-8" /> : <MenuIcon className="size-8" />}
       </button>
 
       {/* Desktop hover mega-menu (node 4311:2976) */}
       {servicesOpen && (
-        <div className="absolute left-0 top-full z-50 hidden w-full flex-col rounded-b-lg bg-white shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
-          <div className="flex items-start gap-10 px-20 pt-10">
-            <div className="flex h-[422px] shrink-0 gap-[72px]">
-              <div className="flex w-[264px] shrink-0 flex-col">
-                {categories.map((category) => {
-                  const isActive = activeCategory?.label === category.label;
-                  return (
-                    <button
-                      key={category.label}
-                      type="button"
-                      onMouseEnter={() => setActiveCategoryLabel(category.label)}
-                      onClick={() => setActiveCategoryLabel(category.label)}
-                      className={`flex w-full items-center justify-between rounded-lg px-2.5 py-3.5 text-left font-heading text-[18px] leading-[27px] font-semibold tracking-[-0.0648px] transition-colors ${isActive ? "bg-[#eff4f3] text-black" : "text-black hover:bg-[#eff4f3]"}`}
-                    >
-                      {category.label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {activeCategory && <CategoryPanel category={activeCategory} widthClassName="w-[443px]" onNavigate={closeDesktopMega} />}
+        <div className="absolute inset-x-0 top-[calc(100%+2px)] z-50 hidden w-full flex-col rounded-b-lg bg-white shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
+          <div className="flex h-[422px] items-start justify-between px-20 pt-10">
+            <div className="flex w-[264px] shrink-0 flex-col">
+              {categories.map((category) => {
+                const isActive = activeCategory?.label === category.label;
+                return (
+                  <button
+                    key={category.label}
+                    type="button"
+                    onMouseEnter={() => setActiveCategoryLabel(category.label)}
+                    onClick={() => setActiveCategoryLabel(category.label)}
+                    className={`flex w-full items-center gap-4 rounded-lg px-2.5 py-3.5 text-left font-heading text-[18px] leading-[27px] font-semibold tracking-[-0.0648px] transition-colors ${isActive ? "bg-[#eff4f3] text-black" : "text-black hover:bg-[#eff4f3]"}`}
+                  >
+                    <span aria-hidden className="text-[16px] leading-none">
+                      •
+                    </span>
+                    {category.label}
+                  </button>
+                );
+              })}
             </div>
 
-            <div className="w-[380px] shrink-0">
+            {activeCategory && <CategoryPanel category={activeCategory} widthClassName="w-[443px] shrink-0" onNavigate={closeDesktopMega} />}
+
+            <div className="h-full w-[380px] shrink-0">
               <BlogCard blogCard={blogCard} imageClassName="h-[200px]" onNavigate={closeDesktopMega} />
             </div>
           </div>
@@ -331,17 +336,26 @@ export function Header({ navContent }: { navContent?: NavContent }) {
                   aria-label="Back"
                   className="flex size-6 items-center justify-center text-black"
                 >
-                  <ChevronLeft className="size-5" />
+                  <ArrowLeftIcon className="size-3" />
                 </button>
                 <div className="flex flex-col gap-6">
-                  <button
-                    type="button"
-                    onClick={() => setMobileServicesOpen(false)}
-                    className="flex w-full items-center justify-between font-heading text-[18px] leading-[27px] font-semibold tracking-[-0.0648px] text-black"
-                  >
-                    {servicesLabel}
-                    <ChevronDown className="size-3 rotate-180" />
-                  </button>
+                  <div className="flex w-full items-center justify-between">
+                    <Link
+                      href="/services"
+                      onClick={closeMobileMenu}
+                      className="font-heading text-[18px] leading-[27px] font-semibold tracking-[-0.0648px] text-black"
+                    >
+                      {servicesLabel}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setMobileServicesOpen(false)}
+                      aria-label="Collapse Services"
+                      className="flex size-6 items-center justify-center text-black"
+                    >
+                      <ChevronDownIcon className="h-2 w-3.5 rotate-180" />
+                    </button>
+                  </div>
 
                   <div className="flex flex-col md:flex-row md:items-start md:gap-6">
                     <div className="flex w-full flex-col md:w-auto">
@@ -352,15 +366,21 @@ export function Header({ navContent }: { navContent?: NavContent }) {
                             <Link
                               href={category.href}
                               onClick={closeMobileMenu}
-                              className="flex w-full items-center justify-between rounded-lg px-2.5 py-3.5 font-heading text-[18px] leading-[23px] font-semibold tracking-[0.4px] text-black md:hidden"
+                              className="flex w-full items-center gap-4 rounded-lg px-2.5 py-3.5 font-heading text-[18px] leading-[23px] font-semibold tracking-[0.4px] text-black md:hidden"
                             >
+                              <span aria-hidden className="text-[16px] leading-none">
+                                •
+                              </span>
                               {category.label}
                             </Link>
                             <button
                               type="button"
                               onClick={() => setActiveCategoryLabel(category.label)}
-                              className={`hidden w-full items-center justify-between rounded-lg px-2.5 py-3.5 text-left font-heading text-[18px] leading-[23px] font-semibold tracking-[0.4px] transition-colors md:flex ${isActive ? "bg-[#eff4f3] text-black" : "text-black hover:bg-[#eff4f3]"}`}
+                              className={`hidden w-full items-center gap-4 rounded-lg px-2.5 py-3.5 text-left font-heading text-[18px] leading-[23px] font-semibold tracking-[0.4px] transition-colors md:flex ${isActive ? "bg-[#eff4f3] text-black" : "text-black hover:bg-[#eff4f3]"}`}
                             >
+                              <span aria-hidden className="text-[16px] leading-none">
+                                •
+                              </span>
                               {category.label}
                             </button>
                           </div>
@@ -382,14 +402,23 @@ export function Header({ navContent }: { navContent?: NavContent }) {
               </div>
             ) : (
               <div className="flex flex-col gap-6">
-                <button
-                  type="button"
-                  onClick={() => setMobileServicesOpen(true)}
-                  className="flex w-full items-center justify-between font-heading text-[18px] leading-[27px] font-semibold tracking-[-0.0648px] text-black"
-                >
-                  {servicesLabel}
-                  <ChevronDown className="size-3" />
-                </button>
+                <div className="flex w-full items-center justify-between">
+                  <Link
+                    href="/services"
+                    onClick={closeMobileMenu}
+                    className="font-heading text-[18px] leading-[27px] font-semibold tracking-[-0.0648px] text-black"
+                  >
+                    {servicesLabel}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setMobileServicesOpen(true)}
+                    aria-label="Expand Services"
+                    className="flex size-6 items-center justify-center text-black"
+                  >
+                    <ChevronDownIcon className="h-2 w-3.5" />
+                  </button>
+                </div>
 
                 {links.map((link) => {
                   const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
