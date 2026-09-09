@@ -1,5 +1,4 @@
 import { fetchGraphQL } from "./graphql";
-import { serviceIntroPlaceholder } from "@/content/mock";
 import {
   HEADER_NAV_AND_BUTTON,
   SITE_ICON_AND_LOGO,
@@ -114,11 +113,12 @@ function sortFaqCategories(categories: string[]): string[] {
   return sorted;
 }
 
-function parseSplHeading(raw: string): {
+function parseSplHeading(raw: string | null | undefined): {
   prefix: string;
   highlight: string;
   suffix: string;
 } {
+  if (!raw) return { prefix: "", highlight: "", suffix: "" };
   const match = raw.match(/^([\s\S]*?)<spl>([\s\S]*?)<(?:\/spl|spl)>([\s\S]*)$/);
   if (!match) return { prefix: raw, highlight: "", suffix: "" };
   return { prefix: match[1], highlight: match[2], suffix: match[3] };
@@ -276,6 +276,7 @@ interface FooterAPIResponse {
   page: {
     footerFields: {
       footerSiteLogo: WPImage;
+      footerShortText: string;
       footerLogo1: WPImage;
       footerLogo2: WPImage;
       socialIcon1: WPImage;
@@ -286,6 +287,12 @@ interface FooterAPIResponse {
       socialUrl3: string;
       socialIcon4: WPImage;
       socialUrl4: string;
+      contactNumber: string;
+      contactEmail: string;
+      contactSectionText: string;
+      pointText1: string;
+      pointText2: string;
+      pointText3: string;
     };
   };
 }
@@ -337,7 +344,7 @@ export async function fetchFooter(): Promise<FooterContent> {
 
   return {
     logo: { src: logoImg.src, alt: logoImg.alt, href: "/" },
-    description: "Custom window coverings, measured and fitted across Florida.",
+    description: ff.footerShortText,
     badges: [
       { src: img(ff.footerLogo1).src, alt: img(ff.footerLogo1).alt, aspectRatio: "269/187" },
       { src: img(ff.footerLogo2).src, alt: img(ff.footerLogo2).alt, aspectRatio: "142/80" },
@@ -349,16 +356,12 @@ export async function fetchFooter(): Promise<FooterContent> {
       menuColumn(menusData.footerCol4, "Contact"),
     ],
     contact: {
-      servingAreaText: "Serving Broward County and Florida statewide",
-      phone: "(555) 010-3456",
-      email: "info@blindsndrapery.com",
+      servingAreaText: ff.contactSectionText,
+      phone: ff.contactNumber,
+      email: ff.contactEmail,
       cta: { label: "Book consultation", href: "/free-quote" },
     },
-    trustHighlights: [
-      "Licensed & Insured",
-      "10+ Years in Business",
-      "Manufacturer Guarantee",
-    ],
+    trustHighlights: [ff.pointText1, ff.pointText2, ff.pointText3],
     copyright: `© ${new Date().getFullYear()} Blinds & Drapery Co. All rights reserved`,
     legalLinks: [
       { label: "Terms of Use", href: "/privacy-policy" },
@@ -1039,8 +1042,8 @@ export async function fetchCommercialPage() {
 
   const quoteForm: CommercialQuoteFormContent = {
     eyebrow: toTitleCase(cp.formSectionSubHeading as string),
-    heading: "Submit Your Commercial Bid Request",
-    description: "Our commercial desk will review your scope and architectural requirements within 24 business hours.",
+    heading: cp.formSectionHeading as string,
+    description: stripHtml(cp.formSectionText as string),
     companyNameLabel: "Company Name",
     companyNamePlaceholder: "Company Name",
     contactNameLabel: "Contact Name",
@@ -1183,8 +1186,11 @@ export async function fetchServiceSinglePage(uri: string) {
   const breadcrumbs = serviceData.service.seo?.breadcrumbs ?? [];
   const breadcrumb = breadcrumbs.map((b) => stripHtml(b.text)).join(" > ").toUpperCase();
 
+  const introHeading = parseSplHeading(sf.introSectionHeading as string);
+  const introText = (sf.introSectionText as string) ?? "";
+
   const aboutHeading = parseSplHeading(sf.section2Heading as string);
-  const aboutText = sf.section2Text as string;
+  const aboutText = (sf.section2Text as string) ?? "";
   const paragraphMatch = aboutText.match(
     /^([\s\S]*?)<span[^>]*><strong>([\s\S]*?)<\/strong><\/span>([\s\S]*)$/,
   );
@@ -1234,12 +1240,16 @@ export async function fetchServiceSinglePage(uri: string) {
       subheading: sf.mainParagraph as string,
       backgroundImage: img(serviceData.service.featuredImage),
     },
-    // No CMS field group exists for this section yet (confirmed against
-    // SERVICE_SINGLE_PAGE_QUERY) — same "hardcode rather than guess at an
-    // unverified GraphQL field" call as serviceGlimpse.ctaLabel elsewhere in
-    // this file. Figma itself repeats this exact copy on every service page,
-    // so the shared placeholder is the right content here, not a stopgap.
-    intro: serviceIntroPlaceholder,
+    intro: {
+      eyebrow: toTitleCase(sf.introSectionSubHeading as string),
+      headingPrefix: introHeading.prefix,
+      headingHighlight: introHeading.highlight,
+      paragraphs: introText
+        .split(/<\/?p>/)
+        .map((s) => s.trim())
+        .filter(Boolean),
+      image: img(sf.introSectionImage as WPImage),
+    },
     subServices,
     about: {
       eyebrow: toTitleCase(sf.section2SubHeading as string),

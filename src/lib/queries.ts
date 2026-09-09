@@ -87,6 +87,7 @@ export const FOOTER_QUERY = `
             mediaItemUrl
           }
         }
+        footerShortText
         footerLogo1 {
           node {
             altText
@@ -133,6 +134,12 @@ export const FOOTER_QUERY = `
           }
         }
         socialUrl4
+        contactNumber
+        contactEmail
+        contactSectionText
+        pointText1
+        pointText2
+        pointText3
       }
     }
   }
@@ -397,6 +404,10 @@ export const SERVICE_SINGLE_PAGE_QUERY = `
       servicesSinglePageFields {
         mainHeading
         mainParagraph
+        introSectionSubHeading
+        introSectionHeading
+        introSectionText
+        introSectionImage { node { altText title mediaItemUrl } }
         section2SubHeading
         section2Heading
         section2Text
@@ -509,6 +520,8 @@ export const COMMERCIAL_PAGE_QUERY = `
         section3Heading
         section3Text
         formSectionSubHeading
+        formSectionHeading
+        formSectionText
       }
       commercialPageCarouselImages {
         title
