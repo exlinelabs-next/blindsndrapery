@@ -10,18 +10,21 @@ const LOAD_MORE_COUNT = 6;
 
 export function GalleryGrid({
   activeProductType,
+  activeRoom,
   content,
 }: {
   activeProductType: string;
+  activeRoom: string;
   content?: GalleryGridContent;
 }) {
   const { items, loadMoreLabel } = content ?? useContent("galleryPage").grid;
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
 
-  const filtered =
-    activeProductType === "All"
-      ? items
-      : items.filter((item) => item.category === activeProductType);
+  const filtered = items.filter(
+    (item) =>
+      (activeProductType === "All" || item.category === activeProductType) &&
+      (activeRoom === "All" || item.room === activeRoom),
+  );
 
   const visible = filtered.slice(0, visibleCount);
   const hasMore = visibleCount < filtered.length;
@@ -29,8 +32,8 @@ export function GalleryGrid({
   return (
     <section className="flex flex-col items-center gap-10 px-8 pb-14 pt-[50px] md:px-12 md:pb-16 xl:px-20 xl:pb-[100px]">
       <div className="grid w-full grid-cols-1 gap-6 xl:grid-cols-3 xl:gap-4">
-        {visible.map((item, i) => (
-          <GalleryCard key={`${item.category}-${i}`} item={item} />
+        {visible.map((item) => (
+          <GalleryCard key={item.id} item={item} />
         ))}
       </div>
       {hasMore && (
@@ -57,12 +60,21 @@ function GalleryCard({ item }: { item: GalleryItem }) {
         sizes="(min-width: 1280px) 416px, 100vw"
       />
       <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]" />
-      <div className="absolute left-6 top-6">
+      <div className="absolute left-6 top-6 flex flex-col items-start gap-2">
+        {item.category && (
         <div className="flex items-center justify-center rounded-[8px] bg-[rgba(0,0,0,0.33)] px-4 py-2 backdrop-blur-[43px]">
           <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-white">
             {item.category}
           </span>
         </div>
+        )}
+        {item.room && (
+          <div className="flex items-center justify-center rounded-[8px] bg-[rgba(0,0,0,0.33)] px-4 py-2 backdrop-blur-[43px]">
+            <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-white">
+              {item.room}
+            </span>
+          </div>
+        )}
       </div>
       <div className="absolute inset-x-0 bottom-0 flex h-[113px] items-end px-6 pb-6">
         <div
