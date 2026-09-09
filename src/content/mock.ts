@@ -149,10 +149,6 @@ export const mockContent: PageContent = {
         src: '/images/home/process-poster.jpg',
         alt: 'Technician installing white venetian blinds on a large double window',
       },
-      playIcon: {
-        src: '/images/home/play-icon.svg',
-        alt: '',
-      },
     },
   },
   services: {

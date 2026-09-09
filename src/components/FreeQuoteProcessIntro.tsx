@@ -23,13 +23,17 @@ export function FreeQuoteProcessIntro({ content }: { content?: FreeQuoteProcessI
         </div>
       </div>
       <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl xl:h-[486px] xl:flex-1">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          sizes="(max-width: 1279px) 100vw, 50vw"
-          className="object-cover"
-        />
+        {image.src.match(/\.(mp4|webm|mov)$/i) ? (
+          <video src={image.src} autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover" />
+        ) : image.src ? (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            sizes="(max-width: 1279px) 100vw, 50vw"
+            className="object-cover"
+          />
+        ) : null}
       </div>
     </section>
   );

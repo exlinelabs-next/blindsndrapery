@@ -87,6 +87,7 @@ export const FOOTER_QUERY = `
             mediaItemUrl
           }
         }
+        footerShortText
         footerLogo1 {
           node {
             altText
@@ -133,6 +134,12 @@ export const FOOTER_QUERY = `
           }
         }
         socialUrl4
+        contactNumber
+        contactEmail
+        contactSectionText
+        pointText1
+        pointText2
+        pointText3
       }
     }
   }
@@ -397,6 +404,10 @@ export const SERVICE_SINGLE_PAGE_QUERY = `
       servicesSinglePageFields {
         mainHeading
         mainParagraph
+        introSectionSubHeading
+        introSectionHeading
+        introSectionText
+        introSectionImage { node { altText title mediaItemUrl } }
         section2SubHeading
         section2Heading
         section2Text
@@ -509,6 +520,8 @@ export const COMMERCIAL_PAGE_QUERY = `
         section3Heading
         section3Text
         formSectionSubHeading
+        formSectionHeading
+        formSectionText
       }
       commercialPageCarouselImages {
         title
@@ -1153,6 +1166,17 @@ export const BLOG_SINGLE_PAGE_QUERY = `
           pageType
         }
       }
+    }
+  }
+`;
+
+// Custom mutation registered on the WP side via `graphql_register_types`
+// (not part of the default WPGraphQL schema) — writes a private
+// "form-submission" post for the Home and Free Quote page contact forms.
+export const SUBMIT_CONTACT_FORM_MUTATION = `
+  mutation SubmitForm($input: SubmitContactFormInput!) {
+    submitContactForm(input: $input) {
+      success
     }
   }
 `;

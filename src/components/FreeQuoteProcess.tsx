@@ -24,14 +24,10 @@ export function FreeQuoteProcess({ content }: { content?: FreeQuoteProcessConten
         </div>
 
         <div className="flex flex-col gap-4">
-          {steps.map((step, i) => (
+          {steps.map((step) => (
             <div
               key={step.number}
-              className={`flex flex-col gap-4 rounded-lg border bg-white px-6 py-6 md:flex-row md:items-center md:justify-between md:px-10 md:py-6 ${
-                i === 0
-                  ? "border-[rgba(78,120,117,0.33)] shadow-[0px_4px_2px_rgba(0,0,0,0.05)]"
-                  : "border-[rgba(15,30,60,0.08)]"
-              }`}
+              className="flex flex-col gap-4 rounded-lg border border-[rgba(15,30,60,0.08)] bg-white px-6 py-6 transition-all duration-200 hover:border-[rgba(78,120,117,0.33)] hover:shadow-[0px_4px_2px_rgba(0,0,0,0.05)] md:flex-row md:items-center md:justify-between md:px-10 md:py-6"
             >
               <div className="flex flex-col gap-2">
                 <p className="font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-teal">
