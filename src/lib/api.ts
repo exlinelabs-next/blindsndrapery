@@ -7,7 +7,6 @@ import {
   HOME_PAGE_QUERY,
   SERVICE_CARDS_QUERY,
   FAQ_QUERY,
-  LOCATIONS_LIST_QUERY,
   COMMERCIAL_PAGE_QUERY,
   SERVICE_SINGLE_PAGE_QUERY,
   SERVICE_PAGE_QUERY,
@@ -35,6 +34,7 @@ import type {
   ServicesGlimpseContent,
   FeaturedCategoryContent,
   HowItWorksContent,
+  TestimonialsContent,
   QuoteGalleryContent,
   CommercialContent,
   RepairMaintenanceContent,
@@ -49,7 +49,7 @@ import type {
   InstallationGalleryContent,
   CommercialQuoteFormContent,
   LocationsHeroContent,
-  ServiceAreaPanelContent,
+  LocationCountySection,
   ComingSoonStatesContent,
   ServiceInlinePageContent,
   AboutPageContent,
@@ -546,29 +546,23 @@ export async function fetchRepairMaintenance(): Promise<RepairMaintenanceContent
 }
 
 export async function fetchLocations(): Promise<LocationsContent> {
-  const [homeData, locationsData] = await Promise.all([
-    fetchGraphQL<HomePageResponse>(HOME_PAGE_QUERY),
-    fetchGraphQL<{ locations: { nodes: Array<{ title: string; uri: string }> } }>(
-      LOCATIONS_LIST_QUERY,
-    ),
-  ]);
-
+  const homeData = await fetchGraphQL<HomePageResponse>(HOME_PAGE_QUERY);
   const hp = homeData.page.homePageFields;
-  const pinIcons = [
-    "/images/shared/icons/footer-icon-2.svg",
-    "/images/shared/icons/footer-icon-3.svg",
-    "/images/shared/icons/footer-icon-4.svg",
-  ];
-  const cities = locationsData.locations.nodes.map((loc, i) => ({
-    icon: { src: pinIcons[i % pinIcons.length], alt: "" },
-    name: loc.title,
-  }));
+  const locationIcon = img(hp.locationsSectionIcon as WPImage);
+  const cityNames = [
+    hp.locationsSectionIconText1 as string,
+    hp.locationsSectionIconText2 as string,
+    hp.locationsSectionIconText3 as string,
+  ].filter(Boolean);
 
   return {
     eyebrow: toTitleCase(hp.locationsSectionSubHeading as string),
     heading: hp.locationsSectionHeading as string,
     description: hp.locationsSectionText as string,
-    cities,
+    cities: cityNames.map((name) => ({
+      icon: locationIcon,
+      name,
+    })),
   };
 }
 
@@ -664,7 +658,7 @@ export async function fetchServiceCards(): Promise<ServiceCard[]> {
 // ---------------------------------------------------------------------------
 
 export async function fetchHomePage() {
-  const [homeData, cardsData, locationsData, faqData] = await Promise.all([
+  const [homeData, cardsData, faqData] = await Promise.all([
     fetchGraphQL<HomePageResponse>(HOME_PAGE_QUERY),
     fetchGraphQL<{
       services: {
@@ -676,9 +670,6 @@ export async function fetchHomePage() {
         }>;
       };
     }>(SERVICE_CARDS_QUERY),
-    fetchGraphQL<{ locations: { nodes: Array<{ title: string; uri: string }> } }>(
-      LOCATIONS_LIST_QUERY,
-    ),
     fetchGraphQL<FaqAPIResponse>(FAQ_QUERY),
   ]);
 
@@ -695,8 +686,8 @@ export async function fetchHomePage() {
   const trustBadgesItems = [];
   for (let i = 1; i <= 5; i++) {
     const iconField = hp[`iconListIcon${i}`] as WPImage | null;
-    const text = hp[`iconListText${i}`] as string;
-    trustBadgesItems.push({ icon: iconField?.node?.mediaItemUrl ?? null, label: text });
+    const text = hp[`iconListText${i}`] as string | null;
+    if (text) trustBadgesItems.push({ icon: iconField?.node?.mediaItemUrl ?? null, label: text });
   }
   const trustBadgesContent: TrustBadgesContent = { items: trustBadgesItems };
 
@@ -767,6 +758,15 @@ export async function fetchHomePage() {
     ctaHref: hp.howWeWorkSectionButtonUrl as string,
   };
 
+  const reviewHeading = parseSplHeading(hp.reviewSectionHeading as string);
+  const testimonialsContent: TestimonialsContent = {
+    eyebrow: toTitleCase(hp.reviewSectionSubHeading as string),
+    headingPrefix: reviewHeading.prefix,
+    headingHighlight: reviewHeading.highlight,
+    description: stripHtml(hp.reviewSectionText as string),
+    testimonials: [],
+  };
+
   const quoteGalleryContent: QuoteGalleryContent = {
     quote: stripHtml(hp.reviewSectionQuote as string),
     quoteIcon: { src: "/images/shared/icons/footer-icon-1.svg", alt: "" },
@@ -798,13 +798,19 @@ export async function fetchHomePage() {
     description: hp.repairSectionText as string,
   };
 
+  const locationIcon = img(hp.locationsSectionIcon as WPImage);
+  const locationCityNames = [
+    hp.locationsSectionIconText1 as string,
+    hp.locationsSectionIconText2 as string,
+    hp.locationsSectionIconText3 as string,
+  ].filter(Boolean);
   const locationsContent: LocationsContent = {
     eyebrow: toTitleCase(hp.locationsSectionSubHeading as string),
     heading: hp.locationsSectionHeading as string,
     description: hp.locationsSectionText as string,
-    cities: locationsData.locations.nodes.map((loc, i) => ({
-      icon: { src: ["/images/shared/icons/footer-icon-2.svg", "/images/shared/icons/footer-icon-3.svg", "/images/shared/icons/footer-icon-4.svg"][i % 3], alt: "" },
-      name: loc.title,
+    cities: locationCityNames.map((name) => ({
+      icon: locationIcon,
+      name,
     })),
   };
 
@@ -856,6 +862,7 @@ export async function fetchHomePage() {
     servicesGlimpse: servicesGlimpseContent,
     featuredCategory: featuredCategoryContent,
     howItWorks: howItWorksContent,
+    testimonials: testimonialsContent,
     quoteGallery: quoteGalleryContent,
     commercial: commercialContent,
     repairMaintenance: repairMaintenanceContent,
@@ -1097,13 +1104,74 @@ interface LocationsHubResponse {
   };
 }
 
+// Hardcoded — no CMS field group exists for this yet (confirmed against
+// locationsHubPageQuery). See the comment on LocationCountySection in
+// content.ts for the full explanation.
+const LOCATION_COUNTIES: LocationCountySection[] = [
+  {
+    name: "Broward County",
+    paragraphs: [
+      "Broward covers more ground than most people expect, and the requirements shift considerably across it. Coastal properties from Deerfield down through Hollywood need corrosion-rated hardware and moisture-stable materials that inland communities like Weston and Coral Springs simply do not. Housing stock varies just as widely, from mid-century townhouses with irregular openings to newer developments where entire streets share the same window dimensions.",
+      "We hold a full installation team for the county, which means residential replacements, multi-unit and HOA schemes, and commercial fit-outs all run in parallel rather than queuing behind one another. Estimates come back the same day across every area listed here.",
+    ],
+    cities: [
+      { name: "Fort Lauderdale", href: "/free-quote", description: "One of our busiest areas, and one of the most varied. We cover everything from single-room replacements in Victoria Park townhouses to full commercial fit-outs along Las Olas. Waterfront properties here get salt-air rated hardware as standard, because the corrosion that ruins unrated mechanisms shows up within two seasons this close to the Intracoastal." },
+      { name: "Coral Springs", href: "/free-quote", description: "Residential and multi-family work across the northwest of the county. A lot of Coral Springs housing stock was built to similar plans, which means we frequently already know the window dimensions before we arrive. Faux wood blinds and cellular shades are the most requested specifications here, the latter usually for the west-facing rooms that run hot from mid-afternoon." },
+      { name: "Coral Gables", href: "/free-quote", description: "Period properties and larger residential specifications, frequently with architectural constraints. Original window openings are rarely square, and many are protected, so treatments have to fit what is there rather than what would be convenient. Interior shutters are popular here because they read as joinery rather than as something added." },
+      { name: "Hollywood", href: "/free-quote", description: "A mix of residential and hospitality, including contract-grade commercial fit-outs along the beach. Hotel and short-let properties here need genuine blackout for guest sleep quality and fabric that survives daily handling by people who did not pay for it. Fire-rated specifications are available across the range." },
+      { name: "Pompano Beach", href: "/free-quote", description: "Waterfront and near-waterfront homes where glare is the primary complaint. Solar shades are the most common answer, specified by openness factor per elevation so the water view survives the treatment. West-facing rooms usually take a tighter weave than the rest of the house." },
+      { name: "Plantation", href: "/free-quote", description: "Established residential neighbourhoods and professional offices. Larger older properties here often have arched heads, bay windows and irregular openings that defeat off-the-shelf sizing, which is exactly the situation custom fabrication exists for. We template rather than estimate on anything non-rectangular." },
+      { name: "Weston", href: "/free-quote", description: "Premium residential, and the area where we install the highest proportion of motorised systems. Tall stairwell glazing and wide runs above sliding doors are difficult to reach and tend to be left unused entirely without automation. App and scheduled control are specified more often here than anywhere else in the county." },
+      { name: "Pembroke Pines", href: "/free-quote", description: "High-volume residential communities, including a significant amount of multi-unit and HOA work. We handle phased installation across occupied buildings and hold consistent specifications across a development so units match, which matters when a management company is signing off on the whole scheme." },
+      // Figma's own label reads "Devis" — almost certainly a typo for "Davie"
+      // (a real Broward city, and the only one missing from this list).
+      // Kept as-is rather than silently corrected; flag to the content team.
+      { name: "Devis", href: "/free-quote", description: "Larger residential properties and equestrian estates with the tall, wide glazing that comes with them. Motorised drapery tracks and oversized roller systems are common specifications here. Anything above standard reach gets automated as a matter of course rather than as an upgrade." },
+    ],
+    alsoCovering: "Sunrise, Coconut Creek and Miramar",
+  },
+  {
+    name: "Miami Dade County",
+    paragraphs: [
+      "Miami-Dade is the largest market we serve and the most vertical. A significant share of the work is high-rise and condominium, where the building often dictates the job more than the specification does: restricted service hours, freight elevator bookings, and management approval before a contractor is admitted. We handle that paperwork as standard rather than treating it as an obstacle. Light is the other defining factor. Floor-to-ceiling glazing on east and south elevations produces glare and heat load that no fabric-weight decision alone will solve, so solar shading specified by openness factor does most of the work here.",
+      "Our teams for the county are experienced in both the access requirements and the specification, and estimates come back the same day.",
+    ],
+    cities: [
+      { name: "Miami", href: "/free-quote", description: "High-rise, condominium and commercial installations across the city. Building access rules shape the job more than the specification does here, so we schedule around approved service hours and handle the paperwork most management companies require before a contractor is admitted. Downtown and Brickell offices are the most common commercial requests." },
+      { name: "Miami Beach", href: "/free-quote", description: "Coastal and hospitality work where salt air is relentless. Every mechanism specified here is corrosion-rated, and we steer clients away from finishes that will not survive the first year. Hotels and short-let apartments make up a significant share of the work, which means blackout performance and fabric durability drive most specifications." },
+      { name: "Deerfield Beach", href: "/free-quote", description: "Coastal properties where humidity is the deciding factor rather than a consideration. Composite shutters and faux wood blinds are specified as standard in bathrooms, kitchens and anything within a few blocks of the ocean. Timber is available where the room is dry and conditioned, but we will tell you honestly when it is the wrong call." },
+      { name: "Aventura", href: "/free-quote", description: "Condominium and multi-unit residential, much of it high-rise with floor-to-ceiling glazing. Solar shades dominate for glare control on east and south elevations, usually motorised because the openings are large and the operating position is inconvenient. Building-wide specifications are common where an HOA is standardising." },
+      { name: "Doral", href: "/free-quote", description: "Commercial offices and modern residential developments. Office work here is mostly glare control on screens, which is a solar shade problem rather than a privacy one, and specification comes down to openness factor rather than opacity. We supply contract-grade mechanisms rated for daily cycling." },
+      { name: "Kendall", href: "/free-quote", description: "Suburban residential across the southwest of the county. Larger family homes with a lot of windows, which means the value of getting a baseline figure before an appointment is higher here than almost anywhere else. Faux wood blinds and roller shades are the most requested combination." },
+      { name: "Hialeah", href: "/free-quote", description: "Residential and light commercial. Practical specifications, hard-wearing materials and straightforward installation, with faux wood and aluminum blinds handling most requirements. Repairs are a significant share of our Hialeah work, often on treatments fitted by companies no longer trading." },
+      { name: "North Miami", href: "/free-quote", description: "Residential and multi-family developments, including a steady volume of rental and investment property work. Durability and cost per unit matter more than finish detail on those jobs, and we specify accordingly rather than pushing a premium option that will not be maintained." },
+      { name: "Sunny Isles Beach", href: "/free-quote", description: "Oceanfront condominiums where the glazing is large, the light is unfiltered and the buildings are strict about contractor access. Motorised solar shades are the standard specification, frequently across an entire unit, and scheduling is arranged with building management before we attend." },
+    ],
+    alsoCovering: "Homestead and the southern communities.",
+  },
+  {
+    name: "Palm Beach County",
+    paragraphs: [
+      "Palm Beach County spans a wider range of property types than either of its neighbours, from waterfront estates in Jupiter to equestrian properties in Wellington and dense multi-family developments through West Palm Beach. Specifications rarely repeat across a single job here, and a large property frequently needs three or four different treatments to work correctly room by room. That suits a made-to-measure operation better than a stock one.",
+      "We supply and install the full range throughout the county, residential and commercial, with the same estimate-first process and the same directly employed installation team. Estimates come back the same day across every area listed here.",
+    ],
+    cities: [
+      { name: "Boca Raton", href: "/free-quote", description: "Residential and professional offices across the city. A mix of established properties and newer developments, with full-height interior shutters and motorised shades the two most requested specifications. Office work is mostly glare management for screen-facing desks." },
+      { name: "Delray Beach", href: "/free-quote", description: "Coastal residential and hospitality. Proximity to the ocean drives material choice more than anything else, so composite and vinyl handle the wet and exposed rooms while timber is reserved for dry interiors. Restaurants and short-let properties make up a steady share of the commercial work." },
+      { name: "West Palm Beach", href: "/free-quote", description: "Commercial, multi-family and residential across the county's largest city. Office buildings and multi-unit residential developments are the bulk of it, which means volume pricing, consistent specification across units and phased installation around occupancy." },
+      { name: "Boynton Beach", href: "/free-quote", description: "Residential communities and light commercial, with a significant proportion of HOA and community association work. Consistency matters on those schemes, so we hold a single specification across a development and keep the records so replacements years later still match." },
+      { name: "Jupiter", href: "/free-quote", description: "Waterfront and premium residential. Large glazing, strong afternoon light and a lot of view worth protecting, which makes solar shades and layered treatments the usual answer rather than anything solid. Motorisation is common on the taller openings." },
+      { name: "Wellington", href: "/free-quote", description: "Larger residential properties and equestrian estates. Tall windows, wide spans and rooms that are difficult to treat with standard sizing. Custom fabrication and motorised operation are less an upgrade here than the only practical specification." },
+      // Figma's own label reads "Palm Beach Grains" — almost certainly a typo
+      // for "Palm Beach Gardens". Kept as-is rather than silently corrected;
+      // flag to the content team.
+      { name: "Palm Beach Grains", href: "/free-quote", description: "Residential estates and commercial offices. Mixed requirements across a single property are common, with solar shading on the exposed elevations, blackout in bedrooms and drapery where the room should feel finished rather than merely covered." },
+    ],
+  },
+];
+
 export async function fetchLocationsPage() {
-  const [pageData, locationsData] = await Promise.all([
-    fetchGraphQL<LocationsHubResponse>(LOCATIONS_HUB_PAGE_QUERY),
-    fetchGraphQL<{ locations: { nodes: Array<{ title: string; uri: string }> } }>(
-      LOCATIONS_LIST_QUERY,
-    ),
-  ]);
+  const pageData = await fetchGraphQL<LocationsHubResponse>(LOCATIONS_HUB_PAGE_QUERY);
 
   const lp = pageData.page.locationHubPageFields;
 
@@ -1116,22 +1184,6 @@ export async function fetchLocationsPage() {
       .filter(Boolean),
   };
 
-  const saHeading = parseSplHeading(lp.serviceAreaSectionHeading as string);
-  const cityLinks = locationsData.locations.nodes.map((loc) => ({
-    label: loc.title,
-    href: loc.uri.replace(/\/$/, ""),
-  }));
-  const serviceArea: ServiceAreaPanelContent = {
-    eyebrow: toTitleCase(lp.serviceAreaSectionSubHeading as string),
-    headingPrefix: saHeading.prefix,
-    headingHighlight: saHeading.highlight,
-    description: stripHtml(lp.serviceAreaSectionParagraph as string),
-    mapImage: { src: "/images/locations/florida-map.webp", alt: "Florida map" },
-    primaryLink: { label: "Explore All Florida Services", href: "/locations" },
-    cityLinks,
-    photo: img(lp.serviceAreaSectionImage as WPImage),
-  };
-
   const csHeading = parseSplHeading(lp.comingSoonSectionHeading as string);
   const csCards = [];
   for (let i = 1; i <= 3; i++) {
@@ -1141,6 +1193,10 @@ export async function fetchLocationsPage() {
     });
   }
   const comingSoon: ComingSoonStatesContent = {
+    // No CMS field exists for this eyebrow — confirmed against
+    // locationsHubPageQuery, same "hardcode rather than guess at an
+    // unverified GraphQL field" call as elsewhere in this file.
+    eyebrow: "EXPANDING",
     headingPrefix: csHeading.prefix,
     headingHighlight: csHeading.highlight,
     description: stripHtml(lp.comingSoonSectionParagraph as string),
@@ -1148,7 +1204,7 @@ export async function fetchLocationsPage() {
     cards: csCards as ComingSoonStatesContent["cards"],
   };
 
-  return { hero, serviceArea, comingSoon };
+  return { hero, counties: LOCATION_COUNTIES, comingSoon };
 }
 
 // ---------------------------------------------------------------------------
@@ -1511,22 +1567,15 @@ export async function fetchGalleryPage() {
       page: { galleryPageFields: Record<string, unknown> };
     }>(GALLERY_PAGE_QUERY),
     fetchGraphQL<{
-      productTypes: {
+      productTypes: { nodes: Array<{ name: string }> };
+      roomTypes: { nodes: Array<{ name: string }> };
+      galleryItems: {
         nodes: Array<{
-          name: string;
-          slug: string;
-          galleryItems: {
-            nodes: Array<{ title: string; featuredImage: WPImage }>;
-          };
-        }>;
-      };
-      roomTypes: {
-        nodes: Array<{
-          name: string;
-          slug: string;
-          galleryItems: {
-            nodes: Array<{ title: string; featuredImage: WPImage }>;
-          };
+          databaseId: number;
+          title: string;
+          featuredImage: WPImage;
+          productTypes: { nodes: Array<{ name: string }> };
+          roomTypes: { nodes: Array<{ name: string }> };
         }>;
       };
     }>(GALLERY_ITEMS_QUERY),
@@ -1543,8 +1592,8 @@ export async function fetchGalleryPage() {
     subheading: gp.mainParagraph as string || "",
   };
 
-  const productOptions = itemsData.productTypes.nodes.map((pt) => pt.name);
-  const roomOptions = itemsData.roomTypes.nodes.map((rt) => rt.name);
+  const productOptions = ["All", ...itemsData.productTypes.nodes.map((pt) => pt.name)];
+  const roomOptions = ["All", ...itemsData.roomTypes.nodes.map((rt) => rt.name)];
 
   const filters: GalleryPageContent["filters"] = {
     heading: gp.filterSectionTitle as string || "Filter by",
@@ -1554,16 +1603,14 @@ export async function fetchGalleryPage() {
     ],
   };
 
-  const allItems: GalleryPageContent["grid"]["items"] = [];
-  for (const pt of itemsData.productTypes.nodes) {
-    for (const item of pt.galleryItems.nodes) {
-      allItems.push({
-        image: img(item.featuredImage),
-        category: pt.name,
-        title: item.title,
-      });
-    }
-  }
+  const allItems: GalleryPageContent["grid"]["items"] = itemsData.galleryItems.nodes
+    .map((item) => ({
+      id: item.databaseId,
+      image: img(item.featuredImage),
+      category: item.productTypes.nodes[0]?.name ?? "",
+      room: item.roomTypes.nodes[0]?.name ?? "",
+      title: item.title,
+    }));
 
   const grid: GalleryPageContent["grid"] = {
     items: allItems,

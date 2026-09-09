@@ -272,6 +272,10 @@ export const HOME_PAGE_QUERY = `
         locationsSectionSubHeading
         locationsSectionHeading
         locationsSectionText
+        locationsSectionIcon { node { altText title mediaItemUrl } }
+        locationsSectionIconText1
+        locationsSectionIconText2
+        locationsSectionIconText3
         formSubHeading
         formHeading
         formParagraph
@@ -411,6 +415,7 @@ export const SERVICE_SINGLE_PAGE_QUERY = `
         section2SubHeading
         section2Heading
         section2Text
+        section2MaterielsText
         section2Image1 { node { altText title mediaItemUrl } }
         section2Image2 { node { altText title mediaItemUrl } }
         section2Image3 { node { altText title mediaItemUrl } }
@@ -418,6 +423,9 @@ export const SERVICE_SINGLE_PAGE_QUERY = `
         howItWorksSectionHeading
         howItWorksSectionText
         howItWorksSectionImage { node { altText title mediaItemUrl } }
+        howItWorksSectionImage2 { node { altText title mediaItemUrl } }
+        howItWorksSectionImage3 { node { altText title mediaItemUrl } }
+        howItWorksSectionImage4 { node { altText title mediaItemUrl } }
         titleStep1
         textStep1
         titleStep2
@@ -567,11 +575,15 @@ export const LOCATIONS_HUB_PAGE_QUERY = `
       locationHubPageFields {
         mainHeading
         mainParagraph
-        serviceAreaSectionSubHeading
-        serviceAreaSectionHeading
-        serviceAreaSectionParagraph
-        serviceAreaSectionImage { node { altText title mediaItemUrl } }
-        serviceAreaSectionMapImage { node { altText title mediaItemUrl } }
+        location1Title
+        location1Paragraph
+        location1AdditionalCitiesText
+        location2Title
+        location2Paragraph
+        location2AdditionalCitiesText
+        location3Title
+        location3Paragraph
+        location3AdditionalCitiesText
         comingSoonSectionHeading
         comingSoonSectionParagraph
         comingSoonCardIcon1 { node { altText title mediaItemUrl } }
@@ -708,6 +720,7 @@ export const GALLERY_PAGE_QUERY = `
         mainTitle
         mainParagraph
         filterSectionTitle
+        filterSectionText
         ctaBannerSubHeading
         ctaBannerHeading
         ctaBannerText
@@ -754,42 +767,43 @@ export const GALLERY_PAGE_QUERY = `
   }
 `;
 
+// Queries galleryItems directly (rather than nesting under productTypes/
+// roomTypes, which returns the same underlying items duplicated once per
+// taxonomy grouping with no id/databaseId to join them back up — confirmed
+// against the live schema). productTypes/roomTypes are still queried here,
+// just for their names, to populate the full set of filter pills even for
+// categories that currently have zero tagged items.
 export const GALLERY_ITEMS_QUERY = `
   query galleryItemsQuery {
     productTypes {
       nodes {
-        termTaxonomyId
         name
-        slug
-        galleryItems {
-          nodes {
-            title
-            featuredImage {
-              node {
-                altText
-                title
-                mediaItemUrl
-              }
-            }
-          }
-        }
       }
     }
     roomTypes {
       nodes {
-        termTaxonomyId
         name
-        slug
-        galleryItems {
-          nodes {
+      }
+    }
+    galleryItems(first: 100) {
+      nodes {
+        databaseId
+        title
+        featuredImage {
+          node {
+            altText
             title
-            featuredImage {
-              node {
-                altText
-                title
-                mediaItemUrl
-              }
-            }
+            mediaItemUrl
+          }
+        }
+        productTypes {
+          nodes {
+            name
+          }
+        }
+        roomTypes {
+          nodes {
+            name
           }
         }
       }
@@ -1165,6 +1179,40 @@ export const BLOG_SINGLE_PAGE_QUERY = `
           articleType
           pageType
         }
+      }
+    }
+  }
+`;
+
+export const LOCATION_CITY_DETAILS_QUERY = `
+  query locationCityDetailsQuery {
+    page(id: "329", idType: DATABASE_ID) {
+      location1Cities {
+        cityName
+        cityDetails
+      }
+      location2Cities {
+        cityName
+        cityDetails
+      }
+      location3Cities {
+        cityName
+        cityDetails
+      }
+    }
+  }
+`;
+
+export const MEGA_MENU_IMAGES_QUERY = `
+  query megaMenuImagesQuery {
+    page(id: "706", idType: DATABASE_ID) {
+      megaMenuFields {
+        image1 { node { altText title mediaItemUrl } }
+        image2 { node { altText title mediaItemUrl } }
+        image3 { node { altText title mediaItemUrl } }
+        image4 { node { altText title mediaItemUrl } }
+        image5 { node { altText title mediaItemUrl } }
+        image6 { node { altText title mediaItemUrl } }
       }
     }
   }

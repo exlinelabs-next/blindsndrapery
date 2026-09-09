@@ -128,6 +128,7 @@ export interface HowItWorksContent {
 }
 
 export interface TestimonialsContent {
+  eyebrow: string;
   headingPrefix: string;
   headingHighlight: string;
   description: string;
@@ -507,20 +508,28 @@ export interface LocationsHeroContent {
   subheading: string[];
 }
 
-export interface ServiceAreaLinkContent {
-  label: string;
+// Redesigned 2026-09-09 (Figma "Desktop / Locations Hub ", node 4664:10194,
+// plus tablet 4748:5900 / mobile 4748:6080) — replaces the old map-panel
+// "ServiceAreaPanel" section entirely with a county-by-county directory of
+// individual cities. None of this content (county copy, ~25 city
+// name/description pairs, "Also covering" notes) has a corresponding
+// GraphQL field in the backend dev's schema reference — confirmed against
+// locationsHubPageQuery, which only has serviceAreaSection* (now unused)
+// and comingSoonSection* fields. Hardcoded here matching the Figma copy
+// exactly; flagged for the backend dev, since a real fix likely means
+// adding a "county" taxonomy to the existing `location` post type so this
+// can eventually pull from real per-city entries instead.
+export interface LocationCityCard {
+  name: string;
+  description: string;
   href: string;
 }
 
-export interface ServiceAreaPanelContent {
-  eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  description: string;
-  mapImage: { src: string; alt: string };
-  primaryLink: ServiceAreaLinkContent;
-  cityLinks: ServiceAreaLinkContent[];
-  photo: { src: string; alt: string };
+export interface LocationCountySection {
+  name: string;
+  paragraphs: string[];
+  cities: LocationCityCard[];
+  alsoCovering?: string;
 }
 
 export interface ComingSoonStateCard {
@@ -529,6 +538,7 @@ export interface ComingSoonStateCard {
 }
 
 export interface ComingSoonStatesContent {
+  eyebrow: string;
   headingPrefix: string;
   headingHighlight: string;
   description: string;
@@ -538,7 +548,7 @@ export interface ComingSoonStatesContent {
 
 export interface LocationsPageContent {
   hero: LocationsHeroContent;
-  serviceArea: ServiceAreaPanelContent;
+  counties: LocationCountySection[];
   comingSoon: ComingSoonStatesContent;
 }
 
@@ -560,8 +570,10 @@ export interface GalleryFiltersContent {
 }
 
 export interface GalleryItem {
+  id: number;
   image: { src: string; alt: string };
   category: string;
+  room: string;
   title: string;
 }
 
