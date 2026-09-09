@@ -1,4 +1,26 @@
-import type { PageContent, KnowledgeArticlePageContent, BlogArticlePageContent } from '@/types/content';
+import type { PageContent, KnowledgeArticlePageContent, BlogArticlePageContent, ServiceIntroContent } from '@/types/content';
+
+// Shared across every single-service page's new "intro" section (confirmed
+// via get_design_context on node 4481:4451/4463) — Figma repeats this exact
+// copy verbatim on every service page's own frame (confirmed on both the
+// Blinds and Shades sources), so it's a genuine placeholder rather than
+// unique per-service content. Kept as one referenced constant instead of
+// pasted into all 12 service content keys below.
+export const serviceIntroPlaceholder: ServiceIntroContent = {
+  eyebrow: 'about',
+  headingPrefix: 'Soft Light Control ',
+  headingHighlight: 'Without the Hardware',
+  paragraphs: [
+    'A blind gives you a slat line and a shutter reads as architecture. A shade does neither, and that is the point. Fabric rolls or folds away and leaves the window essentially clear, which is why window shades Florida homes use tend to end up in rooms where the architecture or the view is doing the work.',
+    'The trade is that fabric has to be specified properly. Weight determines whether a shade holds a flat line across a wide span or waves in the air conditioning. Opacity determines whether a room is filtered or dark. Get either wrong and you notice daily.',
+    'We fit shades Broward County wide and out across the state, and the specification changes by elevation rather than by preference.',
+  ],
+  image: {
+    // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/services/ before then.
+    src: 'https://www.figma.com/api/mcp/asset/e8ce72f9-17a3-4659-85ca-8d8540c72bc3.png',
+    alt: 'Dining room with sheer curtains and a chandelier over a set table',
+  },
+};
 
 export const mockContent: PageContent = {
   hero: {
@@ -21,11 +43,22 @@ export const mockContent: PageContent = {
     },
     servicesLabel: 'Services',
     servicesDropdown: {
+      // Order and per-category images confirmed via get_design_context on
+      // 4311:2976 (desktop hover mega-menu) — only Shades has real distinct
+      // sub-pages in this app, matching Figma's own example (every other
+      // category shows just its image + explore button, no subitem grid).
       categories: [
+        {
+          label: 'Blinds',
+          href: '/services/blinds',
+          image: { src: '/images/services/card-blinds.webp', alt: 'Blinds' },
+          exploreLabel: 'Explore Blinds',
+        },
         {
           label: 'Shades',
           href: '/services/shades',
-          exploreLabel: 'Explore Shades →',
+          image: { src: '/images/services/card-shades.webp', alt: 'Shades' },
+          exploreLabel: 'Explore Shades',
           subItems: [
             { label: 'Roller Shades', href: '/services/shades/roller-shades' },
             { label: 'Solar Shades', href: '/services/shades/solar-shades' },
@@ -37,49 +70,26 @@ export const mockContent: PageContent = {
         {
           label: 'Shutters',
           href: '/services/shutters',
-          exploreLabel: 'Explore Shutters →',
-          subItems: [
-            { label: 'Composite Shutters', href: '/services/shutters' },
-            { label: 'Natural Wood Shutters', href: '/services/shutters' },
-            { label: 'Tier-on-Tier Shutters', href: '/services/shutters' },
-          ],
-        },
-        {
-          label: 'Blinds',
-          href: '/services/blinds',
-          exploreLabel: 'Explore Blinds →',
-          subItems: [
-            { label: 'Wood Blinds', href: '/services/blinds' },
-            { label: 'Faux Wood Blinds', href: '/services/blinds' },
-            { label: 'Aluminum Blinds', href: '/services/blinds' },
-            { label: 'Vertical Blinds', href: '/services/blinds' },
-            { label: 'Cellular Blinds', href: '/services/blinds' },
-          ],
+          image: { src: '/images/services/card-shutters.webp', alt: 'Shutters' },
+          exploreLabel: 'Explore Shutters',
         },
         {
           label: 'Curtains & Drapery',
           href: '/services/drapery',
-          exploreLabel: 'Explore Curtains & Drapery →',
+          image: { src: '/images/services/card-drapery.webp', alt: 'Curtains & Drapery' },
+          exploreLabel: 'Explore Curtains & Drapery',
         },
         {
           label: 'Motorized & Smart Home',
           href: '/services/motorized',
-          exploreLabel: 'Explore Smart Homes →',
-          subItems: [
-            { label: 'Motorized Shades', href: '/services/motorized' },
-            { label: 'Smart Home Integration', href: '/services/motorized' },
-            { label: 'Automated Window Treatments', href: '/services/motorized' },
-          ],
+          image: { src: '/images/services/card-motorized.webp', alt: 'Motorized & Smart Home' },
+          exploreLabel: 'Explore Smart Homes',
         },
         {
           label: 'Repairs & Maintenance',
           href: '/services/repairs',
-          exploreLabel: 'Explore Repairs →',
-          subItems: [
-            { label: 'Blind Repair', href: '/services/repairs' },
-            { label: 'Shade Repair', href: '/services/repairs' },
-            { label: 'Maintenance Services', href: '/services/repairs' },
-          ],
+          image: { src: '/images/services/card-repairs.webp', alt: 'Repairs & Maintenance' },
+          exploreLabel: 'Explore Repairs',
         },
       ],
       blogCard: {
@@ -98,6 +108,16 @@ export const mockContent: PageContent = {
         { platform: 'youtube', href: 'https://www.youtube.com', label: 'YouTube' },
         { platform: 'linkedin', href: 'https://www.linkedin.com', label: 'LinkedIn' },
       ],
+      // Copy and placeholder phone number preserved verbatim from Figma
+      // (node 4311:2976) — the design itself uses "(800) XXX-XXXX" as an
+      // unfilled placeholder, so it's reproduced as plain text rather than
+      // a tel: link.
+      helpBar: {
+        prefix: 'Need help measuring?',
+        ctaLabel: 'Book Free Consultation',
+        ctaHref: '#quote-form',
+        phoneLabel: 'Call Us: (800) XXX-XXXX',
+      },
     },
     links: [
       { label: 'Commercial', href: '/commercial' },
@@ -535,13 +555,15 @@ export const mockContent: PageContent = {
         aspectRatio: '142/80',
       },
     ],
+    description: 'Custom window coverings, measured and fitted across Florida.',
     columns: [
       {
         title: 'Explore',
         links: [
-          { label: 'How it Works', href: '/how-it-works' },
-          { label: 'Commercial Solutions', href: '/commercial' },
-          { label: 'About Us', href: '/about' },
+          { label: 'Commercial', href: '/commercial' },
+          { label: 'Company', href: '/about' },
+          { label: 'Legal', href: '/privacy-policy' },
+          { label: 'Locations', href: '/locations' },
         ],
       },
       {
@@ -567,19 +589,19 @@ export const mockContent: PageContent = {
       {
         title: 'Contact',
         links: [
-          // Updated 2026-08-17: now points at the real /locations page built
-          // from Figma's "Desktop / Locations Hub" (node 2251:68) — this
-          // label is a near-exact match for that page's own content
-          // ("Now Serving @Florida", verified service areas), and the
-          // homepage nav's "Locations" link already points at the same
-          // route, so both site-wide references to this page now agree.
-          // Previously pointed at a separate, never-built "/areas-we-serve".
           { label: 'Areas We Serve', href: '/locations' },
           { label: 'FAQ', href: '/faq' },
         ],
       },
     ],
-    copyright: '© 2024 Blinds & Drapery Co. All rights reserved',
+    contact: {
+      servingAreaText: 'Serving Broward County and Florida statewide',
+      phone: '(555) 010-3456',
+      email: 'info@blindsndrapery.com',
+      cta: { label: 'Book consultation', href: '/free-quote' },
+    },
+    trustHighlights: ['Licensed & Insured', '10+ Years in Business', 'Manufacturer Guarantee'],
+    copyright: '© 2026 Blinds & Drapery Co. All rights reserved',
     legalLinks: [
       // Same combined-document destination as the real backend mapping in
       // api.ts's fetchFooter — no separate /terms-of-use page exists.
@@ -664,6 +686,7 @@ export const mockContent: PageContent = {
         src: '/images/services/about-shutters.webp',
         alt: 'Living room with white plantation shutters covering large windows',
       },
+      cta: { label: 'Explore Shutters', href: '/services/shutters' },
     },
   },
   serviceBlinds: {
@@ -680,6 +703,7 @@ export const mockContent: PageContent = {
         alt: 'Two installers fitting roller shades on large windows in a bright, plant-filled living room',
       },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       // Note: the tablet/mobile Figma frames used as the structural/layout
       // reference for this page (Tablet & Mobile "Service Inline 1" — see
@@ -782,6 +806,7 @@ export const mockContent: PageContent = {
         alt: 'Floor-to-ceiling windows fitted with modern roller shades in a contemporary living room',
       },
     },
+    intro: serviceIntroPlaceholder,
     subServices: {
       eyebrow: 'SHADES CATEGORIES',
       headingPrefix: 'Explore ',
@@ -912,6 +937,7 @@ export const mockContent: PageContent = {
       subheading: 'Sleek, modern roller shades with smooth operation and clean lines for any room in your South Florida home.',
       backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Modern roller shades on a large window' },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Modern ',
@@ -961,6 +987,7 @@ export const mockContent: PageContent = {
       subheading: 'Reduce glare and UV rays while maintaining your view with premium solar shades for South Florida homes.',
       backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Solar shades filtering sunlight in a living room' },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Premium ',
@@ -1010,6 +1037,7 @@ export const mockContent: PageContent = {
       subheading: 'Energy-efficient honeycomb shades that insulate your home while providing elegant light control.',
       backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Cellular shades on a kitchen window' },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Energy-Efficient ',
@@ -1059,6 +1087,7 @@ export const mockContent: PageContent = {
       subheading: 'Classic fabric shades that fold into elegant pleats, adding warmth and sophistication to any room.',
       backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Roman shades on large windows' },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Classic ',
@@ -1108,6 +1137,7 @@ export const mockContent: PageContent = {
       subheading: 'Dual-layer shades with alternating sheer and opaque bands for versatile light and privacy control.',
       backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Zebra shades providing partial privacy' },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Versatile ',
@@ -1157,6 +1187,7 @@ export const mockContent: PageContent = {
       subheading: 'Natural bamboo, grass, and reed shades that bring organic warmth and texture to your South Florida home.',
       backgroundImage: { src: '/images/services/card-shades.webp', alt: 'Woven wood shades in a modern room' },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Natural ',
@@ -1209,6 +1240,7 @@ export const mockContent: PageContent = {
         alt: 'Bedroom window fitted with white plantation shutters',
       },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Premium ',
@@ -1262,6 +1294,7 @@ export const mockContent: PageContent = {
         alt: 'Living room with floor-length drapery curtains',
       },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Elegant ',
@@ -1315,6 +1348,7 @@ export const mockContent: PageContent = {
         alt: 'Smart motorized blinds with home automation controls',
       },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Smart ',
@@ -1368,6 +1402,7 @@ export const mockContent: PageContent = {
         alt: 'Technician performing window covering repair and maintenance',
       },
     },
+    intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Professional ',

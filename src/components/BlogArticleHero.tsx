@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import type { BlogArticlePageContent } from "@/types/content";
 
 export function BlogArticleHero({
@@ -10,8 +11,8 @@ export function BlogArticleHero({
     <section className="bg-[#dce7e6] px-8 py-12 md:px-12 md:py-16 xl:p-20">
       <div className="flex flex-col items-center gap-8 md:gap-10 xl:mx-auto xl:w-[1280px] xl:gap-12">
         <div className="flex items-center justify-center rounded-lg bg-white/100 px-3 py-2 backdrop-blur-[25px]">
-          <span className="font-mono text-[11px] uppercase leading-[16px] tracking-[1.1px] text-navy">
-            {breadcrumb}
+          <span className="font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy">
+            <Breadcrumb trail={breadcrumb} />
           </span>
         </div>
         <div className="relative h-[240px] w-full overflow-hidden rounded-lg md:h-[380px] xl:h-[546px]">

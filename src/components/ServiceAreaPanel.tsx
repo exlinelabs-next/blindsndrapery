@@ -29,15 +29,15 @@ export function ServiceAreaPanel({ content }: { content?: ServiceAreaPanelConten
             height={32}
             className="size-8 shrink-0"
           />
-          <span className="whitespace-nowrap font-mono text-[11px] uppercase leading-[16px] tracking-[1.1px] text-black">
+          <span className="whitespace-nowrap font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
             {eyebrow}
           </span>
         </div>
 
         <div className="flex w-full flex-col gap-6">
           {/* Heading + map row */}
-          <div className="flex w-full flex-col items-center md:h-[250px] md:flex-row">
-            <div className="flex flex-1 flex-col items-start gap-4">
+          <div className="flex w-full flex-col items-center justify-center md:h-[250px] md:flex-row">
+            <div className="flex shrink-0 w-full flex-col items-start gap-4 md:w-auto md:flex-1 md:shrink">
               <p className="w-full font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-navy">
                 {headingPrefix}
                 <span className="text-teal">{headingHighlight}</span>
@@ -47,14 +47,16 @@ export function ServiceAreaPanel({ content }: { content?: ServiceAreaPanelConten
               </p>
             </div>
             <div className="flex h-[257px] w-[264px] shrink-0 items-center justify-center">
-              <div className="w-[210px] rotate-[-18.77deg]">
-                <div className="relative aspect-[457/437] w-full">
-                  <Image
-                    src={mapImage.src}
-                    alt={mapImage.alt}
-                    fill
-                    className="object-contain"
-                  />
+              <div className="flex-none rotate-[-18.77deg]">
+                <div className="relative h-[200px] w-[211px] pt-[5px]">
+                  <div className="relative aspect-[457/437] w-full overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={mapImage.src}
+                      alt={mapImage.alt}
+                      className="absolute inset-0 h-full w-full max-w-none"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -64,7 +66,7 @@ export function ServiceAreaPanel({ content }: { content?: ServiceAreaPanelConten
           <div className="flex w-full flex-col items-start gap-4">
             <Link
               href={primaryLink.href}
-              className="flex h-[59px] w-full items-center gap-2.5 rounded-lg border border-teal/33 bg-white px-6 shadow-[0px_4px_2px_rgba(0,0,0,0.05)]"
+              className="flex w-full items-center gap-[10px] rounded-lg border border-transparent bg-white p-4 transition-all hover:border-teal/33 hover:shadow-[0px_4px_4px_rgba(0,0,0,0.05)]"
             >
               <Navigation
                 className="size-[18px] shrink-0 text-navy"
@@ -78,7 +80,7 @@ export function ServiceAreaPanel({ content }: { content?: ServiceAreaPanelConten
               <Link
                 key={link.href}
                 href={link.href}
-                className="flex w-full items-center gap-2.5 rounded-lg bg-white p-4"
+                className="flex w-full items-center gap-[10px] rounded-lg border border-transparent bg-white p-4 transition-all hover:border-teal/33 hover:shadow-[0px_4px_4px_rgba(0,0,0,0.05)]"
               >
                 <Navigation
                   className="size-[18px] shrink-0 text-navy"

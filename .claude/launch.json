@@ -4,7 +4,7 @@
     {
       "name": "dev",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-c", "cd '/Users/judemahendran/Exline Labs/blindsndrapery' && exec node_modules/.bin/next dev --port 3000"],
+      "runtimeArgs": ["-c", "cd '/Users/judemahendran/Exline Labs/blindsndrapery' && './node_modules/.bin/next' dev"],
       "port": 3000,
       "autoPort": true
     }

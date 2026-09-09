@@ -4,32 +4,40 @@ import { ArrowRight } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import type { ServicesGlimpseContent } from "@/types/content";
 
-const COLUMNS: readonly (readonly [number, number])[] = [
-  [0, 1],
-  [2, 3],
-  [4, 5],
-];
+// The 6 cards come from the CMS in whatever order an editor set (currently
+// "Repairs & Maintenance, Motorized & Smart Home, Shutters, Drapery &
+// Curtains, Shades, Blinds" — not the nav order), but Figma's masonry
+// arrangement is a fixed layout keyed to each service's identity, not its
+// position in that list. Matching by title (rather than a hardcoded array
+// index) keeps the grid correct regardless of how the CMS happens to order
+// the cards.
+const CARD_LAYOUT: Record<string, { column: 0 | 1 | 2; row: 0 | 1; heightClass: string }> = {
+  "Blinds": { column: 0, row: 0, heightClass: "h-[495px] xl:h-[495px]" },
+  "Shutters": { column: 0, row: 1, heightClass: "h-[495px] xl:h-[715px]" },
+  "Shades": { column: 1, row: 0, heightClass: "h-[495px] xl:h-[613px]" },
+  "Motorized & Smart Home": { column: 1, row: 1, heightClass: "h-[495px] xl:h-[600px]" },
+  "Drapery & Curtains": { column: 2, row: 0, heightClass: "h-[495px] xl:h-[715px]" },
+  "Repairs & Maintenance": { column: 2, row: 1, heightClass: "h-[495px] xl:h-[498px]" },
+};
 const COLUMN_GAP_CLASSES = ["gap-[13px]", "gap-[10px]", "gap-[10px]"];
-const CARD_HEIGHT_CLASSES = [
-  "h-[500px] xl:h-[495px]",
-  "h-[500px] xl:h-[715px]",
-  "h-[500px] xl:h-[613px]",
-  "h-[500px] xl:h-[600px]",
-  "h-[500px] xl:h-[715px]",
-  "h-[500px] xl:h-[498px]",
-];
 
 export function ServiceGlimpse({ content }: { content?: ServicesGlimpseContent }) {
   const { eyebrow, headingSegments, servicesSummary, ctaLabel, cards } =
     content ?? useContent("services");
 
-  function renderCard(cardIdx: number) {
-    const card = cards[cardIdx];
+  const columns: (typeof cards)[number][][] = [[], [], []];
+  for (const card of cards) {
+    const layout = CARD_LAYOUT[card.title];
+    columns[layout?.column ?? 0][layout?.row ?? 0] = card;
+  }
+
+  function renderCard(card: (typeof cards)[number]) {
+    const heightClass = CARD_LAYOUT[card.title]?.heightClass ?? "h-[495px] xl:h-[495px]";
     return (
       <Link
         key={card.href}
         href={card.href}
-        className={`relative flex flex-col justify-end overflow-hidden rounded-[8px] p-6 ${CARD_HEIGHT_CLASSES[cardIdx]}`}
+        className={`relative flex flex-col justify-end overflow-hidden rounded-[8px] p-6 ${heightClass}`}
       >
         <Image
           src={card.image.src}
@@ -40,7 +48,7 @@ export function ServiceGlimpse({ content }: { content?: ServicesGlimpseContent }
         <div
           className="absolute inset-0"
           style={
-            cardIdx === 0
+            card.title === "Blinds"
               ? {
                   backgroundImage:
                     "linear-gradient(180deg, rgba(0, 0, 0, 0) 6.8%, rgba(44, 40, 53, 0.84) 100%)",
@@ -70,7 +78,7 @@ export function ServiceGlimpse({ content }: { content?: ServicesGlimpseContent }
     <section className="flex flex-col gap-10 px-4 pb-14 pt-[120px] md:px-12 md:pb-16 xl:px-20 xl:pb-[100px]">
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center justify-center rounded-[8px] border border-navy-light-hover p-2">
-          <p className="whitespace-nowrap text-center font-mono text-[11px] uppercase leading-[16px] tracking-[1.1px] text-black">
+          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
             {eyebrow}
           </p>
         </div>
@@ -87,16 +95,16 @@ export function ServiceGlimpse({ content }: { content?: ServicesGlimpseContent }
       </div>
 
       <div className="flex flex-col gap-6 px-4 md:px-0 xl:hidden">
-        {cards.map((_, cardIdx) => renderCard(cardIdx))}
+        {cards.map((card) => renderCard(card))}
       </div>
 
       <div className="hidden grid-cols-3 gap-x-[10px] xl:grid">
-        {COLUMNS.map((cardIndices, colIdx) => (
+        {columns.map((columnCards, colIdx) => (
           <div
             key={colIdx}
             className={`flex flex-col ${COLUMN_GAP_CLASSES[colIdx]}`}
           >
-            {cardIndices.map((cardIdx) => renderCard(cardIdx))}
+            {columnCards.map((card) => renderCard(card))}
           </div>
         ))}
       </div>

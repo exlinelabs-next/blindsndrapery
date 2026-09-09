@@ -29,7 +29,7 @@ export function HowWeWork({ content }: { content?: HowItWorksContent }) {
       <div className="mx-auto flex w-full max-w-[1280px] flex-col items-center gap-10 md:gap-14 xl:gap-16">
         <div className="flex w-full flex-col items-center gap-4">
           <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
-            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-white uppercase">
+            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-white">
               {eyebrow}
             </p>
           </div>

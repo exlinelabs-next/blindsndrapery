@@ -92,7 +92,7 @@ export function BlogArticleContent({
   return (
     <section className="px-8 pt-12 pb-[100px] md:px-12 md:pt-16 xl:px-40 xl:pt-20">
       <div className="flex flex-col items-center justify-between gap-6 md:flex-row xl:gap-0">
-        <p className="text-[14px] uppercase leading-[16px] tracking-[1.1px] text-navy">
+        <p className="text-[14px] leading-[16px] tracking-[1.1px] text-navy">
           {date}
         </p>
         <div className="flex items-center gap-4">
@@ -108,7 +108,7 @@ export function BlogArticleContent({
             {author.name}
           </p>
         </div>
-        <p className="text-[14px] uppercase leading-[16px] tracking-[1.1px] text-navy">
+        <p className="text-[14px] leading-[16px] tracking-[1.1px] text-navy">
           {readTime}
         </p>
       </div>

@@ -25,7 +25,7 @@ export function RepairMaintenance({ content }: { content?: RepairMaintenanceCont
     <section className="flex flex-col items-center bg-white px-8 py-14 md:px-12 md:py-16 xl:px-20 xl:py-[100px]">
       <div className="flex w-full max-w-[1280px] flex-col items-center gap-4 rounded-lg bg-white py-10">
         <div className="flex items-center justify-center rounded-lg border border-navy-light-hover p-2">
-          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
             {eyebrow}
           </p>
         </div>

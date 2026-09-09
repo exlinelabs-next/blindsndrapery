@@ -130,12 +130,19 @@ export function ServiceProcess({ content }: { content?: ServiceHowItWorksContent
   }, [isPinned, advance, steps.length]);
 
   // Catch fast scrolling that bypasses the wheel/touch capture zone.
-  // A single high-velocity scroll tick can jump the section from "not
-  // pinned" to "past the pin zone" so the wheel handler never sees
-  // isPinned() === true and can't preventDefault. This listener detects
-  // the overshoot and snaps back to the pin point.
+  // A single native scroll event's distance is decided before the wheel
+  // handler above ever runs — a fast flick or a burst of trackpad
+  // momentum can carry the page from fully outside the pinned range to
+  // deep inside it (or all the way through it) in one jump, in either
+  // scroll direction, since isPinned() is only checked once at dispatch
+  // time. This listener runs after every scroll and, whenever it finds
+  // the section went from not-pinned to pinned in a single jump, clamps
+  // back to the boundary that was just crossed — so the section is
+  // always entered at its edge instead of the user landing deep inside
+  // it (which is what reads as a sudden, unrequested "snap").
   useEffect(() => {
     let prevScrollY = window.scrollY;
+    let wasPinned = isPinned();
 
     const onScroll = () => {
       const el = wrapperRef.current;
@@ -145,38 +152,34 @@ export function ServiceProcess({ content }: { content?: ServiceHowItWorksContent
       prevScrollY = scrollY;
 
       const rect = el.getBoundingClientRect();
+      const nowPinned = rect.top <= 0 && rect.bottom > window.innerHeight;
 
       // Reset carousel when section is completely out of view so the
       // next forward traversal starts from step 1.
       if (rect.bottom < 0 || rect.top > window.innerHeight) {
         if (activeIndexRef.current !== 0) setActiveIndex(0);
+        wasPinned = false;
         return;
       }
 
-      // Downward bypass: section top is above viewport but bottom is
-      // nearing/past viewport bottom — carousel hasn't finished.
-      if (
-        goingDown &&
-        rect.top < 0 &&
-        rect.bottom > 0 &&
-        rect.bottom < window.innerHeight &&
-        activeIndexRef.current < steps.length - 1
-      ) {
-        const pinY = rect.top + scrollY;
-        window.scrollTo(0, pinY + 1);
+      if (nowPinned && !wasPinned) {
+        const enterTopY = rect.top + scrollY; // scrollY at which the wrapper's top edge reaches the viewport top
+        const enterBottomY = enterTopY + el.offsetHeight - window.innerHeight; // scrollY at which the wrapper's bottom edge reaches the viewport bottom
+        window.scrollTo(0, goingDown ? enterTopY + 1 : enterBottomY - 1);
       }
+      wasPinned = nowPinned;
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [steps.length]);
+  }, [isPinned, steps.length]);
 
   return (
     <section ref={wrapperRef} className="relative z-[51] bg-navy" style={{ height: `calc(100dvh + ${RELEASE_TRACK_PX}px)` }}>
       <div className="sticky top-0 flex h-dvh flex-col items-center justify-center gap-6 overflow-hidden px-4 py-8 md:gap-10 md:px-12 md:py-10 xl:gap-[80px] xl:px-20 xl:py-[100px]">
         <div className="flex shrink-0 flex-col items-center gap-2 md:gap-4">
           <div className="flex items-center justify-center rounded-[8px] border border-navy-light-active p-1.5 md:p-2">
-            <p className="whitespace-nowrap text-center font-mono text-[10px] uppercase leading-[14px] tracking-[1.1px] text-white md:text-[11px] md:leading-[16px]">
+            <p className="whitespace-nowrap text-center font-mono text-[10px] leading-[14px] tracking-[1.1px] text-white md:text-[11px] md:leading-[16px]">
               {eyebrow}
             </p>
           </div>

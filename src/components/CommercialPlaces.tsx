@@ -17,7 +17,7 @@ export function CommercialPlaces({ content }: { content?: CommercialPlacesConten
       <div className="flex w-full flex-col items-start gap-10 rounded-lg bg-ice px-4 py-20 md:px-6 xl:w-[1360px] xl:gap-16 xl:px-10">
         <div className="flex w-full flex-col items-start gap-4">
           <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
-            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
               {eyebrow}
             </p>
           </div>

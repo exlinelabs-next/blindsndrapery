@@ -22,6 +22,7 @@ export interface NavDropdownSubItem {
 export interface NavDropdownCategory {
   label: string;
   href: string;
+  image: { src: string; alt: string };
   subItems?: NavDropdownSubItem[];
   exploreLabel: string;
 }
@@ -32,6 +33,13 @@ export interface NavDropdownBlogCard {
   description: string;
   buttonLabel: string;
   buttonHref: string;
+}
+
+export interface NavHelpBarContent {
+  prefix: string;
+  ctaLabel: string;
+  ctaHref: string;
+  phoneLabel: string;
 }
 
 export interface NavContent {
@@ -45,6 +53,7 @@ export interface NavContent {
     categories: NavDropdownCategory[];
     blogCard: NavDropdownBlogCard;
     socialLinks: FooterSocialLink[];
+    helpBar: NavHelpBarContent;
   };
   links: NavLinkContent[];
   ctaLabel: string;
@@ -99,6 +108,7 @@ export interface FeaturedCategoryContent {
     src: string;
     alt: string;
   };
+  cta?: { label: string; href: string };
 }
 
 export interface HowItWorksStep {
@@ -239,14 +249,24 @@ export interface FooterSocialLink {
   label: string;
 }
 
+export interface FooterContact {
+  servingAreaText?: string;
+  phone?: string;
+  email?: string;
+  cta?: { label: string; href: string };
+}
+
 export interface FooterContent {
   logo: {
     src: string;
     alt: string;
     href: string;
   };
+  description?: string;
   badges: FooterBadge[];
   columns: FooterColumn[];
+  contact?: FooterContact;
+  trustHighlights?: string[];
   copyright: string;
   legalLinks: FooterLink[];
   socialLinks: FooterSocialLink[];
@@ -275,6 +295,7 @@ export interface ServiceAboutContent {
   headingSuffix: string;
   paragraph: string;
   image: { src: string; alt: string };
+  cta?: { label: string; href: string };
 }
 
 // Content specific to the "/services" hub page (Figma "Desktop / Service",
@@ -297,6 +318,22 @@ export interface ServiceInlineHeroContent {
   heading: string;
   subheading: string;
   backgroundImage: { src: string; alt: string };
+}
+
+// New section confirmed via get_design_context on node 4481:4451/4463 — sits
+// directly under the hero, before the (optional) sub-services grid and the
+// existing "about" (materials/features) section below. A light ice-colored
+// card (eyebrow + 2-segment heading + paragraphs) beside a photo, both at
+// equal width. Figma repeats this exact copy verbatim across every single-
+// service page (confirmed on both the Blinds and Shades source frames) —
+// a placeholder, not page-specific content, same "preserve the design's own
+// repeated copy faithfully" rule as the timeline steps' identical body text.
+export interface ServiceIntroContent {
+  eyebrow: string;
+  headingPrefix: string;
+  headingHighlight: string;
+  paragraphs: string[];
+  image: { src: string; alt: string };
 }
 
 // The intro paragraph has one inline highlighted phrase mid-sentence (bigger,
@@ -362,6 +399,7 @@ export interface ServiceHowItWorksHeader {
 
 export interface ServiceInlinePageContent {
   hero: ServiceInlineHeroContent;
+  intro: ServiceIntroContent;
   subServices?: SubServicesGridContent;
   about: ServiceInlineAboutContent;
   howItWorksHeader: ServiceHowItWorksHeader;

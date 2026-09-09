@@ -20,6 +20,7 @@ export default async function ServicesPage() {
       <Hero
         breadcrumb="HOME > SERVICES"
         content={data?.hero}
+        headingScalesOnMobile
       />
       <ServiceGlimpse content={data?.serviceGlimpse} />
       <ServiceProcess content={data?.howItWorks} />

@@ -25,7 +25,7 @@ export function FAQ({ variant = "card", content: contentProp }: FAQProps) {
       <div className={`flex w-full flex-col items-center gap-10 ${variant === "card" ? "rounded-lg bg-ice p-6 md:p-12 xl:p-20" : "xl:mx-auto xl:max-w-[1360px] xl:p-20"}`}>
         <div className="flex w-full flex-col items-center justify-center gap-4">
           <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
-            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+            <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
               {eyebrow}
             </p>
           </div>

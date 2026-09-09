@@ -19,7 +19,7 @@ export function ServiceAbout() {
     <section className="flex flex-col items-start gap-10 px-8 py-14 md:px-12 md:py-16 xl:px-20 xl:py-[100px]">
       <div className="flex w-full flex-col items-start gap-4">
         <div className="flex items-center justify-center rounded-lg border border-navy-light-hover p-2">
-          <p className="whitespace-nowrap font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+          <p className="whitespace-nowrap font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
             {eyebrow}
           </p>
         </div>
