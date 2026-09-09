@@ -1170,6 +1170,17 @@ export const BLOG_SINGLE_PAGE_QUERY = `
   }
 `;
 
+// Custom mutation registered on the WP side via `graphql_register_types`
+// (not part of the default WPGraphQL schema) — writes a private
+// "form-submission" post for the Home and Free Quote page contact forms.
+export const SUBMIT_CONTACT_FORM_MUTATION = `
+  mutation SubmitForm($input: SubmitContactFormInput!) {
+    submitContactForm(input: $input) {
+      success
+    }
+  }
+`;
+
 export const KNOWLEDGE_BASE_SINGLE_PAGE_QUERY = `
   query knowledgeBaseSinglePageQuery($uri: ID!) {
     knowledgeBaseItem(id: $uri, idType: URI) {
