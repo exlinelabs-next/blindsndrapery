@@ -290,7 +290,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
       {/* Desktop hover mega-menu (node 4311:2976) */}
       {servicesOpen && (
         <div className="absolute inset-x-0 top-[calc(100%+2px)] z-50 hidden w-full flex-col rounded-b-lg bg-white shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
-          <div className="flex h-[422px] items-start justify-between px-20 pt-10">
+          <div className="flex h-[422px] items-start gap-10 px-20 pt-10">
             <div className="flex w-[264px] shrink-0 flex-col">
               {categories.map((category) => {
                 const isActive = activeCategory?.label === category.label;

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { LocationsHero } from "@/components/LocationsHero";
-import { ServiceAreaPanel } from "@/components/ServiceAreaPanel";
+import { LocationsCounties } from "@/components/LocationsCounties";
 import { ComingSoonStates } from "@/components/ComingSoonStates";
 import { fetchLocationsPage } from "@/lib/api";
 
@@ -15,7 +15,7 @@ export default async function LocationsPage() {
   return (
     <main>
       <LocationsHero content={data?.hero} />
-      <ServiceAreaPanel content={data?.serviceArea} />
+      <LocationsCounties counties={data?.counties} />
       <ComingSoonStates content={data?.comingSoon} />
     </main>
   );

@@ -26,7 +26,7 @@ export default async function Home() {
       <ServicesGlimpse content={data?.servicesGlimpse} />
       <FeaturedCategory content={data?.featuredCategory} />
       <HowWeWork content={data?.howItWorks} />
-      <Testimonials />
+      <Testimonials content={data?.testimonials} />
       <QuoteGallery content={data?.quoteGallery} />
       <Commercial content={data?.commercial} />
       <RepairMaintenance content={data?.repairMaintenance} />

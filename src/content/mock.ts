@@ -271,6 +271,7 @@ export const mockContent: PageContent = {
     ctaHref: '#quote-form',
   },
   testimonials: {
+    eyebrow: 'Why Customers Choose Us',
     headingPrefix: 'Trusted Experts, Proven ',
     headingHighlight: 'Customer Satisfaction',
     description:
@@ -1598,64 +1599,88 @@ export const mockContent: PageContent = {
     grid: {
       items: [
         {
+          id: 1,
           // TODO: temporary Figma asset URL — export and commit to public/images/gallery/ before expiry.
           image: { src: 'https://www.figma.com/api/mcp/asset/c48521ed-488a-4396-946f-51176a467f13.png', alt: 'White venetian blinds catching light in a bright bathroom' },
           category: 'Blinds',
+          room: 'Bedroom',
           title: 'Refined Classic Window Blinds',
         },
         {
+          id: 2,
           image: { src: 'https://www.figma.com/api/mcp/asset/18291d5e-0899-4b30-a198-269dfce893d8.png', alt: 'Floor-length sheer curtains beside a coastal view' },
           category: 'Curtains & Drapery',
+          room: 'Living Room',
           title: 'Elegant Coastal Sheer Drapery',
         },
         {
+          id: 3,
           image: { src: 'https://www.figma.com/api/mcp/asset/d8700be0-3216-45a4-aae8-b8d01069794e.png', alt: 'Blue horizontal blinds filtering afternoon light' },
           category: 'Blinds',
+          room: 'Living Room',
           title: 'Contemporary Horizontal Blinds',
         },
         {
+          id: 4,
           image: { src: 'https://www.figma.com/api/mcp/asset/75b02106-d1f7-4e3d-b909-899e362695d0.png', alt: 'Modern living room with roller shades on large windows' },
           category: 'Blinds',
+          room: 'Living Room',
           title: 'Modern Living Room Roller Shades',
         },
         {
+          id: 5,
           image: { src: 'https://www.figma.com/api/mcp/asset/466ef774-b07e-49ba-9a9c-b5dcf12b606d.png', alt: 'Large sliding glass doors with solar shades overlooking a pool' },
           category: 'Shades',
+          room: 'Living Room',
           title: 'Poolside Solar Shade Installation',
         },
         {
+          id: 6,
           image: { src: 'https://www.figma.com/api/mcp/asset/dbb27973-024c-455e-ada2-73d4cc868a4a.png', alt: 'Bedroom with dark roller shades and sheer curtains' },
           category: 'Curtains & Drapery',
+          room: 'Bedroom',
           title: 'Layered Bedroom Window Treatments',
         },
         {
+          id: 7,
           image: { src: 'https://www.figma.com/api/mcp/asset/457b7513-67ec-4ce0-8837-e81fcc97f0f1.png', alt: 'Home office with floor-length curtains and a desk by the window' },
           category: 'Curtains & Drapery',
+          room: 'Office',
           title: 'Home Office Floor-Length Curtains',
         },
         {
+          id: 8,
           image: { src: 'https://www.figma.com/api/mcp/asset/59fe285c-a741-47bf-ba35-b1e77ad5cfa0.png', alt: 'Living room with tall French-door blinds and natural light' },
           category: 'Blinds',
+          room: 'Living Room',
           title: 'French Door Blinds With Natural Light',
         },
         {
+          id: 9,
           image: { src: 'https://www.figma.com/api/mcp/asset/2d8fc4af-a63a-4f19-87b0-e4bbcb323d5c.png', alt: 'Kitchen with white blinds and a breakfast nook' },
           category: 'Blinds',
+          room: 'Kitchen',
           title: 'Bright Kitchen Window Blinds',
         },
         {
+          id: 10,
           image: { src: 'https://www.figma.com/api/mcp/asset/ab335d76-33ff-4d71-bf60-d51090818a33.png', alt: 'Contemporary living room with automated blinds on large windows' },
           category: 'Blinds',
+          room: 'Living Room',
           title: 'Automated Contemporary Blinds',
         },
         {
+          id: 11,
           image: { src: 'https://www.figma.com/api/mcp/asset/7730f05b-7091-4307-b2f5-b10d01001834.png', alt: 'Installer adjusting motorized blinds on a ladder' },
           category: 'Blinds',
+          room: 'Living Room',
           title: 'Professional Motorized Installation',
         },
         {
+          id: 12,
           image: { src: 'https://www.figma.com/api/mcp/asset/53b7af90-8cd3-411e-9874-9c653bfaccb7.png', alt: 'Modern commercial office with floor-to-ceiling drapery panels' },
           category: 'Curtains & Drapery',
+          room: 'Commercial',
           title: 'Commercial Drapery Panels',
         },
       ],
@@ -1680,36 +1705,72 @@ export const mockContent: PageContent = {
       heading: 'Window Treatment Services Across Florida',
       subheading: ['Serving Broward County and South Florida — expanding to additional states soon.'],
     },
-    serviceArea: {
-      eyebrow: 'VERIFIED SERVICE AREA',
-      headingPrefix: 'Now Serving ',
-      headingHighlight: '@Florida',
-      description:
-        "Our Florida-verified window specialists provide expert measurement and installation across the Sunshine State, with local teams based in key Broward County hubs.",
-      mapImage: {
-        src: '/images/locations/florida-map.webp',
-        alt: 'Illustrated outline map of the state of Florida',
+    // Redesigned 2026-09-09 — see the comment on LocationCountySection in
+    // src/types/content.ts for why this is hardcoded rather than pulled
+    // from a query.
+    counties: [
+      {
+        name: 'Broward County',
+        paragraphs: [
+          "Broward covers more ground than most people expect, and the requirements shift considerably across it. Coastal properties from Deerfield down through Hollywood need corrosion-rated hardware and moisture-stable materials that inland communities like Weston and Coral Springs simply do not. Housing stock varies just as widely, from mid-century townhouses with irregular openings to newer developments where entire streets share the same window dimensions.",
+          'We hold a full installation team for the county, which means residential replacements, multi-unit and HOA schemes, and commercial fit-outs all run in parallel rather than queuing behind one another. Estimates come back the same day across every area listed here.',
+        ],
+        cities: [
+          { name: 'Fort Lauderdale', href: '/free-quote', description: 'One of our busiest areas, and one of the most varied. We cover everything from single-room replacements in Victoria Park townhouses to full commercial fit-outs along Las Olas. Waterfront properties here get salt-air rated hardware as standard, because the corrosion that ruins unrated mechanisms shows up within two seasons this close to the Intracoastal.' },
+          { name: 'Coral Springs', href: '/free-quote', description: 'Residential and multi-family work across the northwest of the county. A lot of Coral Springs housing stock was built to similar plans, which means we frequently already know the window dimensions before we arrive. Faux wood blinds and cellular shades are the most requested specifications here, the latter usually for the west-facing rooms that run hot from mid-afternoon.' },
+          { name: 'Coral Gables', href: '/free-quote', description: 'Period properties and larger residential specifications, frequently with architectural constraints. Original window openings are rarely square, and many are protected, so treatments have to fit what is there rather than what would be convenient. Interior shutters are popular here because they read as joinery rather than as something added.' },
+          { name: 'Hollywood', href: '/free-quote', description: 'A mix of residential and hospitality, including contract-grade commercial fit-outs along the beach. Hotel and short-let properties here need genuine blackout for guest sleep quality and fabric that survives daily handling by people who did not pay for it. Fire-rated specifications are available across the range.' },
+          { name: 'Pompano Beach', href: '/free-quote', description: 'Waterfront and near-waterfront homes where glare is the primary complaint. Solar shades are the most common answer, specified by openness factor per elevation so the water view survives the treatment. West-facing rooms usually take a tighter weave than the rest of the house.' },
+          { name: 'Plantation', href: '/free-quote', description: 'Established residential neighbourhoods and professional offices. Larger older properties here often have arched heads, bay windows and irregular openings that defeat off-the-shelf sizing, which is exactly the situation custom fabrication exists for. We template rather than estimate on anything non-rectangular.' },
+          { name: 'Weston', href: '/free-quote', description: 'Premium residential, and the area where we install the highest proportion of motorised systems. Tall stairwell glazing and wide runs above sliding doors are difficult to reach and tend to be left unused entirely without automation. App and scheduled control are specified more often here than anywhere else in the county.' },
+          { name: 'Pembroke Pines', href: '/free-quote', description: 'High-volume residential communities, including a significant amount of multi-unit and HOA work. We handle phased installation across occupied buildings and hold consistent specifications across a development so units match, which matters when a management company is signing off on the whole scheme.' },
+          // Figma's own label reads "Devis" — almost certainly a typo for
+          // "Davie". Kept as-is rather than silently corrected.
+          { name: 'Devis', href: '/free-quote', description: 'Larger residential properties and equestrian estates with the tall, wide glazing that comes with them. Motorised drapery tracks and oversized roller systems are common specifications here. Anything above standard reach gets automated as a matter of course rather than as an upgrade.' },
+        ],
+        alsoCovering: 'Sunrise, Coconut Creek and Miramar',
       },
-      // Figma specifies no real hrefs for these 4 rows (they're plain nav-style
-      // link rows with no destination data in the file). No dedicated
-      // per-city location pages exist in this project yet — "Explore All
-      // Florida Services" links back to this hub page itself (a harmless
-      // self-link), and the 3 city rows use inferred `/locations/{slug}`
-      // routes, flagged here the same way other not-yet-built nav routes are
-      // flagged elsewhere in this file (e.g. `/gallery`, `/resources`).
-      primaryLink: { label: 'Explore All Florida Services', href: '/locations' },
-      cityLinks: [
-        { label: 'Fort Lauderdale', href: '/locations/fort-lauderdale' },
-        { label: 'Coral Springs', href: '/locations/coral-springs' },
-        { label: 'Deerfield Beach', href: '/locations/deerfield-beach' },
-      ],
-      photo: {
-        // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/locations/ before then.
-        src: 'https://www.figma.com/api/mcp/asset/b575620d-d87a-4414-93da-f9c6401fa109.png',
-        alt: 'Installer fitting blinds on a window at a South Florida home',
+      {
+        name: 'Miami Dade County',
+        paragraphs: [
+          'Miami-Dade is the largest market we serve and the most vertical. A significant share of the work is high-rise and condominium, where the building often dictates the job more than the specification does: restricted service hours, freight elevator bookings, and management approval before a contractor is admitted. We handle that paperwork as standard rather than treating it as an obstacle. Light is the other defining factor. Floor-to-ceiling glazing on east and south elevations produces glare and heat load that no fabric-weight decision alone will solve, so solar shading specified by openness factor does most of the work here.',
+          'Our teams for the county are experienced in both the access requirements and the specification, and estimates come back the same day.',
+        ],
+        cities: [
+          { name: 'Miami', href: '/free-quote', description: 'High-rise, condominium and commercial installations across the city. Building access rules shape the job more than the specification does here, so we schedule around approved service hours and handle the paperwork most management companies require before a contractor is admitted. Downtown and Brickell offices are the most common commercial requests.' },
+          { name: 'Miami Beach', href: '/free-quote', description: 'Coastal and hospitality work where salt air is relentless. Every mechanism specified here is corrosion-rated, and we steer clients away from finishes that will not survive the first year. Hotels and short-let apartments make up a significant share of the work, which means blackout performance and fabric durability drive most specifications.' },
+          { name: 'Deerfield Beach', href: '/free-quote', description: 'Coastal properties where humidity is the deciding factor rather than a consideration. Composite shutters and faux wood blinds are specified as standard in bathrooms, kitchens and anything within a few blocks of the ocean. Timber is available where the room is dry and conditioned, but we will tell you honestly when it is the wrong call.' },
+          { name: 'Aventura', href: '/free-quote', description: 'Condominium and multi-unit residential, much of it high-rise with floor-to-ceiling glazing. Solar shades dominate for glare control on east and south elevations, usually motorised because the openings are large and the operating position is inconvenient. Building-wide specifications are common where an HOA is standardising.' },
+          { name: 'Doral', href: '/free-quote', description: 'Commercial offices and modern residential developments. Office work here is mostly glare control on screens, which is a solar shade problem rather than a privacy one, and specification comes down to openness factor rather than opacity. We supply contract-grade mechanisms rated for daily cycling.' },
+          { name: 'Kendall', href: '/free-quote', description: 'Suburban residential across the southwest of the county. Larger family homes with a lot of windows, which means the value of getting a baseline figure before an appointment is higher here than almost anywhere else. Faux wood blinds and roller shades are the most requested combination.' },
+          { name: 'Hialeah', href: '/free-quote', description: 'Residential and light commercial. Practical specifications, hard-wearing materials and straightforward installation, with faux wood and aluminum blinds handling most requirements. Repairs are a significant share of our Hialeah work, often on treatments fitted by companies no longer trading.' },
+          { name: 'North Miami', href: '/free-quote', description: 'Residential and multi-family developments, including a steady volume of rental and investment property work. Durability and cost per unit matter more than finish detail on those jobs, and we specify accordingly rather than pushing a premium option that will not be maintained.' },
+          { name: 'Sunny Isles Beach', href: '/free-quote', description: 'Oceanfront condominiums where the glazing is large, the light is unfiltered and the buildings are strict about contractor access. Motorised solar shades are the standard specification, frequently across an entire unit, and scheduling is arranged with building management before we attend.' },
+        ],
+        alsoCovering: 'Homestead and the southern communities.',
       },
-    },
+      {
+        name: 'Palm Beach County',
+        paragraphs: [
+          'Palm Beach County spans a wider range of property types than either of its neighbours, from waterfront estates in Jupiter to equestrian properties in Wellington and dense multi-family developments through West Palm Beach. Specifications rarely repeat across a single job here, and a large property frequently needs three or four different treatments to work correctly room by room. That suits a made-to-measure operation better than a stock one.',
+          'We supply and install the full range throughout the county, residential and commercial, with the same estimate-first process and the same directly employed installation team. Estimates come back the same day across every area listed here.',
+        ],
+        cities: [
+          { name: 'Boca Raton', href: '/free-quote', description: 'Residential and professional offices across the city. A mix of established properties and newer developments, with full-height interior shutters and motorised shades the two most requested specifications. Office work is mostly glare management for screen-facing desks.' },
+          { name: 'Delray Beach', href: '/free-quote', description: 'Coastal residential and hospitality. Proximity to the ocean drives material choice more than anything else, so composite and vinyl handle the wet and exposed rooms while timber is reserved for dry interiors. Restaurants and short-let properties make up a steady share of the commercial work.' },
+          { name: 'West Palm Beach', href: '/free-quote', description: "Commercial, multi-family and residential across the county's largest city. Office buildings and multi-unit residential developments are the bulk of it, which means volume pricing, consistent specification across units and phased installation around occupancy." },
+          { name: 'Boynton Beach', href: '/free-quote', description: 'Residential communities and light commercial, with a significant proportion of HOA and community association work. Consistency matters on those schemes, so we hold a single specification across a development and keep the records so replacements years later still match.' },
+          { name: 'Jupiter', href: '/free-quote', description: 'Waterfront and premium residential. Large glazing, strong afternoon light and a lot of view worth protecting, which makes solar shades and layered treatments the usual answer rather than anything solid. Motorisation is common on the taller openings.' },
+          { name: 'Wellington', href: '/free-quote', description: 'Larger residential properties and equestrian estates. Tall windows, wide spans and rooms that are difficult to treat with standard sizing. Custom fabrication and motorised operation are less an upgrade here than the only practical specification.' },
+          // Figma's own label reads "Palm Beach Grains" — almost certainly a
+          // typo for "Palm Beach Gardens". Kept as-is rather than silently
+          // corrected.
+          { name: 'Palm Beach Grains', href: '/free-quote', description: 'Residential estates and commercial offices. Mixed requirements across a single property are common, with solar shading on the exposed elevations, blackout in bedrooms and drapery where the room should feel finished rather than merely covered.' },
+        ],
+      },
+    ],
     comingSoon: {
+      eyebrow: 'EXPANDING',
       headingPrefix: 'Coming Soon — ',
       headingHighlight: 'Future States',
       description:
