@@ -400,10 +400,6 @@ export const SERVICE_SINGLE_PAGE_QUERY = `
         section2SubHeading
         section2Heading
         section2Text
-        section2Point1
-        section2Point2
-        section2Point3
-        section2Point4
         section2Image1 { node { altText title mediaItemUrl } }
         section2Image2 { node { altText title mediaItemUrl } }
         section2Image3 { node { altText title mediaItemUrl } }

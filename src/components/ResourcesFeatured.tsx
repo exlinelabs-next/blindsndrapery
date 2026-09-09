@@ -43,7 +43,7 @@ export function ResourcesFeatured({ content }: { content?: ResourcesFeaturedCont
           <div className="mt-8 flex flex-col gap-4 xl:mt-0">
             <div className="h-px w-full bg-black/10" />
             <div className="flex items-center justify-between">
-              <p className="font-mono text-[14px] uppercase leading-[16px] tracking-[1.1px] text-[#737373]">
+              <p className="font-mono text-[14px] leading-[16px] tracking-[1.1px] text-[#737373]">
                 {article.date}
               </p>
               <Button href={article.href}>Read More</Button>

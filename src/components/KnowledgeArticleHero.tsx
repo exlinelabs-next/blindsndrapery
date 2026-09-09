@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import type { KnowledgeArticlePageContent } from "@/types/content";
 
 export function KnowledgeArticleHero({
@@ -15,8 +16,8 @@ export function KnowledgeArticleHero({
       />
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="flex items-center justify-center rounded-lg bg-white p-3 backdrop-blur-[25px]">
-          <span className="font-mono text-[11px] uppercase leading-[16px] tracking-[1.1px] text-navy">
-            {breadcrumb}
+          <span className="font-mono text-[11px] leading-[16px] tracking-[1.1px] text-navy">
+            <Breadcrumb trail={breadcrumb} />
           </span>
         </div>
       </div>

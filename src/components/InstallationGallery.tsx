@@ -10,7 +10,7 @@ export function InstallationGallery({ content }: { content?: InstallationGallery
     <section className="flex flex-col items-center gap-6 px-8 pb-14 md:px-12 md:pb-16 xl:gap-16 xl:px-20 xl:pb-[100px]">
       <div className="flex w-full flex-col items-center gap-4 xl:w-[912px]">
         <div className="flex items-center justify-center rounded-lg border border-navy-light-hover p-2">
-          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black">
             {eyebrow}
           </p>
         </div>
