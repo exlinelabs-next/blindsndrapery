@@ -24,7 +24,7 @@ export function Locations({ content }: { content?: LocationsContent }) {
               {heading}
             </p>
           </div>
-          <p className="w-full text-[16px] leading-[23px] text-black">{description}</p>
+          <div className="w-full text-[16px] leading-[23px] text-black [&>p]:mb-2 [&>p:last-child]:mb-0" dangerouslySetInnerHTML={{ __html: description }} />
         </div>
         <div className="flex w-full flex-col items-stretch gap-4 md:flex-row md:flex-wrap md:items-center md:gap-6 xl:w-auto xl:shrink-0 xl:justify-end">
           {cities.map(({ icon, name }) => (

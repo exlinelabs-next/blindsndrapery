@@ -138,7 +138,7 @@ export function Footer({ footerContent }: { footerContent?: FooterContent }) {
   }
 
   return (
-    <footer className="bg-navy px-10 pt-10 pb-20 xl:p-20">
+    <footer className="bg-navy px-8 py-20 md:px-12 xl:p-20">
       <div className="flex flex-col gap-10">
         {/* ═══ Top section ═══ */}
         <div className="flex flex-col items-center gap-10 border-b border-white/32 pb-10 xl:pb-6">
@@ -199,42 +199,79 @@ export function Footer({ footerContent }: { footerContent?: FooterContent }) {
             )}
           </div>
 
-          {/* ── TABLET / MOBILE (<xl): Badges top, 4 simple nav columns ── */}
-          <div className="flex w-full flex-col gap-10 xl:hidden">
-            <div className="flex flex-col items-start gap-6 md:flex-row md:items-start md:justify-center md:gap-[22px]">
-              {badges.map((badge) => (
-                <div
-                  key={badge.alt}
-                  className="relative w-[160px] shrink-0"
-                  style={{ aspectRatio: badge.aspectRatio }}
-                >
-                  <Image
-                    src={badge.src}
-                    alt={badge.alt}
-                    fill
-                    className="object-cover"
-                  />
+          {/* ── TABLET / MOBILE (<xl): same content as desktop (logo/desc/
+              badges, Explore/Services/Contact columns, trust bar), just
+              reflowed into fewer/narrower columns via flex-wrap instead of
+              desktop's single row — confirmed against Figma tablet (node
+              4425:7686) and mobile (4425:7790) frames, which both include
+              the full Contact block (phone/email/socials/CTA) and the
+              trust-highlights bar that this section was previously
+              missing entirely. ── */}
+          <div className="flex w-full flex-col gap-16 xl:hidden">
+            <div className="flex w-full flex-col items-start gap-[72px]">
+              <div className="flex flex-col items-start gap-4">
+                <div className="flex flex-col items-start gap-4">
+                  <Link href={logo.href} className="shrink-0">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={241}
+                      height={32}
+                      className="h-8 w-auto"
+                    />
+                  </Link>
+                  {description && (
+                    <p className="text-base leading-[23px] text-white">
+                      {description}
+                    </p>
+                  )}
                 </div>
-              ))}
-            </div>
-            <div className="flex flex-col gap-10 md:flex-row md:justify-between">
-              {renderColumn(columns[0], "w-[171px]")}
-              {renderColumn(columns[1], "w-full md:w-[248px]")}
-              {columns.length > 2 && (
-                <div className="flex h-[266px] flex-col justify-between">
-                  {columns[2] && renderColumn(columns[2], "w-[128px]")}
-                  {columns[3] && renderColumn(columns[3], "w-[119px]")}
+                <div className="flex items-start gap-5">
+                  {badges.map((badge) => (
+                    <div
+                      key={badge.alt}
+                      className="relative w-[120px] shrink-0"
+                      style={{ aspectRatio: badge.aspectRatio }}
+                    >
+                      <Image
+                        src={badge.src}
+                        alt={badge.alt}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ))}
                 </div>
-              )}
+              </div>
+              <div className="flex w-full flex-wrap items-start gap-10">
+                {renderColumn(columns[0], "w-[107px]")}
+                {renderColumn(columns[1], "w-full md:w-[237px]")}
+                {renderContactColumn("w-full md:w-[244px]")}
+              </div>
             </div>
+            {trustHighlights && trustHighlights.length > 0 && (
+              <div className="flex w-full flex-wrap items-center justify-center gap-4 rounded-lg bg-white/5 p-4">
+                {trustHighlights.map((highlight) => (
+                  <div key={highlight} className="flex items-center">
+                    <ul className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[0] tracking-[0.56px] text-[#e6f8f6]">
+                      <li className="ms-[22.5px] list-disc">
+                        <span className="leading-[27.2px]">{highlight}</span>
+                      </li>
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
         </div>
 
         {/* ═══ Bottom bar ═══ */}
-
-        {/* DESKTOP */}
-        <div className="hidden items-end justify-between text-sm leading-[24px] text-white xl:flex">
+        {/* Same simple copyright + legal-links layout at every breakpoint
+            (confirmed against the tablet/mobile Figma frames — no
+            duplicate logo, no social icons here; those already live in
+            the Contact column above at every breakpoint now). */}
+        <div className="flex items-end justify-between text-sm leading-[24px] text-white">
           <p className="min-w-0 flex-1">{copyright}</p>
           <div className="flex shrink-0 gap-6 whitespace-nowrap">
             {legalLinks.map((link) => (
@@ -246,50 +283,6 @@ export function Footer({ footerContent }: { footerContent?: FooterContent }) {
                 {link.label}
               </Link>
             ))}
-          </div>
-        </div>
-
-        {/* TABLET / MOBILE */}
-        <div className="flex flex-col items-center gap-4 xl:hidden">
-          <div className="flex flex-col items-center gap-2">
-            <Link href={logo.href}>
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={210}
-                height={28}
-                className="h-7 w-auto"
-              />
-            </Link>
-            <p className="text-center text-sm leading-[24px] text-white">
-              {copyright}
-            </p>
-          </div>
-          <div className="flex items-start gap-4">
-            {legalLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="whitespace-nowrap text-sm leading-[24px] text-white"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="flex items-center gap-2 md:gap-4">
-              {socialLinks.map((social) => {
-                const Icon = socialIcons[social.platform];
-                return (
-                  <Link
-                    key={social.platform}
-                    href={social.href}
-                    aria-label={social.label}
-                    className="flex items-center justify-center"
-                  >
-                    <Icon className="size-6 text-white md:size-8" />
-                  </Link>
-                );
-              })}
-            </div>
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ export function GalleryContent({ filtersContent, gridContent }: { filtersContent
         onRoomChange={setActiveRoom}
         content={filtersContent}
       />
-      <GalleryGrid activeProductType={activeProductType} content={gridContent} />
+      <GalleryGrid activeProductType={activeProductType} activeRoom={activeRoom} content={gridContent} />
     </>
   );
 }

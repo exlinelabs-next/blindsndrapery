@@ -3,11 +3,16 @@ import { useContent } from "@/hooks/useContent";
 import type { ComingSoonStatesContent } from "@/types/content";
 
 export function ComingSoonStates({ content }: { content?: ComingSoonStatesContent }) {
-  const { headingPrefix, headingHighlight, description, badgeLabel, cards } = content ?? useContent("locationsPage").comingSoon;
+  const { eyebrow, headingPrefix, headingHighlight, description, badgeLabel, cards } = content ?? useContent("locationsPage").comingSoon;
 
   return (
     <section className="flex flex-col items-center gap-10 px-8 pb-14 md:px-12 md:pb-16 xl:px-20 xl:pb-[100px]">
       <div className="flex w-full flex-col items-center gap-4 text-center xl:w-[912px]">
+        <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
+          <p className="whitespace-nowrap text-center font-mono text-[11px] leading-[16px] tracking-[1.1px] text-black uppercase">
+            {eyebrow}
+          </p>
+        </div>
         <p className="w-full font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-navy">
           {headingPrefix}
           <span className="text-teal">{headingHighlight}</span>
