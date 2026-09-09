@@ -237,6 +237,7 @@ export const mockContent: PageContent = {
       src: 'https://www.figma.com/api/mcp/asset/758ac310-96a9-4208-80ed-0049e29039ab.png',
       alt: 'Elegant white plantation shutters framing a sunlit window in a cozy living room with neutral furnishings',
     },
+    cta: { label: 'Explore Shutters', href: '/services/shutters' },
   },
   howItWorks: {
     eyebrow: 'process',

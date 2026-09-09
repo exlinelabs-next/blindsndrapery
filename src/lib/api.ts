@@ -725,9 +725,11 @@ export async function fetchHomePage() {
       .map((s) => s.trim())
       .filter(Boolean),
     image: img(hp.section3Image as WPImage),
-    ...(hp.section3ButtonText && hp.section3ButtonUrl
-      ? { cta: { label: toTitleCase(hp.section3ButtonText as string), href: hp.section3ButtonUrl as string } }
-      : {}),
+    // Figma's "Explore Shutters" CTA on this fixed Shutters showcase block
+    // has no corresponding WP field (the query has no section3Button*
+    // fields — confirmed by a "Cannot query field" GraphQL error) — same
+    // hardcoded precedent as the Shutters page's own about.cta below.
+    cta: { label: "Explore Shutters", href: "/services/shutters" },
   };
 
   const hwwHeading = parseSplHeading(hp.howWeWorkSectionHeading as string);
