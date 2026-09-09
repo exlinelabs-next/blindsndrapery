@@ -77,7 +77,6 @@ export interface ProcessIntroContent {
   description: string;
   video: {
     poster: { src: string; alt: string };
-    playIcon: { src: string; alt: string };
   };
 }
 

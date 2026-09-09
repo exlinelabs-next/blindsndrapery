@@ -417,7 +417,6 @@ export async function fetchProcessIntro(): Promise<ProcessIntroContent> {
     description: hp.section2Text as string,
     video: {
       poster: { src: hp.section2VideoUrl as string, alt: "Process video" },
-      playIcon: { src: "", alt: "" },
     },
   };
 }
@@ -709,7 +708,6 @@ export async function fetchHomePage() {
     description: hp.section2Text as string,
     video: {
       poster: { src: hp.section2VideoUrl as string, alt: "Process video" },
-      playIcon: { src: "", alt: "" },
     },
   };
 
