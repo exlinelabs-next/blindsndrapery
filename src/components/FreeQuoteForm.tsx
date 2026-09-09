@@ -3,11 +3,30 @@
 import { useState, type FormEvent } from "react";
 import { ChevronDown, Phone, MessageCircle } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/Button";
+import { Toast } from "@/components/ui/Toast";
+import { submitContactForm } from "@/lib/forms";
 import type { FreeQuoteFormContent } from "@/types/content";
 
 const FIELD_CLASSES =
   "w-full rounded-lg border border-[#b3b6b9] px-6 py-4 text-[16px] leading-[23px] text-black placeholder:text-black/50 focus:border-teal focus:outline-none";
+
+const INITIAL_STATE = {
+  name: "",
+  email: "",
+  phone: "",
+  service: "",
+  message: "",
+  // Honeypot: real visitors never fill this in (it's visually hidden);
+  // bots that auto-fill every field do. Never sent to the server — just
+  // used to silently drop the submission client-side.
+  website: "",
+};
+
+// No CMS field exists for this — same "hardcode rather than guess at an
+// unverified GraphQL field" call as elsewhere in this codebase.
+const SUCCESS_MESSAGE = "Thanks! We've received your request and will be in touch shortly.";
 
 export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
   const {
@@ -34,16 +53,40 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
     trustLine,
   } = content ?? useContent("freeQuotePage").form;
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: "",
-  });
+  const [form, setForm] = useState(INITIAL_STATE);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
+  const { message: toastMessage, showToast, hideToast } = useToast();
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    if (submitting) return;
+    if (form.website) {
+      setForm(INITIAL_STATE);
+      showToast(SUCCESS_MESSAGE);
+      return;
+    }
+    setSubmitting(true);
+    setError(false);
+    try {
+      const success = await submitContactForm({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        serviceInterest: form.service,
+        aboutTheProject: form.message,
+      });
+      if (success) {
+        setForm(INITIAL_STATE);
+        showToast(SUCCESS_MESSAGE);
+      } else {
+        setError(true);
+      }
+    } catch {
+      setError(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -67,7 +110,24 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <input
+            type="text"
+            name="website"
+            value={form.website}
+            onChange={(e) => setForm({ ...form, website: e.target.value })}
+            className="sr-only"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
           <div className="flex flex-col gap-6">
+            {error && (
+              <div className="flex w-full flex-col items-start gap-2 rounded-lg border border-red-500 bg-red-50 p-4">
+                <p className="font-body text-[16px] leading-[23px] text-red-600">
+                  Something went wrong submitting your request. Please try again.
+                </p>
+              </div>
+            )}
             {/* Name + Email row */}
             <div className="flex flex-col gap-6 xl:flex-row xl:gap-5">
               <div className="flex flex-1 flex-col gap-4">
@@ -153,7 +213,7 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
             </div>
 
             {/* Submit button — full width per Figma */}
-            <Button type="submit">{submitLabel}</Button>
+            <Button type="submit" className="w-full">{submitting ? "Submitting..." : submitLabel}</Button>
           </div>
 
           {/* Divider */}
@@ -199,6 +259,7 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
           </div>
         </div>
       </div>
+      {toastMessage && <Toast message={toastMessage} onClose={hideToast} />}
     </section>
   );
 }

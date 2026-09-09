@@ -27,15 +27,10 @@ export function ProcessIntro({ content }: { content?: ProcessIntroContent }) {
       </div>
       <div className="relative h-[435px] w-full overflow-hidden rounded-2xl md:h-[596px]">
         {video.poster.src.match(/\.(mp4|webm|mov)$/i) ? (
-          <video src={video.poster.src} muted playsInline className="absolute inset-0 h-full w-full object-cover" />
+          <video src={video.poster.src} autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover" />
         ) : video.poster.src ? (
           <Image src={video.poster.src} alt={video.poster.alt} fill sizes="(min-width: 1024px) 1280px, 100vw" className="object-cover" />
         ) : null}
-        <div className="absolute inset-0 flex items-center justify-center">
-          {video.playIcon.src && (
-            <Image src={video.playIcon.src} alt="" aria-hidden="true" width={64} height={64} className="size-[64px]" />
-          )}
-        </div>
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Building2, Hotel, SquareActivity, PaperBag, type LucideIcon } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import type { CommercialPlacesContent } from "@/types/content";
@@ -45,8 +46,7 @@ export function CommercialPlaces({ content }: { content?: CommercialPlacesConten
                 </div>
                 <div className="flex size-[72px] shrink-0 items-center justify-center rounded-full bg-navy">
                   {isUrl ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src={card.icon} alt="" className="size-10" />
+                    <Image src={card.icon} alt="" width={40} height={40} className="size-10" />
                   ) : (
                     Icon && <Icon className="size-10 text-white" strokeWidth={1.5} />
                   )}
