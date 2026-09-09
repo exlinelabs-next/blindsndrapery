@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Wrench, type LucideIcon } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import type { RepairMaintenanceContent } from "@/types/content";
@@ -32,8 +33,7 @@ export function RepairMaintenance({ content }: { content?: RepairMaintenanceCont
         <div className="flex w-full flex-col items-center gap-4">
           <div className="flex items-center justify-center">
             {isUrl ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img src={icon} alt="" className="size-8" />
+              <Image src={icon} alt="" width={32} height={32} className="size-8" />
             ) : (
               Icon && <Icon className="size-8 text-navy" strokeWidth={1.5} />
             )}

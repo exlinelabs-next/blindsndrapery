@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowDown, ArrowRight, Ruler, type LucideIcon } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
@@ -58,8 +59,7 @@ export function HowWeWork({ content }: { content?: HowItWorksContent }) {
                   <p className="text-[16px] leading-[23px] text-[#e6f8f6]">{stepLabel}</p>
                   <div className="flex w-full flex-col items-start gap-2 md:w-[399px] xl:w-full">
                     {isUrl ? (
-                      /* eslint-disable-next-line @next/next/no-img-element */
-                      <img src={icon} alt="" className="size-8" />
+                      <Image src={icon} alt="" width={32} height={32} className="size-8" />
                     ) : (
                       Icon && <Icon className="size-8 text-white" strokeWidth={1.5} />
                     )}
