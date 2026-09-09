@@ -100,6 +100,20 @@ function toTitleCase(s: string): string {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// WP returns FAQ categories in whatever order they were created in, which
+// doesn't put "Common Questions" first — it's the catch-all category users
+// expect to land on by default (the FAQ component defaults its active tab
+// to categories[0]), so it's moved to the front here rather than left to
+// however an editor happened to create the categories.
+function sortFaqCategories(categories: string[]): string[] {
+  const index = categories.findIndex((c) => c.toLowerCase() === "common questions");
+  if (index <= 0) return categories;
+  const sorted = [...categories];
+  const [commonQuestions] = sorted.splice(index, 1);
+  sorted.unshift(commonQuestions);
+  return sorted;
+}
+
 function parseSplHeading(raw: string): {
   prefix: string;
   highlight: string;
@@ -602,7 +616,7 @@ interface FaqAPIResponse {
 
 export async function fetchFaq(): Promise<FaqContent> {
   const data = await fetchGraphQL<FaqAPIResponse>(FAQ_QUERY);
-  const categories = data.faqCategories.nodes.map((c) => c.name);
+  const categories = sortFaqCategories(data.faqCategories.nodes.map((c) => c.name));
   const items = data.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
@@ -819,7 +833,7 @@ export async function fetchHomePage() {
     successMessage: "Thank you! We'll get back to you within 24 hours.",
   };
 
-  const faqCategories = faqData.faqCategories.nodes.map((c) => c.name);
+  const faqCategories = sortFaqCategories(faqData.faqCategories.nodes.map((c) => c.name));
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
@@ -938,7 +952,7 @@ export async function fetchServicePage() {
     cta: { label: "Explore Shutters", href: "/services/shutters" },
   };
 
-  const faqCategories = faqData.faqCategories.nodes.map((c) => c.name);
+  const faqCategories = sortFaqCategories(faqData.faqCategories.nodes.map((c) => c.name));
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
@@ -1054,7 +1068,7 @@ export async function fetchCommercialPage() {
     successMessage: "Thank you! Our commercial desk will review your request within 24 business hours.",
   };
 
-  const faqCategories = faqData.faqCategories.nodes.map((c) => c.name);
+  const faqCategories = sortFaqCategories(faqData.faqCategories.nodes.map((c) => c.name));
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
@@ -1262,7 +1276,7 @@ export async function fetchServiceSinglePage(uri: string) {
     },
   };
 
-  const faqCategories = faqData.faqCategories.nodes.map((c) => c.name);
+  const faqCategories = sortFaqCategories(faqData.faqCategories.nodes.map((c) => c.name));
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
@@ -1365,7 +1379,7 @@ export async function fetchAboutPage() {
     })) as AboutPageContent["team"]["members"],
   };
 
-  const faqCategories = faqData.faqCategories.nodes.map((c) => c.name);
+  const faqCategories = sortFaqCategories(faqData.faqCategories.nodes.map((c) => c.name));
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
@@ -1461,7 +1475,7 @@ export async function fetchFreeQuotePage() {
     trustLine: "100% Satisfaction Guaranteed · Licensed & Insured · Florida Verified",
   };
 
-  const faqCategories = faqData.faqCategories.nodes.map((c) => c.name);
+  const faqCategories = sortFaqCategories(faqData.faqCategories.nodes.map((c) => c.name));
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
@@ -1558,7 +1572,7 @@ export async function fetchGalleryPage() {
     image: img(gp.ctaBannerImage as WPImage),
   };
 
-  const faqCategories = faqData.faqCategories.nodes.map((c) => c.name);
+  const faqCategories = sortFaqCategories(faqData.faqCategories.nodes.map((c) => c.name));
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
@@ -1642,7 +1656,7 @@ export async function fetchLocationSinglePage(uri: string) {
     ctaLabel: "Submit",
   };
 
-  const faqCategories = faqData.faqCategories.nodes.map((c) => c.name);
+  const faqCategories = sortFaqCategories(faqData.faqCategories.nodes.map((c) => c.name));
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
