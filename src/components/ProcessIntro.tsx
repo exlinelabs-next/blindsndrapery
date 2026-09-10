@@ -1,15 +1,32 @@
+"use client";
+
+import { useRef, useState } from "react";
 import Image from "next/image";
+import { PlayCircleIcon } from "@/components/ui/PlayCircleIcon";
+import { PauseCircleIcon } from "@/components/ui/PauseCircleIcon";
 import { useContent } from "@/hooks/useContent";
 import type { ProcessIntroContent } from "@/types/content";
 
 export function ProcessIntro({ content }: { content?: ProcessIntroContent }) {
   const { eyebrow, headingPrefix, headingHighlight, description, video } = content ?? useContent("processIntro");
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const isVideo = video.poster.src.match(/\.(mp4|webm|mov)$/i);
+
+  function togglePlay() {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      setPlaying(true);
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
+  }
 
   return (
-    // Font sizes are constant across breakpoints (confirmed via
-    // get_design_context on the mobile/tablet heading nodes — both come
-    // back as the exact same 36/44 H2 style as desktop). Only padding,
-    // gaps, and the video height genuinely change by breakpoint.
     <section className="flex flex-col items-center gap-12 px-8 pt-14 pb-14 md:gap-14 md:px-12 md:pt-16 md:pb-16 xl:gap-16 xl:px-20 xl:pt-[120px] xl:pb-[100px]">
       <div className="flex w-full flex-col items-center justify-center gap-4">
         <div className="flex items-center justify-center rounded-lg border border-navy-light-hover p-2">
@@ -26,8 +43,26 @@ export function ProcessIntro({ content }: { content?: ProcessIntroContent }) {
         </div>
       </div>
       <div className="relative h-[435px] w-full overflow-hidden rounded-2xl md:h-[596px]">
-        {video.poster.src.match(/\.(mp4|webm|mov)$/i) ? (
-          <video src={video.poster.src} autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover" />
+        {isVideo ? (
+          <>
+            <video
+              ref={videoRef}
+              src={video.poster.src}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <button
+              type="button"
+              onClick={togglePlay}
+              aria-label={playing ? "Pause video" : "Play video"}
+              className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-transform hover:scale-105"
+            >
+              {playing ? <PauseCircleIcon className="size-16" /> : <PlayCircleIcon className="size-16" />}
+            </button>
+          </>
         ) : video.poster.src ? (
           <Image src={video.poster.src} alt={video.poster.alt} fill sizes="(min-width: 1024px) 1280px, 100vw" className="object-cover" />
         ) : null}

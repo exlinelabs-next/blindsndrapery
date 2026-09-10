@@ -33,6 +33,7 @@ const subServiceMap: Record<string, { contentKey: ServiceContentKey; title: stri
     contentKey: "subServiceZebraShades",
     title: "Zebra Shades",
     description: "Modern dual-layer zebra shades for versatile light and privacy control. Professional installation across South Florida.",
+    wpUri: "/services/shades/zebra-shades/",
   },
   "woven-wood-shades": {
     contentKey: "subServiceWovenWoodShades",

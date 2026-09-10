@@ -37,6 +37,19 @@ export const HEADER_NAV_AND_BUTTON = `
           nodes {
             label
             uri
+            connectedNode {
+              node {
+                __typename
+                ... on Service {
+                  featuredImage {
+                    node {
+                      altText
+                      mediaItemUrl
+                    }
+                  }
+                }
+              }
+            }
             childItems {
               nodes {
                 label

@@ -43,8 +43,20 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds", con
   // (e.g. /services/shades — section2Heading and friends all come back
   // null), which without this guard rendered a ~700px blank section
   // between SubServicesGrid and the timeline. Same "return null instead
-  // of an empty shell" pattern as BlogCard above.
-  if (!headingPrefix && !headingHighlight) return null;
+  // of an empty shell" pattern as BlogCard above. Extended to also cover
+  // the description and gallery, since a heading with no paragraph or no
+  // photos at all is just as much an empty shell as no heading.
+  const hasTitle = Boolean(headingPrefix || headingHighlight);
+  const hasDescription = Boolean(paragraphPrefix || paragraphHighlight || paragraphSuffix);
+  const hasGallery = gallery.some((image) => image.src);
+  if (!hasTitle || !hasDescription || !hasGallery) return null;
+
+  // Some pages have the heading/paragraph/gallery but no materials text at
+  // all (e.g. /services/shades/cellular-shades, /services/shades/zebra-shades
+  // both come back with 0 chars for section2MaterielsText) — rather than
+  // render an empty accordion shell with nothing inside it, just omit the
+  // accordion for those pages and keep the rest of the section.
+  const hasFeatures = features.length > 0;
 
   return (
     <section
@@ -73,27 +85,29 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds", con
               {paragraphSuffix}
             </p>
           </div>
-          <div className="flex w-full flex-col items-start">
-            {features.map((feature, i) => {
-              const isOpen = openIndex === i;
-              return (
-                <div key={feature.title} className={`w-full border-b ${dark ? "border-white/28" : "border-black/28"}`}>
-                  <button
-                    type="button"
-                    onClick={() => setOpenIndex(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 py-3 text-left"
-                  >
-                    <span className={`text-[16px] leading-[23px] ${dark ? "text-white" : "text-black"}`}>{feature.title}</span>
-                    <Plus className={`size-4 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-45" : ""} ${dark ? "text-white" : "text-black"}`} />
-                  </button>
-                  {isOpen && feature.description && (
-                    <p className={`pb-4 text-[15px] leading-[22px] ${dark ? "text-white/76" : "text-black/64"}`}>{feature.description}</p>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+          {hasFeatures && (
+            <div className="flex w-full flex-col items-start">
+              {features.map((feature, i) => {
+                const isOpen = openIndex === i;
+                return (
+                  <div key={feature.title} className={`w-full border-b ${dark ? "border-white/28" : "border-black/28"}`}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenIndex(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      className="flex w-full items-center justify-between gap-4 py-3 text-left"
+                    >
+                      <span className={`text-[16px] leading-[23px] ${dark ? "text-white" : "text-black"}`}>{feature.title}</span>
+                      <Plus className={`size-4 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-45" : ""} ${dark ? "text-white" : "text-black"}`} />
+                    </button>
+                    {isOpen && feature.description && (
+                      <p className={`pb-4 text-[15px] leading-[22px] ${dark ? "text-white/76" : "text-black/64"}`}>{feature.description}</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
       <div className="flex w-full flex-col items-start gap-2 md:flex-row md:items-center xl:h-[501px] xl:pt-12">
