@@ -84,7 +84,7 @@ function BlogCard({ blogCard, imageClassName, onNavigate }: { blogCard: NavDropd
       )}
       <div className="flex flex-1 flex-col items-end gap-2.5 rounded-lg bg-[#e7eeee] p-6">
         <div className="flex w-full flex-col gap-2.5 text-black">
-          <p className="font-heading text-base leading-[23px] font-semibold tracking-[0.16px]">{blogCard.title}</p>
+          <p className="line-clamp-2 font-heading text-base leading-[23px] font-semibold tracking-[0.16px]">{blogCard.title}</p>
           <p className="line-clamp-3 text-sm leading-6 md:line-clamp-2">{blogCard.description}</p>
         </div>
         <Link href={blogCard.buttonHref} onClick={onNavigate} className="flex items-center gap-2 rounded-lg bg-white px-4 py-2">
@@ -213,6 +213,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
   useEffect(() => {
     function handleScroll() {
       const currentY = window.scrollY;
+
       if (currentY < 10) {
         setHeaderVisible(true);
       } else if (currentY > lastScrollY.current && !mobileMenuOpen && !servicesOpen) {
@@ -290,23 +291,23 @@ export function Header({ navContent }: { navContent?: NavContent }) {
       {/* Desktop hover mega-menu (node 4311:2976) */}
       {servicesOpen && (
         <div className="absolute inset-x-0 top-[calc(100%+2px)] z-50 hidden w-full flex-col rounded-b-lg bg-white shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
-          <div className="flex h-[422px] items-start gap-10 px-20 pt-10">
+          <div className="flex h-[422px] items-start justify-between px-20 pt-10">
             <div className="flex w-[264px] shrink-0 flex-col">
               {categories.map((category) => {
                 const isActive = activeCategory?.label === category.label;
                 return (
-                  <button
+                  <Link
                     key={category.label}
-                    type="button"
+                    href={category.href}
                     onMouseEnter={() => setActiveCategoryLabel(category.label)}
-                    onClick={() => setActiveCategoryLabel(category.label)}
+                    onClick={closeDesktopMega}
                     className={`flex w-full items-center gap-4 rounded-lg px-2.5 py-3.5 text-left font-heading text-[18px] leading-[27px] font-semibold tracking-[-0.0648px] transition-colors ${isActive ? "bg-[#eff4f3] text-black" : "text-black hover:bg-[#eff4f3]"}`}
                   >
                     <span aria-hidden className="text-[16px] leading-none">
                       •
                     </span>
                     {category.label}
-                  </button>
+                  </Link>
                 );
               })}
             </div>
@@ -314,7 +315,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
             {activeCategory && <CategoryPanel category={activeCategory} widthClassName="w-[443px] shrink-0" onNavigate={closeDesktopMega} />}
 
             <div className="h-full w-[380px] shrink-0">
-              <BlogCard blogCard={blogCard} imageClassName="h-[200px]" onNavigate={closeDesktopMega} />
+              <BlogCard blogCard={blogCard} imageClassName="h-[160px]" onNavigate={closeDesktopMega} />
             </div>
           </div>
 

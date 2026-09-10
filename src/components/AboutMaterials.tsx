@@ -1,17 +1,20 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
+import { Plus } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 
-// No "use client" here on purpose: no state or event handlers, so per the
-// project's server-first rule this stays a plain Server Component.
-//
 // Eyebrow + 3-segment heading + a rich paragraph (one inline highlighted
-// phrase mid-sentence, not a prefix/highlight/suffix split) + a 4-item
-// feature checklist, alongside a 3-photo gallery — stacked below xl, side
-// by side at xl (text w-[518px], gallery filling the rest). Confirmed via
-// get_design_context on "Desktop Service Inline 2" node 2721:1635 (desktop)
-// and the tablet/mobile "Frame 9" equivalents on "Service Inline 1" (layout
-// only — see ServiceInlineHero.tsx and project memory for why content comes
-// from Inline 2 but layout/spacing is borrowed from Inline 1's responsive
+// phrase mid-sentence, not a prefix/highlight/suffix split) + a materials
+// expand/collapse accordion (Figma node 4573:8519 — "Faux Wood +",
+// "Aluminium +", "Vertical +", each revealing a description on click),
+// alongside a 3-photo gallery — stacked below xl, side by side at xl (text
+// w-[518px], gallery filling the rest). Confirmed via get_design_context on
+// "Desktop Service Inline 2" node 2721:1635 (desktop) and the
+// tablet/mobile "Frame 9" equivalents on "Service Inline 1" (layout only —
+// see ServiceInlineHero.tsx and project memory for why content comes from
+// Inline 2 but layout/spacing is borrowed from Inline 1's responsive
 // frames).
 //
 // Gallery images have no corner rounding in the Figma source (unlike most
@@ -34,6 +37,14 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds", con
     features,
     gallery,
   } = content ?? useContent(contentKey).about;
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  // WP genuinely has no content for this section on some service pages
+  // (e.g. /services/shades — section2Heading and friends all come back
+  // null), which without this guard rendered a ~700px blank section
+  // between SubServicesGrid and the timeline. Same "return null instead
+  // of an empty shell" pattern as BlogCard above.
+  if (!headingPrefix && !headingHighlight) return null;
 
   return (
     <section
@@ -62,12 +73,26 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds", con
               {paragraphSuffix}
             </p>
           </div>
-          <div className="flex w-full flex-col items-start gap-4">
-            {features.map((feature, i) => (
-              <div key={i} className={`flex w-full items-center justify-center border-b pb-3 ${dark ? "border-white/28" : "border-black/28"}`}>
-                <p className={`flex-1 text-[16px] leading-[23px] ${dark ? "text-white/76" : "text-black/49"}`}>{feature}</p>
-              </div>
-            ))}
+          <div className="flex w-full flex-col items-start">
+            {features.map((feature, i) => {
+              const isOpen = openIndex === i;
+              return (
+                <div key={feature.title} className={`w-full border-b ${dark ? "border-white/28" : "border-black/28"}`}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    className="flex w-full items-center justify-between gap-4 py-3 text-left"
+                  >
+                    <span className={`text-[16px] leading-[23px] ${dark ? "text-white" : "text-black"}`}>{feature.title}</span>
+                    <Plus className={`size-4 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-45" : ""} ${dark ? "text-white" : "text-black"}`} />
+                  </button>
+                  {isOpen && feature.description && (
+                    <p className={`pb-4 text-[15px] leading-[22px] ${dark ? "text-white/76" : "text-black/64"}`}>{feature.description}</p>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

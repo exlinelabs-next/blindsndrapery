@@ -348,7 +348,11 @@ export interface ServiceInlineAboutContent {
   paragraphPrefix: string;
   paragraphHighlight: string;
   paragraphSuffix: string;
-  features: string[];
+  // Rendered as an expand/collapse accordion (Figma node 4573:8519) —
+  // matches the real WP field (section2MaterielsText, a single WYSIWYG
+  // field storing "<p><strong>Title</strong><br />description</p>" per
+  // material), not a flat list of short tags.
+  features: Array<{ title: string; description: string }>;
   // Exactly 3 — a fixed 3-up photo gallery (row on tablet/desktop, stacked
   // on mobile), not an arbitrary-length list.
   gallery: [{ src: string; alt: string }, { src: string; alt: string }, { src: string; alt: string }];
@@ -449,10 +453,11 @@ export interface InstallationGalleryContent {
   headingHighlight: string;
   headingSuffix: string;
   description: string;
-  // Exactly 3 — desktop uses asymmetric per-image heights (the middle image
-  // taller than its neighbors), a confirmed, deliberate design detail, not
-  // an arbitrary-length gallery.
-  images: [{ src: string; alt: string }, { src: string; alt: string }, { src: string; alt: string }];
+  // WP's own field is a carousel (`commercialPageCarouselImages`) and can
+  // hold more than 3 — the gallery shows a sliding 3-wide window over
+  // however many come back, so this is a plain array, minimum 3 (padded in
+  // api.ts if WP ever returns fewer).
+  images: { src: string; alt: string }[];
 }
 
 export interface CommercialQuoteFormContent {

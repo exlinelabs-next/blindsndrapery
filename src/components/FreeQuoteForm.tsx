@@ -90,7 +90,7 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
   }
 
   return (
-    <section className="bg-ice px-4 pb-14 md:px-12 md:pb-16 xl:px-20 xl:pb-20">
+    <section className="px-4 pb-14 md:px-12 md:pb-16 xl:px-20 xl:pb-20">
       <div className="flex flex-col gap-10 rounded-lg bg-white p-6 md:p-12 xl:p-20">
         {/* Header */}
         <div className="flex flex-col items-center gap-4">
