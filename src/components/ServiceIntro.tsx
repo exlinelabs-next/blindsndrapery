@@ -27,7 +27,7 @@ export function ServiceIntro({ contentKey = "serviceBlinds", content }: { conten
     // those breakpoints scale it down proportionally rather than being
     // confirmed.
     <section className="flex flex-col items-center gap-4 px-8 pt-10 pb-14 md:px-12 md:pt-12 md:pb-16 xl:grid xl:grid-cols-2 xl:items-center xl:gap-4 xl:px-20 xl:pt-16 xl:pb-[100px]">
-      <div className="relative h-[559px] w-full overflow-hidden rounded-lg opacity-80 xl:order-2">
+      <div className="relative h-[559px] w-full overflow-hidden rounded-lg xl:order-2">
         <Image src={image.src} alt={image.alt} fill className="object-cover" />
       </div>
       <div className="flex w-full flex-col items-start gap-4 overflow-hidden rounded-lg bg-ice px-4 py-14 md:p-14 xl:order-1 xl:h-[559px] xl:px-16 xl:py-14">

@@ -23,23 +23,15 @@ export function AboutInstallation({ content }: { content?: AboutInstallationCont
           </p>
         </div>
         <div className="mx-auto flex w-full flex-col gap-4 xl:max-w-[1184px] xl:flex-row xl:items-center">
-          {features.map((feature, i) => (
+          {features.map((feature) => (
             <div
               key={feature.label}
-              className={`flex items-center gap-2.5 rounded-lg border px-4 py-4 ${
-                i === 0
-                  ? "border-navy bg-navy"
-                  : "border-[rgba(15,30,60,0.23)] bg-white"
-              } ${i === 0 ? "h-[72px] w-full xl:w-[297px] xl:shrink-0" : "h-[60px] xl:flex-1"}`}
+              className="group flex h-[60px] items-center gap-2.5 rounded-lg border border-[rgba(15,30,60,0.23)] bg-white px-4 py-4 transition-colors duration-200 hover:border-navy hover:bg-navy xl:flex-1"
             >
               <div className="relative size-[24px] shrink-0">
                 <Image src={feature.icon.src} alt={feature.icon.alt} fill className="object-contain" />
               </div>
-              <p
-                className={`font-heading text-[16px] font-semibold leading-[27px] tracking-[-0.0648px] xl:text-[18px] ${
-                  i === 0 ? "text-white" : "text-navy"
-                }`}
-              >
+              <p className="font-heading text-[16px] font-semibold leading-[27px] tracking-[-0.0648px] text-navy transition-colors duration-200 group-hover:text-white xl:text-[18px]">
                 {feature.label}
               </p>
             </div>

@@ -7,7 +7,7 @@ export function AboutTeam({ content }: { content?: AboutTeamContent }) {
 
   return (
     <section className="flex flex-col gap-16 bg-navy px-4 py-14 mb-14 md:px-12 md:py-16 md:mb-16 xl:px-20 xl:py-[100px] xl:mb-[100px]">
-      <div className="flex flex-wrap items-center justify-between gap-6">
+      <div className="flex flex-wrap items-center justify-center gap-10">
         {badges.map((badge) => (
           <div key={badge.label} className="flex items-center gap-2">
             <div className="relative size-[32px] shrink-0">
