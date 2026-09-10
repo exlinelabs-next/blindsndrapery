@@ -146,6 +146,10 @@ interface WPMenuItem {
   label: string;
   uri: string;
   childItems?: { nodes: WPMenuItem[] };
+  // Populated only for menu items that link to a real `Service` page —
+  // lets the mega menu show that page's own featured image (whatever the
+  // backend team uploaded there) instead of a hardcoded local asset.
+  connectedNode?: { node: { __typename: string; featuredImage?: WPImage } | null };
 }
 
 interface WPMenuColumn {
@@ -212,19 +216,24 @@ export async function fetchNav(): Promise<NavContent> {
       href: m.uri.replace(/\/$/, "") || "/",
     }));
 
-  const categories = (servicesItem?.childItems?.nodes ?? []).map((child) => ({
-    label: child.label,
-    href: child.uri.replace(/\/$/, ""),
-    // WP menu items have no image field of their own, so this mirrors the
-    // mock fallback: reuse each service's existing card image asset rather
-    // than an unverified CMS field.
-    image: { src: NAV_CATEGORY_IMAGE_BY_LABEL[child.label] ?? "/images/services/card-shades.webp", alt: child.label },
-    subItems: (child.childItems?.nodes ?? []).map((sub) => ({
-      label: sub.label,
-      href: sub.uri.replace(/\/$/, ""),
-    })),
-    exploreLabel: `Explore ${child.label}`,
-  }));
+  const categories = (servicesItem?.childItems?.nodes ?? []).map((child) => {
+    const connectedImage = img(child.connectedNode?.node?.featuredImage);
+    return {
+      label: child.label,
+      href: child.uri.replace(/\/$/, ""),
+      // Prefer the linked Service page's own featured image (whatever the
+      // backend team uploaded there) — fall back to a local asset only if
+      // WP genuinely has none, so a missing upload doesn't break the menu.
+      image: connectedImage.src
+        ? connectedImage
+        : { src: NAV_CATEGORY_IMAGE_BY_LABEL[child.label] ?? "/images/services/card-shades.webp", alt: child.label },
+      subItems: (child.childItems?.nodes ?? []).map((sub) => ({
+        label: sub.label,
+        href: sub.uri.replace(/\/$/, ""),
+      })),
+      exploreLabel: `Explore ${child.label}`,
+    };
+  });
 
   const latestPost = navData.latestPosts.nodes[0];
   const sf = navData.footerSocials.footerFields;
@@ -1469,14 +1478,13 @@ export async function fetchAboutPage() {
   // Accredited, etc.) — a different field group from boxIcon/boxTitle1-4
   // above, which belongs to the Installation section's features instead.
   const iconBoxFields = ap.iconBoxFields as Record<string, unknown> | null;
-  const teamBadges: AboutPageContent["team"]["badges"] = iconBoxFields
-    ? [
-        { icon: img(iconBoxFields.icon1 as WPImage), label: (iconBoxFields.title1 as string)?.trim() ?? "" },
-        { icon: img(iconBoxFields.icon2 as WPImage), label: (iconBoxFields.title2 as string)?.trim() ?? "" },
-        { icon: img(iconBoxFields.icon3 as WPImage), label: (iconBoxFields.title3 as string)?.trim() ?? "" },
-        { icon: img(iconBoxFields.icon4 as WPImage), label: (iconBoxFields.title4 as string)?.trim() ?? "" },
-      ]
-    : [];
+  const teamBadges: AboutPageContent["team"]["badges"] = [];
+  if (iconBoxFields) {
+    for (let i = 1; i <= 4; i++) {
+      const label = (iconBoxFields[`title${i}`] as string)?.trim();
+      if (label) teamBadges.push({ icon: img(iconBoxFields[`icon${i}`] as WPImage), label });
+    }
+  }
 
   const team: AboutPageContent["team"] = {
     badges: teamBadges,
