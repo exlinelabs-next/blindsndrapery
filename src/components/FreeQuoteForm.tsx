@@ -226,12 +226,12 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
             <p className="text-center font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-[#737373]">
               {assistanceHeading}
             </p>
-            <div className="flex w-full flex-col gap-4 md:flex-row md:gap-6">
+            <div className="flex w-full flex-col gap-4 md:flex-row">
               <a
                 href={`tel:${callNumber.replace(/\s/g, "")}`}
-                className="flex flex-1 items-center justify-center gap-3 rounded-lg bg-navy p-4"
+                className="flex flex-1 items-center justify-center gap-3 whitespace-nowrap rounded-lg bg-navy p-4"
               >
-                <Phone className="size-6 text-white" />
+                <Phone className="size-6 shrink-0 text-white" />
                 <span className="font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-white">
                   {callLabel}
                 </span>
@@ -241,9 +241,9 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
               </a>
               <a
                 href={`sms:${callNumber.replace(/\s/g, "")}`}
-                className="flex flex-1 items-center justify-center gap-3 rounded-lg bg-navy p-4"
+                className="flex flex-1 items-center justify-center gap-3 whitespace-nowrap rounded-lg bg-navy p-4"
               >
-                <MessageCircle className="size-6 text-white" />
+                <MessageCircle className="size-6 shrink-0 text-white" />
                 <span className="font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-white">
                   {textLabel}
                 </span>
