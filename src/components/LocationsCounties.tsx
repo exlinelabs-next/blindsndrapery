@@ -7,13 +7,24 @@ import type { LocationCityCard, LocationCountySection } from "@/types/content";
 // Figma "Desktop / Locations Hub " (node 4664:10194), tablet (4748:5900),
 // mobile (4748:6080) — 3-column card grid at xl, single column below that,
 // matching the tablet/mobile frames exactly (they stack, not just reflow).
+//
+// Each county is its own rounded, padded card with a distinct background —
+// confirmed against Figma nodes 4692:4665 (Broward, #eef2f7 — the same
+// value as the project's own `ice` token), 4707:4996 (Miami-Dade,
+// #e7eeee) and 4707:4912 (Palm Beach, #f8f8f8). Cycles by index so a
+// future 4th county doesn't render with no background at all.
+const COUNTY_BACKGROUNDS = ["bg-[#eef2f7]", "bg-[#e7eeee]", "bg-[#f8f8f8]"];
+
 export function LocationsCounties({ counties }: { counties?: LocationCountySection[] }) {
   const items = counties ?? useContent("locationsPage").counties;
 
   return (
-    <section className="flex flex-col gap-16 bg-ice px-8 py-14 md:px-12 xl:gap-20 xl:px-20 xl:py-[100px]">
-      {items.map((county) => (
-        <div key={county.name} className="flex flex-col gap-10">
+    <section className="flex flex-col gap-16 px-8 py-14 md:px-12 xl:gap-20 xl:px-20 xl:py-[100px]">
+      {items.map((county, i) => (
+        <div
+          key={county.name}
+          className={`flex flex-col gap-10 rounded-2xl p-6 md:p-10 ${COUNTY_BACKGROUNDS[i % COUNTY_BACKGROUNDS.length]}`}
+        >
           <div className="flex flex-col gap-4">
             <p className="font-heading text-[28px] font-semibold leading-[42px] text-teal">
               {county.name}

@@ -21,7 +21,7 @@ export function FAQ({ variant = "card", content: contentProp }: FAQProps) {
   const headingRest = words.join(" ");
 
   return (
-    <section className={variant === "card" ? "px-6 py-14 md:py-16 xl:px-10 xl:py-[100px]" : "px-4 py-14 md:px-12 md:py-16 xl:px-10 xl:pb-[100px]"}>
+    <section className="px-8 pb-14 md:px-12 md:pb-16 xl:px-20 xl:pb-[100px]">
       <div className={`flex w-full flex-col items-center gap-10 ${variant === "card" ? "rounded-lg bg-ice p-6 md:p-12 xl:p-20" : "xl:mx-auto xl:max-w-[1360px] xl:p-20"}`}>
         <div className="flex w-full flex-col items-center justify-center gap-4">
           <div className="flex items-center justify-center rounded-lg border border-navy-light-active p-2">
@@ -35,8 +35,8 @@ export function FAQ({ variant = "card", content: contentProp }: FAQProps) {
           </p>
         </div>
 
-        <div className="flex w-full flex-col items-start gap-8 md:flex-row md:items-start md:gap-10 xl:gap-[200px] xl:pl-10">
-          <div className="flex w-auto flex-col items-start gap-4 border-b-[0.5px] border-black pb-4 font-heading text-[16px] font-semibold leading-[24px] tracking-[-0.0648px] whitespace-nowrap md:shrink-0 md:justify-center md:gap-6 md:border-b-0 md:border-l-[0.5px] md:py-6 md:pb-0 md:pl-4 md:text-[18px] md:leading-[27px]">
+        <div className="flex w-full min-w-0 flex-col items-start gap-8 md:flex-row md:items-start md:gap-10 xl:gap-[clamp(80px,75vw-880px,200px)] xl:pl-10">
+          <div className="flex w-auto shrink-0 flex-col items-start gap-4 border-b-[0.5px] border-black pb-4 font-heading text-[16px] font-semibold leading-[24px] tracking-[-0.0648px] whitespace-nowrap md:justify-center md:gap-6 md:border-b-0 md:border-l-[0.5px] md:py-6 md:pb-0 md:pl-4 md:text-[18px] md:leading-[27px]">
             {categories.map((category) => (
               <button
                 key={category}
@@ -52,7 +52,7 @@ export function FAQ({ variant = "card", content: contentProp }: FAQProps) {
             ))}
           </div>
 
-          <div className="flex w-full min-w-0 max-w-full flex-1 flex-col items-start gap-4 xl:w-[700px] xl:flex-none">
+          <div className="flex w-full min-w-0 max-w-full flex-1 flex-col items-start gap-4 xl:max-w-[700px] min-[1440px]:w-[700px] min-[1440px]:flex-none">
             {filteredItems.map(({ question, answer }, i) => {
               const isOpen = openIndex === i;
 

@@ -68,7 +68,7 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
   }
 
   return (
-    <section className="bg-ice px-4 py-14 md:px-12 md:py-16 xl:p-20">
+    <section className="bg-ice px-4 py-14 mb-14 md:px-12 md:py-16 md:mb-16 xl:px-20 xl:py-20 xl:mb-20">
       <div className="flex flex-col gap-8 xl:flex-row xl:gap-8">
         {/* Info panel */}
         <div className="flex flex-col items-start gap-4 rounded-lg bg-navy p-10 md:p-16 xl:w-[584px] xl:shrink-0 xl:justify-center">

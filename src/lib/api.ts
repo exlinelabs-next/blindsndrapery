@@ -52,6 +52,7 @@ import type {
   LocationCountySection,
   ComingSoonStatesContent,
   ServiceInlinePageContent,
+  ServiceInlineAboutContent,
   AboutPageContent,
   FreeQuotePageContent,
   GalleryPageContent,
@@ -1031,7 +1032,7 @@ export async function fetchCommercialPage() {
 
   const installHeading = parseSplHeading(cp.section3Heading as string);
   const carouselImages = pageData.page.commercialPageCarouselImages ?? [];
-  const installImages = carouselImages.slice(0, 3).map((ci) => ({
+  const installImages = carouselImages.map((ci) => ({
     src: ci.mediaItemUrl,
     alt: ci.altText,
   }));
@@ -1257,6 +1258,49 @@ export async function fetchServiceSinglePage(uri: string) {
     paragraphSuffix = stripHtml(paragraphMatch[3]);
   }
 
+  // One WYSIWYG field holding one material per title/description pair —
+  // rendered as an expand/collapse accordion (Figma node 4573:8519). WP
+  // authors have used two different shapes for this field: either the
+  // title and description sharing one <p> ("<strong>Title</strong><br />
+  // description"), or the title and description as two separate sibling
+  // <p> tags ("<p><strong>Title.</strong></p><p>description</p>") — the
+  // latter is what most service pages actually use. A trailing empty
+  // "<p>&nbsp;</p>" block (present on several pages) is dropped rather
+  // than becoming a blank accordion row.
+  const materialsFeatures: ServiceInlineAboutContent["features"] = [];
+  {
+    const blocks = ((sf.section2MaterielsText as string) ?? "")
+      .split(/<\/?p>/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    for (let i = 0; i < blocks.length; i++) {
+      const block = blocks[i];
+      const inlineMatch = block.match(/^<strong>([\s\S]*?)<\/strong>\s*<br\s*\/?>\s*([\s\S]*)$/i);
+      if (inlineMatch) {
+        materialsFeatures.push({ title: stripHtml(inlineMatch[1]), description: stripHtml(inlineMatch[2]) });
+        continue;
+      }
+
+      const titleOnlyMatch = block.match(/^<strong>([\s\S]*?)<\/strong>$/i);
+      if (titleOnlyMatch) {
+        const nextRaw = blocks[i + 1];
+        const nextStripped = nextRaw ? stripHtml(nextRaw) : "";
+        const nextIsTitle = nextRaw ? /^<strong>[\s\S]*<\/strong>$/i.test(nextRaw) : false;
+        if (nextRaw && nextStripped && !nextIsTitle) {
+          materialsFeatures.push({ title: stripHtml(titleOnlyMatch[1]), description: nextStripped });
+          i++;
+        } else {
+          materialsFeatures.push({ title: stripHtml(titleOnlyMatch[1]), description: "" });
+        }
+        continue;
+      }
+
+      const title = stripHtml(block);
+      if (title) materialsFeatures.push({ title, description: "" });
+    }
+  }
+
   const hiwHeaderHeading = parseSplHeading(sf.howItWorksSectionHeading as string);
   const timelineImage = img(sf.howItWorksSectionImage as WPImage);
   const timelineSteps = [];
@@ -1313,7 +1357,7 @@ export async function fetchServiceSinglePage(uri: string) {
       paragraphPrefix,
       paragraphHighlight,
       paragraphSuffix,
-      features: [],
+      features: materialsFeatures,
       gallery: [
         img(sf.section2Image1 as WPImage),
         img(sf.section2Image2 as WPImage),

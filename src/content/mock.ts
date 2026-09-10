@@ -719,7 +719,12 @@ export const mockContent: PageContent = {
       paragraphHighlight: 'Broward County & South Florida',
       paragraphSuffix:
         ' environment. We prioritize high-performance, moisture-resistant materials like engineered faux-wood and marine-grade aluminum that withstand coastal humidity without warping or fading.',
-      features: ['Moisture Resistant', 'Waterproof', 'Light', 'UV Resistant'],
+      features: [
+        { title: 'Moisture Resistant', description: 'Holds its shape and finish in bathrooms, kitchens, and coastal humidity without warping.' },
+        { title: 'Waterproof', description: 'Engineered materials that won\'t swell, blister, or degrade from direct water contact.' },
+        { title: 'Light', description: 'Slim slats and lightweight construction make for smooth, effortless operation.' },
+        { title: 'UV Resistant', description: 'Finishes are formulated to resist fading under direct Florida sun.' },
+      ],
       gallery: [
         {
           // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/services/blinds/ before then.
@@ -860,7 +865,12 @@ export const mockContent: PageContent = {
       paragraphHighlight: 'Broward County & South Florida',
       paragraphSuffix:
         ' environment. We prioritize high-performance, moisture-resistant materials like engineered faux-wood and marine-grade aluminum that withstand coastal humidity without warping or fading.',
-      features: ['Moisture Resistant', 'Waterproof', 'Light', 'UV Resistant'],
+      features: [
+        { title: 'Moisture Resistant', description: 'Fabric and hardware rated for humid rooms without sagging or mildew.' },
+        { title: 'Waterproof', description: 'Suitable for bathrooms and other wet areas where standard fabrics would fail.' },
+        { title: 'Light', description: 'Lightweight rollers and fabric keep operation smooth even on wide windows.' },
+        { title: 'UV Resistant', description: 'Fabric coatings that block harmful rays without losing color over time.' },
+      ],
       gallery: [
         {
           src: 'https://www.figma.com/api/mcp/asset/d373d392-f595-4771-b699-e26901610eb6.png',
@@ -944,7 +954,12 @@ export const mockContent: PageContent = {
       paragraphPrefix: 'Our roller shades combine sleek aesthetics with practical functionality for ',
       paragraphHighlight: 'South Florida homes',
       paragraphSuffix: '. Available in light-filtering and blackout fabrics, they roll up neatly into a compact cassette for a clean, uncluttered look.',
-      features: ['Light Filtering', 'Blackout Options', 'Motorized Available', 'Easy Maintenance'],
+      features: [
+        { title: 'Light Filtering', description: 'Diffuses harsh sun into soft, even daylight without losing the view.' },
+        { title: 'Blackout Options', description: 'Fully opaque fabrics available for bedrooms and media rooms.' },
+        { title: 'Motorized Available', description: 'Upgrade to app or remote-controlled operation on any width.' },
+        { title: 'Easy Maintenance', description: 'Smooth-rolling fabric that wipes clean and resists dust buildup.' },
+      ],
       gallery: [
         { src: '/images/services/card-shades.webp', alt: 'Roller shades in a living room' },
         { src: '/images/services/card-shades.webp', alt: 'Blackout roller shade in a bedroom' },
@@ -994,7 +1009,12 @@ export const mockContent: PageContent = {
       paragraphPrefix: 'Our solar shades are designed to reduce heat and glare while preserving your view of ',
       paragraphHighlight: 'South Florida\'s beautiful outdoors',
       paragraphSuffix: '. Choose from a range of openness factors to control how much light and visibility you want, with UV-blocking fabrics that protect your furnishings.',
-      features: ['UV Protection', 'Glare Reduction', 'View Preservation', 'Energy Efficient'],
+      features: [
+        { title: 'UV Protection', description: 'Blocks up to 99% of UV rays while the fabric itself resists fading.' },
+        { title: 'Glare Reduction', description: 'Cuts screen and eye glare without shutting out natural light.' },
+        { title: 'View Preservation', description: 'See-through weaves keep the outside view intact even when lowered.' },
+        { title: 'Energy Efficient', description: 'Reduces solar heat gain, easing the load on air conditioning.' },
+      ],
       gallery: [
         { src: '/images/services/card-shades.webp', alt: 'Solar shades on floor-to-ceiling windows' },
         { src: '/images/services/card-shades.webp', alt: 'Solar shades filtering afternoon sun' },
@@ -1044,7 +1064,12 @@ export const mockContent: PageContent = {
       paragraphPrefix: 'Our cellular shades feature a unique honeycomb construction that traps air for superior insulation in ',
       paragraphHighlight: 'South Florida\'s warm climate',
       paragraphSuffix: '. Available in single, double, and triple cell configurations, they reduce energy costs while providing soft, diffused light.',
-      features: ['Energy Saving', 'Sound Dampening', 'Cordless Options', 'Top-Down Bottom-Up'],
+      features: [
+        { title: 'Energy Saving', description: 'Honeycomb pockets trap air, insulating windows against Florida heat.' },
+        { title: 'Sound Dampening', description: 'Cellular construction absorbs sound for a quieter room.' },
+        { title: 'Cordless Options', description: 'Lift and lower smoothly with no dangling cords, child- and pet-safe.' },
+        { title: 'Top-Down Bottom-Up', description: 'Lower from the top for privacy while still letting light in from below.' },
+      ],
       gallery: [
         { src: '/images/services/card-shades.webp', alt: 'Cellular shades in a bedroom' },
         { src: '/images/services/card-shades.webp', alt: 'Honeycomb shade cross-section' },
@@ -1094,7 +1119,12 @@ export const mockContent: PageContent = {
       paragraphPrefix: 'Our roman shades bring a timeless, tailored look to ',
       paragraphHighlight: 'South Florida interiors',
       paragraphSuffix: '. Choose from flat, hobbled, or cascade fold styles in hundreds of designer fabrics. They combine the softness of drapery with the clean function of a shade.',
-      features: ['Designer Fabrics', 'Multiple Fold Styles', 'Blackout Linings', 'Cordless Safety'],
+      features: [
+        { title: 'Designer Fabrics', description: 'A wide range of textures and patterns to match any interior.' },
+        { title: 'Multiple Fold Styles', description: 'Choose flat, hobbled, or relaxed folds to suit the room.' },
+        { title: 'Blackout Linings', description: 'Optional linings block light fully for bedrooms and screening rooms.' },
+        { title: 'Cordless Safety', description: 'Cord-free lift systems keep the look clean and homes child-safe.' },
+      ],
       gallery: [
         { src: '/images/services/card-shades.webp', alt: 'Flat-fold roman shades in a dining room' },
         { src: '/images/services/card-shades.webp', alt: 'Hobbled roman shade in a bedroom' },
@@ -1144,7 +1174,12 @@ export const mockContent: PageContent = {
       paragraphPrefix: 'Our zebra shades offer a modern twist on light control with alternating sheer and solid bands that slide past each other for ',
       paragraphHighlight: 'infinite adjustment',
       paragraphSuffix: '. Align the bands for filtered light and a view, or overlap them for full privacy — all without raising the shade.',
-      features: ['Dual Layer Control', 'Modern Aesthetic', 'No Cords', 'Motorized Available'],
+      features: [
+        { title: 'Dual Layer Control', description: 'Alternating sheer and solid bands adjust from full privacy to full view.' },
+        { title: 'Modern Aesthetic', description: 'A clean, banded look that suits contemporary interiors.' },
+        { title: 'No Cords', description: 'Continuous-loop or motorized operation keeps the window cord-free.' },
+        { title: 'Motorized Available', description: 'Automate the dual-layer adjustment with a remote or app.' },
+      ],
       gallery: [
         { src: '/images/services/card-shades.webp', alt: 'Zebra shades in open position' },
         { src: '/images/services/card-shades.webp', alt: 'Zebra shades in closed position' },
@@ -1194,7 +1229,12 @@ export const mockContent: PageContent = {
       paragraphPrefix: 'Our woven wood shades are handcrafted from natural materials like bamboo, jute, and grasses, bringing an organic, textured look to ',
       paragraphHighlight: 'South Florida living spaces',
       paragraphSuffix: '. Each shade is unique in pattern and tone, adding warmth and character while filtering light naturally.',
-      features: ['Natural Materials', 'Unique Textures', 'Liner Options', 'Eco-Friendly'],
+      features: [
+        { title: 'Natural Materials', description: 'Woven from bamboo, jute, and reed for an organic, textured look.' },
+        { title: 'Unique Textures', description: 'No two weaves are exactly alike, adding warmth to any room.' },
+        { title: 'Liner Options', description: 'Add a liner for privacy and light control without losing the texture.' },
+        { title: 'Eco-Friendly', description: 'Made from rapidly renewable natural fibers.' },
+      ],
       gallery: [
         { src: '/images/services/card-shades.webp', alt: 'Bamboo woven shades in a sunroom' },
         { src: '/images/services/card-shades.webp', alt: 'Woven grass shade texture close-up' },
@@ -1248,7 +1288,12 @@ export const mockContent: PageContent = {
       paragraphHighlight: 'South Florida\'s coastal climate',
       paragraphSuffix:
         '. Choose from classic plantation styles, tier-on-tier configurations, and composite options that resist moisture, warping, and fading while providing elegant light control.',
-      features: ['Moisture Resistant', 'UV Protected', 'Energy Efficient', 'Custom Fitted'],
+      features: [
+        { title: 'Moisture Resistant', description: 'Composite and vinyl panels that won\'t warp, crack, or swell in humidity.' },
+        { title: 'UV Protected', description: 'Finishes hold their color under direct, sustained Florida sun.' },
+        { title: 'Energy Efficient', description: 'Solid panels and a tight frame add real insulation at the glass.' },
+        { title: 'Custom Fitted', description: 'Every frame is built to the exact opening, including arches and bays.' },
+      ],
       gallery: [
         { src: '/images/services/card-shutters.webp', alt: 'White plantation shutters on a large window' },
         { src: '/images/services/card-shutters.webp', alt: 'Tier-on-tier shutters in a living room' },
@@ -1302,7 +1347,12 @@ export const mockContent: PageContent = {
       paragraphHighlight: 'South Florida living',
       paragraphSuffix:
         '. We offer a wide selection of fabrics, linings, and hardware options to create the perfect look for any room, combining beauty with practical light and privacy control.',
-      features: ['Custom Fabrics', 'Blackout Options', 'Motorized Tracks', 'UV Protection'],
+      features: [
+        { title: 'Custom Fabrics', description: 'Choose from a full range of designer fabrics, weights, and linings.' },
+        { title: 'Blackout Options', description: 'Triple-weave linings block light fully for bedrooms and theaters.' },
+        { title: 'Motorized Tracks', description: 'Remote or app-controlled tracks for wide or hard-to-reach windows.' },
+        { title: 'UV Protection', description: 'Linings that shield furniture and flooring from fading.' },
+      ],
       gallery: [
         { src: '/images/services/card-drapery.webp', alt: 'Floor-length sheer curtains in a sunlit room' },
         { src: '/images/services/card-drapery.webp', alt: 'Elegant blackout drapery in a bedroom' },
@@ -1356,7 +1406,12 @@ export const mockContent: PageContent = {
       paragraphHighlight: 'modern South Florida homes',
       paragraphSuffix:
         '. Integrate with Google Home, Amazon Alexa, and Lutron for voice and app control. Schedule your window coverings to adjust automatically with the sun for optimal comfort and energy efficiency.',
-      features: ['Voice Control', 'App Scheduling', 'Energy Efficient', 'Battery & Hardwired'],
+      features: [
+        { title: 'Voice Control', description: 'Works with major smart home platforms for hands-free operation.' },
+        { title: 'App Scheduling', description: 'Set schedules or trigger scenes right from your phone.' },
+        { title: 'Energy Efficient', description: 'Automated schedules help manage heat gain through the day.' },
+        { title: 'Battery & Hardwired', description: 'Choose battery-powered or hardwired motors depending on the install.' },
+      ],
       gallery: [
         { src: '/images/services/card-motorized.webp', alt: 'Motorized roller shades in a living room' },
         { src: '/images/services/card-motorized.webp', alt: 'Smart home tablet controlling window coverings' },
@@ -1410,7 +1465,12 @@ export const mockContent: PageContent = {
       paragraphHighlight: 'Broward County and South Florida',
       paragraphSuffix:
         '. From broken cords and stuck mechanisms to motorized system troubleshooting, our experienced technicians diagnose and fix issues quickly to restore your window coverings to perfect working order.',
-      features: ['All Brands Serviced', 'Motorized Repairs', 'Cord Replacement', 'Same-Week Service'],
+      features: [
+        { title: 'All Brands Serviced', description: 'We repair treatments we didn\'t originally install, any major brand.' },
+        { title: 'Motorized Repairs', description: 'Diagnose and fix motors, remotes, and smart-home integrations.' },
+        { title: 'Cord Replacement', description: 'Restring or convert to cordless on blinds and shades.' },
+        { title: 'Same-Week Service', description: 'Most repairs are scheduled and completed within the same week.' },
+      ],
       gallery: [
         { src: '/images/services/card-repairs.webp', alt: 'Technician repairing a window blind mechanism' },
         { src: '/images/services/card-repairs.webp', alt: 'Blind cord replacement service' },

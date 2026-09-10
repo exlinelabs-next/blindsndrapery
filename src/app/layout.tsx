@@ -46,7 +46,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${plusJakartaSans.variable} ${inter.variable} ${dmMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-body text-navy">
+      <body className="min-h-full flex flex-col bg-white font-body text-navy">
         <Header navContent={navData} />
         {children}
         <Footer footerContent={footerData} />
