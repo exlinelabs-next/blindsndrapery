@@ -1,10 +1,31 @@
+"use client";
+
+import { useRef, useState } from "react";
 import Image from "next/image";
+import { PlayCircleIcon } from "@/components/ui/PlayCircleIcon";
+import { PauseCircleIcon } from "@/components/ui/PauseCircleIcon";
 import { useContent } from "@/hooks/useContent";
 import type { FreeQuoteProcessIntroContent } from "@/types/content";
 
 export function FreeQuoteProcessIntro({ content }: { content?: FreeQuoteProcessIntroContent }) {
   const { eyebrow, headingPrefix, headingHighlight, description, image } =
     content ?? useContent("freeQuotePage").processIntro;
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const isVideo = image.src.match(/\.(mp4|webm|mov)$/i);
+
+  function togglePlay() {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      setPlaying(true);
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
+  }
 
   return (
     <section className="flex flex-col gap-10 px-4 py-14 md:px-12 md:py-16 xl:flex-row xl:items-center xl:gap-10 xl:px-20 xl:py-[100px]">
@@ -23,8 +44,26 @@ export function FreeQuoteProcessIntro({ content }: { content?: FreeQuoteProcessI
         </div>
       </div>
       <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl xl:h-[486px] xl:flex-1">
-        {image.src.match(/\.(mp4|webm|mov)$/i) ? (
-          <video src={image.src} autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover" />
+        {isVideo ? (
+          <>
+            <video
+              ref={videoRef}
+              src={image.src}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <button
+              type="button"
+              onClick={togglePlay}
+              aria-label={playing ? "Pause video" : "Play video"}
+              className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-transform hover:scale-105"
+            >
+              {playing ? <PauseCircleIcon className="size-16" /> : <PlayCircleIcon className="size-16" />}
+            </button>
+          </>
         ) : image.src ? (
           <Image
             src={image.src}
