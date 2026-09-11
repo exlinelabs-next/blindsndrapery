@@ -3,7 +3,7 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import type { GalleryHeroContent } from "@/types/content";
 
 export function GalleryHero({ content }: { content?: GalleryHeroContent }) {
-  const { breadcrumb, headingPrefix, headingHighlight, subheading } =
+  const { breadcrumb, headingSegments, subheading } =
     content ?? useContent("galleryPage").hero;
 
   return (
@@ -14,8 +14,11 @@ export function GalleryHero({ content }: { content?: GalleryHeroContent }) {
         </p>
       </div>
       <p className="font-heading text-[48px] font-bold leading-[64px] tracking-[-0.5376px] text-navy">
-        {headingPrefix}
-        <span className="text-teal">{headingHighlight}</span>
+        {headingSegments.map((seg, i) => (
+          <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+            {seg.text}
+          </span>
+        ))}
       </p>
       <p className="font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-black">
         {subheading}

@@ -1,5 +1,6 @@
 import { useContent } from "@/hooks/useContent";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { RichText } from "@/components/ui/RichText";
 import type { LocationsHeroContent } from "@/types/content";
 
 export function LocationsHero({ content }: { content?: LocationsHeroContent }) {
@@ -18,14 +19,10 @@ export function LocationsHero({ content }: { content?: LocationsHeroContent }) {
           {heading}
         </p>
         <div className="flex w-full flex-col items-center gap-4">
-          {subheading.map((paragraph, i) => (
-            <p
-              key={i}
-              className="w-full text-center font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-white"
-            >
-              {paragraph}
-            </p>
-          ))}
+          <RichText
+            paragraphs={subheading}
+            className="w-full text-center font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-white"
+          />
         </div>
       </div>
     </section>

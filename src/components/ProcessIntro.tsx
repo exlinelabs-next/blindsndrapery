@@ -5,10 +5,11 @@ import Image from "next/image";
 import { PlayCircleIcon } from "@/components/ui/PlayCircleIcon";
 import { PauseCircleIcon } from "@/components/ui/PauseCircleIcon";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { ProcessIntroContent } from "@/types/content";
 
 export function ProcessIntro({ content }: { content?: ProcessIntroContent }) {
-  const { eyebrow, headingPrefix, headingHighlight, description, video } = content ?? useContent("processIntro");
+  const { eyebrow, headingSegments, description, video } = content ?? useContent("processIntro");
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -36,10 +37,13 @@ export function ProcessIntro({ content }: { content?: ProcessIntroContent }) {
         </div>
         <div className="flex flex-col items-center gap-4 text-center">
           <h2 className="w-full max-w-[907px] font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-navy">
-            {headingPrefix}
-            <span className="text-teal">{headingHighlight}</span>
+            {headingSegments.map((seg, i) => (
+              <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+                {seg.text}
+              </span>
+            ))}
           </h2>
-          <p className="w-full max-w-[968px] text-[16px] leading-[23px] text-black">{description}</p>
+          <RichText paragraphs={description} className="w-full max-w-[968px] text-[16px] leading-[23px] text-black" />
         </div>
       </div>
       <div className="relative h-[435px] w-full overflow-hidden rounded-2xl md:h-[596px]">

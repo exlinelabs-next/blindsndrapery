@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { ServicesGlimpseContent } from "@/types/content";
 
 // The 6 cards come from the CMS in whatever order an editor set (currently
@@ -89,9 +90,7 @@ export function ServiceGlimpse({ content }: { content?: ServicesGlimpseContent }
             </span>
           ))}
         </h2>
-        <p className="w-full text-center text-[16px] leading-[23px] text-black xl:px-20">
-          {servicesSummary}
-        </p>
+        <RichText paragraphs={servicesSummary} className="w-full text-center text-[16px] leading-[23px] text-black xl:px-20" />
       </div>
 
       <div className="flex flex-col gap-6 px-4 md:px-0 xl:hidden">

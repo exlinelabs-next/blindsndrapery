@@ -6,6 +6,7 @@ import { useContent } from "@/hooks/useContent";
 import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/Button";
 import { Toast } from "@/components/ui/Toast";
+import { RichText } from "@/components/ui/RichText";
 import { submitBidForm } from "@/lib/forms";
 import type { CommercialQuoteFormContent } from "@/types/content";
 
@@ -125,7 +126,7 @@ export function CommercialQuoteForm({ content: contentProp }: { content?: Commer
       <div className="flex w-full flex-col items-start gap-10 rounded-lg bg-white px-4 py-10 md:px-12 xl:w-[1000px] xl:px-20">
         <div className="flex w-full flex-col items-center gap-2 text-center text-navy">
           <p className="w-full font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px]">{content.heading}</p>
-          <p className="w-full text-[16px] leading-[23px] text-black">{content.description}</p>
+          <RichText paragraphs={content.description} className="w-full text-[16px] leading-[23px] text-black" />
         </div>
 
         <form onSubmit={handleSubmit} className="flex w-full flex-col items-start gap-5">

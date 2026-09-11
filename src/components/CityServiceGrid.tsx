@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { CityServiceGridContent } from "@/types/content";
 
 export function CityServiceGrid({ content }: { content?: CityServiceGridContent }) {
@@ -23,9 +24,7 @@ export function CityServiceGrid({ content }: { content?: CityServiceGridContent 
             </span>
           ))}
         </h2>
-        <p className="w-full text-center text-[16px] leading-[23px] text-black xl:px-20">
-          {summary}
-        </p>
+        <RichText paragraphs={summary} className="w-full text-center text-[16px] leading-[23px] text-black xl:px-20" />
       </div>
 
       {/* Service cards — 1 col mobile, 2 col tablet, 3 col desktop */}

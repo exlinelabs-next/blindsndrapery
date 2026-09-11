@@ -1,4 +1,5 @@
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { LegalPageContent } from "@/types/content";
 
 export function LegalContent({ content }: { content?: LegalPageContent }) {
@@ -10,9 +11,7 @@ export function LegalContent({ content }: { content?: LegalPageContent }) {
         {heading}
       </h1>
       <div className="mt-6 flex flex-col gap-[23px] text-[16px] leading-[23px] text-navy">
-        {paragraphs.map((p) => (
-          <p key={p.substring(0, 30)}>{p}</p>
-        ))}
+        <RichText paragraphs={paragraphs} />
       </div>
     </section>
   );

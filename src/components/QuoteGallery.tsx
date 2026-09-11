@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { QuoteGalleryContent } from "@/types/content";
 
 export function QuoteGallery({ content }: { content?: QuoteGalleryContent }) {
@@ -25,9 +26,7 @@ export function QuoteGallery({ content }: { content?: QuoteGalleryContent }) {
           /* eslint-disable-next-line @next/next/no-img-element */
           <img src={quoteIcon.src} alt={quoteIcon.alt} className="size-8" aria-hidden={quoteIcon.alt === ""} />
         )}
-        <p className="w-full max-w-[1043px] text-center font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-navy">
-          {quote}
-        </p>
+        <RichText paragraphs={quote} className="w-full max-w-[1043px] text-center font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-navy" />
       </div>
       <div className="flex w-full flex-col gap-3">
         <div className="flex w-full flex-col items-start gap-3 xl:flex-row">

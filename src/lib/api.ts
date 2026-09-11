@@ -24,8 +24,11 @@ import {
   POLICY_PAGE_QUERY,
   BLOG_SINGLE_PAGE_QUERY,
   KNOWLEDGE_BASE_SINGLE_PAGE_QUERY,
+  MEGA_MENU_IMAGES_QUERY,
+  REVIEW_QUERY,
 } from "./queries";
 import type {
+  RichParagraphs,
   NavContent,
   FooterContent,
   HeroContent,
@@ -80,17 +83,19 @@ function img(wp: WPImage | null | undefined): { src: string; alt: string } {
   };
 }
 
-function stripHtml(html: string | null | undefined): string {
-  if (!html) return "";
-  return html
-    .replace(/<[^>]*>/g, "")
+function decodeEntities(s: string): string {
+  return s
     .replace(/&nbsp;/g, " ")
     .replace(/&#8217;/g, "’")
     .replace(/&#8220;/g, "“")
     .replace(/&#8221;/g, "”")
     .replace(/&#0*38;/g, "&")
-    .replace(/&amp;/g, "&")
-    .trim();
+    .replace(/&amp;/g, "&");
+}
+
+function stripHtml(html: string | null | undefined): string {
+  if (!html) return "";
+  return decodeEntities(html.replace(/<[^>]*>/g, "")).trim();
 }
 
 function toTitleCase(s: string): string {
@@ -138,6 +143,27 @@ function parseSplSegments(
   return segments;
 }
 
+// Rich body copy: WP-authored HTML made of <p> paragraphs, each optionally
+// containing <spl>...</spl> runs for teal emphasis (same <spl> convention as
+// parseSplHeading/parseSplSegments above, just spanning multiple paragraphs
+// instead of one heading line). Any other markup is stripped per-segment —
+// only <p> and <spl> are meaningful in these WP fields.
+function parseRichParagraphs(html: string | null | undefined): RichParagraphs {
+  if (!html) return [];
+  const rawParagraphs = /<p[^>]*>/i.test(html)
+    ? html.split(/<\/p>/i).map((p) => p.replace(/<p[^>]*>/gi, ""))
+    : html.split(/\n{2,}/);
+  return rawParagraphs
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((paragraph) =>
+      parseSplSegments(paragraph)
+        .map((seg) => ({ ...seg, text: decodeEntities(seg.text.replace(/<[^>]*>/g, "")).trim() }))
+        .filter((seg) => seg.text),
+    )
+    .filter((segments) => segments.length > 0);
+}
+
 // ---------------------------------------------------------------------------
 // WP response shapes (just enough typing to safely destructure)
 // ---------------------------------------------------------------------------
@@ -182,6 +208,7 @@ interface HeaderAPIResponse {
       socialUrl3: string;
       socialIcon4: WPImage;
       socialUrl4: string;
+      contactNumber: string;
     };
   };
 }
@@ -197,20 +224,31 @@ const NAV_CATEGORY_IMAGE_BY_LABEL: Record<string, string> = {
 };
 
 export async function fetchNav(): Promise<NavContent> {
-  const [logoData, navData] = await Promise.all([
+  const [logoData, navData, megaMenuData] = await Promise.all([
     fetchGraphQL<{ page: { headerFields: { headerSiteLogo: WPImage } } }>(
       SITE_ICON_AND_LOGO,
     ),
     fetchGraphQL<HeaderAPIResponse>(HEADER_NAV_AND_BUTTON),
+    fetchGraphQL<{
+      page: {
+        megaMenuFields: {
+          blogImage: WPImage;
+          knowledgeBaseImage: WPImage;
+          blogText: string;
+          knowledgeBaseText: string;
+        };
+      };
+    }>(MEGA_MENU_IMAGES_QUERY),
   ]);
 
   const hf = navData.page.headerFields;
   const logoImg = img(logoData.page.headerFields.headerSiteLogo);
   const menuItems = navData.menuItems.nodes;
+  const mm = megaMenuData.page.megaMenuFields;
 
   const servicesItem = menuItems.find((m) => m.label === "Services");
   const otherLinks = menuItems
-    .filter((m) => m.label !== "Services")
+    .filter((m) => m.label !== "Services" && m.label !== "Resources")
     .map((m) => ({
       label: m.label,
       href: m.uri.replace(/\/$/, "") || "/",
@@ -251,6 +289,7 @@ export async function fetchNav(): Promise<NavContent> {
   return {
     logo: { src: logoImg.src, alt: logoImg.alt, href: "/" },
     servicesLabel: "Services",
+    resourcesLabel: "Resources",
     servicesDropdown: {
       categories,
       blogCard: latestPost
@@ -263,13 +302,34 @@ export async function fetchNav(): Promise<NavContent> {
           }
         : { image: { src: "", alt: "" }, title: "", description: "", buttonLabel: "", buttonHref: "" },
       socialLinks,
-      // No CMS field confirmed for this block yet; copy and placeholder
-      // phone number mirror the mock fallback (see mock.ts nav.helpBar).
+      // "Need help measuring?" / "Book Free Consultation" have no CMS field
+      // confirmed for this block yet (same "hardcode rather than guess"
+      // call as elsewhere in this file) — but the phone number is real,
+      // pulled from the same footerFields.contactNumber the footer itself
+      // uses (page 113), not a placeholder.
       helpBar: {
         prefix: "Need help measuring?",
         ctaLabel: "Book Free Consultation",
         ctaHref: "#quote-form",
-        phoneLabel: "Call Us: (800) XXX-XXXX",
+        phoneLabel: `Call Us: ${sf.contactNumber}`,
+      },
+    },
+    // Real CMS field group (megaMenuFields, page 706) — no title/href field
+    // exists for either card, so those two stay fixed to match the site's
+    // own routes (same "hardcode what has no confirmed field" call as the
+    // help bar above), but the image and description are real.
+    resourcesDropdown: {
+      blogsCard: {
+        image: img(mm.blogImage),
+        title: "Blogs",
+        description: mm.blogText,
+        href: "/resources",
+      },
+      knowledgeBaseCard: {
+        image: img(mm.knowledgeBaseImage),
+        title: "Knowledge Base",
+        description: mm.knowledgeBaseText,
+        href: "/knowledge-base",
       },
     },
     links: otherLinks,
@@ -419,12 +479,11 @@ export async function fetchTrustBadges(): Promise<TrustBadgesContent> {
 export async function fetchProcessIntro(): Promise<ProcessIntroContent> {
   const data = await fetchGraphQL<HomePageResponse>(HOME_PAGE_QUERY);
   const hp = data.page.homePageFields;
-  const heading = parseSplHeading(hp.section2Heading as string);
+  const headingSegments = parseSplSegments(hp.section2Heading as string);
   return {
     eyebrow: toTitleCase(hp.section2SubHeading as string),
-    headingPrefix: heading.prefix,
-    headingHighlight: heading.highlight,
-    description: hp.section2Text as string,
+    headingSegments,
+    description: parseRichParagraphs(hp.section2Text as string),
     video: {
       poster: { src: hp.section2VideoUrl as string, alt: "Process video" },
     },
@@ -462,7 +521,7 @@ export async function fetchServicesGlimpse(): Promise<ServicesGlimpseContent> {
   return {
     eyebrow: toTitleCase(hp.serviceSectionSubHeading as string),
     headingSegments: segments,
-    servicesSummary: hp.serviceSectionText as string,
+    servicesSummary: parseRichParagraphs(hp.serviceSectionText as string),
     ctaLabel: "Learn More",
     cards: cards.slice(0, 6) as ServicesGlimpseContent["cards"],
   };
@@ -472,17 +531,12 @@ export async function fetchFeaturedCategory(): Promise<FeaturedCategoryContent> 
   const data = await fetchGraphQL<HomePageResponse>(HOME_PAGE_QUERY);
   const hp = data.page.homePageFields;
   const heading = parseSplHeading(hp.section3Heading as string);
-  const text = hp.section3Text as string;
-  const paragraphs = text
-    .split(/<\/?p>/)
-    .map((s) => s.trim())
-    .filter(Boolean);
   return {
     eyebrow: toTitleCase(hp.section3SubHeading as string),
     headingPrefix: heading.prefix,
     headingHighlight: heading.highlight,
     headingSuffix: heading.suffix,
-    paragraphs,
+    paragraphs: parseRichParagraphs(hp.section3Text as string),
     image: img(hp.section3Image as WPImage),
   };
 }
@@ -490,7 +544,7 @@ export async function fetchFeaturedCategory(): Promise<FeaturedCategoryContent> 
 export async function fetchHowItWorks(): Promise<HowItWorksContent> {
   const data = await fetchGraphQL<HomePageResponse>(HOME_PAGE_QUERY);
   const hp = data.page.homePageFields;
-  const heading = parseSplHeading(hp.howWeWorkSectionHeading as string);
+  const headingSegments = parseSplSegments(hp.howWeWorkSectionHeading as string);
   const steps = [];
   for (let i = 1; i <= 4; i++) {
     steps.push({
@@ -502,9 +556,8 @@ export async function fetchHowItWorks(): Promise<HowItWorksContent> {
   }
   return {
     eyebrow: toTitleCase(hp.howWeWorkSectionSubHeading as string),
-    headingPrefix: heading.prefix,
-    headingHighlight: heading.highlight,
-    description: hp.howWeWorkSectionText as string,
+    headingSegments,
+    description: parseRichParagraphs(hp.howWeWorkSectionText as string),
     steps,
     ctaLabel: toTitleCase(hp.howWeWorkSectionButtonText as string),
     ctaHref: hp.howWeWorkSectionButtonUrl as string,
@@ -515,7 +568,7 @@ export async function fetchQuoteGallery(): Promise<QuoteGalleryContent> {
   const data = await fetchGraphQL<HomePageResponse>(HOME_PAGE_QUERY);
   const hp = data.page.homePageFields;
   return {
-    quote: stripHtml(hp.reviewSectionQuote as string),
+    quote: parseRichParagraphs(hp.reviewSectionQuote as string),
     quoteIcon: { src: "/images/shared/icons/footer-icon-1.svg", alt: "" },
     images: [
       img(hp.reviewSectionGalleryImage1 as WPImage),
@@ -534,7 +587,7 @@ export async function fetchCommercial(): Promise<CommercialContent> {
     eyebrow: toTitleCase(hp.commercialSectionSubHeading as string),
     heading: hp.commercialSectionHeading as string,
     subheading: "",
-    body: stripHtml(bodyRaw),
+    body: parseRichParagraphs(bodyRaw),
     ctaLabel: toTitleCase(hp.commercialSectionButtonText as string),
     ctaHref: hp.commercialSectionButtonUrl as string,
     image: img(hp.commercialSectionImage as WPImage),
@@ -551,7 +604,7 @@ export async function fetchRepairMaintenance(): Promise<RepairMaintenanceContent
     headingPrefix: heading.prefix,
     headingHighlight: heading.highlight,
     headingSuffix: heading.suffix,
-    description: hp.repairSectionText as string,
+    description: parseRichParagraphs(hp.repairSectionText as string),
   };
 }
 
@@ -568,7 +621,7 @@ export async function fetchLocations(): Promise<LocationsContent> {
   return {
     eyebrow: toTitleCase(hp.locationsSectionSubHeading as string),
     heading: hp.locationsSectionHeading as string,
-    description: hp.locationsSectionText as string,
+    description: parseRichParagraphs(hp.locationsSectionText as string),
     cities: cityNames.map((name) => ({
       icon: locationIcon,
       name,
@@ -582,7 +635,7 @@ export async function fetchQuoteForm(): Promise<QuoteFormContent> {
   return {
     eyebrow: toTitleCase(hp.formSubHeading as string),
     heading: hp.formHeading as string,
-    description: stripHtml(hp.formParagraph as string),
+    description: parseRichParagraphs(hp.formParagraph as string),
     nameLabel: "Name",
     namePlaceholder: "Your full name",
     emailLabel: "Email",
@@ -626,7 +679,7 @@ export async function fetchFaq(): Promise<FaqContent> {
   const items = data.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
-      answer: stripHtml(faq.content),
+      answer: parseRichParagraphs(faq.content),
       category: cat.name,
     })),
   );
@@ -668,7 +721,7 @@ export async function fetchServiceCards(): Promise<ServiceCard[]> {
 // ---------------------------------------------------------------------------
 
 export async function fetchHomePage() {
-  const [homeData, cardsData, faqData] = await Promise.all([
+  const [homeData, cardsData, faqData, reviewData] = await Promise.all([
     fetchGraphQL<HomePageResponse>(HOME_PAGE_QUERY),
     fetchGraphQL<{
       services: {
@@ -681,6 +734,11 @@ export async function fetchHomePage() {
       };
     }>(SERVICE_CARDS_QUERY),
     fetchGraphQL<FaqAPIResponse>(FAQ_QUERY),
+    fetchGraphQL<{
+      testimonials: {
+        nodes: Array<{ title: string; excerpt: string; content: string; featuredImage: WPImage }>;
+      };
+    }>(REVIEW_QUERY),
   ]);
 
   const hp = homeData.page.homePageFields;
@@ -701,12 +759,11 @@ export async function fetchHomePage() {
   }
   const trustBadgesContent: TrustBadgesContent = { items: trustBadgesItems };
 
-  const piHeading = parseSplHeading(hp.section2Heading as string);
+  const piHeadingSegments = parseSplSegments(hp.section2Heading as string);
   const processIntroContent: ProcessIntroContent = {
     eyebrow: toTitleCase(hp.section2SubHeading as string),
-    headingPrefix: piHeading.prefix,
-    headingHighlight: piHeading.highlight,
-    description: hp.section2Text as string,
+    headingSegments: piHeadingSegments,
+    description: parseRichParagraphs(hp.section2Text as string),
     video: {
       poster: { src: hp.section2VideoUrl as string, alt: "Process video" },
     },
@@ -724,22 +781,18 @@ export async function fetchHomePage() {
   const servicesGlimpseContent: ServicesGlimpseContent = {
     eyebrow: toTitleCase(hp.serviceSectionSubHeading as string),
     headingSegments: parseSplSegments(hp.serviceSectionHeading as string),
-    servicesSummary: hp.serviceSectionText as string,
+    servicesSummary: parseRichParagraphs(hp.serviceSectionText as string),
     ctaLabel: "Learn More",
     cards: serviceCards.slice(0, 6) as ServicesGlimpseContent["cards"],
   };
 
   const fcHeading = parseSplHeading(hp.section3Heading as string);
-  const fcText = hp.section3Text as string;
   const featuredCategoryContent: FeaturedCategoryContent = {
     eyebrow: toTitleCase(hp.section3SubHeading as string),
     headingPrefix: fcHeading.prefix,
     headingHighlight: fcHeading.highlight,
     headingSuffix: fcHeading.suffix,
-    paragraphs: fcText
-      .split(/<\/?p>/)
-      .map((s) => s.trim())
-      .filter(Boolean),
+    paragraphs: parseRichParagraphs(hp.section3Text as string),
     image: img(hp.section3Image as WPImage),
     // Figma's "Explore Shutters" CTA on this fixed Shutters showcase block
     // has no corresponding WP field (the query has no section3Button*
@@ -748,7 +801,7 @@ export async function fetchHomePage() {
     cta: { label: "Explore Shutters", href: "/services/shutters" },
   };
 
-  const hwwHeading = parseSplHeading(hp.howWeWorkSectionHeading as string);
+  const hwwHeadingSegments = parseSplSegments(hp.howWeWorkSectionHeading as string);
   const hwwSteps = [];
   for (let i = 1; i <= 4; i++) {
     hwwSteps.push({
@@ -760,25 +813,28 @@ export async function fetchHomePage() {
   }
   const howItWorksContent: HowItWorksContent = {
     eyebrow: toTitleCase(hp.howWeWorkSectionSubHeading as string),
-    headingPrefix: hwwHeading.prefix,
-    headingHighlight: hwwHeading.highlight,
-    description: hp.howWeWorkSectionText as string,
+    headingSegments: hwwHeadingSegments,
+    description: parseRichParagraphs(hp.howWeWorkSectionText as string),
     steps: hwwSteps,
     ctaLabel: toTitleCase(hp.howWeWorkSectionButtonText as string),
     ctaHref: hp.howWeWorkSectionButtonUrl as string,
   };
 
-  const reviewHeading = parseSplHeading(hp.reviewSectionHeading as string);
+  const reviewHeadingSegments = parseSplSegments(hp.reviewSectionHeading as string);
   const testimonialsContent: TestimonialsContent = {
     eyebrow: toTitleCase(hp.reviewSectionSubHeading as string),
-    headingPrefix: reviewHeading.prefix,
-    headingHighlight: reviewHeading.highlight,
-    description: stripHtml(hp.reviewSectionText as string),
-    testimonials: [],
+    headingSegments: reviewHeadingSegments,
+    description: parseRichParagraphs(hp.reviewSectionText as string),
+    testimonials: reviewData.testimonials.nodes.map((t) => ({
+      quote: stripHtml(t.content),
+      authorName: t.title,
+      authorLocation: stripHtml(t.excerpt),
+      avatar: img(t.featuredImage),
+    })),
   };
 
   const quoteGalleryContent: QuoteGalleryContent = {
-    quote: stripHtml(hp.reviewSectionQuote as string),
+    quote: parseRichParagraphs(hp.reviewSectionQuote as string),
     quoteIcon: { src: "/images/shared/icons/footer-icon-1.svg", alt: "" },
     images: [
       img(hp.reviewSectionGalleryImage1 as WPImage),
@@ -792,7 +848,7 @@ export async function fetchHomePage() {
     eyebrow: toTitleCase(hp.commercialSectionSubHeading as string),
     heading: hp.commercialSectionHeading as string,
     subheading: "",
-    body: stripHtml(hp.commercialSectionText as string),
+    body: parseRichParagraphs(hp.commercialSectionText as string),
     ctaLabel: toTitleCase(hp.commercialSectionButtonText as string),
     ctaHref: hp.commercialSectionButtonUrl as string,
     image: img(hp.commercialSectionImage as WPImage),
@@ -805,7 +861,7 @@ export async function fetchHomePage() {
     headingPrefix: rmHeading.prefix,
     headingHighlight: rmHeading.highlight,
     headingSuffix: rmHeading.suffix,
-    description: hp.repairSectionText as string,
+    description: parseRichParagraphs(hp.repairSectionText as string),
   };
 
   const locationIcon = img(hp.locationsSectionIcon as WPImage);
@@ -817,7 +873,7 @@ export async function fetchHomePage() {
   const locationsContent: LocationsContent = {
     eyebrow: toTitleCase(hp.locationsSectionSubHeading as string),
     heading: hp.locationsSectionHeading as string,
-    description: hp.locationsSectionText as string,
+    description: parseRichParagraphs(hp.locationsSectionText as string),
     cities: locationCityNames.map((name) => ({
       icon: locationIcon,
       name,
@@ -827,7 +883,7 @@ export async function fetchHomePage() {
   const quoteFormContent: QuoteFormContent = {
     eyebrow: toTitleCase(hp.formSubHeading as string),
     heading: hp.formHeading as string,
-    description: stripHtml(hp.formParagraph as string),
+    description: parseRichParagraphs(hp.formParagraph as string),
     nameLabel: "Name",
     namePlaceholder: "Your full name",
     emailLabel: "Email",
@@ -854,7 +910,7 @@ export async function fetchHomePage() {
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
-      answer: stripHtml(faq.content),
+      answer: parseRichParagraphs(faq.content),
       category: cat.name,
     })),
   );
@@ -931,7 +987,7 @@ export async function fetchServicePage() {
   const serviceGlimpse: ServicesGlimpseContent = {
     eyebrow: toTitleCase(sp.serviceSectionSubHeading as string),
     headingSegments: parseSplSegments(sp.serviceSectionHeading as string),
-    servicesSummary: sp.serviceSectionText as string,
+    servicesSummary: parseRichParagraphs(sp.serviceSectionText as string),
     ctaLabel: "Learn More",
     cards: serviceCards.slice(0, 6) as ServicesGlimpseContent["cards"],
   };
@@ -951,7 +1007,7 @@ export async function fetchServicePage() {
     headingPrefix: hiwHeading.prefix,
     headingHighlight: hiwHeading.highlight,
     headingSuffix: hiwHeading.suffix,
-    description: sp.howItWorksSectionText as string,
+    description: parseRichParagraphs(sp.howItWorksSectionText as string),
     steps: hiwSteps,
   };
 
@@ -961,7 +1017,7 @@ export async function fetchServicePage() {
     headingPrefix: aboutHeading.prefix,
     headingHighlight: aboutHeading.highlight,
     headingSuffix: aboutHeading.suffix,
-    paragraph: stripHtml(sp.section3Paragraph as string),
+    paragraph: parseRichParagraphs(sp.section3Paragraph as string),
     image: img(sp.section3Image as WPImage),
     // Figma's "Explore Shutters" CTA on this fixed Shutters showcase block
     // has no corresponding WP field (the query has no section3Button*
@@ -974,7 +1030,7 @@ export async function fetchServicePage() {
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
-      answer: stripHtml(faq.content),
+      answer: parseRichParagraphs(faq.content),
       category: cat.name,
     })),
   );
@@ -1021,21 +1077,20 @@ export async function fetchCommercialPage() {
     backgroundImage: img(pageData.page.featuredImage),
   };
 
-  const placesHeading = parseSplHeading(cp.section2Heading as string);
+  const placesHeadingSegments = parseSplSegments(cp.section2Heading as string);
   const placeCards = [];
   for (let i = 1; i <= 4; i++) {
     const iconField = cp[`sec2CardsIcon${i}`] as WPImage | null;
     placeCards.push({
       title: cp[`sec2CardsTitle${i}`] as string,
-      description: cp[`sec2CardsParagraph${i}`] as string,
+      description: stripHtml(cp[`sec2CardsParagraph${i}`] as string),
       icon: iconField?.node?.mediaItemUrl ?? "",
     });
   }
   const places: CommercialPlacesContent = {
     eyebrow: toTitleCase(cp.section2SubHeading as string),
-    headingPrefix: placesHeading.prefix,
-    headingHighlight: placesHeading.highlight,
-    description: stripHtml(cp.section2Text as string),
+    headingSegments: placesHeadingSegments,
+    description: parseRichParagraphs(cp.section2Text as string),
     cards: placeCards as CommercialPlacesContent["cards"],
   };
 
@@ -1051,14 +1106,14 @@ export async function fetchCommercialPage() {
     headingPrefix: installHeading.prefix,
     headingHighlight: installHeading.highlight,
     headingSuffix: installHeading.suffix,
-    description: stripHtml(cp.section3Text as string),
+    description: parseRichParagraphs(cp.section3Text as string),
     images: installImages as InstallationGalleryContent["images"],
   };
 
   const quoteForm: CommercialQuoteFormContent = {
     eyebrow: toTitleCase(cp.formSectionSubHeading as string),
     heading: cp.formSectionHeading as string,
-    description: stripHtml(cp.formSectionText as string),
+    description: parseRichParagraphs(cp.formSectionText as string),
     companyNameLabel: "Company Name",
     companyNamePlaceholder: "Company Name",
     contactNameLabel: "Contact Name",
@@ -1090,7 +1145,7 @@ export async function fetchCommercialPage() {
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
-      answer: stripHtml(faq.content),
+      answer: parseRichParagraphs(faq.content),
       category: cat.name,
     })),
   );
@@ -1188,13 +1243,10 @@ export async function fetchLocationsPage() {
   const hero: LocationsHeroContent = {
     breadcrumb: "HOME > locations hub",
     heading: lp.mainHeading as string,
-    subheading: (lp.mainParagraph as string)
-      .split(/<\/?p>/)
-      .map((s) => stripHtml(s))
-      .filter(Boolean),
+    subheading: parseRichParagraphs(lp.mainParagraph as string),
   };
 
-  const csHeading = parseSplHeading(lp.comingSoonSectionHeading as string);
+  const csHeadingSegments = parseSplSegments(lp.comingSoonSectionHeading as string);
   const csCards = [];
   for (let i = 1; i <= 3; i++) {
     csCards.push({
@@ -1207,9 +1259,8 @@ export async function fetchLocationsPage() {
     // locationsHubPageQuery, same "hardcode rather than guess at an
     // unverified GraphQL field" call as elsewhere in this file.
     eyebrow: "EXPANDING",
-    headingPrefix: csHeading.prefix,
-    headingHighlight: csHeading.highlight,
-    description: stripHtml(lp.comingSoonSectionParagraph as string),
+    headingSegments: csHeadingSegments,
+    description: parseRichParagraphs(lp.comingSoonSectionParagraph as string),
     badgeLabel: "COMING SOON",
     cards: csCards as ComingSoonStatesContent["cards"],
   };
@@ -1250,7 +1301,7 @@ export async function fetchServiceSinglePage(uri: string) {
   const breadcrumbs = serviceData.service.seo?.breadcrumbs ?? [];
   const breadcrumb = breadcrumbs.map((b) => stripHtml(b.text)).join(" > ").toUpperCase();
 
-  const introHeading = parseSplHeading(sf.introSectionHeading as string);
+  const introHeadingSegments = parseSplSegments(sf.introSectionHeading as string);
   const introText = (sf.introSectionText as string) ?? "";
 
   const aboutHeading = parseSplHeading(sf.section2Heading as string);
@@ -1310,7 +1361,7 @@ export async function fetchServiceSinglePage(uri: string) {
     }
   }
 
-  const hiwHeaderHeading = parseSplHeading(sf.howItWorksSectionHeading as string);
+  const hiwHeaderHeadingSegments = parseSplSegments(sf.howItWorksSectionHeading as string);
   const timelineImage = img(sf.howItWorksSectionImage as WPImage);
   const timelineSteps = [];
   for (let i = 1; i <= 4; i++) {
@@ -1330,7 +1381,7 @@ export async function fetchServiceSinglePage(uri: string) {
       headingPrefix: subCategoryHeading.prefix,
       headingHighlight: subCategoryHeading.highlight,
       headingSuffix: subCategoryHeading.suffix,
-      description: stripHtml(sf.serviceSubCategorySectionText as string),
+      description: parseRichParagraphs(sf.serviceSubCategorySectionText as string),
       cards: childServices.map((child) => ({
         image: img(child.featuredImage),
         title: child.title,
@@ -1349,12 +1400,8 @@ export async function fetchServiceSinglePage(uri: string) {
     },
     intro: {
       eyebrow: toTitleCase(sf.introSectionSubHeading as string),
-      headingPrefix: introHeading.prefix,
-      headingHighlight: introHeading.highlight,
-      paragraphs: introText
-        .split(/<\/?p>/)
-        .map((s) => s.trim())
-        .filter(Boolean),
+      headingSegments: introHeadingSegments,
+      paragraphs: parseRichParagraphs(introText),
       image: img(sf.introSectionImage as WPImage),
     },
     subServices,
@@ -1375,9 +1422,8 @@ export async function fetchServiceSinglePage(uri: string) {
     },
     howItWorksHeader: {
       eyebrow: toTitleCase(sf.howItWorksSectionSubHeading as string),
-      headingPrefix: hiwHeaderHeading.prefix,
-      headingHighlight: hiwHeaderHeading.highlight,
-      subtitle: sf.howItWorksSectionText as string,
+      headingSegments: hiwHeaderHeadingSegments,
+      subtitle: parseRichParagraphs(sf.howItWorksSectionText as string),
     },
     timeline: {
       images: [timelineImage, timelineImage] as ServiceInlinePageContent["timeline"]["images"],
@@ -1386,7 +1432,7 @@ export async function fetchServiceSinglePage(uri: string) {
     cta: {
       eyebrow: toTitleCase(sf.ctaBannerSubHeading as string),
       heading: sf.ctaBannerHeading as string,
-      body: sf.ctaBannerText as string,
+      body: parseRichParagraphs(sf.ctaBannerText as string),
       ctaLabel: toTitleCase(sf.ctaBannerButtonText as string),
       ctaHref: sf.ctaBannerButtonUrl as string,
       image: img(sf.ctaBannerBackgroundImage as WPImage),
@@ -1397,7 +1443,7 @@ export async function fetchServiceSinglePage(uri: string) {
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
-      answer: stripHtml(faq.content),
+      answer: parseRichParagraphs(faq.content),
       category: cat.name,
     })),
   );
@@ -1432,7 +1478,7 @@ export async function fetchAboutPage() {
   ]);
 
   const ap = aboutData.page.aboutPageFields;
-  const heading = parseSplHeading(ap.section2Heading as string);
+  const missionHeadingSegments = parseSplSegments(ap.section2Heading as string);
 
   const hero: AboutPageContent["hero"] = {
     breadcrumb: "HOME > ABOUT",
@@ -1443,14 +1489,9 @@ export async function fetchAboutPage() {
     backgroundImage: img(aboutData.page.featuredImage),
   };
 
-  const paragraphs = (ap.section2Paragraph as string)
-    .split(/<\/?p>/)
-    .map((s) => s.trim())
-    .filter(Boolean);
   const mission: AboutPageContent["mission"] = {
-    headingPrefix: heading.prefix,
-    headingHighlight: heading.highlight,
-    paragraphs,
+    headingSegments: missionHeadingSegments,
+    paragraphs: parseRichParagraphs(ap.section2Paragraph as string),
   };
 
   // boxIcon is a single shared icon (teal, works on light or dark) reused
@@ -1469,7 +1510,7 @@ export async function fetchAboutPage() {
   const installation: AboutPageContent["installation"] = {
     eyebrow: toTitleCase(ap.section3SubHeading as string),
     heading: installHeading.prefix + installHeading.highlight + installHeading.suffix,
-    description: stripHtml(ap.section3Text as string),
+    description: parseRichParagraphs(ap.section3Text as string),
     features: installationFeatures,
   };
 
@@ -1499,7 +1540,7 @@ export async function fetchAboutPage() {
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
-      answer: stripHtml(faq.content),
+      answer: parseRichParagraphs(faq.content),
       category: cat.name,
     })),
   );
@@ -1533,7 +1574,7 @@ export async function fetchFreeQuotePage() {
     subheading: qp.mainParagraph as string,
   };
 
-  const processHeading = parseSplHeading(qp.section2Heading as string);
+  const processHeadingSegments = parseSplSegments(qp.section2Heading as string);
   const processSteps: FreeQuotePageContent["process"]["steps"] = [
     { number: "Step 01", title: qp.titleStep1 as string || "", description: qp.textStep1 as string || "" },
     { number: "Step 02", title: qp.titleStep2 as string || "", description: qp.textStep2 as string || "" },
@@ -1543,28 +1584,25 @@ export async function fetchFreeQuotePage() {
   ];
   const process: FreeQuotePageContent["process"] = {
     eyebrow: toTitleCase(qp.section2SubHeading as string),
-    headingPrefix: processHeading.prefix,
-    headingHighlight: processHeading.highlight,
-    subtitle: qp.section2Text as string,
+    headingSegments: processHeadingSegments,
+    subtitle: parseRichParagraphs(qp.section2Text as string),
     steps: processSteps,
   };
 
-  const introHeading = parseSplHeading(qp.section3Heading as string);
+  const processIntroHeadingSegments = parseSplSegments(qp.section3Heading as string);
   const videoNode = (qp.section3Video as WPImage)?.node;
   const processIntro: FreeQuotePageContent["processIntro"] = {
     eyebrow: toTitleCase(qp.section3SubHeading as string),
-    headingPrefix: introHeading.prefix,
-    headingHighlight: introHeading.highlight,
-    description: stripHtml(qp.section3Text as string),
+    headingSegments: processIntroHeadingSegments,
+    description: parseRichParagraphs(qp.section3Text as string),
     image: { src: videoNode?.mediaItemUrl ?? "", alt: videoNode?.altText ?? "" },
   };
 
-  const formHeading = parseSplHeading(qp.formHeading as string);
+  const formHeadingSegments = parseSplSegments(qp.formHeading as string);
   const form: FreeQuotePageContent["form"] = {
     eyebrow: toTitleCase(qp.formSubHeading as string),
-    headingPrefix: formHeading.prefix,
-    headingHighlight: formHeading.highlight,
-    subtitle: qp.formText as string,
+    headingSegments: formHeadingSegments,
+    subtitle: parseRichParagraphs(qp.formText as string),
     nameLabel: "Name",
     namePlaceholder: "Your full name",
     emailLabel: "Email",
@@ -1595,7 +1633,7 @@ export async function fetchFreeQuotePage() {
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
-      answer: stripHtml(faq.content),
+      answer: parseRichParagraphs(faq.content),
       category: cat.name,
     })),
   );
@@ -1635,12 +1673,11 @@ export async function fetchGalleryPage() {
   ]);
 
   const gp = pageData.page.galleryPageFields;
-  const mainHeading = parseSplHeading(gp.mainTitle as string || "");
+  const mainHeadingSegments = parseSplSegments(gp.mainTitle as string || "");
 
   const hero: GalleryPageContent["hero"] = {
     breadcrumb: "HOME > GALLERY",
-    headingPrefix: mainHeading.prefix,
-    headingHighlight: mainHeading.highlight,
+    headingSegments: mainHeadingSegments,
     subheading: gp.mainParagraph as string || "",
   };
 
@@ -1673,7 +1710,7 @@ export async function fetchGalleryPage() {
   const cta: ConsultationCtaContent = {
     eyebrow: toTitleCase(gp.ctaBannerSubHeading as string || ""),
     heading: ctaHeading.prefix + ctaHeading.highlight + ctaHeading.suffix,
-    body: gp.ctaBannerText as string || "",
+    body: parseRichParagraphs(gp.ctaBannerText as string),
     ctaLabel: toTitleCase(gp.ctaBannerButtonText as string || ""),
     ctaHref: gp.ctaBannerButtonUrl as string || "",
     image: img(gp.ctaBannerImage as WPImage),
@@ -1683,7 +1720,7 @@ export async function fetchGalleryPage() {
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
-      answer: stripHtml(faq.content),
+      answer: parseRichParagraphs(faq.content),
       category: cat.name,
     })),
   );
@@ -1752,14 +1789,14 @@ export async function fetchLocationSinglePage(uri: string) {
   const serviceGrid: CityPageContent["serviceGrid"] = {
     eyebrow: toTitleCase(lp.serviceSectionSubHeading as string),
     headingSegments: serviceHeading,
-    summary: lp.serviceSectionText as string,
+    summary: parseRichParagraphs(lp.serviceSectionText as string),
     cards: serviceCards.slice(0, 6) as CityPageContent["serviceGrid"]["cards"],
   };
 
   const consultation: CityPageContent["consultation"] = {
     eyebrow: toTitleCase(lp.formSectionSubHeading as string),
     heading: lp.formSectionHeading as string,
-    description: stripHtml(lp.formSectionText as string),
+    description: parseRichParagraphs(lp.formSectionText as string),
     ctaLabel: "Submit",
   };
 
@@ -1767,7 +1804,7 @@ export async function fetchLocationSinglePage(uri: string) {
   const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
     cat.faqs.nodes.map((faq) => ({
       question: faq.title,
-      answer: stripHtml(faq.content),
+      answer: parseRichParagraphs(faq.content),
       category: cat.name,
     })),
   );
@@ -1825,7 +1862,7 @@ export async function fetchResourcesPage() {
 
   const result: ResourcesPageContent = {
     heading: af.mainTitle,
-    description: af.mainParagraph,
+    description: parseRichParagraphs(af.mainParagraph),
     featured,
     articles: [
       articles[1] ?? { image: { src: "", alt: "" }, title: "", description: "", date: "", href: "#" },
@@ -1871,7 +1908,7 @@ export async function fetchKnowledgeBasePage() {
 
   const result: KnowledgeBasePageContent = {
     heading: af.mainTitle,
-    subtitle: af.mainParagraph,
+    subtitle: parseRichParagraphs(af.mainParagraph),
     articles: articles.slice(0, 6) as KnowledgeBasePageContent["articles"],
   };
 
@@ -1887,15 +1924,9 @@ export async function fetchPrivacyPolicyPage() {
     page: { title: string; content: string };
   }>(POLICY_PAGE_QUERY);
 
-  const paragraphs = (data.page.content ?? "")
-    .split(/<\/?p>/)
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .map((s) => stripHtml(s));
-
   const result: LegalPageContent = {
     heading: data.page.title,
-    paragraphs,
+    paragraphs: parseRichParagraphs(data.page.content),
   };
 
   return result;
@@ -1926,11 +1957,12 @@ export async function fetchBlogSinglePage(uri: string) {
   const breadcrumbs = post.seo?.breadcrumbs ?? [];
   const breadcrumb = breadcrumbs.map((b) => stripHtml(b.text)).join(" > ").toUpperCase();
 
-  const contentParagraphs = (post.content ?? "")
-    .split(/<\/?p>/)
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .map((s) => stripHtml(s));
+  const contentParagraphs = parseRichParagraphs(post.content);
+  const wordCount = contentParagraphs
+    .flatMap((segments) => segments.map((s) => s.text))
+    .join(" ")
+    .split(/\s+/)
+    .filter(Boolean).length;
 
   const result: BlogArticlePageContent = {
     breadcrumb,
@@ -1941,7 +1973,7 @@ export async function fetchBlogSinglePage(uri: string) {
       name: post.blogAuthorFields?.authorName ?? "",
       avatar: img(post.blogAuthorFields?.profileImage),
     },
-    readTime: `${Math.max(1, Math.ceil(contentParagraphs.join(" ").split(/\s+/).length / 200))} min read`,
+    readTime: `${Math.max(1, Math.ceil(wordCount / 200))} min read`,
     title: post.title,
     blocks: [{ type: "text", paragraphs: contentParagraphs }],
   };
@@ -1971,18 +2003,19 @@ export async function fetchKnowledgeBaseSinglePage(uri: string) {
   const breadcrumbs = item.seo?.breadcrumbs ?? [];
   const breadcrumb = breadcrumbs.map((b) => stripHtml(b.text)).join(" > ").toUpperCase();
 
-  const contentParagraphs = (item.content ?? "")
-    .split(/<\/?p>/)
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .map((s) => stripHtml(s));
+  const contentParagraphs = parseRichParagraphs(item.content);
+  const wordCount = contentParagraphs
+    .flatMap((segments) => segments.map((s) => s.text))
+    .join(" ")
+    .split(/\s+/)
+    .filter(Boolean).length;
 
   const result: KnowledgeArticlePageContent = {
     breadcrumb,
     heroImage: img(item.featuredImage),
     categoryTag: item.categories?.nodes?.[0]?.name ?? "",
     date: item.date ? new Date(item.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "",
-    readTime: `${Math.max(1, Math.ceil(contentParagraphs.join(" ").split(/\s+/).length / 200))} min read`,
+    readTime: `${Math.max(1, Math.ceil(wordCount / 200))} min read`,
     title: item.title,
     blocks: [{ type: "section" as const, heading: "", paragraphs: contentParagraphs }],
   };

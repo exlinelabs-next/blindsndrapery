@@ -84,6 +84,7 @@ export const HEADER_NAV_AND_BUTTON = `
         socialUrl3
         socialIcon4 { node { altText } }
         socialUrl4
+        contactNumber
       }
     }
   }
@@ -1226,6 +1227,28 @@ export const MEGA_MENU_IMAGES_QUERY = `
         image4 { node { altText title mediaItemUrl } }
         image5 { node { altText title mediaItemUrl } }
         image6 { node { altText title mediaItemUrl } }
+        blogImage { node { altText title mediaItemUrl } }
+        knowledgeBaseImage { node { altText title mediaItemUrl } }
+        blogText
+        knowledgeBaseText
+      }
+    }
+  }
+`;
+
+export const REVIEW_QUERY = `
+  query reviewQuery {
+    testimonials {
+      nodes {
+        title
+        excerpt
+        content
+        featuredImage {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
       }
     }
   }

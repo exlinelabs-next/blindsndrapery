@@ -1,8 +1,9 @@
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { FreeQuoteProcessContent } from "@/types/content";
 
 export function FreeQuoteProcess({ content }: { content?: FreeQuoteProcessContent }) {
-  const { eyebrow, headingPrefix, headingHighlight, subtitle, steps } =
+  const { eyebrow, headingSegments, subtitle, steps } =
     content ?? useContent("freeQuotePage").process;
 
   return (
@@ -15,12 +16,13 @@ export function FreeQuoteProcess({ content }: { content?: FreeQuoteProcessConten
             </p>
           </div>
           <p className="w-full text-center font-heading text-[28px] font-semibold leading-[36px] tracking-[-0.1296px] text-navy md:text-[36px] md:leading-[44px]">
-            {headingPrefix}
-            <span className="text-teal">{headingHighlight}</span>
+            {headingSegments.map((seg, i) => (
+              <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+                {seg.text}
+              </span>
+            ))}
           </p>
-          <p className="px-4 text-center text-[16px] leading-[23px] text-black md:px-20">
-            {subtitle}
-          </p>
+          <RichText paragraphs={subtitle} className="px-4 text-center text-[16px] leading-[23px] text-black md:px-20" />
         </div>
 
         <div className="flex flex-col gap-4">

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { InstallationGalleryContent } from "@/types/content";
 
 // Center-focused peek carousel at xl, modeled on the reference gallery at
@@ -127,7 +128,7 @@ export function InstallationGallery({ content }: { content?: InstallationGallery
           <span className="text-teal">{headingHighlight}</span>
           {headingSuffix}
         </p>
-        <p className="w-full text-center text-[16px] leading-[23px] text-black">{description}</p>
+        <RichText paragraphs={description} className="w-full text-center text-[16px] leading-[23px] text-black" />
       </div>
 
       {/* Mobile/tablet: plain stacked list, no carousel. */}

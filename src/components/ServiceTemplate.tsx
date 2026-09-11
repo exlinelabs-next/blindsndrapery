@@ -6,6 +6,7 @@ import { ServiceTimeline } from "@/components/ServiceTimeline";
 import { ConsultationCTA } from "@/components/ConsultationCTA";
 import { FAQ } from "@/components/FAQ";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { ServiceContentKey, ServiceInlinePageContent, FaqContent } from "@/types/content";
 
 export function ServiceTemplate({
@@ -41,12 +42,13 @@ export function ServiceTemplate({
             </div>
             <div className="flex w-full flex-col items-start gap-4">
               <p className="w-full text-center font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-navy">
-                {howItWorksHeader.headingPrefix}
-                <span className="text-teal">{howItWorksHeader.headingHighlight}</span>
+                {howItWorksHeader.headingSegments.map((seg, i) => (
+                  <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+                    {seg.text}
+                  </span>
+                ))}
               </p>
-              <p className="w-full text-center text-[16px] leading-[23px] text-black xl:px-20">
-                {howItWorksHeader.subtitle}
-              </p>
+              <RichText paragraphs={howItWorksHeader.subtitle} className="w-full text-center text-[16px] leading-[23px] text-black xl:px-20" />
             </div>
           </div>
         </div>

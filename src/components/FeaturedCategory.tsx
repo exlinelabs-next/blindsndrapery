@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import { RichText } from "@/components/ui/RichText";
 import type { FeaturedCategoryContent } from "@/types/content";
 
 export function FeaturedCategory({ content }: { content?: FeaturedCategoryContent }) {
@@ -23,9 +24,7 @@ export function FeaturedCategory({ content }: { content?: FeaturedCategoryConten
               {headingSuffix}
             </h2>
             <div className="flex w-full flex-col gap-6 text-[16px] leading-[23px] text-black xl:max-w-[505px]">
-              {paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+              <RichText paragraphs={paragraphs} />
             </div>
             {cta && <Button href={cta.href}>{cta.label}</Button>}
           </div>
