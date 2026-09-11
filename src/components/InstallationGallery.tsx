@@ -26,6 +26,14 @@ import type { InstallationGalleryContent } from "@/types/content";
 // which one is enlarged.
 const SLOT_WIDTH_PX = 384.667;
 
+// Autoplay: advance to the next slide every 4s. Any direct user interaction
+// with the track (wheel/touch/pointer — there's no visible scrollbar to
+// drag) pauses it immediately and restarts a 7s countdown before autoplay
+// resumes, per the "manual control always wins, autoplay comes back after
+// a pause" behavior requested for this carousel.
+const AUTOPLAY_INTERVAL_MS = 4000;
+const AUTOPLAY_RESUME_DELAY_MS = 7000;
+
 export function InstallationGallery({ content }: { content?: InstallationGalleryContent }) {
   const { eyebrow, headingPrefix, headingHighlight, headingSuffix, description, images } =
     content ?? useContent("commercialPage").installation;
@@ -114,6 +122,75 @@ export function InstallationGallery({ content }: { content?: InstallationGallery
       window.removeEventListener("resize", onScroll);
     };
   }, []);
+
+  // Autoplay for the desktop track: advances one slide at a time, paused
+  // immediately by any real user interaction with the track, resuming 7s
+  // after the last one.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || images.length <= 1) return;
+
+    let autoplayInterval: ReturnType<typeof setInterval> | null = null;
+    let resumeTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    const advance = () => {
+      const slides = track.children;
+      if (slides.length === 0) return;
+      const containerRect = track.getBoundingClientRect();
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      const current = [...slides].findIndex((slide) => {
+        const rect = (slide as HTMLElement).getBoundingClientRect();
+        return Math.abs(rect.left + rect.width / 2 - containerCenter) < rect.width / 2;
+      });
+      const next = ((current === -1 ? 0 : current) + 1) % slides.length;
+      // Scroll the TRACK only (never scrollIntoView) — scrollIntoView walks
+      // up through every scrollable ancestor including the page itself, so
+      // it would yank the user's vertical scroll position back to this
+      // section even while they're reading something further down the page.
+      const nextRect = (slides[next] as HTMLElement).getBoundingClientRect();
+      const offset = nextRect.left + nextRect.width / 2 - containerCenter;
+      track.scrollTo({ left: track.scrollLeft + offset, behavior: "smooth" });
+    };
+
+    const startAutoplay = () => {
+      if (autoplayInterval) return;
+      autoplayInterval = setInterval(advance, AUTOPLAY_INTERVAL_MS);
+    };
+
+    const stopAutoplay = () => {
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+      }
+    };
+
+    const handleManualInteraction = () => {
+      stopAutoplay();
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      // Advance immediately at the 7s mark, then keep going every 4s —
+      // otherwise autoplay would silently sit idle for a further 4s after
+      // the 7s wait (the first tick of a freshly (re)started interval only
+      // fires after a full interval elapses), making it feel like it took
+      // 11s to come back instead of the intended 7.
+      resumeTimeout = setTimeout(() => {
+        advance();
+        startAutoplay();
+      }, AUTOPLAY_RESUME_DELAY_MS);
+    };
+
+    startAutoplay();
+    track.addEventListener("wheel", handleManualInteraction, { passive: true });
+    track.addEventListener("touchstart", handleManualInteraction, { passive: true });
+    track.addEventListener("pointerdown", handleManualInteraction);
+
+    return () => {
+      stopAutoplay();
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      track.removeEventListener("wheel", handleManualInteraction);
+      track.removeEventListener("touchstart", handleManualInteraction);
+      track.removeEventListener("pointerdown", handleManualInteraction);
+    };
+  }, [images.length]);
 
   return (
     <section className="flex flex-col items-center gap-6 px-8 pt-14 pb-14 md:px-12 md:pt-16 md:pb-16 xl:gap-16 xl:px-20 xl:pt-[100px] xl:pb-[100px]">
