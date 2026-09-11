@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { AboutHero } from "@/components/AboutHero";
 import { AboutMission } from "@/components/AboutMission";
 import { AboutInstallation } from "@/components/AboutInstallation";
-import { AboutTeam } from "@/components/AboutTeam";
 import { FAQ } from "@/components/FAQ";
 import { fetchAboutPage } from "@/lib/api";
 
@@ -20,7 +19,6 @@ export default async function AboutPage() {
       <AboutHero content={data?.hero} />
       <AboutMission content={data?.mission} />
       <AboutInstallation content={data?.installation} />
-      <AboutTeam content={data?.team} />
       <FAQ content={data?.faq} />
     </main>
   );
