@@ -1,3 +1,15 @@
+// Rich body copy from a WP WYSIWYG field: one entry per <p> paragraph, each
+// an array of segments so a <spl>...</spl> run within a paragraph can render
+// in teal. Every "description"/"body"/"paragraph"/"answer"/"quote" field
+// that used to be a flattened plain string (or a plain string[] of
+// paragraphs with no <spl> support) is typed this way now — render with the
+// shared <RichText> component in components/ui/RichText.tsx.
+export interface RichTextSegment {
+  text: string;
+  emphasis?: boolean;
+}
+export type RichParagraphs = RichTextSegment[][];
+
 export interface HeroContent {
   heading: string;
   subheading: string;
@@ -42,6 +54,17 @@ export interface NavHelpBarContent {
   phoneLabel: string;
 }
 
+// The Resources nav item's own mega menu (Figma "Expanded Mega menu", node
+// 4902:3378) — just two fixed cards (Blogs, Knowledge Base) rather than the
+// Services menu's category list, so it gets its own small shape instead of
+// reusing NavDropdownCategory/NavDropdownBlogCard.
+export interface NavResourceCard {
+  image: { src: string; alt: string };
+  title: string;
+  description: string;
+  href: string;
+}
+
 export interface NavContent {
   logo: {
     src: string;
@@ -49,11 +72,16 @@ export interface NavContent {
     href: string;
   };
   servicesLabel: string;
+  resourcesLabel: string;
   servicesDropdown: {
     categories: NavDropdownCategory[];
     blogCard: NavDropdownBlogCard;
     socialLinks: FooterSocialLink[];
     helpBar: NavHelpBarContent;
+  };
+  resourcesDropdown: {
+    blogsCard: NavResourceCard;
+    knowledgeBaseCard: NavResourceCard;
   };
   links: NavLinkContent[];
   ctaLabel: string;
@@ -72,9 +100,8 @@ export interface TrustBadgesContent {
 
 export interface ProcessIntroContent {
   eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  description: string;
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  description: RichParagraphs;
   video: {
     poster: { src: string; alt: string };
   };
@@ -92,7 +119,7 @@ export interface ServicesGlimpseContent {
   // Rich-text heading with per-segment emphasis (Figma alternates navy/teal
   // spans within one heading — a plain string can't carry that styling).
   headingSegments: Array<{ text: string; emphasis?: boolean }>;
-  servicesSummary: string;
+  servicesSummary: RichParagraphs;
   ctaLabel: string;
   cards: [ServiceCard, ServiceCard, ServiceCard, ServiceCard, ServiceCard, ServiceCard];
 }
@@ -102,7 +129,7 @@ export interface FeaturedCategoryContent {
   headingPrefix: string;
   headingHighlight: string;
   headingSuffix: string;
-  paragraphs: string[];
+  paragraphs: RichParagraphs;
   image: {
     src: string;
     alt: string;
@@ -119,9 +146,8 @@ export interface HowItWorksStep {
 
 export interface HowItWorksContent {
   eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  description: string;
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  description: RichParagraphs;
   steps: HowItWorksStep[];
   ctaLabel: string;
   ctaHref: string;
@@ -129,9 +155,8 @@ export interface HowItWorksContent {
 
 export interface TestimonialsContent {
   eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  description: string;
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  description: RichParagraphs;
   testimonials: Array<{
     quote: string;
     authorName: string;
@@ -149,7 +174,7 @@ export interface QuoteGalleryImage {
 }
 
 export interface QuoteGalleryContent {
-  quote: string;
+  quote: RichParagraphs;
   // Decorative mark rendered above the quote. `alt` is "" when purely
   // decorative (rendered with aria-hidden).
   quoteIcon: {
@@ -165,7 +190,7 @@ export interface CommercialContent {
   eyebrow: string;
   heading: string;
   subheading: string;
-  body: string;
+  body: RichParagraphs;
   ctaLabel: string;
   ctaHref: string;
   image: {
@@ -180,13 +205,13 @@ export interface RepairMaintenanceContent {
   headingPrefix: string;
   headingHighlight: string;
   headingSuffix: string;
-  description: string;
+  description: RichParagraphs;
 }
 
 export interface LocationsContent {
   eyebrow: string;
   heading: string;
-  description: string;
+  description: RichParagraphs;
   // Figma names this layer plainly "Vector" (not "lucide/..."), meaning it's
   // a hand-drawn decorative pin glyph rather than a real Lucide export — a
   // solid teardrop map pin, not the outline pin lucide-react ships. Per the
@@ -199,7 +224,7 @@ export interface LocationsContent {
 export interface QuoteFormContent {
   eyebrow: string;
   heading: string;
-  description: string;
+  description: RichParagraphs;
   nameLabel: string;
   namePlaceholder: string;
   emailLabel: string;
@@ -219,7 +244,7 @@ export interface FaqContent {
   eyebrow: string;
   heading: string;
   categories: string[];
-  items: Array<{ question: string; answer: string; category: string }>;
+  items: Array<{ question: string; answer: RichParagraphs; category: string }>;
 }
 
 export interface FooterLink {
@@ -284,7 +309,7 @@ export interface ServiceHowItWorksContent {
   headingPrefix: string;
   headingHighlight: string;
   headingSuffix: string;
-  description: string;
+  description: RichParagraphs;
   steps: ServiceHowItWorksStep[];
 }
 
@@ -293,7 +318,7 @@ export interface ServiceAboutContent {
   headingPrefix: string;
   headingHighlight: string;
   headingSuffix: string;
-  paragraph: string;
+  paragraph: RichParagraphs;
   image: { src: string; alt: string };
   cta?: { label: string; href: string };
 }
@@ -330,9 +355,8 @@ export interface ServiceInlineHeroContent {
 // repeated copy faithfully" rule as the timeline steps' identical body text.
 export interface ServiceIntroContent {
   eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  paragraphs: string[];
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  paragraphs: RichParagraphs;
   image: { src: string; alt: string };
 }
 
@@ -372,7 +396,7 @@ export interface ServiceTimelineContent {
 export interface ConsultationCtaContent {
   eyebrow: string;
   heading: string;
-  body: string;
+  body: RichParagraphs;
   ctaLabel: string;
   ctaHref: string;
   image: { src: string; alt: string };
@@ -390,15 +414,14 @@ export interface SubServicesGridContent {
   headingPrefix: string;
   headingHighlight: string;
   headingSuffix: string;
-  description: string;
+  description: RichParagraphs;
   cards: SubServiceCard[];
 }
 
 export interface ServiceHowItWorksHeader {
   eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  subtitle: string;
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  subtitle: RichParagraphs;
 }
 
 export interface ServiceInlinePageContent {
@@ -439,9 +462,8 @@ export interface CommercialPlaceCard {
 
 export interface CommercialPlacesContent {
   eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  description: string;
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  description: RichParagraphs;
   // Exactly 4 — the card row switches from a fixed 2-per-row wrap (desktop)
   // to a full-width stack (tablet/mobile), not an arbitrary-length list.
   cards: [CommercialPlaceCard, CommercialPlaceCard, CommercialPlaceCard, CommercialPlaceCard];
@@ -452,7 +474,7 @@ export interface InstallationGalleryContent {
   headingPrefix: string;
   headingHighlight: string;
   headingSuffix: string;
-  description: string;
+  description: RichParagraphs;
   // WP's own field is a carousel (`commercialPageCarouselImages`) and can
   // hold more than 3 — the gallery shows a sliding 3-wide window over
   // however many come back, so this is a plain array, minimum 3 (padded in
@@ -463,7 +485,7 @@ export interface InstallationGalleryContent {
 export interface CommercialQuoteFormContent {
   eyebrow: string;
   heading: string;
-  description: string;
+  description: RichParagraphs;
   companyNameLabel: string;
   companyNamePlaceholder: string;
   contactNameLabel: string;
@@ -506,11 +528,7 @@ export interface CommercialPageContent {
 export interface LocationsHeroContent {
   breadcrumb: string;
   heading: string;
-  // The CMS field is WYSIWYG rich text (multiple <p> blocks), so this is
-  // pre-split into plain paragraph strings at the data layer — same
-  // pattern as FeaturedCategoryContent.paragraphs — rather than rendered
-  // with dangerouslySetInnerHTML.
-  subheading: string[];
+  subheading: RichParagraphs;
 }
 
 // Redesigned 2026-09-09 (Figma "Desktop / Locations Hub ", node 4664:10194,
@@ -544,9 +562,8 @@ export interface ComingSoonStateCard {
 
 export interface ComingSoonStatesContent {
   eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  description: string;
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  description: RichParagraphs;
   badgeLabel: string;
   cards: [ComingSoonStateCard, ComingSoonStateCard, ComingSoonStateCard];
 }
@@ -559,8 +576,7 @@ export interface LocationsPageContent {
 
 export interface GalleryHeroContent {
   breadcrumb: string;
-  headingPrefix: string;
-  headingHighlight: string;
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
   subheading: string;
 }
 
@@ -604,9 +620,8 @@ export interface AboutHeroContent {
 }
 
 export interface AboutMissionContent {
-  headingPrefix: string;
-  headingHighlight: string;
-  paragraphs: string[];
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  paragraphs: RichParagraphs;
 }
 
 export interface AboutInstallationFeature {
@@ -617,7 +632,7 @@ export interface AboutInstallationFeature {
 export interface AboutInstallationContent {
   eyebrow: string;
   heading: string;
-  description: string;
+  description: RichParagraphs;
   features: [AboutInstallationFeature, AboutInstallationFeature, AboutInstallationFeature, AboutInstallationFeature];
 }
 
@@ -655,7 +670,7 @@ export interface ResourcesFeaturedContent {
 
 export interface ResourcesPageContent {
   heading: string;
-  description: string;
+  description: RichParagraphs;
   featured: ResourcesFeaturedContent;
   articles: [ResourcesArticle, ResourcesArticle];
 }
@@ -669,14 +684,14 @@ export interface KnowledgeArticle {
 
 export interface KnowledgeBasePageContent {
   heading: string;
-  subtitle: string;
+  subtitle: RichParagraphs;
   articles: [KnowledgeArticle, KnowledgeArticle, KnowledgeArticle, KnowledgeArticle, KnowledgeArticle, KnowledgeArticle];
 }
 
 export type BlogContentBlock =
-  | { type: "intro"; paragraphs: string[]; image: { src: string; alt: string } }
+  | { type: "intro"; paragraphs: RichParagraphs; image: { src: string; alt: string } }
   | { type: "heading"; text: string }
-  | { type: "text"; paragraphs: string[] }
+  | { type: "text"; paragraphs: RichParagraphs }
   | { type: "pullQuote"; text: string }
   | { type: "image"; image: { src: string; alt: string } };
 
@@ -696,11 +711,11 @@ export interface BlogArticlePageContent {
 
 export interface LegalPageContent {
   heading: string;
-  paragraphs: string[];
+  paragraphs: RichParagraphs;
 }
 
 export type KnowledgeContentBlock =
-  | { type: "section"; heading: string; paragraphs: string[] }
+  | { type: "section"; heading: string; paragraphs: RichParagraphs }
   | { type: "imageGrid"; images: [{ src: string; alt: string }, { src: string; alt: string }, { src: string; alt: string }] };
 
 export interface KnowledgeArticlePageContent {
@@ -723,14 +738,14 @@ export interface CityServiceCard {
 export interface CityServiceGridContent {
   eyebrow: string;
   headingSegments: Array<{ text: string; emphasis?: boolean }>;
-  summary: string;
+  summary: RichParagraphs;
   cards: [CityServiceCard, CityServiceCard, CityServiceCard, CityServiceCard, CityServiceCard, CityServiceCard];
 }
 
 export interface CityConsultationContent {
   eyebrow: string;
   heading: string;
-  description: string;
+  description: RichParagraphs;
   ctaLabel: string;
 }
 
@@ -763,25 +778,22 @@ export interface FreeQuoteProcessStep {
 
 export interface FreeQuoteProcessContent {
   eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  subtitle: string;
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  subtitle: RichParagraphs;
   steps: [FreeQuoteProcessStep, FreeQuoteProcessStep, FreeQuoteProcessStep, FreeQuoteProcessStep, FreeQuoteProcessStep];
 }
 
 export interface FreeQuoteProcessIntroContent {
   eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  description: string;
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  description: RichParagraphs;
   image: { src: string; alt: string };
 }
 
 export interface FreeQuoteFormContent {
   eyebrow: string;
-  headingPrefix: string;
-  headingHighlight: string;
-  subtitle: string;
+  headingSegments: Array<{ text: string; emphasis?: boolean }>;
+  subtitle: RichParagraphs;
   nameLabel: string;
   namePlaceholder: string;
   emailLabel: string;
