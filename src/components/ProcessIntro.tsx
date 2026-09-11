@@ -51,7 +51,7 @@ export function ProcessIntro({ content }: { content?: ProcessIntroContent }) {
           <>
             <video
               ref={videoRef}
-              src={video.poster.src}
+              src={`${video.poster.src}#t=0.1`}
               muted
               loop
               playsInline

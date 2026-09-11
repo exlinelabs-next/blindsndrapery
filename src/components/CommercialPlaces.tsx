@@ -44,9 +44,15 @@ export function CommercialPlaces({ content }: { content?: CommercialPlacesConten
                 key={card.title}
                 className="flex w-full shrink-0 flex-col items-start justify-center gap-2.5 rounded-lg border border-teal/33 bg-white p-6 shadow-[0px_4px_4px_rgba(0,0,0,0.05)] xl:h-[282px] xl:w-[627px]"
               >
-                <div className="flex size-[72px] shrink-0 items-center justify-center rounded-full bg-navy">
+                <div className={`flex size-[72px] shrink-0 items-center justify-center rounded-full ${isUrl ? "" : "bg-navy"}`}>
                   {isUrl ? (
-                    <Image src={card.icon} alt="" width={40} height={40} className="size-10" />
+                    // The WP-uploaded icon SVGs (building.svg, hotel.svg, pluse.svg,
+                    // bag.svg) are self-contained 72x72 compositions that already
+                    // bake in their own navy circle background — rendering them at
+                    // 40px inside a second navy circle double-drew the background
+                    // and shrank the glyph to a fraction of the box. Rendering at
+                    // their native 72px with no extra wrapper background fixes both.
+                    <Image src={card.icon} alt="" width={72} height={72} className="size-[72px]" />
                   ) : (
                     Icon && <Icon className="size-10 text-white" strokeWidth={1.5} />
                   )}

@@ -57,7 +57,7 @@ export function Hero({
           {heading}
         </h1>
         <div className="flex flex-col items-start gap-6">
-          <p className="w-full font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-white xl:max-w-3xl">
+          <p className="w-full font-heading text-[22px] font-semibold leading-[32px] tracking-[-0.0792px] text-white xl:max-w-[70%]">
             {subheading}
           </p>
           {ctaLabel && <Button href={ctaHref}>{ctaLabel}</Button>}
