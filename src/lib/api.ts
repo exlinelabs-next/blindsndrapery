@@ -260,6 +260,12 @@ export async function fetchNav(): Promise<NavContent> {
     fetchGraphQL<{
       page: {
         megaMenuFields: {
+          image1: WPImage;
+          image2: WPImage;
+          image3: WPImage;
+          image4: WPImage;
+          image5: WPImage;
+          image6: WPImage;
           blogImage: WPImage;
           knowledgeBaseImage: WPImage;
           blogText: string;
@@ -273,6 +279,11 @@ export async function fetchNav(): Promise<NavContent> {
   const logoImg = img(logoData.page.headerFields.headerSiteLogo);
   const menuItems = navData.menuItems.nodes;
   const mm = megaMenuData.page.megaMenuFields;
+  // Editor-controlled images for the Services mega menu, one per category
+  // slot in menu order (image1 = 1st category, ... image6 = 6th) — a
+  // separate field group from each Service page's own featuredImage, same
+  // pattern as blogImage/knowledgeBaseImage for the Resources dropdown.
+  const megaMenuServiceImages = [mm.image1, mm.image2, mm.image3, mm.image4, mm.image5, mm.image6].map(img);
 
   const servicesItem = menuItems.find((m) => m.label === "Services");
   const otherLinks = menuItems
@@ -282,17 +293,23 @@ export async function fetchNav(): Promise<NavContent> {
       href: m.uri.replace(/\/$/, "") || "/",
     }));
 
-  const categories = (servicesItem?.childItems?.nodes ?? []).map((child) => {
+  const categories = (servicesItem?.childItems?.nodes ?? []).map((child, i) => {
+    const megaMenuImage = megaMenuServiceImages[i];
     const connectedImage = img(child.connectedNode?.node?.featuredImage);
     return {
       label: child.label,
       href: child.uri.replace(/\/$/, ""),
-      // Prefer the linked Service page's own featured image (whatever the
-      // backend team uploaded there) — fall back to a local asset only if
-      // WP genuinely has none, so a missing upload doesn't break the menu.
-      image: connectedImage.src
-        ? connectedImage
-        : { src: NAV_CATEGORY_IMAGE_BY_LABEL[child.label] ?? "/images/services/card-shades.webp", alt: child.label },
+      // Prefer the dedicated mega-menu image for this slot (image1-6, in
+      // menu order) — editors use these to control the mega menu's own
+      // thumbnail independently of whatever's set as the Service page's
+      // featuredImage. Fall back to that featuredImage, then a local asset,
+      // only if WP genuinely has neither, so a missing upload never breaks
+      // the menu.
+      image: megaMenuImage?.src
+        ? megaMenuImage
+        : connectedImage.src
+          ? connectedImage
+          : { src: NAV_CATEGORY_IMAGE_BY_LABEL[child.label] ?? "/images/services/card-shades.webp", alt: child.label },
       subItems: (child.childItems?.nodes ?? []).map((sub) => ({
         label: sub.label,
         href: sub.uri.replace(/\/$/, ""),
