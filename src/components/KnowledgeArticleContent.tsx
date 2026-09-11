@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { RichText } from "@/components/ui/RichText";
 import type {
   KnowledgeArticlePageContent,
   KnowledgeContentBlock,
@@ -15,9 +16,7 @@ function SectionBlock({
         {block.heading}
       </h2>
       <div className="mt-4 flex flex-col gap-[23px] text-[16px] leading-[23px] text-navy">
-        {block.paragraphs.map((p) => (
-          <p key={p.substring(0, 40)}>{p}</p>
-        ))}
+        <RichText paragraphs={block.paragraphs} />
       </div>
     </div>
   );

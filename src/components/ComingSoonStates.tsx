@@ -1,9 +1,10 @@
 import { MapPinHouse } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { ComingSoonStatesContent } from "@/types/content";
 
 export function ComingSoonStates({ content }: { content?: ComingSoonStatesContent }) {
-  const { eyebrow, headingPrefix, headingHighlight, description, badgeLabel, cards } = content ?? useContent("locationsPage").comingSoon;
+  const { eyebrow, headingSegments, description, badgeLabel, cards } = content ?? useContent("locationsPage").comingSoon;
 
   return (
     <section className="flex flex-col items-center gap-10 px-8 pb-14 md:px-12 md:pb-16 xl:px-20 xl:pb-[100px]">
@@ -14,10 +15,13 @@ export function ComingSoonStates({ content }: { content?: ComingSoonStatesConten
           </p>
         </div>
         <p className="w-full font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-navy">
-          {headingPrefix}
-          <span className="text-teal">{headingHighlight}</span>
+          {headingSegments.map((seg, i) => (
+            <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+              {seg.text}
+            </span>
+          ))}
         </p>
-        <p className="w-full text-[16px] leading-[23px] text-black">{description}</p>
+        <RichText paragraphs={description} className="w-full text-[16px] leading-[23px] text-black" />
       </div>
 
       <div className="flex w-full flex-col items-center justify-center gap-4 xl:flex-row">

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { ServiceHowItWorksContent } from "@/types/content";
 
 // How long to ignore further wheel/touch deltas after a step change, so
@@ -232,9 +233,7 @@ export function ServiceProcess({ content }: { content?: ServiceHowItWorksContent
             <span className="text-teal">{headingHighlight}</span>
             {headingSuffix}
           </h2>
-          <p className="w-full text-center text-[16px] leading-[23px] text-white">
-            {description}
-          </p>
+          <RichText paragraphs={description} className="w-full text-center text-[16px] leading-[23px] text-white" />
         </div>
 
         <div

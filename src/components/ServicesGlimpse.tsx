@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { ServicesGlimpseContent } from "@/types/content";
 
 export function ServicesGlimpse({ content }: { content?: ServicesGlimpseContent }) {
@@ -21,9 +22,7 @@ export function ServicesGlimpse({ content }: { content?: ServicesGlimpseContent 
               </span>
             ))}
           </h2>
-          <p className="w-full text-[16px] leading-[23px] text-black xl:w-[488px]">
-            {servicesSummary}
-          </p>
+          <RichText paragraphs={servicesSummary} className="w-full text-[16px] leading-[23px] text-black xl:w-[488px]" />
         </div>
       </div>
 

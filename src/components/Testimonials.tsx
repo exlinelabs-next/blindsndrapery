@@ -1,12 +1,11 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { TestimonialsContent } from "@/types/content";
-
-const FILLED_SLOTS = 3;
 
 export function Testimonials({ content }: { content?: TestimonialsContent }) {
   const mock = useContent("testimonials");
-  const { eyebrow, headingPrefix, headingHighlight, description } = content ?? mock;
+  const { eyebrow, headingSegments, description } = content ?? mock;
   const testimonials = content?.testimonials?.length ? content.testimonials : mock.testimonials;
 
   return (
@@ -20,20 +19,21 @@ export function Testimonials({ content }: { content?: TestimonialsContent }) {
           </div>
         )}
         <h2 className="w-full font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-navy">
-          {headingPrefix}
-          <span className="text-teal">{headingHighlight}</span>
+          {headingSegments.map((seg, i) => (
+            <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+              {seg.text}
+            </span>
+          ))}
         </h2>
-        <p className="w-full text-[16px] leading-[23px] text-black">{description}</p>
+        <RichText paragraphs={description} className="w-full text-[16px] leading-[23px] text-black" />
       </div>
 
       {testimonials.length > 0 && (
         <>
-          {/* Mobile/tablet: placeholder on top, horizontally scrollable cards below */}
+          {/* Mobile/tablet: horizontally scrollable cards */}
           <div className="flex w-full flex-col gap-6 xl:hidden">
-            <div className="h-[397px] w-full rounded-[8px] bg-[#DCE7E6]" />
             <div className="flex gap-6 overflow-x-auto">
-              {Array.from({ length: FILLED_SLOTS }, (_, i) => {
-                const testimonial = testimonials[i % testimonials.length];
+              {testimonials.map((testimonial, i) => {
                 return (
                   <div key={`mobile-${i}`} className="flex w-[326px] shrink-0 flex-col gap-2 md:w-[672px]">
                     <div className="flex w-full items-center justify-center rounded-[8px] bg-teal-hover p-6 md:h-[224px]">
@@ -67,11 +67,9 @@ export function Testimonials({ content }: { content?: TestimonialsContent }) {
             </div>
           </div>
 
-          {/* Desktop: 4-column row with alternating quote/author order */}
+          {/* Desktop: one column per testimonial, alternating quote/author order */}
           <div className="hidden w-full xl:flex xl:items-start xl:gap-4">
-            <div className="h-[422px] flex-1 rounded-lg bg-[#DCE7E6]" />
-            {Array.from({ length: FILLED_SLOTS }, (_, i) => {
-              const testimonial = testimonials[i % testimonials.length];
+            {testimonials.map((testimonial, i) => {
               const quoteOnTop = i % 2 === 0;
 
               const quoteBlock = (

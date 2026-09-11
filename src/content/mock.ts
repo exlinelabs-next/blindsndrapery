@@ -8,12 +8,11 @@ import type { PageContent, KnowledgeArticlePageContent, BlogArticlePageContent, 
 // pasted into all 12 service content keys below.
 export const serviceIntroPlaceholder: ServiceIntroContent = {
   eyebrow: 'about',
-  headingPrefix: 'Soft Light Control ',
-  headingHighlight: 'Without the Hardware',
+  headingSegments: [{ text: 'Soft Light Control ' }, { text: 'Without the', emphasis: true }, { text: ' Hardware' }],
   paragraphs: [
-    'A blind gives you a slat line and a shutter reads as architecture. A shade does neither, and that is the point. Fabric rolls or folds away and leaves the window essentially clear, which is why window shades Florida homes use tend to end up in rooms where the architecture or the view is doing the work.',
-    'The trade is that fabric has to be specified properly. Weight determines whether a shade holds a flat line across a wide span or waves in the air conditioning. Opacity determines whether a room is filtered or dark. Get either wrong and you notice daily.',
-    'We fit shades Broward County wide and out across the state, and the specification changes by elevation rather than by preference.',
+    [{ text: 'A blind gives you a slat line and a shutter reads as architecture. A shade does neither, and that is the point. Fabric rolls or folds away and leaves the window essentially clear, which is why window shades Florida homes use tend to end up in rooms where the architecture or the view is doing the work.' }],
+    [{ text: 'The trade is that fabric has to be specified properly. Weight determines whether a shade holds a flat line across a wide span or waves in the air conditioning. Opacity determines whether a room is filtered or dark. Get either wrong and you notice daily.' }],
+    [{ text: 'We fit shades Broward County wide and out across the state, and the specification changes by elevation rather than by preference.' }],
   ],
   image: {
     // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/services/ before then.
@@ -42,6 +41,7 @@ export const mockContent: PageContent = {
       href: '/',
     },
     servicesLabel: 'Services',
+    resourcesLabel: 'Resources',
     servicesDropdown: {
       // Order and per-category images confirmed via get_design_context on
       // 4311:2976 (desktop hover mega-menu) — only Shades has real distinct
@@ -119,12 +119,33 @@ export const mockContent: PageContent = {
         phoneLabel: 'Call Us: (800) XXX-XXXX',
       },
     },
+    // Fixed copy/images matching Figma's "Expanded Mega menu" (node
+    // 4902:3378) — Resources has no child menu items in WP, unlike Services.
+    resourcesDropdown: {
+      blogsCard: {
+        image: {
+          src: '/images/home/hero_image.webp',
+          alt: 'Living room with palm trees visible through floor-to-ceiling windows',
+        },
+        title: 'Blogs',
+        description: 'Explore our latest insights and expert tips on home care, design trends, and lifestyle enhancements. ',
+        href: '/resources',
+      },
+      knowledgeBaseCard: {
+        image: {
+          src: '/images/resources/knowledge-hero.webp',
+          alt: 'Poolside patio surrounded by tropical landscaping',
+        },
+        title: 'Knowledge Base',
+        description: 'Dive into detailed guides, how-tos, and expert advice to help you master home maintenance, design innovations, and everyday living improvements.',
+        href: '/knowledge-base',
+      },
+    },
     links: [
       { label: 'Commercial', href: '/commercial' },
       { label: 'Locations', href: '/locations' },
       { label: 'Gallery', href: '/gallery' },
       { label: 'About', href: '/about' },
-      { label: 'Resources', href: '/resources' },
     ],
     ctaLabel: 'Book Consultation',
     ctaHref: '#quote-form',
@@ -140,10 +161,9 @@ export const mockContent: PageContent = {
   },
   processIntro: {
     eyebrow: 'PROCESS INTRODUCTION',
-    headingPrefix: 'Free in home consultation, Precise measurement, ',
-    headingHighlight: 'Custom Fabrication. Professional Installation.',
+    headingSegments: [{ text: 'Free in home consultation, Precise measurement, ' }, { text: 'Custom Fabrication. Professional Installation.', emphasis: true }],
     description:
-      'Start with a digital estimate, followed by precise in-home measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.',
+      [[{ text: 'Start with a digital estimate, followed by precise in-home measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.' }]],
     video: {
       poster: {
         src: '/images/home/process-poster.jpg',
@@ -160,7 +180,7 @@ export const mockContent: PageContent = {
       { text: ' Window Blinds & Shades', emphasis: true },
     ],
     servicesSummary:
-      'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     ctaLabel: 'View Details',
     cards: [
       {
@@ -225,8 +245,8 @@ export const mockContent: PageContent = {
     headingHighlight: 'Interior Shutters',
     headingSuffix: ' for Any Space',
     paragraphs: [
-      'Elevate your home with our custom interior shutters, designed to fit any room perfectly. Crafted from premium materials, these shutters provide both style and functionality, enhancing your living space with timeless elegance.',
-      'Our expert team ensures precise measurements and flawless installation, delivering shutters that complement your décor and offer excellent light control and privacy. Discover the perfect shutters to transform your home today.',
+      [{ text: 'Elevate your home with our custom interior shutters, designed to fit any room perfectly. Crafted from premium materials, these shutters provide both style and functionality, enhancing your living space with timeless elegance.' }],
+      [{ text: 'Our expert team ensures precise measurements and flawless installation, delivering shutters that complement your décor and offer excellent light control and privacy. Discover the perfect shutters to transform your home today.' }],
     ],
     image: {
       // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/shutters/ before then.
@@ -237,10 +257,9 @@ export const mockContent: PageContent = {
   },
   howItWorks: {
     eyebrow: 'process',
-    headingPrefix: 'How We ',
-    headingHighlight: 'Work',
+    headingSegments: [{ text: 'How We ' }, { text: 'Work', emphasis: true }],
     description:
-      'Elevate your home with our custom interior shutters, designed to fit any room perfectly. Crafted from premium materials, these shutters provide both style and functionality, enhancing your living space with timeless elegance.',
+      [[{ text: 'Elevate your home with our custom interior shutters, designed to fit any room perfectly. Crafted from premium materials, these shutters provide both style and functionality, enhancing your living space with timeless elegance.' }]],
     steps: [
       {
         stepLabel: 'STEP 1',
@@ -272,45 +291,61 @@ export const mockContent: PageContent = {
   },
   testimonials: {
     eyebrow: 'Why Customers Choose Us',
-    headingPrefix: 'Trusted Experts, Proven ',
-    headingHighlight: 'Customer Satisfaction',
+    headingSegments: [{ text: 'Trusted Experts, Proven ' }, { text: 'Customer Satisfaction', emphasis: true }],
     description:
-      '“Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.”',
-    // Both cards carry identical placeholder copy in the design (same quote,
-    // same "Riya Shankar" / "South Florida" author) — kept as-is per the
-    // source rather than inventing variety. The marquee-loop duplicate card
-    // seen in the design (id 3308:5083) is intentionally not included here;
-    // Testimonials.tsx re-renders this array to build the seamless loop.
+      [[{ text: '“Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.”' }]],
+    // Four distinct real testimonials (matching the live `testimonials` CPT
+    // query), not the single placeholder repeated — confirmed via
+    // get_design_context on node 3309:2232, which shows four different
+    // quote/author pairs, alternating quote-on-top vs author-on-top per card.
     testimonials: [
       {
         quote:
-          'Exceptional service from start to finish! The team was professional, punctual, and the custom blinds they installed have transformed my living room. Highly recommend for anyone looking for quality and style.',
+          'Living in Miami, the sun is relentless — but since getting our window treatments installed, our home stays cool and our furniture is finally protected. The design consultation was so helpful, and the end result looks absolutely stunning.',
         authorName: 'Riya Shankar',
-        authorLocation: 'South Florida',
+        authorLocation: 'Miami',
         avatar: {
           // Figma temp asset URL expired (404) and was replaced with a local placeholder;
           // swap in the real exported portrait when available.
           src: '/images/home/testimonials/avatar-placeholder.png',
-          alt: 'Portrait of Riya Shankar, a South Florida customer',
+          alt: 'Portrait of Riya Shankar, a Miami customer',
         },
       },
       {
         quote:
-          'Exceptional service from start to finish! The team was professional, punctual, and the custom blinds they installed have transformed my living room. Highly recommend for anyone looking for quality and style.',
-        authorName: 'Riya Shankar',
-        authorLocation: 'South Florida',
+          'Exceptional service from start to finish! The team was punctual, professional, and the custom blinds they installed have beautifully transformed my living room. I highly recommend them for anyone seeking quality and style.',
+        authorName: 'Maria Gonzalez',
+        authorLocation: 'Miami, FL',
         avatar: {
-          // Figma temp asset URL expired (404) and was replaced with a local placeholder;
-          // swap in the real exported portrait when available.
           src: '/images/home/testimonials/avatar-placeholder.png',
-          alt: 'Portrait of Riya Shankar, a South Florida customer',
+          alt: 'Portrait of Maria Gonzalez, a Miami, FL customer',
+        },
+      },
+      {
+        quote:
+          "Outstanding experience from beginning to end! The crew arrived on time, worked with professionalism, and the custom blinds they installed have completely refreshed my living room's ambiance.",
+        authorName: 'James Williams',
+        authorLocation: 'Tampa, FL',
+        avatar: {
+          src: '/images/home/testimonials/avatar-placeholder.png',
+          alt: 'Portrait of James Williams, a Tampa, FL customer',
+        },
+      },
+      {
+        quote:
+          'After renovating our Naples beach house, the team recommended perfect motorized shutters. They block out the afternoon heat, and I can control them from my phone. Absolutely love them!',
+        authorName: 'Linda Chen',
+        authorLocation: 'Naples, FL',
+        avatar: {
+          src: '/images/home/testimonials/avatar-placeholder.png',
+          alt: 'Portrait of Linda Chen, a Naples, FL customer',
         },
       },
     ],
   },
   quoteGallery: {
     quote:
-      '“Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.”',
+      [[{ text: '“Every installer on our team is a full-time employee, never subcontracted. This ensures you receive consistent, top-tier craftsmanship along with a secure and professional installation experience in your home, backed by our commitment to quality and safety.”' }]],
     quoteIcon: {
       // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
       // nominal ~7 days, so export and commit to public/images/home/gallery/ soon.
@@ -348,7 +383,7 @@ export const mockContent: PageContent = {
     eyebrow: 'COMMERCIAL',
     heading: 'Commercial Window Treatments & Office Solutions',
     subheading: 'Need a solution for a commercial space?',
-    body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
+    body: [[{ text: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.' }]],
     ctaLabel: 'Browse our commercial solutions',
     ctaHref: '/commercial',
     image: {
@@ -364,12 +399,12 @@ export const mockContent: PageContent = {
     headingHighlight: 'Blind & Shade Repair',
     headingSuffix: ' Services',
     description:
-      'Our technical team provides professional repair services for all major brands and motorized systems. From cord replacements to motor recalibration, we ensure your window treatments operate with factory-level precision.',
+      [[{ text: 'Our technical team provides professional repair services for all major brands and motorized systems. From cord replacements to motor recalibration, we ensure your window treatments operate with factory-level precision.' }]],
   },
   locations: {
     eyebrow: 'LOCATIONS',
     heading: 'We bring everything to you',
-    description: 'Serving Broward County and South Florida with mobile showrooms.',
+    description: [[{ text: 'Serving Broward County and South Florida with mobile showrooms.' }]],
     cities: [
       {
         // TODO: temporary Figma asset URL — re-exported 2026-08-13, these can expire faster than the
@@ -395,7 +430,7 @@ export const mockContent: PageContent = {
     eyebrow: 'Quote form',
     heading: 'Get Your Free Digital Estimate',
     description:
-      'Complete the form below and one of our experts will provide a preliminary digital estimate for your project. No pressure, just professional data to help you plan.',
+      [[{ text: 'Complete the form below and one of our experts will provide a preliminary digital estimate for your project. No pressure, just professional data to help you plan.' }]],
     nameLabel: 'Name',
     namePlaceholder: 'John Doe',
     emailLabel: 'Email',
@@ -426,109 +461,109 @@ export const mockContent: PageContent = {
         category: 'Common Questions',
         question: 'How long does a custom installation take?',
         answer:
-          'Most custom blinds and shades installations are completed in a single visit, typically 2 to 4 hours depending on the number of windows.',
+          [[{ text: 'Most custom blinds and shades installations are completed in a single visit, typically 2 to 4 hours depending on the number of windows.' }]],
       },
       {
         category: 'Common Questions',
         question: 'Do you offer smart home integration for motorized shades?',
         answer:
-          'Yes, our motorized shades integrate with popular smart home systems like Google Home, Amazon Alexa, and Lutron for seamless voice and app control.',
+          [[{ text: 'Yes, our motorized shades integrate with popular smart home systems like Google Home, Amazon Alexa, and Lutron for seamless voice and app control.' }]],
       },
       {
         category: 'Common Questions',
         question: 'Are your shutters humidity resistant for Florida homes?',
         answer:
-          "Yes, our shutters are built with moisture-resistant materials specifically selected to withstand South Florida's humidity and coastal climate.",
+          [[{ text: "Yes, our shutters are built with moisture-resistant materials specifically selected to withstand South Florida's humidity and coastal climate." }]],
       },
       {
         category: 'Common Questions',
         question: 'Do you provide warranties on your products?',
         answer:
-          'Yes, all of our products are backed by manufacturer warranties, and our installation work is covered by our own workmanship guarantee.',
+          [[{ text: 'Yes, all of our products are backed by manufacturer warranties, and our installation work is covered by our own workmanship guarantee.' }]],
       },
       {
         category: 'Common Questions',
         question: 'Can you repair motorized blinds from other companies?',
         answer:
-          "Yes, our technicians repair and service motorized blinds and shades from most major manufacturers, not just the products we originally installed.",
+          [[{ text: "Yes, our technicians repair and service motorized blinds and shades from most major manufacturers, not just the products we originally installed." }]],
       },
       {
         category: 'Common Questions',
         question: 'What types of window coverings do you offer?',
         answer:
-          'We offer a full range including blinds, shades, shutters, drapery and curtains, and motorized smart home solutions, all custom-made to fit your windows perfectly.',
+          [[{ text: 'We offer a full range including blinds, shades, shutters, drapery and curtains, and motorized smart home solutions, all custom-made to fit your windows perfectly.' }]],
       },
       {
         category: 'Locations',
         question: 'Which areas in South Florida do you serve?',
         answer:
-          'We serve all of South Florida including Fort Lauderdale, Coral Springs, Deerfield Beach, Boca Raton, Pompano Beach, and surrounding Broward County communities.',
+          [[{ text: 'We serve all of South Florida including Fort Lauderdale, Coral Springs, Deerfield Beach, Boca Raton, Pompano Beach, and surrounding Broward County communities.' }]],
       },
       {
         category: 'Locations',
         question: 'Do you offer services outside of Broward County?',
         answer:
-          'Our primary service area is Broward County, but we also serve parts of Palm Beach and Miami-Dade counties. Contact us to confirm availability in your area.',
+          [[{ text: 'Our primary service area is Broward County, but we also serve parts of Palm Beach and Miami-Dade counties. Contact us to confirm availability in your area.' }]],
       },
       {
         category: 'Locations',
         question: 'Is there an additional charge for distant locations?',
         answer:
-          'There is no additional charge for locations within our standard service area. For locations outside our primary zone, a small travel fee may apply — we will let you know upfront.',
+          [[{ text: 'There is no additional charge for locations within our standard service area. For locations outside our primary zone, a small travel fee may apply — we will let you know upfront.' }]],
       },
       {
         category: 'Locations',
         question: 'Can I visit a showroom to see products in person?',
         answer:
-          'We operate primarily as an in-home consultation service, bringing samples directly to you so you can see how materials look in your own space with your lighting.',
+          [[{ text: 'We operate primarily as an in-home consultation service, bringing samples directly to you so you can see how materials look in your own space with your lighting.' }]],
       },
       {
         category: 'Our Process',
         question: 'What is the difference between a digital and in-home estimate?',
         answer:
-          'A digital estimate uses photos and measurements you provide for a quick online quote, while an in-home estimate has a professional measure your windows in person for guaranteed accuracy.',
+          [[{ text: 'A digital estimate uses photos and measurements you provide for a quick online quote, while an in-home estimate has a professional measure your windows in person for guaranteed accuracy.' }]],
       },
       {
         category: 'Our Process',
         question: 'How do I get started with a consultation?',
         answer:
-          'Simply fill out our online quote form or call us to schedule a free in-home consultation. Our specialist will visit your home with samples to help you choose the perfect window coverings.',
+          [[{ text: 'Simply fill out our online quote form or call us to schedule a free in-home consultation. Our specialist will visit your home with samples to help you choose the perfect window coverings.' }]],
       },
       {
         category: 'Our Process',
         question: 'How long does the entire process take from estimate to installation?',
         answer:
-          'The typical timeline from your initial consultation to completed installation is 2 to 4 weeks, depending on the product type and any custom manufacturing requirements.',
+          [[{ text: 'The typical timeline from your initial consultation to completed installation is 2 to 4 weeks, depending on the product type and any custom manufacturing requirements.' }]],
       },
       {
         category: 'Our Process',
         question: 'Do I need to be home during the installation?',
         answer:
-          'Yes, an adult (18+) must be present during installation to grant access, confirm placement preferences, and sign off on the completed work.',
+          [[{ text: 'Yes, an adult (18+) must be present during installation to grant access, confirm placement preferences, and sign off on the completed work.' }]],
       },
       {
         category: 'Timeline',
         question: 'How quickly can I get a digital estimate?',
         answer:
-          'Digital estimates are typically delivered within 24 hours of submitting your window measurements and product preferences through our online form.',
+          [[{ text: 'Digital estimates are typically delivered within 24 hours of submitting your window measurements and product preferences through our online form.' }]],
       },
       {
         category: 'Timeline',
         question: 'How long does manufacturing take for custom orders?',
         answer:
-          'Custom manufacturing typically takes 1 to 3 weeks depending on the product type, materials selected, and current production schedules.',
+          [[{ text: 'Custom manufacturing typically takes 1 to 3 weeks depending on the product type, materials selected, and current production schedules.' }]],
       },
       {
         category: 'Timeline',
         question: 'Can I expedite my order if I need it sooner?',
         answer:
-          'Rush options are available for select products at an additional cost. Let your consultant know your timeline and we will do our best to accommodate your needs.',
+          [[{ text: 'Rush options are available for select products at an additional cost. Let your consultant know your timeline and we will do our best to accommodate your needs.' }]],
       },
       {
         category: 'Timeline',
         question: 'What happens if my installation needs to be rescheduled?',
         answer:
-          'We understand schedules change. You can reschedule your installation with at least 48 hours notice at no additional charge by contacting our team.',
+          [[{ text: 'We understand schedules change. You can reschedule your installation with at least 48 hours notice at no additional charge by contacting our team.' }]],
       },
     ],
   },
@@ -625,7 +660,7 @@ export const mockContent: PageContent = {
       // copy) — kept as-is per the project's rule of preserving the
       // design's own content faithfully rather than silently rewriting it.
       description:
-        'Elevate your home with our custom interior shutters, designed to fit any room perfectly. Crafted from premium materials, these shutters provide both style and functionality, enhancing your living space with timeless elegance.',
+        [[{ text: 'Elevate your home with our custom interior shutters, designed to fit any room perfectly. Crafted from premium materials, these shutters provide both style and functionality, enhancing your living space with timeless elegance.' }]],
       // Note: all 4 steps share identical body copy in the Figma source
       // (a placeholder repeated verbatim, not a per-step description) —
       // same "preserve the design's own content" call as HowWeWork's
@@ -679,7 +714,7 @@ export const mockContent: PageContent = {
       headingHighlight: 'Shutters & Professional Window',
       headingSuffix: ' Treatments',
       paragraph:
-        "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance.",
+        [[{ text: "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance." }]],
       image: {
         src: '/images/services/about-shutters.webp',
         alt: 'Living room with white plantation shutters covering large windows',
@@ -745,9 +780,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -789,7 +823,7 @@ export const mockContent: PageContent = {
       // Verbatim match of `commercial.body` in the Figma source — kept
       // as-is rather than rewritten, same "preserve the design's own
       // content faithfully" rule as elsewhere in this file.
-      body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
+      body: [[{ text: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: {
@@ -816,7 +850,7 @@ export const mockContent: PageContent = {
       headingHighlight: 'Premium Shades',
       headingSuffix: ' for Every Room and Style',
       description:
-        'From light-filtering solar shades to blackout-ready cellular and roller options, find the right fit for every window in your South Florida home.',
+        [[{ text: 'From light-filtering solar shades to blackout-ready cellular and roller options, find the right fit for every window in your South Florida home.' }]],
       cards: [
         {
           image: { src: '/images/services/card-shades.webp', alt: 'Living room with solar shades filtering sunlight' },
@@ -888,9 +922,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -929,7 +962,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Arrange Your Consultation Appointment',
-      body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
+      body: [[{ text: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: {
@@ -968,9 +1001,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -987,7 +1019,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Arrange Your Consultation Appointment',
-      body: 'Ready for sleek, modern roller shades? Schedule a free in-home consultation and explore our fabric and color options.',
+      body: [[{ text: 'Ready for sleek, modern roller shades? Schedule a free in-home consultation and explore our fabric and color options.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: { src: '/images/services/card-shades.webp', alt: 'Room with modern roller shades' },
@@ -1023,9 +1055,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -1042,7 +1073,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Arrange Your Consultation Appointment',
-      body: 'Ready to reduce glare while keeping your view? Schedule a free consultation to explore our solar shade options.',
+      body: [[{ text: 'Ready to reduce glare while keeping your view? Schedule a free consultation to explore our solar shade options.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: { src: '/images/services/card-shades.webp', alt: 'Room with solar shades' },
@@ -1078,9 +1109,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -1097,7 +1127,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Arrange Your Consultation Appointment',
-      body: 'Ready to improve your home\'s energy efficiency? Schedule a free consultation to explore our cellular shade options.',
+      body: [[{ text: 'Ready to improve your home\'s energy efficiency? Schedule a free consultation to explore our cellular shade options.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: { src: '/images/services/card-shades.webp', alt: 'Room with cellular shades' },
@@ -1133,9 +1163,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -1152,7 +1181,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Arrange Your Consultation Appointment',
-      body: 'Ready for the elegance of custom roman shades? Schedule a free consultation to explore our fabric collections.',
+      body: [[{ text: 'Ready for the elegance of custom roman shades? Schedule a free consultation to explore our fabric collections.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: { src: '/images/services/card-shades.webp', alt: 'Room with roman shades' },
@@ -1188,9 +1217,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -1207,7 +1235,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Arrange Your Consultation Appointment',
-      body: 'Ready for versatile light control with modern style? Schedule a free consultation to explore our zebra shades.',
+      body: [[{ text: 'Ready for versatile light control with modern style? Schedule a free consultation to explore our zebra shades.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: { src: '/images/services/card-shades.webp', alt: 'Room with zebra shades' },
@@ -1243,9 +1271,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -1262,7 +1289,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Arrange Your Consultation Appointment',
-      body: 'Ready to bring natural warmth to your windows? Schedule a free consultation to explore our woven wood shade collection.',
+      body: [[{ text: 'Ready to bring natural warmth to your windows? Schedule a free consultation to explore our woven wood shade collection.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: { src: '/images/services/card-shades.webp', alt: 'Room with woven wood shades' },
@@ -1302,9 +1329,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -1321,7 +1347,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Arrange Your Consultation Appointment',
-      body: 'Ready to transform your windows with premium shutters? Schedule a free in-home consultation and let our experts help you choose the perfect style for your home.',
+      body: [[{ text: 'Ready to transform your windows with premium shutters? Schedule a free in-home consultation and let our experts help you choose the perfect style for your home.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: { src: '/images/services/card-shutters.webp', alt: 'Living room with elegant plantation shutters' },
@@ -1361,9 +1387,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -1380,7 +1405,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Arrange Your Consultation Appointment',
-      body: 'Ready to add elegance to your home with custom drapery? Schedule a free in-home consultation and explore our fabric collections.',
+      body: [[{ text: 'Ready to add elegance to your home with custom drapery? Schedule a free in-home consultation and explore our fabric collections.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: { src: '/images/services/card-drapery.webp', alt: 'Room with elegant custom curtains' },
@@ -1420,9 +1445,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -1439,7 +1463,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Arrange Your Consultation Appointment',
-      body: 'Ready to automate your window coverings? Schedule a free consultation to explore motorized and smart home solutions for your space.',
+      body: [[{ text: 'Ready to automate your window coverings? Schedule a free consultation to explore motorized and smart home solutions for your space.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: { src: '/images/services/card-motorized.webp', alt: 'Modern living room with motorized window coverings' },
@@ -1479,9 +1503,8 @@ export const mockContent: PageContent = {
     },
     howItWorksHeader: {
       eyebrow: 'PROCESS',
-      headingPrefix: 'How It ',
-      headingHighlight: 'Works',
-      subtitle: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+      headingSegments: [{ text: 'How It ' }, { text: 'Works', emphasis: true }],
+      subtitle: [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
     },
     timeline: {
       images: [
@@ -1498,7 +1521,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Schedule Your Repair Service',
-      body: 'Have a broken blind, stuck shade, or motorized system issue? Schedule a repair visit and our technicians will get your window coverings working like new.',
+      body: [[{ text: 'Have a broken blind, stuck shade, or motorized system issue? Schedule a repair visit and our technicians will get your window coverings working like new.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: { src: '/images/services/card-repairs.webp', alt: 'Technician servicing window coverings' },
@@ -1535,10 +1558,9 @@ export const mockContent: PageContent = {
     },
     places: {
       eyebrow: 'Commercial places',
-      headingPrefix: 'High-Volume Window Covering Supply for ',
-      headingHighlight: 'Offices, Hospitality & Healthcare',
+      headingSegments: [{ text: 'High-Volume Window Covering Supply for ' }, { text: 'Offices, Hospitality & Healthcare', emphasis: true }],
       description:
-        "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance.",
+        [[{ text: "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance." }]],
       // All 4 cards literally share the identical description string
       // "Custom Window Treatments for Office Buildings" in the Figma source
       // (confirmed via get_metadata on nodes 2227:1351 / 2227:1342 /
@@ -1578,7 +1600,7 @@ export const mockContent: PageContent = {
       // same "reused placeholder paragraph across sections" pattern seen
       // throughout this file (e.g. serviceBlinds.cta.body === commercial.body).
       description:
-        "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance.",
+        [[{ text: "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance." }]],
       images: [
         {
           // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/commercial/ before then.
@@ -1600,7 +1622,14 @@ export const mockContent: PageContent = {
     quoteForm: {
       eyebrow: 'commercial quote form',
       heading: 'Submit Your Commercial Bid Request',
-      description: 'Our commercial desk will review your scope and architectural requirements within 24 business hours.',
+      description: [
+        [
+          {
+            text: 'Send us the drawings and we will price the job properly. Office blinds installation Broward County and statewide projects can be quoted from a window schedule, an architectural drawing set, or a formal RFP document.',
+          },
+        ],
+        [{ text: 'Tell us the handover date if it is set. It changes the specification more than anything else on a commercial project.' }],
+      ],
       companyNameLabel: 'Company Name',
       companyNamePlaceholder: 'Company Name',
       contactNameLabel: 'Contact Name',
@@ -1638,8 +1667,7 @@ export const mockContent: PageContent = {
   galleryPage: {
     hero: {
       breadcrumb: 'HOME > gallery',
-      headingPrefix: 'Modern Window Coverings',
-      headingHighlight: ' Inspiration Gallery',
+      headingSegments: [{ text: 'Modern Window Coverings' }, { text: ' Inspiration Gallery', emphasis: true }],
       subheading:
         'Browse completed window treatment installations from South Florida homes and businesses. Copywriter to supply.',
     },
@@ -1749,7 +1777,7 @@ export const mockContent: PageContent = {
     cta: {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Get Your Free Estimate Today',
-      body: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.',
+      body: [[{ text: 'Need a solution for a commercial space? We provide heavy-duty, automated, and energy-efficient window coverings for offices, restaurants, and residential complexes across South Florida.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       image: {
@@ -1763,7 +1791,7 @@ export const mockContent: PageContent = {
     hero: {
       breadcrumb: 'HOME > locations hub',
       heading: 'Window Treatment Services Across Florida',
-      subheading: ['Serving Broward County and South Florida — expanding to additional states soon.'],
+      subheading: [[{ text: 'Serving Broward County and South Florida — expanding to additional states soon.' }]],
     },
     // Redesigned 2026-09-09 — see the comment on LocationCountySection in
     // src/types/content.ts for why this is hardcoded rather than pulled
@@ -1831,10 +1859,9 @@ export const mockContent: PageContent = {
     ],
     comingSoon: {
       eyebrow: 'EXPANDING',
-      headingPrefix: 'Coming Soon — ',
-      headingHighlight: 'Future States',
+      headingSegments: [{ text: 'Coming Soon — ' }, { text: 'Future States', emphasis: true }],
       description:
-        'Expanding our expert window treatment services to Texas, California and much more. Stay tuned for updates on new locations and offerings coming your way soon.',
+        [[{ text: 'Expanding our expert window treatment services to Texas, California and much more. Stay tuned for updates on new locations and offerings coming your way soon.' }]],
       badgeLabel: 'COMING SOON',
       // All 3 cards share the identical description string in the Figma
       // source itself (confirmed via get_design_context on nodes 2280:379 /
@@ -1873,18 +1900,17 @@ export const mockContent: PageContent = {
       },
     },
     mission: {
-      headingPrefix: 'Scalable Blinds and Shades for ',
-      headingHighlight: 'Homes & Commercial Spaces',
+      headingSegments: [{ text: 'Scalable Blinds and Shades for ' }, { text: 'Homes & Commercial Spaces', emphasis: true }],
       paragraphs: [
-        'Blindsndrapery.com delivers comprehensive window covering solutions tailored for both single-family residences and large-scale commercial properties.',
-        'Our integrated platform supports across diverse project sizes, ensuring consistent quality and service whether outfitting a single room or an entire multi-unit complex.',
+        [{ text: 'Blindsndrapery.com delivers comprehensive window covering solutions tailored for both single-family residences and large-scale commercial properties.' }],
+        [{ text: 'Our integrated platform supports across diverse project sizes, ensuring consistent quality and service whether outfitting a single room or an entire multi-unit complex.' }],
       ],
     },
     installation: {
       eyebrow: 'INSTALLATION',
       heading: 'Direct-to-Consumer Quoting & Statewide Installation',
       description:
-        'Skip the traditional sales process with our direct-to-consumer quoting model. Get an exact estimate online instantly, then rely on our Florida-verified professional installers—no subcontractors involved. This means consistent quality, direct accountability, and seamless service from measurement to installation, all backed by local teams in key Broward County locations.',
+        [[{ text: 'Skip the traditional sales process with our direct-to-consumer quoting model. Get an exact estimate online instantly, then rely on our Florida-verified professional installers—no subcontractors involved. This means consistent quality, direct accountability, and seamless service from measurement to installation, all backed by local teams in key Broward County locations.' }]],
       features: [
         {
           icon: {
@@ -1987,7 +2013,7 @@ export const mockContent: PageContent = {
   resourcesPage: {
     heading: 'Window Treatment Tips & Industry Insights',
     description:
-      'Explore expert installation tips, detailed product comparisons, and the latest Florida home decor trends. Stay informed on smart home integration and get practical advice for commercial window treatments to enhance your space.',
+      [[{ text: 'Explore expert installation tips, detailed product comparisons, and the latest Florida home decor trends. Stay informed on smart home integration and get practical advice for commercial window treatments to enhance your space.' }]],
     featured: {
       badge: 'Featured',
       category: 'Blog',
@@ -2030,7 +2056,7 @@ export const mockContent: PageContent = {
   },
   knowledgeBasePage: {
     heading: 'Window Treatment Knowledge Base',
-    subtitle: 'Expert answers to common window treatment questions.',
+    subtitle: [[{ text: 'Expert answers to common window treatment questions.' }]],
     articles: [
       {
         category: 'Maintenance Tips',
@@ -2097,10 +2123,10 @@ export const mockContent: PageContent = {
       {
         type: 'intro',
         paragraphs: [
-          'Florida sunshine is one of the reasons people love living in the state. Bright natural light can make a home feel warm, spacious, and welcoming. However, constant exposure to intense sunlight can also cause gradual UV damage to your home\'s interiors.',
-          'Over time, UV rays can contribute to fading furniture, flooring, rugs, artwork, and fabrics. Direct sunlight can also create uncomfortable glare and increase indoor heat, making your air-conditioning system work harder.',
-          'Fortunately, protecting your home does not mean blocking out natural light completely. With the right window treatments and a few practical strategies, you can enjoy the sunshine while helping protect your interiors.',
-          'Here are five effective ways to protect your Florida home from UV damage.',
+          [{ text: 'Florida sunshine is one of the reasons people love living in the state. Bright natural light can make a home feel warm, spacious, and welcoming. However, constant exposure to intense sunlight can also cause gradual UV damage to your home\'s interiors.' }],
+          [{ text: 'Over time, UV rays can contribute to fading furniture, flooring, rugs, artwork, and fabrics. Direct sunlight can also create uncomfortable glare and increase indoor heat, making your air-conditioning system work harder.' }],
+          [{ text: 'Fortunately, protecting your home does not mean blocking out natural light completely. With the right window treatments and a few practical strategies, you can enjoy the sunshine while helping protect your interiors.' }],
+          [{ text: 'Here are five effective ways to protect your Florida home from UV damage.' }],
         ],
         image: {
           src: 'https://www.figma.com/api/mcp/asset/40d5295f-1f60-416e-be2f-27a6f3777832.png',
@@ -2114,9 +2140,9 @@ export const mockContent: PageContent = {
       {
         type: 'text',
         paragraphs: [
-          'Your windows are one of the primary ways sunlight enters your home. Large windows, sliding glass doors, and floor-to-ceiling glass can expose interiors to significant amounts of sunlight throughout the day.',
-          'UV-blocking window treatments can help reduce the amount of harmful sunlight reaching your interior spaces. Depending on the fabric and design, blinds and shades can filter sunlight while still allowing comfortable levels of natural light into your home.',
-          'This protection is particularly valuable for rooms containing expensive furniture, hardwood flooring, artwork, or delicate fabrics. When choosing window treatments, consider the direction your windows face. South- and west-facing windows may receive stronger sunlight during certain parts of the day and could benefit from additional solar protection.',
+          [{ text: 'Your windows are one of the primary ways sunlight enters your home. Large windows, sliding glass doors, and floor-to-ceiling glass can expose interiors to significant amounts of sunlight throughout the day.' }],
+          [{ text: 'UV-blocking window treatments can help reduce the amount of harmful sunlight reaching your interior spaces. Depending on the fabric and design, blinds and shades can filter sunlight while still allowing comfortable levels of natural light into your home.' }],
+          [{ text: 'This protection is particularly valuable for rooms containing expensive furniture, hardwood flooring, artwork, or delicate fabrics. When choosing window treatments, consider the direction your windows face. South- and west-facing windows may receive stronger sunlight during certain parts of the day and could benefit from additional solar protection.' }],
         ],
       },
       {
@@ -2137,9 +2163,9 @@ export const mockContent: PageContent = {
       {
         type: 'text',
         paragraphs: [
-          'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.',
-          'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.',
-          'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring',
+          [{ text: 'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.' }],
+          [{ text: 'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.' }],
+          [{ text: 'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring' }],
         ],
       },
       {
@@ -2163,27 +2189,27 @@ export const mockContent: PageContent = {
         type: 'section',
         heading: '1. Install UV-Blocking Window Treatments',
         paragraphs: [
-          'Your windows are one of the primary ways sunlight enters your home. Large windows, sliding glass doors, and floor-to-ceiling glass can expose interiors to significant amounts of sunlight throughout the day.',
-          'UV-blocking window treatments can help reduce the amount of harmful sunlight reaching your interior spaces. Depending on the fabric and design, blinds and shades can filter sunlight while still allowing comfortable levels of natural light into your home.',
-          'This protection is particularly valuable for rooms containing expensive furniture, hardwood flooring, artwork, or delicate fabrics. When choosing window treatments, consider the direction your windows face. South- and west-facing windows may receive stronger sunlight during certain parts of the day and could benefit from additional solar protection.',
+          [{ text: 'Your windows are one of the primary ways sunlight enters your home. Large windows, sliding glass doors, and floor-to-ceiling glass can expose interiors to significant amounts of sunlight throughout the day.' }],
+          [{ text: 'UV-blocking window treatments can help reduce the amount of harmful sunlight reaching your interior spaces. Depending on the fabric and design, blinds and shades can filter sunlight while still allowing comfortable levels of natural light into your home.' }],
+          [{ text: 'This protection is particularly valuable for rooms containing expensive furniture, hardwood flooring, artwork, or delicate fabrics. When choosing window treatments, consider the direction your windows face. South- and west-facing windows may receive stronger sunlight during certain parts of the day and could benefit from additional solar protection.' }],
         ],
       },
       {
         type: 'section',
         heading: '2. Protect Furniture, Flooring, and Décor',
         paragraphs: [
-          'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.',
-          'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.',
-          'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring',
+          [{ text: 'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.' }],
+          [{ text: 'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.' }],
+          [{ text: 'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring' }],
         ],
       },
       {
         type: 'section',
         heading: '3. Consider Window Films and Coatings',
         paragraphs: [
-          'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.',
-          'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.',
-          'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring',
+          [{ text: 'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.' }],
+          [{ text: 'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.' }],
+          [{ text: 'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring' }],
         ],
       },
       {
@@ -2198,9 +2224,9 @@ export const mockContent: PageContent = {
         type: 'section',
         heading: '4. Create a Comprehensive Protection Plan',
         paragraphs: [
-          'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.',
-          'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.',
-          'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring',
+          [{ text: 'UV damage often happens slowly, making it easy to overlook until the effects become noticeable. A sofa positioned near a sunny window may gradually fade. Hardwood flooring can develop uneven coloration when one area receives more sunlight than another. Rugs, curtains, artwork, and photographs can also lose their original appearance after prolonged exposure.' }],
+          [{ text: 'Protecting your interior furnishings from direct sunlight can help preserve their appearance and extend their lifespan. One simple approach is to rearrange particularly sensitive items away from direct sunlight. However, furniture placement isn\'t always practical, especially in smaller rooms or homes with large windows.' }],
+          [{ text: 'This is where adjustable window treatments become especially useful. Shades and blinds allow you to control sunlight during the brightest parts of the day without permanently changing your room layout. For homeowners who have invested in premium furniture, flooring' }],
         ],
       },
     ],
@@ -2226,7 +2252,7 @@ export const mockContent: PageContent = {
         { text: 'Window Blinds, Shades & Drapery', emphasis: true },
       ],
       summary:
-        'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+        [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
       cards: [
         {
           image: { src: '/images/city/service-blinds.webp', alt: 'Modern window blinds in a bright living space' },
@@ -2270,7 +2296,7 @@ export const mockContent: PageContent = {
       eyebrow: 'BOOK CONSULTATION',
       heading: 'Schedule Your Consultation',
       description:
-        'Complete the form below and one of our experts will provide a preliminary estimate for your project. No pressure, just professional data to help you plan.',
+        [[{ text: 'Complete the form below and one of our experts will provide a preliminary estimate for your project. No pressure, just professional data to help you plan.' }]],
       ctaLabel: 'Send my estimate request',
     },
   },
@@ -2282,10 +2308,9 @@ export const mockContent: PageContent = {
     },
     process: {
       eyebrow: 'PROCESS',
-      headingPrefix: "Here's How ",
-      headingHighlight: 'It Works',
+      headingSegments: [{ text: "Here's How " }, { text: 'It Works', emphasis: true }],
       subtitle:
-        'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance',
+        [[{ text: 'Blinds · Shades · Drapery & Curtains · Shutters · Motorized Systems & Smart Home Integration · Repairs & Maintenance' }]],
       steps: [
         {
           number: '01',
@@ -2321,10 +2346,9 @@ export const mockContent: PageContent = {
     },
     processIntro: {
       eyebrow: 'PROCESS INTRODUCTION',
-      headingPrefix: 'In-home measurement, installation, or ',
-      headingHighlight: 'digital process. Autoplay muted.',
+      headingSegments: [{ text: 'In-home measurement, installation, or ' }, { text: 'digital process. Autoplay muted.', emphasis: true }],
       description:
-        'Start with a digital estimate, followed by precise in-home measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.',
+        [[{ text: 'Start with a digital estimate, followed by precise in-home measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.' }]],
       image: {
         src: '/images/free-quote/process-intro.webp',
         alt: 'Technician adjusting white venetian blinds by a sunlit window',
@@ -2332,9 +2356,8 @@ export const mockContent: PageContent = {
     },
     form: {
       eyebrow: 'Quote form',
-      headingPrefix: 'Request Your ',
-      headingHighlight: 'Estimate Quickly',
-      subtitle: 'Fill out the form below and our team will contact you within 24 hours',
+      headingSegments: [{ text: 'Request Your ' }, { text: 'Estimate Quickly', emphasis: true }],
+      subtitle: [[{ text: 'Fill out the form below and our team will contact you within 24 hours' }]],
       nameLabel: 'Name',
       namePlaceholder: 'John Doe',
       emailLabel: 'Email',
@@ -2364,11 +2387,11 @@ export const mockContent: PageContent = {
   legalPage: {
     heading: 'Privacy Policy / Terms & Conditions',
     paragraphs: [
-      'Welcome to the Blinds & Drapery Privacy Policy and Terms of Service. This document details the conditions for using our expert window treatment solutions, including bespoke blinds, stylish drapery, expert installation, and reliable maintenance. By choosing our services, you agree to adhere to all relevant laws and regulations governing our industry and your use of our products.',
-      'At Blinds & Drapery, your privacy is paramount. We gather only the essential information needed to provide and improve our offerings, such as your contact information, design preferences, and payment details. All personal data is stored securely with state-of-the-art encryption and protection protocols.',
-      'We do not share your personal information with third parties except when necessary to process your orders, comply with legal obligations, or protect our rights. We are dedicated to openness and will notify you promptly of any changes to this policy or any data-related incidents.',
-      'By continuing to use Blinds & Drapery services, you accept the terms outlined here. We recommend reviewing this policy regularly to stay updated on how we safeguard your privacy and rights. For any questions or concerns, our customer support team is ready to assist you.',
-      'Thank you for trusting Blinds & Drapery to bring elegance and privacy to your home.',
+      [{ text: 'Welcome to the Blinds & Drapery Privacy Policy and Terms of Service. This document details the conditions for using our expert window treatment solutions, including bespoke blinds, stylish drapery, expert installation, and reliable maintenance. By choosing our services, you agree to adhere to all relevant laws and regulations governing our industry and your use of our products.' }],
+      [{ text: 'At Blinds & Drapery, your privacy is paramount. We gather only the essential information needed to provide and improve our offerings, such as your contact information, design preferences, and payment details. All personal data is stored securely with state-of-the-art encryption and protection protocols.' }],
+      [{ text: 'We do not share your personal information with third parties except when necessary to process your orders, comply with legal obligations, or protect our rights. We are dedicated to openness and will notify you promptly of any changes to this policy or any data-related incidents.' }],
+      [{ text: 'By continuing to use Blinds & Drapery services, you accept the terms outlined here. We recommend reviewing this policy regularly to stay updated on how we safeguard your privacy and rights. For any questions or concerns, our customer support team is ready to assist you.' }],
+      [{ text: 'Thank you for trusting Blinds & Drapery to bring elegance and privacy to your home.' }],
     ],
   },
 };
@@ -2389,27 +2412,27 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '1. Establish a Regular Dusting Routine',
         paragraphs: [
-          'Dust is one of the most common enemies of window treatments. In Florida\'s humid climate, dust can combine with moisture and create stubborn residue that becomes increasingly difficult to remove over time.',
-          'For blinds and shutters, use a microfiber cloth or a specialized blind duster to wipe each slat individually. Work from top to bottom to prevent redistributing dust onto already-cleaned surfaces. For fabric shades and drapes, a vacuum with a soft brush attachment works best.',
-          'Aim to dust your window treatments at least once every two weeks. High-traffic rooms or homes near the coast may benefit from weekly attention due to increased dust and salt air exposure.',
+          [{ text: 'Dust is one of the most common enemies of window treatments. In Florida\'s humid climate, dust can combine with moisture and create stubborn residue that becomes increasingly difficult to remove over time.' }],
+          [{ text: 'For blinds and shutters, use a microfiber cloth or a specialized blind duster to wipe each slat individually. Work from top to bottom to prevent redistributing dust onto already-cleaned surfaces. For fabric shades and drapes, a vacuum with a soft brush attachment works best.' }],
+          [{ text: 'Aim to dust your window treatments at least once every two weeks. High-traffic rooms or homes near the coast may benefit from weekly attention due to increased dust and salt air exposure.' }],
         ],
       },
       {
         type: 'section',
         heading: '2. Seasonal Deep Cleaning',
         paragraphs: [
-          'Beyond regular dusting, schedule a thorough deep cleaning at least twice a year — ideally at the start of Florida\'s dry season and again before the humid summer months arrive.',
-          'For aluminum and faux wood blinds, you can remove them and soak in a bathtub with mild soap. Real wood blinds should never be soaked — instead, use a damp cloth with wood-safe cleaner. Fabric treatments may benefit from professional cleaning, especially if they\'ve absorbed cooking odors or pet dander.',
-          'Deep cleaning not only improves appearance but also extends the functional lifespan of your window treatments by preventing material degradation from built-up grime.',
+          [{ text: 'Beyond regular dusting, schedule a thorough deep cleaning at least twice a year — ideally at the start of Florida\'s dry season and again before the humid summer months arrive.' }],
+          [{ text: 'For aluminum and faux wood blinds, you can remove them and soak in a bathtub with mild soap. Real wood blinds should never be soaked — instead, use a damp cloth with wood-safe cleaner. Fabric treatments may benefit from professional cleaning, especially if they\'ve absorbed cooking odors or pet dander.' }],
+          [{ text: 'Deep cleaning not only improves appearance but also extends the functional lifespan of your window treatments by preventing material degradation from built-up grime.' }],
         ],
       },
       {
         type: 'section',
         heading: '3. Inspect Hardware and Mechanisms',
         paragraphs: [
-          'Window treatment hardware — brackets, cords, chains, and motorized components — needs periodic inspection to ensure smooth operation. A stuck cord or misaligned bracket can cause uneven wear on your blinds or shades.',
-          'Check that all mounting brackets are secure and that the treatments hang level. For corded systems, inspect for fraying or tangling. Motorized systems should have their batteries replaced or recharged according to manufacturer guidelines.',
-          'Addressing small mechanical issues early prevents costly replacements down the line and keeps your window treatments operating safely.',
+          [{ text: 'Window treatment hardware — brackets, cords, chains, and motorized components — needs periodic inspection to ensure smooth operation. A stuck cord or misaligned bracket can cause uneven wear on your blinds or shades.' }],
+          [{ text: 'Check that all mounting brackets are secure and that the treatments hang level. For corded systems, inspect for fraying or tangling. Motorized systems should have their batteries replaced or recharged according to manufacturer guidelines.' }],
+          [{ text: 'Addressing small mechanical issues early prevents costly replacements down the line and keeps your window treatments operating safely.' }],
         ],
       },
       {
@@ -2424,9 +2447,9 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '4. Protect Against Humidity and Mold',
         paragraphs: [
-          'Florida\'s humidity presents a unique challenge for window treatment maintenance. Excess moisture can lead to mold growth, fabric discoloration, and warping of wood components.',
-          'Ensure adequate ventilation in rooms with fabric window treatments. In bathrooms and kitchens, consider moisture-resistant materials like faux wood or aluminum. If you notice any signs of mold, address it immediately with a mild bleach solution for hard surfaces or professional cleaning for fabrics.',
-          'Running a dehumidifier during the wettest months can significantly reduce moisture-related damage across all your window treatments.',
+          [{ text: 'Florida\'s humidity presents a unique challenge for window treatment maintenance. Excess moisture can lead to mold growth, fabric discoloration, and warping of wood components.' }],
+          [{ text: 'Ensure adequate ventilation in rooms with fabric window treatments. In bathrooms and kitchens, consider moisture-resistant materials like faux wood or aluminum. If you notice any signs of mold, address it immediately with a mild bleach solution for hard surfaces or professional cleaning for fabrics.' }],
+          [{ text: 'Running a dehumidifier during the wettest months can significantly reduce moisture-related damage across all your window treatments.' }],
         ],
       },
     ],
@@ -2446,27 +2469,27 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '1. Understanding Different Material Needs',
         paragraphs: [
-          'Not all window treatments should be cleaned the same way. The material of your blinds or shades determines the best cleaning approach, and using the wrong method can cause permanent damage.',
-          'Wood blinds are sensitive to moisture and should only be cleaned with a dry or slightly damp cloth. Faux wood and vinyl can handle more moisture, making them ideal for kitchens and bathrooms. Aluminum blinds are the most durable and can even be soaked in water for deep cleaning.',
-          'Fabric shades require the gentlest approach — spot cleaning with appropriate fabric cleaners is usually safest. Always test any cleaning solution on a small, inconspicuous area first.',
+          [{ text: 'Not all window treatments should be cleaned the same way. The material of your blinds or shades determines the best cleaning approach, and using the wrong method can cause permanent damage.' }],
+          [{ text: 'Wood blinds are sensitive to moisture and should only be cleaned with a dry or slightly damp cloth. Faux wood and vinyl can handle more moisture, making them ideal for kitchens and bathrooms. Aluminum blinds are the most durable and can even be soaked in water for deep cleaning.' }],
+          [{ text: 'Fabric shades require the gentlest approach — spot cleaning with appropriate fabric cleaners is usually safest. Always test any cleaning solution on a small, inconspicuous area first.' }],
         ],
       },
       {
         type: 'section',
         heading: '2. Daily and Weekly Maintenance',
         paragraphs: [
-          'The key to keeping blinds and shades looking their best is consistent, light maintenance rather than infrequent heavy cleaning sessions.',
-          'Daily, close your blinds fully and give them a quick once-over with a feather duster or dry microfiber cloth. Weekly, use a vacuum with a brush attachment on fabric shades, running it gently along each fold or pleat.',
-          'For horizontal blinds, close them in one direction, dust, then reverse and dust again to reach both sides of each slat. This simple routine prevents dust buildup that leads to more intensive cleaning needs.',
+          [{ text: 'The key to keeping blinds and shades looking their best is consistent, light maintenance rather than infrequent heavy cleaning sessions.' }],
+          [{ text: 'Daily, close your blinds fully and give them a quick once-over with a feather duster or dry microfiber cloth. Weekly, use a vacuum with a brush attachment on fabric shades, running it gently along each fold or pleat.' }],
+          [{ text: 'For horizontal blinds, close them in one direction, dust, then reverse and dust again to reach both sides of each slat. This simple routine prevents dust buildup that leads to more intensive cleaning needs.' }],
         ],
       },
       {
         type: 'section',
         heading: '3. Deep Cleaning Techniques',
         paragraphs: [
-          'When regular dusting is no longer enough, it\'s time for a deeper clean. Remove blinds from their brackets and lay them flat on a clean surface or hang them on a clothesline outdoors.',
-          'For non-fabric treatments, fill a bathtub or large basin with warm water and a few drops of mild dish soap. Submerge the blinds and let them soak for 15-20 minutes. Use a soft sponge to gently scrub each slat, paying extra attention to the bottom slats that collect the most grime.',
-          'Rinse thoroughly with clean water and allow to dry completely before rehanging. Never rehang damp blinds, as trapped moisture can promote mold growth — especially important in Florida\'s humid environment.',
+          [{ text: 'When regular dusting is no longer enough, it\'s time for a deeper clean. Remove blinds from their brackets and lay them flat on a clean surface or hang them on a clothesline outdoors.' }],
+          [{ text: 'For non-fabric treatments, fill a bathtub or large basin with warm water and a few drops of mild dish soap. Submerge the blinds and let them soak for 15-20 minutes. Use a soft sponge to gently scrub each slat, paying extra attention to the bottom slats that collect the most grime.' }],
+          [{ text: 'Rinse thoroughly with clean water and allow to dry completely before rehanging. Never rehang damp blinds, as trapped moisture can promote mold growth — especially important in Florida\'s humid environment.' }],
         ],
       },
       {
@@ -2481,9 +2504,9 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '4. When to Call a Professional',
         paragraphs: [
-          'Some cleaning jobs are best left to professionals. Delicate fabrics, motorized systems with integrated components, and heavily soiled treatments may require specialized equipment and expertise.',
-          'Professional cleaning services use ultrasonic cleaning technology that can remove deep-set dirt without the agitation that damages delicate materials. They can also treat stains, apply UV protectants, and identify early signs of wear.',
-          'As a rule of thumb, if your window treatments haven\'t been cleaned in over a year, or if you notice persistent odors or visible staining, a professional cleaning is a worthwhile investment.',
+          [{ text: 'Some cleaning jobs are best left to professionals. Delicate fabrics, motorized systems with integrated components, and heavily soiled treatments may require specialized equipment and expertise.' }],
+          [{ text: 'Professional cleaning services use ultrasonic cleaning technology that can remove deep-set dirt without the agitation that damages delicate materials. They can also treat stains, apply UV protectants, and identify early signs of wear.' }],
+          [{ text: 'As a rule of thumb, if your window treatments haven\'t been cleaned in over a year, or if you notice persistent odors or visible staining, a professional cleaning is a worthwhile investment.' }],
         ],
       },
     ],
@@ -2503,27 +2526,27 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '1. Assess Your Room\'s Primary Function',
         paragraphs: [
-          'The purpose of each room should drive your blind selection. A bedroom prioritizes blackout capability and privacy, while a living room may favor filtered natural light and aesthetic appeal.',
-          'Kitchens and bathrooms need moisture-resistant materials that can handle steam and splashes. Home offices benefit from blinds that reduce glare on screens while maintaining comfortable ambient light levels.',
-          'Consider how you use the room throughout the day. A south-facing family room might need adjustable blinds that can handle intense afternoon sun, while a north-facing study may need treatments that maximize the softer light available.',
+          [{ text: 'The purpose of each room should drive your blind selection. A bedroom prioritizes blackout capability and privacy, while a living room may favor filtered natural light and aesthetic appeal.' }],
+          [{ text: 'Kitchens and bathrooms need moisture-resistant materials that can handle steam and splashes. Home offices benefit from blinds that reduce glare on screens while maintaining comfortable ambient light levels.' }],
+          [{ text: 'Consider how you use the room throughout the day. A south-facing family room might need adjustable blinds that can handle intense afternoon sun, while a north-facing study may need treatments that maximize the softer light available.' }],
         ],
       },
       {
         type: 'section',
         heading: '2. Material Matters',
         paragraphs: [
-          'Your choice of material affects durability, maintenance, appearance, and cost. Real wood blinds offer warmth and natural beauty but are susceptible to humidity damage — a critical consideration in Florida.',
-          'Faux wood provides a similar aesthetic with significantly better moisture resistance, making it the most popular choice for Florida homes. Aluminum blinds are lightweight, affordable, and ideal for contemporary spaces or high-humidity areas.',
-          'Fabric blinds and cellular shades offer excellent insulation and a soft, elegant look. They\'re particularly effective at reducing energy costs by creating an insulating air pocket between the window and the room.',
+          [{ text: 'Your choice of material affects durability, maintenance, appearance, and cost. Real wood blinds offer warmth and natural beauty but are susceptible to humidity damage — a critical consideration in Florida.' }],
+          [{ text: 'Faux wood provides a similar aesthetic with significantly better moisture resistance, making it the most popular choice for Florida homes. Aluminum blinds are lightweight, affordable, and ideal for contemporary spaces or high-humidity areas.' }],
+          [{ text: 'Fabric blinds and cellular shades offer excellent insulation and a soft, elegant look. They\'re particularly effective at reducing energy costs by creating an insulating air pocket between the window and the room.' }],
         ],
       },
       {
         type: 'section',
         heading: '3. Sizing and Mounting Options',
         paragraphs: [
-          'Proper sizing is crucial for both appearance and function. Inside-mount blinds fit within the window frame for a clean, built-in look, while outside-mount blinds cover the entire frame and can make windows appear larger.',
-          'Measure each window individually — even windows that appear identical can vary by fractions of an inch, which matters for inside mounts. Width should be measured at the top, middle, and bottom; use the narrowest measurement.',
-          'For depth, check that your window frame is deep enough for an inside mount. Most blinds need at least 2-3 inches of depth. If your frames are too shallow, outside mount is the better option.',
+          [{ text: 'Proper sizing is crucial for both appearance and function. Inside-mount blinds fit within the window frame for a clean, built-in look, while outside-mount blinds cover the entire frame and can make windows appear larger.' }],
+          [{ text: 'Measure each window individually — even windows that appear identical can vary by fractions of an inch, which matters for inside mounts. Width should be measured at the top, middle, and bottom; use the narrowest measurement.' }],
+          [{ text: 'For depth, check that your window frame is deep enough for an inside mount. Most blinds need at least 2-3 inches of depth. If your frames are too shallow, outside mount is the better option.' }],
         ],
       },
       {
@@ -2538,9 +2561,9 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '4. Light Control and Privacy Features',
         paragraphs: [
-          'Different blind types offer varying degrees of light control. Venetian blinds allow precise angle adjustment for filtering light throughout the day. Roller shades come in light-filtering and blackout varieties.',
-          'For maximum versatility, consider top-down/bottom-up shades that let you adjust coverage from either direction — allowing natural light from above while maintaining privacy at eye level.',
-          'Layering treatments (such as sheer shades behind drapes) gives you the most flexibility, letting you shift between full light, filtered light, and complete privacy without compromising on style.',
+          [{ text: 'Different blind types offer varying degrees of light control. Venetian blinds allow precise angle adjustment for filtering light throughout the day. Roller shades come in light-filtering and blackout varieties.' }],
+          [{ text: 'For maximum versatility, consider top-down/bottom-up shades that let you adjust coverage from either direction — allowing natural light from above while maintaining privacy at eye level.' }],
+          [{ text: 'Layering treatments (such as sheer shades behind drapes) gives you the most flexibility, letting you shift between full light, filtered light, and complete privacy without compromising on style.' }],
         ],
       },
     ],
@@ -2560,27 +2583,27 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '1. Choose Humidity-Resistant Fabrics',
         paragraphs: [
-          'Prevention starts with selection. In Florida\'s subtropical climate, not all fabrics perform equally. Synthetic materials like polyester and acrylic resist moisture absorption far better than natural fibers like cotton or linen.',
-          'If you prefer natural fabrics for their look and feel, consider blends that combine aesthetic appeal with practical durability. A cotton-polyester blend, for example, offers the softness of cotton with improved moisture resistance.',
-          'For rooms with the highest humidity exposure — bathrooms, kitchens, and covered patios — look for fabrics specifically rated for high-humidity environments or consider alternatives like faux wood or vinyl.',
+          [{ text: 'Prevention starts with selection. In Florida\'s subtropical climate, not all fabrics perform equally. Synthetic materials like polyester and acrylic resist moisture absorption far better than natural fibers like cotton or linen.' }],
+          [{ text: 'If you prefer natural fabrics for their look and feel, consider blends that combine aesthetic appeal with practical durability. A cotton-polyester blend, for example, offers the softness of cotton with improved moisture resistance.' }],
+          [{ text: 'For rooms with the highest humidity exposure — bathrooms, kitchens, and covered patios — look for fabrics specifically rated for high-humidity environments or consider alternatives like faux wood or vinyl.' }],
         ],
       },
       {
         type: 'section',
         heading: '2. Managing Moisture and Preventing Mold',
         paragraphs: [
-          'Mold and mildew are the primary threats to fabric window treatments in humid climates. These organisms thrive in warm, moist environments — exactly the conditions found in many Florida rooms.',
-          'Improve air circulation around your window treatments by leaving a small gap between the fabric and the wall. Avoid bunching or tying back drapes in ways that trap moisture against the fabric.',
-          'Use a dehumidifier in rooms where you notice condensation on windows. If your windows sweat regularly, the moisture will inevitably transfer to adjacent fabric treatments, creating ideal conditions for mold growth.',
+          [{ text: 'Mold and mildew are the primary threats to fabric window treatments in humid climates. These organisms thrive in warm, moist environments — exactly the conditions found in many Florida rooms.' }],
+          [{ text: 'Improve air circulation around your window treatments by leaving a small gap between the fabric and the wall. Avoid bunching or tying back drapes in ways that trap moisture against the fabric.' }],
+          [{ text: 'Use a dehumidifier in rooms where you notice condensation on windows. If your windows sweat regularly, the moisture will inevitably transfer to adjacent fabric treatments, creating ideal conditions for mold growth.' }],
         ],
       },
       {
         type: 'section',
         heading: '3. Cleaning and Stain Removal',
         paragraphs: [
-          'Regular vacuuming with a soft brush attachment removes dust before it can combine with humidity to create stubborn stains. Focus on folds, pleats, and the bottom hems where dust accumulates most.',
-          'For spot cleaning, always blot — never rub — to avoid spreading the stain or damaging the fabric weave. Use a cleaning solution appropriate for the specific fabric type and test on a hidden area first.',
-          'Schedule professional cleaning at least once a year for drapes and curtains. Professional services can treat the fabric with anti-microbial solutions that help prevent mold growth between cleanings.',
+          [{ text: 'Regular vacuuming with a soft brush attachment removes dust before it can combine with humidity to create stubborn stains. Focus on folds, pleats, and the bottom hems where dust accumulates most.' }],
+          [{ text: 'For spot cleaning, always blot — never rub — to avoid spreading the stain or damaging the fabric weave. Use a cleaning solution appropriate for the specific fabric type and test on a hidden area first.' }],
+          [{ text: 'Schedule professional cleaning at least once a year for drapes and curtains. Professional services can treat the fabric with anti-microbial solutions that help prevent mold growth between cleanings.' }],
         ],
       },
       {
@@ -2595,9 +2618,9 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '4. UV Protection for Fabric Longevity',
         paragraphs: [
-          'Florida\'s intense sunlight doesn\'t just fade fabrics — it weakens the fibers themselves over time. UV-degraded fabric becomes brittle and can tear or fray even with gentle handling.',
-          'Consider lining your fabric treatments with UV-blocking liner material. This protects both the treatment itself and the furnishings behind it. Many manufacturers offer UV-protective coatings that can be applied during or after installation.',
-          'Rotate or reposition fabric treatments periodically to ensure even UV exposure across the full width. This prevents the uneven fading patterns that are telltale signs of sun damage.',
+          [{ text: 'Florida\'s intense sunlight doesn\'t just fade fabrics — it weakens the fibers themselves over time. UV-degraded fabric becomes brittle and can tear or fray even with gentle handling.' }],
+          [{ text: 'Consider lining your fabric treatments with UV-blocking liner material. This protects both the treatment itself and the furnishings behind it. Many manufacturers offer UV-protective coatings that can be applied during or after installation.' }],
+          [{ text: 'Rotate or reposition fabric treatments periodically to ensure even UV exposure across the full width. This prevents the uneven fading patterns that are telltale signs of sun damage.' }],
         ],
       },
     ],
@@ -2617,27 +2640,27 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '1. Real Wood vs. Faux Wood',
         paragraphs: [
-          'The first decision when considering wooden blinds is whether to go with genuine wood or faux wood alternatives. Both offer the classic warmth and beauty of wood grain, but they differ significantly in performance and maintenance.',
-          'Real wood blinds are typically made from basswood, oak, or cherry. They\'re lighter, available in more stain options, and have the authentic look and feel that many homeowners prefer. However, they\'re more susceptible to warping and discoloration in humid environments.',
-          'Faux wood blinds are made from PVC, composite materials, or vinyl. They\'re heavier but more durable, completely moisture-resistant, and typically cost 20-30% less. For Florida homes, faux wood is often the more practical choice without sacrificing visual appeal.',
+          [{ text: 'The first decision when considering wooden blinds is whether to go with genuine wood or faux wood alternatives. Both offer the classic warmth and beauty of wood grain, but they differ significantly in performance and maintenance.' }],
+          [{ text: 'Real wood blinds are typically made from basswood, oak, or cherry. They\'re lighter, available in more stain options, and have the authentic look and feel that many homeowners prefer. However, they\'re more susceptible to warping and discoloration in humid environments.' }],
+          [{ text: 'Faux wood blinds are made from PVC, composite materials, or vinyl. They\'re heavier but more durable, completely moisture-resistant, and typically cost 20-30% less. For Florida homes, faux wood is often the more practical choice without sacrificing visual appeal.' }],
         ],
       },
       {
         type: 'section',
         heading: '2. Slat Sizes and Their Impact',
         paragraphs: [
-          'Wooden blinds come in several slat widths, each creating a different visual effect. The most common sizes are 1 inch, 2 inches, and 2.5 inches.',
-          'Narrower 1-inch slats create a more refined, traditional look and work well on smaller windows. They provide more precise light control due to the greater number of slats per window.',
-          'Wider 2-inch and 2.5-inch slats offer a bolder, more contemporary appearance and allow a clearer view when open. They also collect less dust per unit area and are easier to clean. For large windows, wider slats maintain better proportions.',
+          [{ text: 'Wooden blinds come in several slat widths, each creating a different visual effect. The most common sizes are 1 inch, 2 inches, and 2.5 inches.' }],
+          [{ text: 'Narrower 1-inch slats create a more refined, traditional look and work well on smaller windows. They provide more precise light control due to the greater number of slats per window.' }],
+          [{ text: 'Wider 2-inch and 2.5-inch slats offer a bolder, more contemporary appearance and allow a clearer view when open. They also collect less dust per unit area and are easier to clean. For large windows, wider slats maintain better proportions.' }],
         ],
       },
       {
         type: 'section',
         heading: '3. Finishes and Customization',
         paragraphs: [
-          'Wood blinds offer extensive customization options. Stains range from light natural tones to deep espresso, and painted finishes in white, ivory, or custom colors complement any interior design scheme.',
-          'Decorative tapes — fabric strips that cover the ladder cords — add a design element and come in dozens of colors and patterns. They also hide the small holes where the lift cords pass through each slat.',
-          'Valances, cornices, and holdbacks provide finishing touches. A contoured or crown valance gives a polished, furniture-like appearance that elevates the entire window treatment.',
+          [{ text: 'Wood blinds offer extensive customization options. Stains range from light natural tones to deep espresso, and painted finishes in white, ivory, or custom colors complement any interior design scheme.' }],
+          [{ text: 'Decorative tapes — fabric strips that cover the ladder cords — add a design element and come in dozens of colors and patterns. They also hide the small holes where the lift cords pass through each slat.' }],
+          [{ text: 'Valances, cornices, and holdbacks provide finishing touches. A contoured or crown valance gives a polished, furniture-like appearance that elevates the entire window treatment.' }],
         ],
       },
       {
@@ -2652,9 +2675,9 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '4. Installation and Care Tips',
         paragraphs: [
-          'Proper installation is critical for wooden blinds. Ensure your window frame has sufficient depth for inside mounting — most wood blinds require at least 2.75 inches. Verify that the frame is square and level before drilling.',
-          'For ongoing care, dust regularly with a soft cloth or blind-specific duster. Avoid water on real wood — use a wood-safe cleaner applied to the cloth, not directly to the blinds. Faux wood can handle a damp cloth for heavier cleaning.',
-          'If real wood blinds begin to show signs of humidity damage (warping or discoloration), consider moving them to a drier room and replacing them with faux wood in the humid location. Early intervention prevents further damage.',
+          [{ text: 'Proper installation is critical for wooden blinds. Ensure your window frame has sufficient depth for inside mounting — most wood blinds require at least 2.75 inches. Verify that the frame is square and level before drilling.' }],
+          [{ text: 'For ongoing care, dust regularly with a soft cloth or blind-specific duster. Avoid water on real wood — use a wood-safe cleaner applied to the cloth, not directly to the blinds. Faux wood can handle a damp cloth for heavier cleaning.' }],
+          [{ text: 'If real wood blinds begin to show signs of humidity damage (warping or discoloration), consider moving them to a drier room and replacing them with faux wood in the humid location. Early intervention prevents further damage.' }],
         ],
       },
     ],
@@ -2674,27 +2697,27 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '1. Minimalist Roller Shades',
         paragraphs: [
-          'Clean lines and simplicity define the current trend toward minimalist roller shades. These treatments offer a sleek, unobtrusive look that complements modern and contemporary interiors without competing for attention.',
-          'Solar roller shades are particularly popular in Florida, providing UV protection while maintaining outward visibility. Available in a range of openness factors (1% to 14%), they let you fine-tune the balance between sun protection and view preservation.',
-          'Motorized options with smart home integration represent the cutting edge of this category. Voice-controlled or app-scheduled shades that adjust automatically based on time of day or sun position are increasingly standard in new Florida homes.',
+          [{ text: 'Clean lines and simplicity define the current trend toward minimalist roller shades. These treatments offer a sleek, unobtrusive look that complements modern and contemporary interiors without competing for attention.' }],
+          [{ text: 'Solar roller shades are particularly popular in Florida, providing UV protection while maintaining outward visibility. Available in a range of openness factors (1% to 14%), they let you fine-tune the balance between sun protection and view preservation.' }],
+          [{ text: 'Motorized options with smart home integration represent the cutting edge of this category. Voice-controlled or app-scheduled shades that adjust automatically based on time of day or sun position are increasingly standard in new Florida homes.' }],
         ],
       },
       {
         type: 'section',
         heading: '2. Natural and Woven Textures',
         paragraphs: [
-          'Organic materials are experiencing a major resurgence in window treatment design. Woven wood shades, bamboo blinds, and jute roller shades bring natural texture and warmth to contemporary spaces.',
-          'These materials pair beautifully with Florida\'s coastal and tropical design aesthetics. The natural imperfections in woven materials create visual interest that mass-produced alternatives can\'t replicate.',
-          'For practicality, look for woven options with UV-protective liner backing. This preserves the natural look from the room side while adding the sun protection and privacy that raw natural materials alone can\'t provide.',
+          [{ text: 'Organic materials are experiencing a major resurgence in window treatment design. Woven wood shades, bamboo blinds, and jute roller shades bring natural texture and warmth to contemporary spaces.' }],
+          [{ text: 'These materials pair beautifully with Florida\'s coastal and tropical design aesthetics. The natural imperfections in woven materials create visual interest that mass-produced alternatives can\'t replicate.' }],
+          [{ text: 'For practicality, look for woven options with UV-protective liner backing. This preserves the natural look from the room side while adding the sun protection and privacy that raw natural materials alone can\'t provide.' }],
         ],
       },
       {
         type: 'section',
         heading: '3. Layered Treatment Combinations',
         paragraphs: [
-          'The trend toward layering multiple window treatments offers both design flexibility and functional versatility. A common combination pairs sheer curtain panels with cellular shades behind them.',
-          'Layering allows you to shift between different levels of light, privacy, and insulation throughout the day without changing any single treatment. Sheers soften harsh sunlight; the shade behind provides full blackout when needed.',
-          'Color coordination across layers creates depth and sophistication. A monochromatic approach (varying shades of the same color) reads as elegant, while contrasting layers make a bolder design statement.',
+          [{ text: 'The trend toward layering multiple window treatments offers both design flexibility and functional versatility. A common combination pairs sheer curtain panels with cellular shades behind them.' }],
+          [{ text: 'Layering allows you to shift between different levels of light, privacy, and insulation throughout the day without changing any single treatment. Sheers soften harsh sunlight; the shade behind provides full blackout when needed.' }],
+          [{ text: 'Color coordination across layers creates depth and sophistication. A monochromatic approach (varying shades of the same color) reads as elegant, while contrasting layers make a bolder design statement.' }],
         ],
       },
       {
@@ -2709,9 +2732,9 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'section',
         heading: '4. Bold Color and Pattern Revival',
         paragraphs: [
-          'After years of neutral dominance, bold colors and patterns are returning to window treatments. Deep jewel tones — emerald, sapphire, and burgundy — add drama and sophistication to rooms that previously played it safe.',
-          'Geometric patterns and botanical prints on roller shades and roman shades bring personality without requiring a full room redesign. These statement treatments work best when the rest of the room maintains a neutral palette.',
-          'For those not ready to commit fully, colored trim, banding, and borders on otherwise neutral treatments offer a measured way to incorporate the trend while keeping the flexibility to update the look seasonally.',
+          [{ text: 'After years of neutral dominance, bold colors and patterns are returning to window treatments. Deep jewel tones — emerald, sapphire, and burgundy — add drama and sophistication to rooms that previously played it safe.' }],
+          [{ text: 'Geometric patterns and botanical prints on roller shades and roman shades bring personality without requiring a full room redesign. These statement treatments work best when the rest of the room maintains a neutral palette.' }],
+          [{ text: 'For those not ready to commit fully, colored trim, banding, and borders on otherwise neutral treatments offer a measured way to incorporate the trend while keeping the flexibility to update the look seasonally.' }],
         ],
       },
     ],
@@ -2741,10 +2764,10 @@ const blogArticles: Record<string, BlogArticlePageContent> = {
       {
         type: 'intro',
         paragraphs: [
-          'Bathrooms, kitchens, laundry rooms, and covered patios all share one common challenge: elevated moisture levels. Standard window treatments that perform beautifully in a living room can warp, discolor, or develop mold within months when exposed to persistent humidity.',
-          'In Florida, where outdoor humidity regularly exceeds 70%, even interior rooms can feel the effects — especially those with poor ventilation or proximity to water sources.',
-          'Choosing the right blinds for these spaces means prioritizing materials and designs that shrug off moisture while still delivering the style and light control you expect from quality window treatments.',
-          'Here\'s what you need to know to make the right choice.',
+          [{ text: 'Bathrooms, kitchens, laundry rooms, and covered patios all share one common challenge: elevated moisture levels. Standard window treatments that perform beautifully in a living room can warp, discolor, or develop mold within months when exposed to persistent humidity.' }],
+          [{ text: 'In Florida, where outdoor humidity regularly exceeds 70%, even interior rooms can feel the effects — especially those with poor ventilation or proximity to water sources.' }],
+          [{ text: 'Choosing the right blinds for these spaces means prioritizing materials and designs that shrug off moisture while still delivering the style and light control you expect from quality window treatments.' }],
+          [{ text: 'Here\'s what you need to know to make the right choice.' }],
         ],
         image: {
           src: 'https://www.figma.com/api/mcp/asset/3d891a94-3602-41dc-8a3e-bd28b9c2ac38.png',
@@ -2758,9 +2781,9 @@ const blogArticles: Record<string, BlogArticlePageContent> = {
       {
         type: 'text',
         paragraphs: [
-          'Real wood blinds are the most vulnerable to humidity damage. Wood absorbs moisture from the air, causing slats to swell, warp, and eventually crack. The finish can bubble or peel, and trapped moisture creates ideal conditions for mold growth.',
-          'Fabric shades face similar risks. Natural fibers absorb moisture and can develop musty odors, mildew spots, and structural weakness. Even with regular cleaning, fabric treatments in high-humidity rooms tend to degrade faster than their expected lifespan.',
-          'Even metal components aren\'t immune — steel hardware can rust, and the cords in corded systems can weaken and fray when exposed to persistent moisture.',
+          [{ text: 'Real wood blinds are the most vulnerable to humidity damage. Wood absorbs moisture from the air, causing slats to swell, warp, and eventually crack. The finish can bubble or peel, and trapped moisture creates ideal conditions for mold growth.' }],
+          [{ text: 'Fabric shades face similar risks. Natural fibers absorb moisture and can develop musty odors, mildew spots, and structural weakness. Even with regular cleaning, fabric treatments in high-humidity rooms tend to degrade faster than their expected lifespan.' }],
+          [{ text: 'Even metal components aren\'t immune — steel hardware can rust, and the cords in corded systems can weaken and fray when exposed to persistent moisture.' }],
         ],
       },
       {
@@ -2770,9 +2793,9 @@ const blogArticles: Record<string, BlogArticlePageContent> = {
       {
         type: 'text',
         paragraphs: [
-          'Faux wood blinds top the list for high-humidity rooms. Made from PVC or composite materials, they\'re completely impervious to moisture. Modern faux wood options are nearly indistinguishable from real wood, offering the same warmth and elegance without the vulnerability.',
-          'Aluminum blinds are another excellent choice — lightweight, rust-resistant, and available in a wide range of finishes. They\'re particularly well-suited for kitchens where grease and steam are constant companions.',
-          'For a softer look, consider vinyl roller shades or polyester cellular shades. Both resist moisture absorption and can be wiped clean easily. Cellular shades also provide insulation, helping to regulate the temperature swings common in humid rooms.',
+          [{ text: 'Faux wood blinds top the list for high-humidity rooms. Made from PVC or composite materials, they\'re completely impervious to moisture. Modern faux wood options are nearly indistinguishable from real wood, offering the same warmth and elegance without the vulnerability.' }],
+          [{ text: 'Aluminum blinds are another excellent choice — lightweight, rust-resistant, and available in a wide range of finishes. They\'re particularly well-suited for kitchens where grease and steam are constant companions.' }],
+          [{ text: 'For a softer look, consider vinyl roller shades or polyester cellular shades. Both resist moisture absorption and can be wiped clean easily. Cellular shades also provide insulation, helping to regulate the temperature swings common in humid rooms.' }],
         ],
       },
       {
@@ -2786,9 +2809,9 @@ const blogArticles: Record<string, BlogArticlePageContent> = {
       {
         type: 'text',
         paragraphs: [
-          'Even with moisture-resistant materials, proper ventilation extends the life of your window treatments. Ensure bathroom exhaust fans are running during and after showers. In kitchens, use range hoods to redirect steam away from nearby windows.',
-          'Mount blinds with enough clearance from the window glass to allow air circulation behind them. Condensation on window glass is common in air-conditioned Florida homes, and trapped moisture between glass and blinds accelerates any potential issues.',
-          'Consider outside-mount installations in humid rooms. This allows more airflow around the treatment and makes cleaning easier — simply lift the blinds away from the window for a thorough wipe-down.',
+          [{ text: 'Even with moisture-resistant materials, proper ventilation extends the life of your window treatments. Ensure bathroom exhaust fans are running during and after showers. In kitchens, use range hoods to redirect steam away from nearby windows.' }],
+          [{ text: 'Mount blinds with enough clearance from the window glass to allow air circulation behind them. Condensation on window glass is common in air-conditioned Florida homes, and trapped moisture between glass and blinds accelerates any potential issues.' }],
+          [{ text: 'Consider outside-mount installations in humid rooms. This allows more airflow around the treatment and makes cleaning easier — simply lift the blinds away from the window for a thorough wipe-down.' }],
         ],
       },
     ],
@@ -2814,10 +2837,10 @@ const blogArticles: Record<string, BlogArticlePageContent> = {
       {
         type: 'intro',
         paragraphs: [
-          'Motorized window shades have evolved from a luxury feature to an increasingly standard component of modern Florida homes. Today\'s systems integrate seamlessly with popular smart home platforms, offering convenience, energy savings, and enhanced security.',
-          'Whether you\'re building a new home, renovating, or simply upgrading your existing window treatments, understanding the options available helps you make an informed investment.',
-          'This guide covers everything from basic motorization concepts to advanced smart home integration, helping you decide what\'s right for your lifestyle and budget.',
-          'Let\'s start with the fundamentals.',
+          [{ text: 'Motorized window shades have evolved from a luxury feature to an increasingly standard component of modern Florida homes. Today\'s systems integrate seamlessly with popular smart home platforms, offering convenience, energy savings, and enhanced security.' }],
+          [{ text: 'Whether you\'re building a new home, renovating, or simply upgrading your existing window treatments, understanding the options available helps you make an informed investment.' }],
+          [{ text: 'This guide covers everything from basic motorization concepts to advanced smart home integration, helping you decide what\'s right for your lifestyle and budget.' }],
+          [{ text: 'Let\'s start with the fundamentals.' }],
         ],
         image: {
           src: 'https://www.figma.com/api/mcp/asset/ee8e1302-c513-4fff-a95e-6a569cb2228b.png',
@@ -2831,9 +2854,9 @@ const blogArticles: Record<string, BlogArticlePageContent> = {
       {
         type: 'text',
         paragraphs: [
-          'At their core, motorized shades use a small electric motor housed within the roller tube or headrail. This motor drives the shade up or down via a control signal — either from a remote, a wall switch, a smartphone app, or an automated schedule.',
-          'Power sources vary by system. Hardwired installations connect directly to your home\'s electrical system and never need battery changes. Battery-powered motors offer easier installation with no wiring required, though batteries need replacement or recharging every 6-12 months.',
-          'Solar-powered options use a small panel attached to the window frame to keep an internal battery charged. These work particularly well in Florida, where abundant sunlight keeps the system running indefinitely with zero maintenance.',
+          [{ text: 'At their core, motorized shades use a small electric motor housed within the roller tube or headrail. This motor drives the shade up or down via a control signal — either from a remote, a wall switch, a smartphone app, or an automated schedule.' }],
+          [{ text: 'Power sources vary by system. Hardwired installations connect directly to your home\'s electrical system and never need battery changes. Battery-powered motors offer easier installation with no wiring required, though batteries need replacement or recharging every 6-12 months.' }],
+          [{ text: 'Solar-powered options use a small panel attached to the window frame to keep an internal battery charged. These work particularly well in Florida, where abundant sunlight keeps the system running indefinitely with zero maintenance.' }],
         ],
       },
       {
@@ -2843,9 +2866,9 @@ const blogArticles: Record<string, BlogArticlePageContent> = {
       {
         type: 'text',
         paragraphs: [
-          'Modern motorized shades connect to the major smart home ecosystems: Apple HomeKit, Google Home, Amazon Alexa, and Samsung SmartThings. This means you can control your shades with voice commands, include them in automated routines, and monitor their position remotely.',
-          'Integration unlocks powerful automation possibilities. Set your shades to lower automatically when the indoor temperature exceeds a threshold, raise when your morning alarm goes off, or close at sunset for privacy — all without touching a button.',
-          'For the most seamless experience, choose a shade system that supports your existing smart home platform natively rather than requiring a separate bridge or hub. This reduces latency and improves reliability.',
+          [{ text: 'Modern motorized shades connect to the major smart home ecosystems: Apple HomeKit, Google Home, Amazon Alexa, and Samsung SmartThings. This means you can control your shades with voice commands, include them in automated routines, and monitor their position remotely.' }],
+          [{ text: 'Integration unlocks powerful automation possibilities. Set your shades to lower automatically when the indoor temperature exceeds a threshold, raise when your morning alarm goes off, or close at sunset for privacy — all without touching a button.' }],
+          [{ text: 'For the most seamless experience, choose a shade system that supports your existing smart home platform natively rather than requiring a separate bridge or hub. This reduces latency and improves reliability.' }],
         ],
       },
       {
@@ -2866,9 +2889,9 @@ const blogArticles: Record<string, BlogArticlePageContent> = {
       {
         type: 'text',
         paragraphs: [
-          'Automated shades can meaningfully reduce your energy costs. By programming shades to close during peak sun hours, you reduce solar heat gain and ease the burden on your air conditioning system — a significant consideration in Florida where cooling costs dominate energy bills.',
-          'Studies suggest that properly automated window treatments can reduce cooling costs by 15-25%. Sun-tracking schedules that adjust shade positions throughout the day based on the sun\'s angle maximize this benefit.',
-          'UV protection is an added bonus. Automated schedules ensure your shades are always closed when the sun is strongest, protecting furniture, flooring, and artwork from fading even when you\'re not home to manually adjust them.',
+          [{ text: 'Automated shades can meaningfully reduce your energy costs. By programming shades to close during peak sun hours, you reduce solar heat gain and ease the burden on your air conditioning system — a significant consideration in Florida where cooling costs dominate energy bills.' }],
+          [{ text: 'Studies suggest that properly automated window treatments can reduce cooling costs by 15-25%. Sun-tracking schedules that adjust shade positions throughout the day based on the sun\'s angle maximize this benefit.' }],
+          [{ text: 'UV protection is an added bonus. Automated schedules ensure your shades are always closed when the sun is strongest, protecting furniture, flooring, and artwork from fading even when you\'re not home to manually adjust them.' }],
         ],
       },
     ],

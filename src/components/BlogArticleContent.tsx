@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { RichText } from "@/components/ui/RichText";
 import type { BlogArticlePageContent, BlogContentBlock } from "@/types/content";
 
 function IntroBlock({
@@ -9,9 +10,7 @@ function IntroBlock({
   return (
     <div className="flex flex-col gap-8 xl:flex-row xl:gap-12">
       <div className="flex flex-col gap-[23px] text-[16px] leading-[23px] text-navy xl:w-[425px] xl:shrink-0">
-        {block.paragraphs.map((p) => (
-          <p key={p.substring(0, 30)}>{p}</p>
-        ))}
+        <RichText paragraphs={block.paragraphs} />
       </div>
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg xl:flex-1 xl:self-stretch xl:aspect-auto">
         <Image
@@ -44,9 +43,7 @@ function TextBlock({
 }) {
   return (
     <div className="flex flex-col gap-[23px] text-[16px] leading-[23px] text-navy">
-      {block.paragraphs.map((p) => (
-        <p key={p.substring(0, 30)}>{p}</p>
-      ))}
+      <RichText paragraphs={block.paragraphs} />
     </div>
   );
 }

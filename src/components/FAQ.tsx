@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { FaqContent } from "@/types/content";
 
 interface FAQProps {
@@ -69,7 +70,7 @@ export function FAQ({ variant = "card", content: contentProp }: FAQProps) {
                     </span>
                   </button>
                   {isOpen && (
-                    <p className="px-4 pb-4 font-body text-[16px] leading-[23px] text-black/70">{answer}</p>
+                    <RichText paragraphs={answer} className="px-4 pb-4 font-body text-[16px] leading-[23px] text-black/70" />
                   )}
                 </div>
               );

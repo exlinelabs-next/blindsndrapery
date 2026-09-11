@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 
 // No "use client" here on purpose: this section has no state or event
 // handlers, so per the project's server-first rule it stays a plain Server
@@ -29,7 +30,7 @@ export function ServiceAbout() {
             <span className="text-teal">{headingHighlight}</span>
             {headingSuffix}
           </h2>
-          <p className="w-full text-[16px] leading-[23px] text-black xl:max-w-[607px]">{paragraph}</p>
+          <RichText paragraphs={paragraph} className="w-full text-[16px] leading-[23px] text-black xl:max-w-[607px]" />
         </div>
       </div>
       <div className="relative h-[512px] w-full overflow-hidden rounded-lg">

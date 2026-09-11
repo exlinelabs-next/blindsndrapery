@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion, type Easing } from "motion/react";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 
 // This section needs runtime row-height measurement + a client-only
 // animation loop, so unlike the project's server-first sections it has to
@@ -85,7 +86,7 @@ export function ServiceHowItWorks() {
           <span className="text-teal">{headingHighlight}</span>
           {headingSuffix}
         </h2>
-        <p className="w-full max-w-[1148px] text-center text-[16px] leading-[23px] text-white">{description}</p>
+        <RichText paragraphs={description} className="w-full max-w-[1148px] text-center text-[16px] leading-[23px] text-white" />
       </div>
 
       <motion.div

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowDown, ArrowRight, Ruler, type LucideIcon } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import { RichText } from "@/components/ui/RichText";
 import type { HowItWorksContent } from "@/types/content";
 
 // Maps the content-driven `icon` name (a lucide-react export name) to the
@@ -19,7 +20,7 @@ const icons: Record<string, LucideIcon> = {
 // handlers, so per the project's server-first rule it stays a plain Server
 // Component — renders on the server, ships no extra JS to the browser.
 export function HowWeWork({ content }: { content?: HowItWorksContent }) {
-  const { eyebrow, headingPrefix, headingHighlight, description, steps, ctaLabel, ctaHref } =
+  const { eyebrow, headingSegments, description, steps, ctaLabel, ctaHref } =
     content ?? useContent("howItWorks");
 
   return (
@@ -36,12 +37,13 @@ export function HowWeWork({ content }: { content?: HowItWorksContent }) {
           </div>
           <div className="flex w-full flex-col items-center gap-4">
             <h2 className="w-full text-center font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-white">
-              {headingPrefix}
-              <span className="text-teal">{headingHighlight}</span>
+              {headingSegments.map((seg, i) => (
+                <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+                  {seg.text}
+                </span>
+              ))}
             </h2>
-            <p className="mx-auto w-full max-w-[1020px] text-center text-[16px] leading-[23px] text-white">
-              {description}
-            </p>
+            <RichText paragraphs={description} className="mx-auto w-full max-w-[1020px] text-center text-[16px] leading-[23px] text-white" />
           </div>
         </div>
 
@@ -64,7 +66,7 @@ export function HowWeWork({ content }: { content?: HowItWorksContent }) {
                       Icon && <Icon className="size-8 text-white" strokeWidth={1.5} />
                     )}
                     <div className="flex w-full flex-col items-start gap-2 text-white">
-                      <p className="w-full font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px]">
+                      <p className="w-full font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] xl:max-w-[140px]">
                         {title}
                       </p>
                       <p className="w-full text-[16px] leading-[23px] xl:h-[74px]">{stepDescription}</p>

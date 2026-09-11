@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/Button";
 import { MenuIcon } from "@/components/ui/MenuIcon";
 import { ChevronDownIcon } from "@/components/ui/ChevronDownIcon";
 import { ArrowLeftIcon } from "@/components/ui/ArrowLeftIcon";
-import type { NavContent, NavDropdownCategory, NavDropdownBlogCard, NavHelpBarContent, FooterSocialLink } from "@/types/content";
+import type { NavContent, NavDropdownCategory, NavDropdownBlogCard, NavHelpBarContent, NavResourceCard, FooterSocialLink } from "@/types/content";
 
 const SOCIAL_ICONS = {
   instagram: FaInstagram,
@@ -96,6 +96,32 @@ function BlogCard({ blogCard, imageClassName, onNavigate }: { blogCard: NavDropd
   );
 }
 
+// One of the two fixed cards in the Resources mega menu (Figma "Expanded
+// Mega menu", node 4902:3378) — Blogs and Knowledge Base, not CMS-driven
+// (Resources has no child menu items in WP). `highlighted` reproduces the
+// Blogs card's light ice background + padding; Knowledge Base has neither.
+function ResourceCard({ card, highlighted, onNavigate }: { card: NavResourceCard; highlighted?: boolean; onNavigate: () => void }) {
+  return (
+    <Link
+      href={card.href}
+      onClick={onNavigate}
+      className={`group flex flex-1 flex-col gap-4 rounded-lg xl:flex-row xl:items-center xl:gap-6 ${highlighted ? "bg-[#e7eeee] p-4" : ""}`}
+    >
+      <div className="relative h-[220px] w-full shrink-0 overflow-hidden rounded-lg xl:h-[295px] xl:w-[365px]">
+        <Image src={card.image.src} alt={card.image.alt} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
+        <div
+          className="absolute inset-x-0 bottom-0 h-[79px] rounded-b-lg"
+          style={{ backgroundImage: "linear-gradient(180deg, rgba(0,0,0,0) 6.8%, rgba(44,40,53,0.84) 100%)" }}
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <p className="font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-black">{card.title}</p>
+        <p className="text-sm leading-6 text-black">{card.description}</p>
+      </div>
+    </Link>
+  );
+}
+
 // The bottom info strip (confirmed identical copy/structure across all 5
 // Figma states): inline on tablet/desktop, stacked onto 3 lines on mobile
 // only (nodes 3629:2108 / 4493:6016) — reproduced with two parallel markup
@@ -147,13 +173,17 @@ function HelpBar({ helpBar, socialLinks, onNavigate }: { helpBar: NavHelpBarCont
 
 export function Header({ navContent }: { navContent?: NavContent }) {
   const fallback = useContent("nav");
-  const { logo, servicesLabel, servicesDropdown, links, ctaLabel, ctaHref } = navContent ?? fallback;
+  const { logo, servicesLabel, resourcesLabel, servicesDropdown, resourcesDropdown, links, ctaLabel, ctaHref } = navContent ?? fallback;
   const { categories, blogCard, socialLinks, helpBar } = servicesDropdown;
+  const { blogsCard, knowledgeBaseCard } = resourcesDropdown;
   const pathname = usePathname();
   const isOnServicePage = pathname.startsWith("/services");
+  const isOnResourcesPage = pathname.startsWith("/resources") || pathname.startsWith("/knowledge-base");
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
   const [activeCategoryLabel, setActiveCategoryLabel] = useState<string | null>(null);
   const [headerVisible, setHeaderVisible] = useState(true);
   const headerRef = useRef<HTMLElement>(null);
@@ -163,12 +193,14 @@ export function Header({ navContent }: { navContent?: NavContent }) {
 
   function closeDesktopMega() {
     setServicesOpen(false);
+    setResourcesOpen(false);
     setActiveCategoryLabel(null);
   }
 
   function closeMobileMenu() {
     setMobileMenuOpen(false);
     setMobileServicesOpen(false);
+    setMobileResourcesOpen(false);
     setActiveCategoryLabel(null);
   }
 
@@ -181,7 +213,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
   }
 
   useEffect(() => {
-    if (!servicesOpen) return;
+    if (!servicesOpen && !resourcesOpen) return;
 
     function handlePointerDown(event: PointerEvent) {
       if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
@@ -198,7 +230,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [servicesOpen]);
+  }, [servicesOpen, resourcesOpen]);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -216,7 +248,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
 
       if (currentY < 10) {
         setHeaderVisible(true);
-      } else if (currentY > lastScrollY.current && !mobileMenuOpen && !servicesOpen) {
+      } else if (currentY > lastScrollY.current && !mobileMenuOpen && !servicesOpen && !resourcesOpen) {
         setHeaderVisible(false);
       } else if (currentY < lastScrollY.current) {
         setHeaderVisible(true);
@@ -226,7 +258,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [mobileMenuOpen, servicesOpen]);
+  }, [mobileMenuOpen, servicesOpen, resourcesOpen]);
 
   return (
     <header
@@ -271,6 +303,19 @@ export function Header({ navContent }: { navContent?: NavContent }) {
             </Link>
           );
         })}
+
+        <Link
+          href="/resources"
+          onMouseEnter={() => setResourcesOpen(true)}
+          onFocus={() => setResourcesOpen(true)}
+          onClick={closeDesktopMega}
+          aria-haspopup="true"
+          aria-expanded={resourcesOpen}
+          className={`flex cursor-pointer items-center gap-2 text-base leading-[23px] transition-colors hover:text-teal ${isOnResourcesPage ? "text-teal" : "text-navy"}`}
+        >
+          {resourcesLabel}
+          <ChevronDown className={`size-3 transition-transform ${resourcesOpen ? "rotate-180" : ""}`} />
+        </Link>
       </nav>
 
       <Button href={ctaHref} className="hidden xl:inline-flex">
@@ -317,6 +362,20 @@ export function Header({ navContent }: { navContent?: NavContent }) {
             <div className="w-[380px] shrink-0">
               <BlogCard blogCard={blogCard} imageClassName="h-[160px]" onNavigate={closeDesktopMega} />
             </div>
+          </div>
+
+          <div className="flex items-center justify-center px-20 pb-6">
+            <HelpBar helpBar={helpBar} socialLinks={socialLinks} onNavigate={closeDesktopMega} />
+          </div>
+        </div>
+      )}
+
+      {/* Desktop hover mega-menu for Resources (node 4902:3378) */}
+      {resourcesOpen && (
+        <div className="absolute inset-x-0 top-[calc(100%+2px)] z-50 hidden w-full flex-col gap-10 rounded-b-lg bg-white shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
+          <div className="flex items-center gap-6 px-20 pt-10">
+            <ResourceCard card={blogsCard} highlighted onNavigate={closeDesktopMega} />
+            <ResourceCard card={knowledgeBaseCard} onNavigate={closeDesktopMega} />
           </div>
 
           <div className="flex items-center justify-center px-20 pb-6">
@@ -401,6 +460,45 @@ export function Header({ navContent }: { navContent?: NavContent }) {
                   {ctaLabel}
                 </Button>
               </div>
+            ) : mobileResourcesOpen ? (
+              <div className="flex flex-col gap-6">
+                <button
+                  type="button"
+                  onClick={() => setMobileResourcesOpen(false)}
+                  aria-label="Back"
+                  className="flex size-6 items-center justify-center text-black"
+                >
+                  <ArrowLeftIcon className="size-3" />
+                </button>
+                <div className="flex flex-col gap-6">
+                  <div className="flex w-full items-center justify-between">
+                    <Link
+                      href="/resources"
+                      onClick={closeMobileMenu}
+                      className="font-heading text-[18px] leading-[27px] font-semibold tracking-[-0.0648px] text-black"
+                    >
+                      {resourcesLabel}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setMobileResourcesOpen(false)}
+                      aria-label="Collapse Resources"
+                      className="flex size-6 items-center justify-center text-black"
+                    >
+                      <ChevronDownIcon className="h-2 w-3.5 rotate-180" />
+                    </button>
+                  </div>
+
+                  <div className="flex flex-col gap-6">
+                    <ResourceCard card={blogsCard} highlighted onNavigate={closeMobileMenu} />
+                    <ResourceCard card={knowledgeBaseCard} onNavigate={closeMobileMenu} />
+                  </div>
+                </div>
+
+                <Button href={ctaHref} onClick={closeMobileMenu} className="w-full">
+                  {ctaLabel}
+                </Button>
+              </div>
             ) : (
               <div className="flex flex-col gap-6">
                 <div className="flex w-full items-center justify-between">
@@ -434,6 +532,24 @@ export function Header({ navContent }: { navContent?: NavContent }) {
                     </Link>
                   );
                 })}
+
+                <div className="flex w-full items-center justify-between">
+                  <Link
+                    href="/resources"
+                    onClick={closeMobileMenu}
+                    className={`font-heading text-[18px] leading-[27px] font-semibold tracking-[-0.0648px] ${isOnResourcesPage ? "text-teal-pressed" : "text-black"}`}
+                  >
+                    {resourcesLabel}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setMobileResourcesOpen(true)}
+                    aria-label="Expand Resources"
+                    className="flex size-6 items-center justify-center text-black"
+                  >
+                    <ChevronDownIcon className="h-2 w-3.5" />
+                  </button>
+                </div>
 
                 <Button href={ctaHref} onClick={closeMobileMenu} className="w-full">
                   {ctaLabel}

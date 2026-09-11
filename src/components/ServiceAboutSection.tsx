@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import { RichText } from "@/components/ui/RichText";
 import type { ServiceAboutContent } from "@/types/content";
 
 export function ServiceAboutSection({ content }: { content?: ServiceAboutContent }) {
@@ -20,7 +21,7 @@ export function ServiceAboutSection({ content }: { content?: ServiceAboutContent
           <span className="text-teal">{headingHighlight}</span>
           {headingSuffix}
         </h2>
-        <p className="w-full text-[16px] leading-[23px] text-black">{paragraph}</p>
+        <RichText paragraphs={paragraph} className="w-full text-[16px] leading-[23px] text-black" />
         {cta && (
           <Button href={cta.href} variant="outline">
             {cta.label}

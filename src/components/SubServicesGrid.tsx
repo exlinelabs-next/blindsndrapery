@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { RichText } from "@/components/ui/RichText";
 import type { SubServiceCard, SubServicesGridContent } from "@/types/content";
 
 function ServiceCard({ card }: { card: SubServiceCard }) {
@@ -54,7 +55,7 @@ export function SubServicesGrid({ content }: { content: SubServicesGridContent }
             <span className="text-teal">{headingHighlight}</span>
             {headingSuffix}
           </h2>
-          {description && <p className="w-full text-[16px] leading-[23px] text-white">{description}</p>}
+          {description.length > 0 && <RichText paragraphs={description} className="w-full text-[16px] leading-[23px] text-white" />}
         </div>
 
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3 xl:gap-x-6 xl:gap-y-10">
