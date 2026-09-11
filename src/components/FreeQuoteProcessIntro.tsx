@@ -52,7 +52,7 @@ export function FreeQuoteProcessIntro({ content }: { content?: FreeQuoteProcessI
           <>
             <video
               ref={videoRef}
-              src={image.src}
+              src={`${image.src}#t=0.1`}
               muted
               loop
               playsInline
