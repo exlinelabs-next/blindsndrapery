@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
+import { RichText } from "@/components/ui/RichText";
 import type { CommercialContent } from "@/types/content";
 
 export function Commercial({ content }: { content?: CommercialContent }) {
@@ -30,7 +31,7 @@ export function Commercial({ content }: { content?: CommercialContent }) {
                 {subheading}
               </p>
             )}
-            <p className="w-full text-[16px] leading-[23px] text-white">{body}</p>
+            <RichText paragraphs={body} className="w-full text-[16px] leading-[23px] text-white" />
             <Button href={ctaHref}>{ctaLabel}</Button>
           </div>
         </div>

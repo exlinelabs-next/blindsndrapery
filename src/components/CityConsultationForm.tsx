@@ -6,6 +6,7 @@ import { useContent } from "@/hooks/useContent";
 import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/Button";
 import { Toast } from "@/components/ui/Toast";
+import { RichText } from "@/components/ui/RichText";
 import { submitContactForm } from "@/lib/forms";
 import type { CityConsultationContent } from "@/types/content";
 
@@ -81,7 +82,7 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
             <h2 className="max-w-[401px] font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-white">
               {heading}
             </h2>
-            <p className="text-[16px] leading-[23px] text-white">{description}</p>
+            <RichText paragraphs={description} className="text-[16px] leading-[23px] text-white" />
           </div>
         </div>
 

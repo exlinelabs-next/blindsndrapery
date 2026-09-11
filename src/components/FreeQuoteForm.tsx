@@ -6,6 +6,7 @@ import { useContent } from "@/hooks/useContent";
 import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/Button";
 import { Toast } from "@/components/ui/Toast";
+import { RichText } from "@/components/ui/RichText";
 import { submitContactForm } from "@/lib/forms";
 import type { FreeQuoteFormContent } from "@/types/content";
 
@@ -31,8 +32,7 @@ const SUCCESS_MESSAGE = "Thanks! We've received your request and will be in touc
 export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
   const {
     eyebrow,
-    headingPrefix,
-    headingHighlight,
+    headingSegments,
     subtitle,
     nameLabel,
     namePlaceholder,
@@ -100,12 +100,13 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
             </p>
           </div>
           <p className="text-center font-heading text-[28px] font-semibold leading-[36px] tracking-[-0.1296px] text-navy md:text-[36px] md:leading-[44px]">
-            {headingPrefix}
-            <span className="text-teal">{headingHighlight}</span>
+            {headingSegments.map((seg, i) => (
+              <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+                {seg.text}
+              </span>
+            ))}
           </p>
-          <p className="text-center text-[16px] leading-[23px] text-black">
-            {subtitle}
-          </p>
+          <RichText paragraphs={subtitle} className="text-center text-[16px] leading-[23px] text-black" />
         </div>
 
         {/* Form */}

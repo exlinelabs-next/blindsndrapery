@@ -6,6 +6,7 @@ import { useContent } from "@/hooks/useContent";
 import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/Button";
 import { Toast } from "@/components/ui/Toast";
+import { RichText } from "@/components/ui/RichText";
 import { submitContactForm } from "@/lib/forms";
 import type { QuoteFormContent } from "@/types/content";
 
@@ -92,10 +93,8 @@ export function QuoteForm({ content: contentProp }: { content?: QuoteFormContent
           <p className="w-full font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-white xl:w-[401px]">
             {content.heading}
           </p>
-          <div className="flex w-full items-center justify-center">
-            <p className="flex-1 font-body text-[16px] leading-[23px] text-white">
-              {content.description}
-            </p>
+          <div className="flex w-full flex-col gap-2">
+            <RichText paragraphs={content.description} className="font-body text-[16px] leading-[23px] text-white" />
           </div>
         </div>
       </div>

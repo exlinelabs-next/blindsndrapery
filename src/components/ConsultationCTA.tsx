@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "./ui/Button";
+import { RichText } from "./ui/RichText";
 import { useContent } from "@/hooks/useContent";
 import type { ConsultationCtaContent } from "@/types/content";
 
@@ -30,7 +31,7 @@ export function ConsultationCTA({ content }: { content?: ConsultationCtaContent 
             <h2 className="w-full font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-white">
               {heading}
             </h2>
-            <p className="w-full text-[16px] leading-[23px] text-white">{body}</p>
+            <RichText paragraphs={body} className="w-full text-[16px] leading-[23px] text-white" />
             <Button href={ctaHref}>{ctaLabel}</Button>
           </div>
         </div>

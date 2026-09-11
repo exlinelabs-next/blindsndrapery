@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Wrench, type LucideIcon } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { RepairMaintenanceContent } from "@/types/content";
 
 // Maps the content-driven `icon` name (a lucide-react export name) to the
@@ -43,9 +44,7 @@ export function RepairMaintenance({ content }: { content?: RepairMaintenanceCont
             <span className="text-teal">{headingHighlight}</span>
             {headingSuffix}
           </h2>
-          <p className="mx-auto w-full max-w-[1148px] text-center text-[16px] leading-[23px] text-black">
-            {description}
-          </p>
+          <RichText paragraphs={description} className="mx-auto w-full max-w-[1148px] text-center text-[16px] leading-[23px] text-black" />
         </div>
       </div>
     </section>

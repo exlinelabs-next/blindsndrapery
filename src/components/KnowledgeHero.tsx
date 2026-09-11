@@ -1,6 +1,8 @@
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
+import type { RichParagraphs } from "@/types/content";
 
-export function KnowledgeHero({ heading: headingProp, subtitle: subtitleProp }: { heading?: string; subtitle?: string }) {
+export function KnowledgeHero({ heading: headingProp, subtitle: subtitleProp }: { heading?: string; subtitle?: RichParagraphs }) {
   const fallback = useContent("knowledgeBasePage");
   const heading = headingProp ?? fallback.heading;
   const subtitle = subtitleProp ?? fallback.subtitle;
@@ -10,9 +12,10 @@ export function KnowledgeHero({ heading: headingProp, subtitle: subtitleProp }: 
       <h1 className="font-heading text-[32px] font-bold leading-[40px] tracking-[-0.5376px] text-navy md:text-[40px] md:leading-[52px] xl:text-[48px] xl:leading-[64px]">
         {heading}
       </h1>
-      <p className="mt-[10px] font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-navy md:text-[20px] md:leading-[30px] xl:text-[22px] xl:leading-[32px]">
-        {subtitle}
-      </p>
+      <RichText
+        paragraphs={subtitle}
+        className="mt-[10px] font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-navy md:text-[20px] md:leading-[30px] xl:text-[22px] xl:leading-[32px]"
+      />
     </section>
   );
 }

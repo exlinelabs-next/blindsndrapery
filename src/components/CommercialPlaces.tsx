@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Building2, Hotel, SquareActivity, PaperBag, type LucideIcon } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { CommercialPlacesContent } from "@/types/content";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -11,7 +12,7 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 export function CommercialPlaces({ content }: { content?: CommercialPlacesContent }) {
-  const { eyebrow, headingPrefix, headingHighlight, description, cards } = content ?? useContent("commercialPage").places;
+  const { eyebrow, headingSegments, description, cards } = content ?? useContent("commercialPage").places;
 
   return (
     <section className="flex flex-col items-center px-4 pt-[100px] md:px-6 xl:px-10 xl:pt-[120px]">
@@ -24,10 +25,13 @@ export function CommercialPlaces({ content }: { content?: CommercialPlacesConten
           </div>
           <div className="flex w-full flex-col items-start gap-4 xl:flex-row xl:items-center xl:justify-between">
             <p className="w-full font-heading text-[36px] font-semibold leading-[44px] tracking-[-0.1296px] text-navy xl:max-w-[619px]">
-              {headingPrefix}
-              <span className="text-teal">{headingHighlight}</span>
+              {headingSegments.map((seg, i) => (
+                <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+                  {seg.text}
+                </span>
+              ))}
             </p>
-            <p className="w-full text-[16px] leading-[23px] text-black xl:max-w-[575px]">{description}</p>
+            <RichText paragraphs={description} className="w-full text-[16px] leading-[23px] text-black xl:max-w-[575px]" />
           </div>
         </div>
 

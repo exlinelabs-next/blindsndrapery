@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { ServiceContentKey, ServiceIntroContent } from "@/types/content";
 
 // Confirmed via get_design_context on the desktop (4481:4451/4463), tablet
@@ -15,7 +16,7 @@ import type { ServiceContentKey, ServiceIntroContent } from "@/types/content";
 // scaled three ways). Section side padding is also confirmed per breakpoint
 // from those same frames: 32px mobile, 48px tablet, 80px desktop.
 export function ServiceIntro({ contentKey = "serviceBlinds", content }: { contentKey?: ServiceContentKey; content?: ServiceIntroContent } = {}) {
-  const { eyebrow, headingPrefix, headingHighlight, paragraphs, image } =
+  const { eyebrow, headingSegments, paragraphs, image } =
     content ?? useContent(contentKey).intro;
 
   return (
@@ -37,13 +38,14 @@ export function ServiceIntro({ contentKey = "serviceBlinds", content }: { conten
           </p>
         </div>
         <h2 className="w-full font-heading text-[28px] font-semibold leading-[42px] text-navy">
-          {headingPrefix}
-          <span className="text-teal">{headingHighlight}</span>
+          {headingSegments.map((seg, i) => (
+            <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+              {seg.text}
+            </span>
+          ))}
         </h2>
         <div className="flex w-full flex-col gap-4 text-[16px] leading-[23px] text-black/64">
-          {paragraphs.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
+          <RichText paragraphs={paragraphs} />
         </div>
       </div>
     </section>

@@ -5,10 +5,11 @@ import Image from "next/image";
 import { PlayCircleIcon } from "@/components/ui/PlayCircleIcon";
 import { PauseCircleIcon } from "@/components/ui/PauseCircleIcon";
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { FreeQuoteProcessIntroContent } from "@/types/content";
 
 export function FreeQuoteProcessIntro({ content }: { content?: FreeQuoteProcessIntroContent }) {
-  const { eyebrow, headingPrefix, headingHighlight, description, image } =
+  const { eyebrow, headingSegments, description, image } =
     content ?? useContent("freeQuotePage").processIntro;
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -37,10 +38,13 @@ export function FreeQuoteProcessIntro({ content }: { content?: FreeQuoteProcessI
         </div>
         <div className="flex flex-col gap-4">
           <p className="font-heading text-[28px] font-semibold leading-[36px] tracking-[-0.1296px] text-navy md:text-[36px] md:leading-[44px]">
-            {headingPrefix}
-            <span className="text-teal">{headingHighlight}</span>
+            {headingSegments.map((seg, i) => (
+              <span key={i} className={seg.emphasis ? "text-teal" : undefined}>
+                {seg.text}
+              </span>
+            ))}
           </p>
-          <p className="text-[16px] leading-[23px] text-black">{description}</p>
+          <RichText paragraphs={description} className="text-[16px] leading-[23px] text-black" />
         </div>
       </div>
       <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl xl:h-[486px] xl:flex-1">
