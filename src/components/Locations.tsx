@@ -1,4 +1,5 @@
 import { useContent } from "@/hooks/useContent";
+import { RichText } from "@/components/ui/RichText";
 import type { LocationsContent } from "@/types/content";
 
 export function Locations({ content }: { content?: LocationsContent }) {
@@ -24,7 +25,7 @@ export function Locations({ content }: { content?: LocationsContent }) {
               {heading}
             </p>
           </div>
-          <div className="w-full text-[16px] leading-[23px] text-black [&>p]:mb-2 [&>p:last-child]:mb-0" dangerouslySetInnerHTML={{ __html: description }} />
+          <RichText paragraphs={description} className="w-full text-[16px] leading-[23px] text-black" />
         </div>
         <div className="flex w-full flex-col items-stretch gap-4 md:flex-row md:flex-wrap md:items-center md:gap-6 xl:w-auto xl:shrink-0 xl:justify-end">
           {cities.map(({ icon, name }) => (

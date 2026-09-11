@@ -369,9 +369,7 @@ export interface ServiceInlineAboutContent {
   headingPrefix: string;
   headingHighlight: string;
   headingSuffix: string;
-  paragraphPrefix: string;
-  paragraphHighlight: string;
-  paragraphSuffix: string;
+  paragraphs: Array<{ prefix: string; highlight: string; suffix: string }>;
   // Rendered as an expand/collapse accordion (Figma node 4573:8519) —
   // matches the real WP field (section2MaterielsText, a single WYSIWYG
   // field storing "<p><strong>Title</strong><br />description</p>" per

@@ -31,9 +31,7 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds", con
     headingPrefix,
     headingHighlight,
     headingSuffix,
-    paragraphPrefix,
-    paragraphHighlight,
-    paragraphSuffix,
+    paragraphs,
     features,
     gallery,
   } = content ?? useContent(contentKey).about;
@@ -47,7 +45,7 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds", con
   // the description and gallery, since a heading with no paragraph or no
   // photos at all is just as much an empty shell as no heading.
   const hasTitle = Boolean(headingPrefix || headingHighlight);
-  const hasDescription = Boolean(paragraphPrefix || paragraphHighlight || paragraphSuffix);
+  const hasDescription = paragraphs.some((p) => p.prefix || p.highlight || p.suffix);
   const hasGallery = gallery.some((image) => image.src);
   if (!hasTitle || !hasDescription || !hasGallery) return null;
 
@@ -77,13 +75,17 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds", con
               <span className="text-teal">{headingHighlight}</span>
               {headingSuffix}
             </h2>
-            <p className={`w-full text-[16px] leading-[23px] ${dark ? "text-white" : "text-black"}`}>
-              {paragraphPrefix}
-              <span className="font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-[#3b5a58]">
-                {paragraphHighlight}
-              </span>
-              {paragraphSuffix}
-            </p>
+            {paragraphs.map((paragraph, i) => (
+              <p key={i} className={`w-full text-[16px] leading-[23px] ${dark ? "text-white" : "text-black"}`}>
+                {paragraph.prefix}
+                {paragraph.highlight && (
+                  <span className="font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-[#3b5a58]">
+                    {paragraph.highlight}
+                  </span>
+                )}
+                {paragraph.suffix}
+              </p>
+            ))}
           </div>
           {hasFeatures && (
             <div className="flex w-full flex-col items-start">

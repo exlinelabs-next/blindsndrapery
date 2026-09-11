@@ -85,12 +85,14 @@ function img(wp: WPImage | null | undefined): { src: string; alt: string } {
 
 function decodeEntities(s: string): string {
   return s
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
     .replace(/&nbsp;/g, " ")
-    .replace(/&#8217;/g, "’")
-    .replace(/&#8220;/g, "“")
-    .replace(/&#8221;/g, "”")
-    .replace(/&#0*38;/g, "&")
-    .replace(/&amp;/g, "&");
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'");
 }
 
 function stripHtml(html: string | null | undefined): string {
@@ -143,6 +145,16 @@ function parseSplSegments(
   return segments;
 }
 
+// Splits WP WYSIWYG HTML on <p> boundaries (falling back to blank-line
+// separation for fields that don't come back with real <p> tags), trimming
+// and dropping any resulting empty paragraphs.
+function splitParagraphHtml(html: string): string[] {
+  const rawParagraphs = /<p[^>]*>/i.test(html)
+    ? html.split(/<\/p>/i).map((p) => p.replace(/<p[^>]*>/gi, ""))
+    : html.split(/(?:\r\n|\r|\n){2,}/);
+  return rawParagraphs.map((p) => p.trim()).filter(Boolean);
+}
+
 // Rich body copy: WP-authored HTML made of <p> paragraphs, each optionally
 // containing <spl>...</spl> runs for teal emphasis (same <spl> convention as
 // parseSplHeading/parseSplSegments above, just spanning multiple paragraphs
@@ -150,18 +162,34 @@ function parseSplSegments(
 // only <p> and <spl> are meaningful in these WP fields.
 function parseRichParagraphs(html: string | null | undefined): RichParagraphs {
   if (!html) return [];
-  const rawParagraphs = /<p[^>]*>/i.test(html)
-    ? html.split(/<\/p>/i).map((p) => p.replace(/<p[^>]*>/gi, ""))
-    : html.split(/\n{2,}/);
-  return rawParagraphs
-    .map((p) => p.trim())
-    .filter(Boolean)
+  return splitParagraphHtml(html)
     .map((paragraph) =>
       parseSplSegments(paragraph)
         .map((seg) => ({ ...seg, text: decodeEntities(seg.text.replace(/<[^>]*>/g, "")).trim() }))
         .filter((seg) => seg.text),
     )
     .filter((segments) => segments.length > 0);
+}
+
+// Same multi-paragraph splitting as parseRichParagraphs, but for WP fields
+// that use raw WYSIWYG "<span><strong>...</strong></span>" markup for one
+// inline highlighted phrase per paragraph instead of the <spl> convention
+// (e.g. ServiceInlineAboutContent's "about" paragraph).
+function parseInlineHighlightParagraphs(
+  html: string | null | undefined,
+): Array<{ prefix: string; highlight: string; suffix: string }> {
+  if (!html) return [];
+  return splitParagraphHtml(html).map((paragraph) => {
+    const match = paragraph.match(
+      /^([\s\S]*?)<span[^>]*><strong>([\s\S]*?)<\/strong><\/span>([\s\S]*)$/,
+    );
+    if (!match) return { prefix: stripHtml(paragraph), highlight: "", suffix: "" };
+    return {
+      prefix: stripHtml(match[1]),
+      highlight: stripHtml(match[2]),
+      suffix: stripHtml(match[3]),
+    };
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -232,6 +260,12 @@ export async function fetchNav(): Promise<NavContent> {
     fetchGraphQL<{
       page: {
         megaMenuFields: {
+          image1: WPImage;
+          image2: WPImage;
+          image3: WPImage;
+          image4: WPImage;
+          image5: WPImage;
+          image6: WPImage;
           blogImage: WPImage;
           knowledgeBaseImage: WPImage;
           blogText: string;
@@ -245,6 +279,11 @@ export async function fetchNav(): Promise<NavContent> {
   const logoImg = img(logoData.page.headerFields.headerSiteLogo);
   const menuItems = navData.menuItems.nodes;
   const mm = megaMenuData.page.megaMenuFields;
+  // Editor-controlled images for the Services mega menu, one per category
+  // slot in menu order (image1 = 1st category, ... image6 = 6th) — a
+  // separate field group from each Service page's own featuredImage, same
+  // pattern as blogImage/knowledgeBaseImage for the Resources dropdown.
+  const megaMenuServiceImages = [mm.image1, mm.image2, mm.image3, mm.image4, mm.image5, mm.image6].map(img);
 
   const servicesItem = menuItems.find((m) => m.label === "Services");
   const otherLinks = menuItems
@@ -254,17 +293,23 @@ export async function fetchNav(): Promise<NavContent> {
       href: m.uri.replace(/\/$/, "") || "/",
     }));
 
-  const categories = (servicesItem?.childItems?.nodes ?? []).map((child) => {
+  const categories = (servicesItem?.childItems?.nodes ?? []).map((child, i) => {
+    const megaMenuImage = megaMenuServiceImages[i];
     const connectedImage = img(child.connectedNode?.node?.featuredImage);
     return {
       label: child.label,
       href: child.uri.replace(/\/$/, ""),
-      // Prefer the linked Service page's own featured image (whatever the
-      // backend team uploaded there) — fall back to a local asset only if
-      // WP genuinely has none, so a missing upload doesn't break the menu.
-      image: connectedImage.src
-        ? connectedImage
-        : { src: NAV_CATEGORY_IMAGE_BY_LABEL[child.label] ?? "/images/services/card-shades.webp", alt: child.label },
+      // Prefer the dedicated mega-menu image for this slot (image1-6, in
+      // menu order) — editors use these to control the mega menu's own
+      // thumbnail independently of whatever's set as the Service page's
+      // featuredImage. Fall back to that featuredImage, then a local asset,
+      // only if WP genuinely has neither, so a missing upload never breaks
+      // the menu.
+      image: megaMenuImage?.src
+        ? megaMenuImage
+        : connectedImage.src
+          ? connectedImage
+          : { src: NAV_CATEGORY_IMAGE_BY_LABEL[child.label] ?? "/images/services/card-shades.webp", alt: child.label },
       subItems: (child.childItems?.nodes ?? []).map((sub) => ({
         label: sub.label,
         href: sub.uri.replace(/\/$/, ""),
@@ -1306,17 +1351,7 @@ export async function fetchServiceSinglePage(uri: string) {
 
   const aboutHeading = parseSplHeading(sf.section2Heading as string);
   const aboutText = (sf.section2Text as string) ?? "";
-  const paragraphMatch = aboutText.match(
-    /^([\s\S]*?)<span[^>]*><strong>([\s\S]*?)<\/strong><\/span>([\s\S]*)$/,
-  );
-  let paragraphPrefix = stripHtml(aboutText);
-  let paragraphHighlight = "";
-  let paragraphSuffix = "";
-  if (paragraphMatch) {
-    paragraphPrefix = stripHtml(paragraphMatch[1]);
-    paragraphHighlight = stripHtml(paragraphMatch[2]);
-    paragraphSuffix = stripHtml(paragraphMatch[3]);
-  }
+  const aboutParagraphs = parseInlineHighlightParagraphs(aboutText);
 
   // One WYSIWYG field holding one material per title/description pair —
   // rendered as an expand/collapse accordion (Figma node 4573:8519). WP
@@ -1410,9 +1445,7 @@ export async function fetchServiceSinglePage(uri: string) {
       headingPrefix: aboutHeading.prefix,
       headingHighlight: aboutHeading.highlight,
       headingSuffix: aboutHeading.suffix,
-      paragraphPrefix,
-      paragraphHighlight,
-      paragraphSuffix,
+      paragraphs: aboutParagraphs,
       features: materialsFeatures,
       gallery: [
         img(sf.section2Image1 as WPImage),

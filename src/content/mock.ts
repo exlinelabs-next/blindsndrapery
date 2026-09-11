@@ -750,10 +750,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Engineered Faux ',
       headingHighlight: 'Wood, Aluminum, and Vertical',
       headingSuffix: ' Blinds',
-      paragraphPrefix: 'Our window treatments are engineered specifically for the demands of the ',
-      paragraphHighlight: 'Broward County & South Florida',
-      paragraphSuffix:
-        ' environment. We prioritize high-performance, moisture-resistant materials like engineered faux-wood and marine-grade aluminum that withstand coastal humidity without warping or fading.',
+      paragraphs: [{ prefix: 'Our window treatments are engineered specifically for the demands of the ', highlight: 'Broward County & South Florida', suffix: ' environment. We prioritize high-performance, moisture-resistant materials like engineered faux-wood and marine-grade aluminum that withstand coastal humidity without warping or fading.' }],
       features: [
         { title: 'Moisture Resistant', description: 'Holds its shape and finish in bathrooms, kitchens, and coastal humidity without warping.' },
         { title: 'Waterproof', description: 'Engineered materials that won\'t swell, blister, or degrade from direct water contact.' },
@@ -895,10 +892,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Engineered Faux ',
       headingHighlight: 'Wood, Aluminum, and Vertical',
       headingSuffix: ' Blinds',
-      paragraphPrefix: 'Our window treatments are engineered specifically for the demands of the ',
-      paragraphHighlight: 'Broward County & South Florida',
-      paragraphSuffix:
-        ' environment. We prioritize high-performance, moisture-resistant materials like engineered faux-wood and marine-grade aluminum that withstand coastal humidity without warping or fading.',
+      paragraphs: [{ prefix: 'Our window treatments are engineered specifically for the demands of the ', highlight: 'Broward County & South Florida', suffix: ' environment. We prioritize high-performance, moisture-resistant materials like engineered faux-wood and marine-grade aluminum that withstand coastal humidity without warping or fading.' }],
       features: [
         { title: 'Moisture Resistant', description: 'Fabric and hardware rated for humid rooms without sagging or mildew.' },
         { title: 'Waterproof', description: 'Suitable for bathrooms and other wet areas where standard fabrics would fail.' },
@@ -984,9 +978,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Modern ',
       headingHighlight: 'Roller Shade',
       headingSuffix: ' Solutions',
-      paragraphPrefix: 'Our roller shades combine sleek aesthetics with practical functionality for ',
-      paragraphHighlight: 'South Florida homes',
-      paragraphSuffix: '. Available in light-filtering and blackout fabrics, they roll up neatly into a compact cassette for a clean, uncluttered look.',
+      paragraphs: [{ prefix: 'Our roller shades combine sleek aesthetics with practical functionality for ', highlight: 'South Florida homes', suffix: '. Available in light-filtering and blackout fabrics, they roll up neatly into a compact cassette for a clean, uncluttered look.' }],
       features: [
         { title: 'Light Filtering', description: 'Diffuses harsh sun into soft, even daylight without losing the view.' },
         { title: 'Blackout Options', description: 'Fully opaque fabrics available for bedrooms and media rooms.' },
@@ -1038,9 +1030,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Premium ',
       headingHighlight: 'Solar Shade',
       headingSuffix: ' Solutions',
-      paragraphPrefix: 'Our solar shades are designed to reduce heat and glare while preserving your view of ',
-      paragraphHighlight: 'South Florida\'s beautiful outdoors',
-      paragraphSuffix: '. Choose from a range of openness factors to control how much light and visibility you want, with UV-blocking fabrics that protect your furnishings.',
+      paragraphs: [{ prefix: 'Our solar shades are designed to reduce heat and glare while preserving your view of ', highlight: 'South Florida\'s beautiful outdoors', suffix: '. Choose from a range of openness factors to control how much light and visibility you want, with UV-blocking fabrics that protect your furnishings.' }],
       features: [
         { title: 'UV Protection', description: 'Blocks up to 99% of UV rays while the fabric itself resists fading.' },
         { title: 'Glare Reduction', description: 'Cuts screen and eye glare without shutting out natural light.' },
@@ -1092,9 +1082,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Energy-Efficient ',
       headingHighlight: 'Cellular Shade',
       headingSuffix: ' Solutions',
-      paragraphPrefix: 'Our cellular shades feature a unique honeycomb construction that traps air for superior insulation in ',
-      paragraphHighlight: 'South Florida\'s warm climate',
-      paragraphSuffix: '. Available in single, double, and triple cell configurations, they reduce energy costs while providing soft, diffused light.',
+      paragraphs: [{ prefix: 'Our cellular shades feature a unique honeycomb construction that traps air for superior insulation in ', highlight: 'South Florida\'s warm climate', suffix: '. Available in single, double, and triple cell configurations, they reduce energy costs while providing soft, diffused light.' }],
       features: [
         { title: 'Energy Saving', description: 'Honeycomb pockets trap air, insulating windows against Florida heat.' },
         { title: 'Sound Dampening', description: 'Cellular construction absorbs sound for a quieter room.' },
@@ -1146,9 +1134,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Classic ',
       headingHighlight: 'Roman Shade',
       headingSuffix: ' Designs',
-      paragraphPrefix: 'Our roman shades bring a timeless, tailored look to ',
-      paragraphHighlight: 'South Florida interiors',
-      paragraphSuffix: '. Choose from flat, hobbled, or cascade fold styles in hundreds of designer fabrics. They combine the softness of drapery with the clean function of a shade.',
+      paragraphs: [{ prefix: 'Our roman shades bring a timeless, tailored look to ', highlight: 'South Florida interiors', suffix: '. Choose from flat, hobbled, or cascade fold styles in hundreds of designer fabrics. They combine the softness of drapery with the clean function of a shade.' }],
       features: [
         { title: 'Designer Fabrics', description: 'A wide range of textures and patterns to match any interior.' },
         { title: 'Multiple Fold Styles', description: 'Choose flat, hobbled, or relaxed folds to suit the room.' },
@@ -1200,9 +1186,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Versatile ',
       headingHighlight: 'Zebra Shade',
       headingSuffix: ' Solutions',
-      paragraphPrefix: 'Our zebra shades offer a modern twist on light control with alternating sheer and solid bands that slide past each other for ',
-      paragraphHighlight: 'infinite adjustment',
-      paragraphSuffix: '. Align the bands for filtered light and a view, or overlap them for full privacy — all without raising the shade.',
+      paragraphs: [{ prefix: 'Our zebra shades offer a modern twist on light control with alternating sheer and solid bands that slide past each other for ', highlight: 'infinite adjustment', suffix: '. Align the bands for filtered light and a view, or overlap them for full privacy — all without raising the shade.' }],
       features: [
         { title: 'Dual Layer Control', description: 'Alternating sheer and solid bands adjust from full privacy to full view.' },
         { title: 'Modern Aesthetic', description: 'A clean, banded look that suits contemporary interiors.' },
@@ -1254,9 +1238,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Natural ',
       headingHighlight: 'Woven Wood Shade',
       headingSuffix: ' Options',
-      paragraphPrefix: 'Our woven wood shades are handcrafted from natural materials like bamboo, jute, and grasses, bringing an organic, textured look to ',
-      paragraphHighlight: 'South Florida living spaces',
-      paragraphSuffix: '. Each shade is unique in pattern and tone, adding warmth and character while filtering light naturally.',
+      paragraphs: [{ prefix: 'Our woven wood shades are handcrafted from natural materials like bamboo, jute, and grasses, bringing an organic, textured look to ', highlight: 'South Florida living spaces', suffix: '. Each shade is unique in pattern and tone, adding warmth and character while filtering light naturally.' }],
       features: [
         { title: 'Natural Materials', description: 'Woven from bamboo, jute, and reed for an organic, textured look.' },
         { title: 'Unique Textures', description: 'No two weaves are exactly alike, adding warmth to any room.' },
@@ -1311,10 +1293,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Premium ',
       headingHighlight: 'Plantation & Composite',
       headingSuffix: ' Shutters',
-      paragraphPrefix: 'Our shutters are crafted from premium materials designed to thrive in ',
-      paragraphHighlight: 'South Florida\'s coastal climate',
-      paragraphSuffix:
-        '. Choose from classic plantation styles, tier-on-tier configurations, and composite options that resist moisture, warping, and fading while providing elegant light control.',
+      paragraphs: [{ prefix: 'Our shutters are crafted from premium materials designed to thrive in ', highlight: 'South Florida\'s coastal climate', suffix: '. Choose from classic plantation styles, tier-on-tier configurations, and composite options that resist moisture, warping, and fading while providing elegant light control.' }],
       features: [
         { title: 'Moisture Resistant', description: 'Composite and vinyl panels that won\'t warp, crack, or swell in humidity.' },
         { title: 'UV Protected', description: 'Finishes hold their color under direct, sustained Florida sun.' },
@@ -1369,10 +1348,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Elegant ',
       headingHighlight: 'Custom Drapery & Curtain',
       headingSuffix: ' Solutions',
-      paragraphPrefix: 'From sheer panels to blackout drapes, our custom drapery is designed for ',
-      paragraphHighlight: 'South Florida living',
-      paragraphSuffix:
-        '. We offer a wide selection of fabrics, linings, and hardware options to create the perfect look for any room, combining beauty with practical light and privacy control.',
+      paragraphs: [{ prefix: 'From sheer panels to blackout drapes, our custom drapery is designed for ', highlight: 'South Florida living', suffix: '. We offer a wide selection of fabrics, linings, and hardware options to create the perfect look for any room, combining beauty with practical light and privacy control.' }],
       features: [
         { title: 'Custom Fabrics', description: 'Choose from a full range of designer fabrics, weights, and linings.' },
         { title: 'Blackout Options', description: 'Triple-weave linings block light fully for bedrooms and theaters.' },
@@ -1427,10 +1403,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Smart ',
       headingHighlight: 'Motorized & Automated Window',
       headingSuffix: ' Solutions',
-      paragraphPrefix: 'Our motorized systems bring convenience and energy savings to ',
-      paragraphHighlight: 'modern South Florida homes',
-      paragraphSuffix:
-        '. Integrate with Google Home, Amazon Alexa, and Lutron for voice and app control. Schedule your window coverings to adjust automatically with the sun for optimal comfort and energy efficiency.',
+      paragraphs: [{ prefix: 'Our motorized systems bring convenience and energy savings to ', highlight: 'modern South Florida homes', suffix: '. Integrate with Google Home, Amazon Alexa, and Lutron for voice and app control. Schedule your window coverings to adjust automatically with the sun for optimal comfort and energy efficiency.' }],
       features: [
         { title: 'Voice Control', description: 'Works with major smart home platforms for hands-free operation.' },
         { title: 'App Scheduling', description: 'Set schedules or trigger scenes right from your phone.' },
@@ -1485,10 +1458,7 @@ export const mockContent: PageContent = {
       headingPrefix: 'Professional ',
       headingHighlight: 'Repair & Maintenance',
       headingSuffix: ' Services',
-      paragraphPrefix: 'We service and repair window coverings from all major manufacturers across ',
-      paragraphHighlight: 'Broward County and South Florida',
-      paragraphSuffix:
-        '. From broken cords and stuck mechanisms to motorized system troubleshooting, our experienced technicians diagnose and fix issues quickly to restore your window coverings to perfect working order.',
+      paragraphs: [{ prefix: 'We service and repair window coverings from all major manufacturers across ', highlight: 'Broward County and South Florida', suffix: '. From broken cords and stuck mechanisms to motorized system troubleshooting, our experienced technicians diagnose and fix issues quickly to restore your window coverings to perfect working order.' }],
       features: [
         { title: 'All Brands Serviced', description: 'We repair treatments we didn\'t originally install, any major brand.' },
         { title: 'Motorized Repairs', description: 'Diagnose and fix motors, remotes, and smart-home integrations.' },
