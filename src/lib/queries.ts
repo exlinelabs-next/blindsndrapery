@@ -412,16 +412,10 @@ export const SERVICE_PAGE_QUERY = `
 export const SERVICE_SINGLE_PAGE_QUERY = `
   query serviceSinglePageQuery($uri: ID!) {
     service(id: $uri, idType: URI) {
-      featuredImage {
-        node {
-          altText
-          title
-          mediaItemUrl
-        }
-      }
       servicesSinglePageFields {
         mainHeading
         mainParagraph
+        heroSectionImage { node { altText title mediaItemUrl } }
         introSectionSubHeading
         introSectionHeading
         introSectionText
