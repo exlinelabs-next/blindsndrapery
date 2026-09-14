@@ -98,14 +98,15 @@ function BlogCard({ blogCard, imageClassName, onNavigate }: { blogCard: NavDropd
 
 // One of the two fixed cards in the Resources mega menu (Figma "Expanded
 // Mega menu", node 4902:3378) — Blogs and Knowledge Base, not CMS-driven
-// (Resources has no child menu items in WP). `highlighted` reproduces the
-// Blogs card's light ice background + padding; Knowledge Base has neither.
-function ResourceCard({ card, highlighted, onNavigate }: { card: NavResourceCard; highlighted?: boolean; onNavigate: () => void }) {
+// (Resources has no child menu items in WP). The light ice background +
+// padding is a hover state, not a permanent property of either card — both
+// get it identically on :hover, matching Figma's hover variant.
+function ResourceCard({ card, onNavigate }: { card: NavResourceCard; onNavigate: () => void }) {
   return (
     <Link
       href={card.href}
       onClick={onNavigate}
-      className={`group flex flex-1 flex-col gap-4 rounded-lg xl:flex-row xl:items-center xl:gap-6 ${highlighted ? "bg-[#e7eeee] p-4" : ""}`}
+      className="group flex flex-1 flex-col gap-4 rounded-lg p-4 transition-colors hover:bg-[#e7eeee] xl:flex-row xl:items-center xl:gap-6"
     >
       <div className="relative h-[220px] w-full shrink-0 overflow-hidden rounded-lg xl:h-[295px] xl:w-[365px]">
         <Image src={card.image.src} alt={card.image.alt} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
@@ -374,7 +375,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
       {resourcesOpen && (
         <div className="absolute inset-x-0 top-[calc(100%+2px)] z-50 hidden w-full flex-col gap-10 rounded-b-lg bg-white shadow-[0px_4px_2px_rgba(0,0,0,0.15)] xl:flex">
           <div className="flex items-center gap-6 px-20 pt-10">
-            <ResourceCard card={blogsCard} highlighted onNavigate={closeDesktopMega} />
+            <ResourceCard card={blogsCard} onNavigate={closeDesktopMega} />
             <ResourceCard card={knowledgeBaseCard} onNavigate={closeDesktopMega} />
           </div>
 
@@ -490,7 +491,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
                   </div>
 
                   <div className="flex flex-col gap-6">
-                    <ResourceCard card={blogsCard} highlighted onNavigate={closeMobileMenu} />
+                    <ResourceCard card={blogsCard} onNavigate={closeMobileMenu} />
                     <ResourceCard card={knowledgeBaseCard} onNavigate={closeMobileMenu} />
                   </div>
                 </div>
