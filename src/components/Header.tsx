@@ -267,7 +267,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
       onMouseLeave={closeDesktopMega}
       className={`sticky top-0 z-50 flex h-[100px] w-full items-center justify-between border-b border-ice bg-white pl-12 pr-4 py-6 transition-transform duration-300 xl:h-[108px] xl:px-20 ${headerVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
-      <Link href={logo.href} className="shrink-0">
+      <Link href={logo.href} onMouseEnter={closeDesktopMega} className="shrink-0">
         <Image
           src={logo.src}
           alt={logo.alt}
@@ -281,7 +281,10 @@ export function Header({ navContent }: { navContent?: NavContent }) {
       <nav className="hidden h-10 shrink-0 items-center gap-8 xl:flex">
         <Link
           href="/services"
-          onMouseEnter={() => setServicesOpen(true)}
+          onMouseEnter={() => {
+            setServicesOpen(true);
+            setResourcesOpen(false);
+          }}
           onFocus={() => setServicesOpen(true)}
           onClick={closeDesktopMega}
           aria-haspopup="true"
@@ -298,6 +301,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
             <Link
               key={link.label}
               href={link.href}
+              onMouseEnter={closeDesktopMega}
               className={`whitespace-nowrap text-base leading-[23px] transition-colors hover:text-teal ${isActive ? "text-teal" : "text-navy"}`}
             >
               {link.label}
@@ -307,7 +311,10 @@ export function Header({ navContent }: { navContent?: NavContent }) {
 
         <Link
           href="/resources"
-          onMouseEnter={() => setResourcesOpen(true)}
+          onMouseEnter={() => {
+            setResourcesOpen(true);
+            setServicesOpen(false);
+          }}
           onFocus={() => setResourcesOpen(true)}
           onClick={closeDesktopMega}
           aria-haspopup="true"
@@ -319,7 +326,7 @@ export function Header({ navContent }: { navContent?: NavContent }) {
         </Link>
       </nav>
 
-      <Button href={ctaHref} className="hidden xl:inline-flex">
+      <Button href={ctaHref} onMouseEnter={closeDesktopMega} className="hidden xl:inline-flex">
         {ctaLabel}
       </Button>
 
