@@ -1319,7 +1319,6 @@ export async function fetchLocationsPage() {
 
 interface ServiceSingleResponse {
   service: {
-    featuredImage: WPImage;
     servicesSinglePageFields: Record<string, unknown>;
     seo: {
       breadcrumbs: Array<{ text: string; url: string }>;
@@ -1431,7 +1430,7 @@ export async function fetchServiceSinglePage(uri: string) {
       breadcrumb,
       heading: sf.mainHeading as string,
       subheading: sf.mainParagraph as string,
-      backgroundImage: img(serviceData.service.featuredImage),
+      backgroundImage: img(sf.heroSectionImage as WPImage),
     },
     intro: {
       eyebrow: toTitleCase(sf.introSectionSubHeading as string),
