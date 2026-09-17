@@ -42,7 +42,13 @@ export function ServicesGlimpse({ content }: { content?: ServicesGlimpseContent 
                   href={card.href}
                   className={`group relative flex h-[495px] flex-col justify-end overflow-hidden rounded-[8px] p-6 ${col.heights[slot]}`}
                 >
-                  <Image src={card.image.src} alt={card.image.alt} fill className="object-cover transition-transform duration-300 group-hover:scale-110" />
+                  <Image
+                    src={card.image.src}
+                    alt={card.image.alt}
+                    fill
+                    sizes="(min-width: 1280px) 33vw, 100vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
                   <div
                     className="absolute inset-0"
                     style={

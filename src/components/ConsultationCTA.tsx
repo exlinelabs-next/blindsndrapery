@@ -20,7 +20,7 @@ export function ConsultationCTA({ content }: { content?: ConsultationCtaContent 
     // last-section convention (FAQ, ServiceTimeline) rather than a guess.
     <section className="px-4 pb-14 md:pb-16 xl:px-20 xl:pb-[100px]">
       <div className="relative w-full overflow-hidden rounded-2xl border border-[rgba(0,180,166,0.32)] bg-[#0f1e3c]">
-        {image.src && <Image src={image.src} alt={image.alt} fill className="object-cover opacity-[0.16]" />}
+        {image.src && <Image src={image.src} alt={image.alt} fill sizes="100vw" className="object-cover opacity-[0.16]" />}
         <div className="relative flex w-full flex-col items-start gap-4 px-6 py-20 md:p-20 xl:p-20">
           <div className="flex items-center justify-center rounded-lg bg-[rgba(0,180,166,0.13)] px-3 py-2 backdrop-blur-[43px]">
             <p className="whitespace-nowrap text-center font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-white">

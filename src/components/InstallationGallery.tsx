@@ -219,7 +219,7 @@ export function InstallationGallery({ content }: { content?: InstallationGallery
                 isActive ? "h-[320px] md:h-[380px]" : "h-[270px] md:h-[332px]"
               }`}
             >
-              <Image src={image.src} alt={image.alt} fill className="object-cover" />
+              <Image src={image.src} alt={image.alt} fill sizes="100vw" className="object-cover" />
             </div>
           );
         })}
@@ -242,7 +242,7 @@ export function InstallationGallery({ content }: { content?: InstallationGallery
                   isActive ? "h-[385px] opacity-100" : "h-[332px] opacity-60"
                 }`}
               >
-                <Image src={image.src} alt={image.alt} fill className="object-cover" />
+                <Image src={image.src} alt={image.alt} fill sizes="385px" className="object-cover" />
               </div>
             </div>
           );

@@ -19,6 +19,7 @@ export function ResourcesGrid({ articles: articlesProp }: { articles?: [Resource
                 src={article.image.src}
                 alt={article.image.alt}
                 fill
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
             </div>
