@@ -10,7 +10,7 @@ export function KnowledgeGrid({ articles: articlesProp }: { articles?: Knowledge
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {articles.map((article) => (
           <div
-            key={article.title}
+            key={article.href}
             className="flex flex-col items-start gap-6 rounded-lg bg-ice px-8 py-10"
           >
             <div className="flex items-center justify-center rounded-lg bg-black/[0.19] px-3 py-2 backdrop-blur-[43px]">
