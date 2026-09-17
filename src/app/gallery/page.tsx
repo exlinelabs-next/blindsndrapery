@@ -4,12 +4,14 @@ import { GalleryContent } from "@/components/GalleryContent";
 import { ConsultationCTA } from "@/components/ConsultationCTA";
 import { FAQ } from "@/components/FAQ";
 import { fetchGalleryPage } from "@/lib/api";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/gallery",
   title: "Inspiration Gallery | Blinds & Drapery",
   description:
     "Browse completed window treatment installations from South Florida homes and businesses — blinds, shades, shutters, and drapery.",
-};
+});
 
 export default async function GalleryPage() {
   const data = await fetchGalleryPage().catch(() => undefined);

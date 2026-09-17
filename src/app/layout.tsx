@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Inter, DM_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { fetchNav, fetchFooter } from "@/lib/api";
+import { SITE_URL, pageMetadata } from "@/lib/seo";
 import "./globals.css";
 
 // Font choices come straight from the Figma variable defs, not a guess:
@@ -30,9 +31,13 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Blinds & Drapery | Custom Window Coverings in South Florida",
-  description:
-    "Custom blinds, shades, shutters, and drapery for South Florida homes and businesses. Free in-home consultation.",
+  metadataBase: new URL(SITE_URL),
+  ...pageMetadata({
+    path: "/",
+    title: "Blinds & Drapery | Custom Window Coverings in South Florida",
+    description:
+      "Custom blinds, shades, shutters, and drapery for South Florida homes and businesses. Free in-home consultation.",
+  }),
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

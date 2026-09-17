@@ -5,12 +5,14 @@ import { ServiceProcess } from "@/components/ServiceProcess";
 import { ServiceAboutSection } from "@/components/ServiceAboutSection";
 import { FAQ } from "@/components/FAQ";
 import { fetchServicePage } from "@/lib/api";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/services",
   title: "Services | Blinds & Drapery",
   description:
     "Explore custom blinds, shades, shutters, drapery, and motorized window coverings for South Florida homes and businesses.",
-};
+});
 
 export default async function ServicesPage() {
   const data = await fetchServicePage().catch(() => undefined);
