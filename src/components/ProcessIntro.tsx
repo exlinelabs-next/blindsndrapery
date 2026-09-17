@@ -51,12 +51,12 @@ export function ProcessIntro({ content }: { content?: ProcessIntroContent }) {
           <>
             <video
               ref={videoRef}
-              src={`${video.poster.src}#t=0.1`}
+              src={video.poster.src}
               muted
               loop
               playsInline
-              preload="metadata"
-              className="absolute inset-0 h-full w-full object-cover"
+              preload="none"
+              className="absolute inset-0 h-full w-full bg-navy object-cover"
             />
             <button
               type="button"

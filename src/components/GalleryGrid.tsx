@@ -42,7 +42,7 @@ export function GalleryGrid({
         <button
           type="button"
           onClick={() => setVisibleCount((c) => c + LOAD_MORE_COUNT)}
-          className="flex w-[180px] items-center justify-center rounded-lg border border-teal p-4 font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-teal transition-colors hover:bg-teal hover:text-white"
+          className="flex w-[180px] items-center justify-center rounded-lg border border-teal p-4 font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-teal transition-colors hover:bg-teal-dark hover:text-white"
         >
           {loadMoreLabel}
         </button>

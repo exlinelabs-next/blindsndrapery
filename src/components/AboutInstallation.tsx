@@ -35,7 +35,7 @@ export function AboutInstallation({ content }: { content?: AboutInstallationCont
             }`}
           >
             <div className="relative size-[18px] shrink-0">
-              <Image src={feature.icon.src} alt={feature.icon.alt} fill className="object-contain" />
+              <Image src={feature.icon.src} alt={feature.icon.alt} fill sizes="18px" className="object-contain" />
             </div>
             <p className="font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] text-navy transition-colors duration-200 group-hover:text-white md:whitespace-nowrap">
               {feature.label}

@@ -32,7 +32,7 @@ export function CityServiceGrid({ content }: { content?: CityServiceGridContent 
         {cards.map((card) => (
           <Link key={card.title} href={card.href} className="group flex flex-col gap-2.5">
             <div className="relative h-[392px] w-full overflow-hidden rounded-lg">
-              <Image src={card.image.src} alt={card.image.alt} fill className="object-cover transition-transform duration-300 group-hover:scale-110" />
+              <Image src={card.image.src} alt={card.image.alt} fill sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-300 group-hover:scale-110" />
             </div>
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2 text-navy">

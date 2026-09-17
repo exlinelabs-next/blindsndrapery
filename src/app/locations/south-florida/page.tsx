@@ -4,12 +4,14 @@ import { CityServiceGrid } from "@/components/CityServiceGrid";
 import { CityConsultationForm } from "@/components/CityConsultationForm";
 import { FAQ } from "@/components/FAQ";
 import { fetchLocationSinglePage } from "@/lib/api";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/locations/south-florida",
   title: "South Florida Window Treatments | Blinds & Drapery",
   description:
     "Custom blinds, shades, shutters, and drapery for South Florida homes. Professional installation and consultation.",
-};
+});
 
 export default async function CityPage() {
   const data = await fetchLocationSinglePage("/locations-hub/florida/").catch(() => undefined);

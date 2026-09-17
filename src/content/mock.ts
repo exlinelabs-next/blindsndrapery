@@ -147,7 +147,7 @@ export const mockContent: PageContent = {
       { label: 'Gallery', href: '/gallery' },
       { label: 'About', href: '/about' },
     ],
-    ctaLabel: 'Book Consultation',
+    ctaLabel: 'Request a Free Quote',
     ctaHref: '#quote-form',
   },
   trustBadges: {
@@ -163,7 +163,7 @@ export const mockContent: PageContent = {
     eyebrow: 'PROCESS INTRODUCTION',
     headingSegments: [{ text: 'Free in home consultation, Precise measurement, ' }, { text: 'Custom Fabrication. Professional Installation.', emphasis: true }],
     description:
-      [[{ text: 'Start with a digital estimate, followed by precise in-home measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.' }]],
+      [[{ text: 'Start with a free in-home consultation, followed by precise measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.' }]],
     video: {
       poster: {
         src: '/images/home/process-poster.jpg',
@@ -195,7 +195,7 @@ export const mockContent: PageContent = {
       {
         image: {
           src: '/images/services/card-shutters.webp',
-          alt: 'Bedroom window fitted with plantation shutters',
+          alt: 'Bedroom window fitted with interior shutters',
         },
         title: 'Shutters',
         description: 'Permanent architectural window furniture built for durability and South Florida humidity.',
@@ -251,7 +251,7 @@ export const mockContent: PageContent = {
     image: {
       // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/home/shutters/ before then.
       src: 'https://www.figma.com/api/mcp/asset/758ac310-96a9-4208-80ed-0049e29039ab.png',
-      alt: 'Elegant white plantation shutters framing a sunlit window in a cozy living room with neutral furnishings',
+      alt: 'Elegant white interior shutters framing a sunlit window in a cozy living room with neutral furnishings',
     },
     cta: { label: 'Explore Shutters', href: '/services/shutters' },
   },
@@ -428,9 +428,9 @@ export const mockContent: PageContent = {
   },
   quoteForm: {
     eyebrow: 'Quote form',
-    heading: 'Get Your Free Digital Estimate',
+    heading: 'Get Your Free Quote',
     description:
-      [[{ text: 'Complete the form below and one of our experts will provide a preliminary digital estimate for your project. No pressure, just professional data to help you plan.' }]],
+      [[{ text: 'Complete the form below and one of our experts will follow up to schedule your free in-home consultation. No pressure, just professional advice to help you plan.' }]],
     nameLabel: 'Name',
     namePlaceholder: 'John Doe',
     emailLabel: 'Email',
@@ -449,8 +449,8 @@ export const mockContent: PageContent = {
     ],
     projectLabel: 'Tell us about your Project',
     projectPlaceholder: 'Tell us about your project....',
-    submitLabel: 'Send my estimate request',
-    successMessage: "Thanks! We've received your request and one of our experts will follow up with your free digital estimate shortly.",
+    submitLabel: 'Request My Free Quote',
+    successMessage: "Thanks! We've received your request and one of our experts will follow up shortly to schedule your free consultation.",
   },
   faq: {
     eyebrow: 'FAQ',
@@ -519,9 +519,9 @@ export const mockContent: PageContent = {
       },
       {
         category: 'Our Process',
-        question: 'What is the difference between a digital and in-home estimate?',
+        question: 'What happens during the in-home consultation?',
         answer:
-          [[{ text: 'A digital estimate uses photos and measurements you provide for a quick online quote, while an in-home estimate has a professional measure your windows in person for guaranteed accuracy.' }]],
+          [[{ text: 'A professional visits your home to measure your windows in person, bring product samples, and talk through your options — so your written quote is based on exact measurements, not estimates.' }]],
       },
       {
         category: 'Our Process',
@@ -543,9 +543,9 @@ export const mockContent: PageContent = {
       },
       {
         category: 'Timeline',
-        question: 'How quickly can I get a digital estimate?',
+        question: 'How quickly will I hear back after I submit an enquiry?',
         answer:
-          [[{ text: 'Digital estimates are typically delivered within 24 hours of submitting your window measurements and product preferences through our online form.' }]],
+          [[{ text: 'We aim to contact you within 24 hours of submitting the form to schedule your free in-home consultation.' }]],
       },
       {
         category: 'Timeline',
@@ -569,8 +569,7 @@ export const mockContent: PageContent = {
   },
   footer: {
     logo: {
-      // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/shared/ before then.
-      src: 'https://www.figma.com/api/mcp/asset/62cce112-c3b5-4d9a-b45a-4496679c5ae3.svg',
+      src: '/images/shared/logo.svg',
       alt: 'blindsndrapery',
       href: '/',
     },
@@ -631,7 +630,7 @@ export const mockContent: PageContent = {
       servingAreaText: 'Serving Broward County and Florida statewide',
       phone: '(555) 010-3456',
       email: 'info@blindsndrapery.com',
-      cta: { label: 'Book consultation', href: '/free-quote' },
+      cta: { label: 'Request a Free Quote', href: '/free-quote' },
     },
     trustHighlights: ['Licensed & Insured', '10+ Years in Business', 'Manufacturer Guarantee'],
     copyright: '© 2026 Blinds & Drapery Co. All rights reserved',
@@ -668,19 +667,19 @@ export const mockContent: PageContent = {
       steps: [
         {
           number: '01',
-          title: 'Estimate online.',
+          title: 'Request your free quote online.',
           description:
-            'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
+            'Submit your details and project through our simple online form. No pressure, no obligation — just the information our team needs to schedule your free in-home consultation.',
           image: {
             src: '/images/services/step-1.webp',
-            alt: 'Customer using a laptop to get an online quote for window blinds',
+            alt: 'Customer submitting a free quote request online',
           },
         },
         {
           number: '02',
           title: 'Broward County and South Florida installers conduct precise in-home measurement.',
           description:
-            'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
+            'A specialist visits your home with samples in hand, taking exact measurements and walking you through material and style options in person.',
           image: {
             src: '/images/services/step-2.webp',
             alt: 'Installer taking precise window measurements in a home',
@@ -690,7 +689,7 @@ export const mockContent: PageContent = {
           number: '03',
           title: 'Custom fabrication.',
           description:
-            'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
+            'Your blinds are fabricated to the exact measurements taken in your home, in the material, color, and style you selected during your consultation.',
           image: {
             src: '/images/services/step-3.webp',
             alt: 'Custom blinds being fabricated in a workshop',
@@ -700,7 +699,7 @@ export const mockContent: PageContent = {
           number: '04',
           title: 'Professional final installation.',
           description:
-            'Get an instant, transparent pricing quote online based on your preliminary dimensions. Simply enter your window measurements, select your preferred product style and material, and receive an accurate estimate in seconds — no appointment or obligation required.',
+            'A professional installer mounts your finished blinds and confirms everything operates smoothly before the job is complete.',
           image: {
             src: '/images/services/step-4.webp',
             alt: 'Installer mounting finished blinds on a window',
@@ -717,7 +716,7 @@ export const mockContent: PageContent = {
         [[{ text: "Explore our durable shutters crafted from premium composite and natural wood, designed to withstand Florida's humid climate. Choose from classic tier-on-tier styles that offer versatile light control and privacy, combining timeless elegance with lasting performance." }]],
       image: {
         src: '/images/services/about-shutters.webp',
-        alt: 'Living room with white plantation shutters covering large windows',
+        alt: 'Living room with white interior shutters covering large windows',
       },
       cta: { label: 'Explore Shutters', href: '/services/shutters' },
     },
@@ -729,7 +728,7 @@ export const mockContent: PageContent = {
       // same "keep the design's own content faithfully" rule as elsewhere.
       breadcrumb: 'HOME > SERVICES > inline service',
       heading: 'Modern Window Blinds & Professional Installation Services',
-      subheading: 'Digital estimate to in-home measurement to installation. Scalable language — works for any Florida city.',
+      subheading: 'Free in-home consultation, precise measurement, and professional installation — for any Florida city.',
       backgroundImage: {
         // TODO: temporary Figma asset URL, expires ~7 days — export and commit to public/images/services/blinds/ before then.
         src: 'https://www.figma.com/api/mcp/asset/a8477728-5aec-45ac-8a20-3975d4727cd8.png',
@@ -834,7 +833,7 @@ export const mockContent: PageContent = {
     hero: {
       breadcrumb: 'HOME > SERVICES > Shades',
       heading: 'Premium Window Shades & Professional Installation Services',
-      subheading: 'Digital estimate to in-home measurement to installation. Scalable language — works for any Florida city.',
+      subheading: 'Free in-home consultation, precise measurement, and professional installation — for any Florida city.',
       backgroundImage: {
         src: '/images/services/card-shades.webp',
         alt: 'Floor-to-ceiling windows fitted with modern roller shades in a contemporary living room',
@@ -1281,19 +1280,19 @@ export const mockContent: PageContent = {
     hero: {
       breadcrumb: 'HOME > SERVICES > Shutters',
       heading: 'Custom Interior Shutters & Professional Installation Services',
-      subheading: 'Premium plantation and composite shutters crafted for South Florida homes. Free in-home consultation available.',
+      subheading: 'Premium interior and composite shutters crafted for South Florida homes. Free in-home consultation available.',
       backgroundImage: {
         src: '/images/services/card-shutters.webp',
-        alt: 'Bedroom window fitted with white plantation shutters',
+        alt: 'Bedroom window fitted with white interior shutters',
       },
     },
     intro: serviceIntroPlaceholder,
     about: {
       eyebrow: 'ABOUT',
       headingPrefix: 'Premium ',
-      headingHighlight: 'Plantation & Composite',
+      headingHighlight: 'Interior & Composite',
       headingSuffix: ' Shutters',
-      paragraphs: [{ prefix: 'Our shutters are crafted from premium materials designed to thrive in ', highlight: 'South Florida\'s coastal climate', suffix: '. Choose from classic plantation styles, tier-on-tier configurations, and composite options that resist moisture, warping, and fading while providing elegant light control.' }],
+      paragraphs: [{ prefix: 'Our shutters are crafted from premium materials designed to thrive in ', highlight: 'South Florida\'s coastal climate', suffix: '. Choose from classic louvered styles, tier-on-tier configurations, and composite options that resist moisture, warping, and fading while providing elegant light control.' }],
       features: [
         { title: 'Moisture Resistant', description: 'Composite and vinyl panels that won\'t warp, crack, or swell in humidity.' },
         { title: 'UV Protected', description: 'Finishes hold their color under direct, sustained Florida sun.' },
@@ -1301,7 +1300,7 @@ export const mockContent: PageContent = {
         { title: 'Custom Fitted', description: 'Every frame is built to the exact opening, including arches and bays.' },
       ],
       gallery: [
-        { src: '/images/services/card-shutters.webp', alt: 'White plantation shutters on a large window' },
+        { src: '/images/services/card-shutters.webp', alt: 'White interior shutters on a large window' },
         { src: '/images/services/card-shutters.webp', alt: 'Tier-on-tier shutters in a living room' },
         { src: '/images/services/card-shutters.webp', alt: 'Composite shutters fitted in a bathroom' },
       ],
@@ -1314,7 +1313,7 @@ export const mockContent: PageContent = {
     timeline: {
       images: [
         { src: '/images/services/blinds/timeline-photo-1.webp', alt: 'Installer measuring a window for custom shutters' },
-        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Professional installing plantation shutters' },
+        { src: '/images/services/blinds/timeline-photo-2.webp', alt: 'Professional installing interior shutters' },
       ],
       steps: [
         { number: '1', title: 'In-Home Consultation', description: 'We visit your home to discuss your vision and explore shutter styles tailored to your space.' },
@@ -1329,7 +1328,7 @@ export const mockContent: PageContent = {
       body: [[{ text: 'Ready to transform your windows with premium shutters? Schedule a free in-home consultation and let our experts help you choose the perfect style for your home.' }]],
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
-      image: { src: '/images/services/card-shutters.webp', alt: 'Living room with elegant plantation shutters' },
+      image: { src: '/images/services/card-shutters.webp', alt: 'Living room with elegant interior shutters' },
     },
   },
   serviceDrapery: {
@@ -1463,7 +1462,7 @@ export const mockContent: PageContent = {
         { title: 'All Brands Serviced', description: 'We repair treatments we didn\'t originally install, any major brand.' },
         { title: 'Motorized Repairs', description: 'Diagnose and fix motors, remotes, and smart-home integrations.' },
         { title: 'Cord Replacement', description: 'Restring or convert to cordless on blinds and shades.' },
-        { title: 'Same-Week Service', description: 'Most repairs are scheduled and completed within the same week.' },
+        { title: 'Prompt Scheduling', description: 'We prioritize repair requests to get your window coverings back in working order quickly.' },
       ],
       gallery: [
         { src: '/images/services/card-repairs.webp', alt: 'Technician repairing a window blind mechanism' },
@@ -1771,7 +1770,7 @@ export const mockContent: PageContent = {
         name: 'Broward County',
         paragraphs: [
           "Broward covers more ground than most people expect, and the requirements shift considerably across it. Coastal properties from Deerfield down through Hollywood need corrosion-rated hardware and moisture-stable materials that inland communities like Weston and Coral Springs simply do not. Housing stock varies just as widely, from mid-century townhouses with irregular openings to newer developments where entire streets share the same window dimensions.",
-          'We hold a full installation team for the county, which means residential replacements, multi-unit and HOA schemes, and commercial fit-outs all run in parallel rather than queuing behind one another. Estimates come back the same day across every area listed here.',
+          'We hold a full installation team for the county, which means residential replacements, multi-unit and HOA schemes, and commercial fit-outs all run in parallel rather than queuing behind one another. We aim to respond within 24 hours across every area listed here.',
         ],
         cities: [
           { name: 'Fort Lauderdale', href: '/free-quote', description: 'One of our busiest areas, and one of the most varied. We cover everything from single-room replacements in Victoria Park townhouses to full commercial fit-outs along Las Olas. Waterfront properties here get salt-air rated hardware as standard, because the corrosion that ruins unrated mechanisms shows up within two seasons this close to the Intracoastal.' },
@@ -1792,7 +1791,7 @@ export const mockContent: PageContent = {
         name: 'Miami Dade County',
         paragraphs: [
           'Miami-Dade is the largest market we serve and the most vertical. A significant share of the work is high-rise and condominium, where the building often dictates the job more than the specification does: restricted service hours, freight elevator bookings, and management approval before a contractor is admitted. We handle that paperwork as standard rather than treating it as an obstacle. Light is the other defining factor. Floor-to-ceiling glazing on east and south elevations produces glare and heat load that no fabric-weight decision alone will solve, so solar shading specified by openness factor does most of the work here.',
-          'Our teams for the county are experienced in both the access requirements and the specification, and estimates come back the same day.',
+          'Our teams for the county are experienced in both the access requirements and the specification, and we aim to respond within 24 hours.',
         ],
         cities: [
           { name: 'Miami', href: '/free-quote', description: 'High-rise, condominium and commercial installations across the city. Building access rules shape the job more than the specification does here, so we schedule around approved service hours and handle the paperwork most management companies require before a contractor is admitted. Downtown and Brickell offices are the most common commercial requests.' },
@@ -1800,7 +1799,7 @@ export const mockContent: PageContent = {
           { name: 'Deerfield Beach', href: '/free-quote', description: 'Coastal properties where humidity is the deciding factor rather than a consideration. Composite shutters and faux wood blinds are specified as standard in bathrooms, kitchens and anything within a few blocks of the ocean. Timber is available where the room is dry and conditioned, but we will tell you honestly when it is the wrong call.' },
           { name: 'Aventura', href: '/free-quote', description: 'Condominium and multi-unit residential, much of it high-rise with floor-to-ceiling glazing. Solar shades dominate for glare control on east and south elevations, usually motorised because the openings are large and the operating position is inconvenient. Building-wide specifications are common where an HOA is standardising.' },
           { name: 'Doral', href: '/free-quote', description: 'Commercial offices and modern residential developments. Office work here is mostly glare control on screens, which is a solar shade problem rather than a privacy one, and specification comes down to openness factor rather than opacity. We supply contract-grade mechanisms rated for daily cycling.' },
-          { name: 'Kendall', href: '/free-quote', description: 'Suburban residential across the southwest of the county. Larger family homes with a lot of windows, which means the value of getting a baseline figure before an appointment is higher here than almost anywhere else. Faux wood blinds and roller shades are the most requested combination.' },
+          { name: 'Kendall', href: '/free-quote', description: 'Suburban residential across the southwest of the county. Larger family homes with a lot of windows, so the free in-home consultation matters here more than almost anywhere else. Faux wood blinds and roller shades are the most requested combination.' },
           { name: 'Hialeah', href: '/free-quote', description: 'Residential and light commercial. Practical specifications, hard-wearing materials and straightforward installation, with faux wood and aluminum blinds handling most requirements. Repairs are a significant share of our Hialeah work, often on treatments fitted by companies no longer trading.' },
           { name: 'North Miami', href: '/free-quote', description: 'Residential and multi-family developments, including a steady volume of rental and investment property work. Durability and cost per unit matter more than finish detail on those jobs, and we specify accordingly rather than pushing a premium option that will not be maintained.' },
           { name: 'Sunny Isles Beach', href: '/free-quote', description: 'Oceanfront condominiums where the glazing is large, the light is unfiltered and the buildings are strict about contractor access. Motorised solar shades are the standard specification, frequently across an entire unit, and scheduling is arranged with building management before we attend.' },
@@ -1811,7 +1810,7 @@ export const mockContent: PageContent = {
         name: 'Palm Beach County',
         paragraphs: [
           'Palm Beach County spans a wider range of property types than either of its neighbours, from waterfront estates in Jupiter to equestrian properties in Wellington and dense multi-family developments through West Palm Beach. Specifications rarely repeat across a single job here, and a large property frequently needs three or four different treatments to work correctly room by room. That suits a made-to-measure operation better than a stock one.',
-          'We supply and install the full range throughout the county, residential and commercial, with the same estimate-first process and the same directly employed installation team. Estimates come back the same day across every area listed here.',
+          'We supply and install the full range throughout the county, residential and commercial, with the same consultation-first process and the same accountable installation team across every area listed here.',
         ],
         cities: [
           { name: 'Boca Raton', href: '/free-quote', description: 'Residential and professional offices across the city. A mix of established properties and newer developments, with full-height interior shutters and motorised shades the two most requested specifications. Office work is mostly glare management for screen-facing desks.' },
@@ -1861,7 +1860,7 @@ export const mockContent: PageContent = {
     hero: {
       breadcrumb: 'HOME > about us',
       heading: "Florida's Premier Window Coverings Company",
-      subheading: 'Team at work — installers, operational, professional. Not a posed studio shot.',
+      subheading: 'Custom blinds, shades, shutters, and drapery — professionally measured, fabricated, and installed across South Florida.',
       ctaLabel: 'Book consultation',
       ctaHref: '#quote-form',
       backgroundImage: {
@@ -1870,24 +1869,24 @@ export const mockContent: PageContent = {
       },
     },
     mission: {
-      headingSegments: [{ text: 'Scalable Blinds and Shades for ' }, { text: 'Homes & Commercial Spaces', emphasis: true }],
+      headingSegments: [{ text: 'Custom Blinds and Shades for ' }, { text: 'Homes & Commercial Spaces', emphasis: true }],
       paragraphs: [
         [{ text: 'Blindsndrapery.com delivers comprehensive window covering solutions tailored for both single-family residences and large-scale commercial properties.' }],
-        [{ text: 'Our integrated platform supports across diverse project sizes, ensuring consistent quality and service whether outfitting a single room or an entire multi-unit complex.' }],
+        [{ text: 'We support projects of every size, ensuring consistent quality and service whether outfitting a single room or an entire multi-unit complex.' }],
       ],
     },
     installation: {
       eyebrow: 'INSTALLATION',
       heading: 'Direct-to-Consumer Quoting & Statewide Installation',
       description:
-        [[{ text: 'Skip the traditional sales process with our direct-to-consumer quoting model. Get an exact estimate online instantly, then rely on our Florida-verified professional installers—no subcontractors involved. This means consistent quality, direct accountability, and seamless service from measurement to installation, all backed by local teams in key Broward County locations.' }]],
+        [[{ text: 'Skip the traditional retail sales process and work directly with our team from your first enquiry through installation. We manage every step in-house — measurement, fabrication, and scheduling — backed by our vetted installation partners across key Broward County locations, so you have a single point of contact and consistent accountability from start to finish.' }]],
       features: [
         {
           icon: {
             src: 'https://www.figma.com/api/mcp/asset/4eee8fc1-6faa-4f40-892c-09b33d8d825a.svg',
             alt: '',
           },
-          label: 'Strictly No subcontracting',
+          label: 'Single-Point Accountability',
         },
         {
           icon: {
@@ -1996,7 +1995,7 @@ export const mockContent: PageContent = {
         description:
           'Solar shades provide a critical barrier against intense Florida sunlight, preserving your interior furniture and flooring. Learn how the right UV protection ratings can significantly extend the life of your home investments.',
         date: 'JULY 15, 2025',
-        href: '/resources/uv-damage-protection',
+        href: '/resources/5-ways-to-protect-your-florida-home-from-uv-damage',
       },
     },
     articles: [
@@ -2009,7 +2008,7 @@ export const mockContent: PageContent = {
         description:
           'Solar shades provide a critical barrier against intense Florida sunlight, preserving your interior furniture and flooring. Learn how the right UV protection ratings can significantly extend the life of your home investments.',
         date: 'July 2026',
-        href: '/resources/blinds-high-humidity',
+        href: '/resources/choosing-the-right-blinds-for-high-humidity-rooms',
       },
       {
         image: {
@@ -2020,7 +2019,7 @@ export const mockContent: PageContent = {
         description:
           'Solar shades provide a critical barrier against intense Florida sunlight, preserving your interior furniture and flooring. Learn how the right UV protection ratings can significantly extend the life of your home investments.',
         date: 'July 2026',
-        href: '/resources/motorized-shades-101',
+        href: '/resources/smart-home-integration-motorized-shades-101',
       },
     ],
   },
@@ -2243,7 +2242,7 @@ export const mockContent: PageContent = {
           href: '/services/drapery',
         },
         {
-          image: { src: '/images/city/service-shutters.webp', alt: 'Plantation shutters on a hallway window' },
+          image: { src: '/images/city/service-shutters.webp', alt: 'Interior shutters on a hallway window' },
           title: 'Shutters',
           description: 'Versatile light control with timeless wood, faux wood, and aluminum configurations.',
           href: '/services/shutters',
@@ -2318,7 +2317,7 @@ export const mockContent: PageContent = {
       eyebrow: 'PROCESS INTRODUCTION',
       headingSegments: [{ text: 'In-home measurement, installation, or ' }, { text: 'digital process. Autoplay muted.', emphasis: true }],
       description:
-        [[{ text: 'Start with a digital estimate, followed by precise in-home measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.' }]],
+        [[{ text: 'Start with a free in-home consultation, followed by precise measurements. Next, we craft your custom blinds with care, and finally, our expert team handles the flawless installation.' }]],
       image: {
         src: '/images/free-quote/process-intro.webp',
         alt: 'Technician adjusting white venetian blinds by a sunlit window',
@@ -2346,7 +2345,7 @@ export const mockContent: PageContent = {
       ],
       projectLabel: 'Tell us about your Project',
       projectPlaceholder: 'Tell us about your project....',
-      submitLabel: 'Send my Estimate Request',
+      submitLabel: 'Request My Free Quote',
       assistanceHeading: 'Need immediate assistance?',
       callLabel: 'Call',
       callNumber: '+ (954) 555-1234',
@@ -2409,7 +2408,7 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
         type: 'imageGrid',
         images: [
           { src: '/images/resources/knowledge-grid-1.webp', alt: 'Person cleaning window blinds with microfiber cloth' },
-          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Well-maintained plantation shutters in a sunlit room' },
+          { src: '/images/resources/knowledge-grid-2.webp', alt: 'Well-maintained interior shutters in a sunlit room' },
           { src: '/images/resources/knowledge-grid-3.webp', alt: 'Close-up of window treatment hardware inspection' },
         ],
       },
@@ -2711,9 +2710,14 @@ const knowledgeArticles: Record<string, KnowledgeArticlePageContent> = {
   },
 };
 
+// Keyed by WordPress's own post slug (not a shortened/invented one) so a
+// route param built from the real CMS uri — see fetchBlogSinglePage's
+// `/${slug}/` query — actually matches a live post instead of always
+// missing and permanently falling back to this mock content. Old short
+// slugs redirect to these in next.config.ts.
 const blogArticles: Record<string, BlogArticlePageContent> = {
-  'uv-damage-protection': mockContent.blogArticlePage,
-  'blinds-high-humidity': {
+  '5-ways-to-protect-your-florida-home-from-uv-damage': mockContent.blogArticlePage,
+  'choosing-the-right-blinds-for-high-humidity-rooms': {
     breadcrumb: 'HOME > BLOG > Choosing the Right Blinds for High-Humidity Rooms',
     heroImage: {
       src: 'https://www.figma.com/api/mcp/asset/3d891a94-3602-41dc-8a3e-bd28b9c2ac38.png',
@@ -2786,7 +2790,7 @@ const blogArticles: Record<string, BlogArticlePageContent> = {
       },
     ],
   },
-  'motorized-shades-101': {
+  'smart-home-integration-motorized-shades-101': {
     breadcrumb: 'HOME > BLOG > Smart Home Integration: Motorized Shades 101',
     heroImage: {
       src: 'https://www.figma.com/api/mcp/asset/ee8e1302-c513-4fff-a95e-6a569cb2228b.png',

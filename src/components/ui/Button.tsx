@@ -56,7 +56,7 @@ export function Button({ children, href, type = "button", showArrow = true, vari
       className={`group flex items-center rounded-[8px] p-[2px] transition-all duration-200 hover:p-[5px] ${
         isOutline
           ? "border border-teal"
-          : "bg-teal shadow-[0px_4px_2px_rgba(0,0,0,0.1)] hover:bg-teal-pressed"
+          : "bg-teal-dark shadow-[0px_4px_2px_rgba(0,0,0,0.1)] hover:bg-teal-dark-pressed"
       } ${isFullWidth ? "w-full" : ""}`}
     >
       <span

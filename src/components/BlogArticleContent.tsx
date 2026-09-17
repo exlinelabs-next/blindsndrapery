@@ -17,6 +17,7 @@ function IntroBlock({
           src={block.image.src}
           alt={block.image.alt}
           fill
+          sizes="(min-width: 1280px) 500px, 100vw"
           className="object-cover"
         />
       </div>
@@ -73,6 +74,7 @@ function ImageBlock({
         src={block.image.src}
         alt={block.image.alt}
         fill
+        sizes="100vw"
         className="object-cover"
       />
     </div>
@@ -98,6 +100,7 @@ export function BlogArticleContent({
               src={author.avatar.src}
               alt={author.avatar.alt}
               fill
+              sizes="80px"
               className="object-cover"
             />
           </div>

@@ -15,6 +15,7 @@ export function AboutTeam({ content }: { content?: AboutTeamContent }) {
                 src={badge.icon.src}
                 alt={badge.icon.alt}
                 fill
+                sizes="32px"
                 className="object-contain"
               />
             </div>
@@ -32,6 +33,7 @@ export function AboutTeam({ content }: { content?: AboutTeamContent }) {
                 src={member.image.src}
                 alt={member.image.alt}
                 fill
+                sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
             </div>

@@ -34,7 +34,7 @@ export function Hero({
 
   return (
     <section className="relative flex h-[700px] items-end overflow-hidden">
-      <Image src={backgroundImage.src} alt={backgroundImage.alt} fill priority sizes="100vw" className="object-cover" />
+      <Image src={backgroundImage.src} alt={backgroundImage.alt} fill priority fetchPriority="high" quality={60} sizes="100vw" className="object-cover" />
       <div
         className="absolute inset-0"
         style={{

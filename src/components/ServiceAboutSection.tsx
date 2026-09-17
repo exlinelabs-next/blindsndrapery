@@ -29,7 +29,7 @@ export function ServiceAboutSection({ content }: { content?: ServiceAboutContent
         )}
       </div>
       <div className="relative h-[300px] w-full overflow-hidden rounded-[8px] md:h-[400px] xl:h-[664px] xl:flex-1">
-        <Image src={image.src} alt={image.alt} fill className="object-cover" />
+        <Image src={image.src} alt={image.alt} fill sizes="(min-width: 1280px) 50vw, 100vw" className="object-cover" />
       </div>
     </section>
   );

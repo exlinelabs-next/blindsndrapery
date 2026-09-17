@@ -21,6 +21,7 @@ import {
   BLOG_POSTS_CARDS_QUERY,
   KB_ARCHIVE_PAGE_QUERY,
   KNOWLEDGEBASE_CARDS_QUERY,
+  KNOWLEDGEBASE_SLUGS_QUERY,
   POLICY_PAGE_QUERY,
   BLOG_SINGLE_PAGE_QUERY,
   KNOWLEDGE_BASE_SINGLE_PAGE_QUERY,
@@ -474,7 +475,7 @@ export async function fetchFooter(): Promise<FooterContent> {
       servingAreaText: ff.contactSectionText,
       phone: ff.contactNumber,
       email: ff.contactEmail,
-      cta: { label: "Book consultation", href: "/free-quote" },
+      cta: { label: "Request a Free Quote", href: "/free-quote" },
     },
     trustHighlights: [ff.pointText1, ff.pointText2, ff.pointText3],
     copyright: `© ${new Date().getFullYear()} Blinds & Drapery Co. All rights reserved`,
@@ -699,7 +700,7 @@ export async function fetchQuoteForm(): Promise<QuoteFormContent> {
     ],
     projectLabel: "Tell us about your project",
     projectPlaceholder: "Describe your project...",
-    submitLabel: "Submit Estimate Request",
+    submitLabel: "Request My Free Quote",
     successMessage: "Thank you! We'll get back to you within 24 hours.",
   };
 }
@@ -947,7 +948,7 @@ export async function fetchHomePage() {
     ],
     projectLabel: "Tell us about your project",
     projectPlaceholder: "Describe your project...",
-    submitLabel: "Submit Estimate Request",
+    submitLabel: "Request My Free Quote",
     successMessage: "Thank you! We'll get back to you within 24 hours.",
   };
 
@@ -1222,7 +1223,7 @@ const LOCATION_COUNTIES: LocationCountySection[] = [
     name: "Broward County",
     paragraphs: [
       "Broward covers more ground than most people expect, and the requirements shift considerably across it. Coastal properties from Deerfield down through Hollywood need corrosion-rated hardware and moisture-stable materials that inland communities like Weston and Coral Springs simply do not. Housing stock varies just as widely, from mid-century townhouses with irregular openings to newer developments where entire streets share the same window dimensions.",
-      "We hold a full installation team for the county, which means residential replacements, multi-unit and HOA schemes, and commercial fit-outs all run in parallel rather than queuing behind one another. Estimates come back the same day across every area listed here.",
+      "We hold a full installation team for the county, which means residential replacements, multi-unit and HOA schemes, and commercial fit-outs all run in parallel rather than queuing behind one another. We aim to respond within 24 hours across every area listed here.",
     ],
     cities: [
       { name: "Fort Lauderdale", href: "/free-quote", description: "One of our busiest areas, and one of the most varied. We cover everything from single-room replacements in Victoria Park townhouses to full commercial fit-outs along Las Olas. Waterfront properties here get salt-air rated hardware as standard, because the corrosion that ruins unrated mechanisms shows up within two seasons this close to the Intracoastal." },
@@ -1244,7 +1245,7 @@ const LOCATION_COUNTIES: LocationCountySection[] = [
     name: "Miami Dade County",
     paragraphs: [
       "Miami-Dade is the largest market we serve and the most vertical. A significant share of the work is high-rise and condominium, where the building often dictates the job more than the specification does: restricted service hours, freight elevator bookings, and management approval before a contractor is admitted. We handle that paperwork as standard rather than treating it as an obstacle. Light is the other defining factor. Floor-to-ceiling glazing on east and south elevations produces glare and heat load that no fabric-weight decision alone will solve, so solar shading specified by openness factor does most of the work here.",
-      "Our teams for the county are experienced in both the access requirements and the specification, and estimates come back the same day.",
+      "Our teams for the county are experienced in both the access requirements and the specification, and we aim to respond within 24 hours.",
     ],
     cities: [
       { name: "Miami", href: "/free-quote", description: "High-rise, condominium and commercial installations across the city. Building access rules shape the job more than the specification does here, so we schedule around approved service hours and handle the paperwork most management companies require before a contractor is admitted. Downtown and Brickell offices are the most common commercial requests." },
@@ -1252,7 +1253,7 @@ const LOCATION_COUNTIES: LocationCountySection[] = [
       { name: "Deerfield Beach", href: "/free-quote", description: "Coastal properties where humidity is the deciding factor rather than a consideration. Composite shutters and faux wood blinds are specified as standard in bathrooms, kitchens and anything within a few blocks of the ocean. Timber is available where the room is dry and conditioned, but we will tell you honestly when it is the wrong call." },
       { name: "Aventura", href: "/free-quote", description: "Condominium and multi-unit residential, much of it high-rise with floor-to-ceiling glazing. Solar shades dominate for glare control on east and south elevations, usually motorised because the openings are large and the operating position is inconvenient. Building-wide specifications are common where an HOA is standardising." },
       { name: "Doral", href: "/free-quote", description: "Commercial offices and modern residential developments. Office work here is mostly glare control on screens, which is a solar shade problem rather than a privacy one, and specification comes down to openness factor rather than opacity. We supply contract-grade mechanisms rated for daily cycling." },
-      { name: "Kendall", href: "/free-quote", description: "Suburban residential across the southwest of the county. Larger family homes with a lot of windows, which means the value of getting a baseline figure before an appointment is higher here than almost anywhere else. Faux wood blinds and roller shades are the most requested combination." },
+      { name: "Kendall", href: "/free-quote", description: "Suburban residential across the southwest of the county. Larger family homes with a lot of windows, so the free in-home consultation matters here more than almost anywhere else. Faux wood blinds and roller shades are the most requested combination." },
       { name: "Hialeah", href: "/free-quote", description: "Residential and light commercial. Practical specifications, hard-wearing materials and straightforward installation, with faux wood and aluminum blinds handling most requirements. Repairs are a significant share of our Hialeah work, often on treatments fitted by companies no longer trading." },
       { name: "North Miami", href: "/free-quote", description: "Residential and multi-family developments, including a steady volume of rental and investment property work. Durability and cost per unit matter more than finish detail on those jobs, and we specify accordingly rather than pushing a premium option that will not be maintained." },
       { name: "Sunny Isles Beach", href: "/free-quote", description: "Oceanfront condominiums where the glazing is large, the light is unfiltered and the buildings are strict about contractor access. Motorised solar shades are the standard specification, frequently across an entire unit, and scheduling is arranged with building management before we attend." },
@@ -1263,7 +1264,7 @@ const LOCATION_COUNTIES: LocationCountySection[] = [
     name: "Palm Beach County",
     paragraphs: [
       "Palm Beach County spans a wider range of property types than either of its neighbours, from waterfront estates in Jupiter to equestrian properties in Wellington and dense multi-family developments through West Palm Beach. Specifications rarely repeat across a single job here, and a large property frequently needs three or four different treatments to work correctly room by room. That suits a made-to-measure operation better than a stock one.",
-      "We supply and install the full range throughout the county, residential and commercial, with the same estimate-first process and the same directly employed installation team. Estimates come back the same day across every area listed here.",
+      "We supply and install the full range throughout the county, residential and commercial, with the same consultation-first process and the same accountable installation team across every area listed here.",
     ],
     cities: [
       { name: "Boca Raton", href: "/free-quote", description: "Residential and professional offices across the city. A mix of established properties and newer developments, with full-height interior shutters and motorised shades the two most requested specifications. Office work is mostly glare management for screen-facing desks." },
@@ -1336,10 +1337,7 @@ interface ServiceSingleResponse {
 }
 
 export async function fetchServiceSinglePage(uri: string) {
-  const [serviceData, faqData] = await Promise.all([
-    fetchGraphQL<ServiceSingleResponse>(SERVICE_SINGLE_PAGE_QUERY, { uri }),
-    fetchGraphQL<FaqAPIResponse>(FAQ_QUERY),
-  ]);
+  const serviceData = await fetchGraphQL<ServiceSingleResponse>(SERVICE_SINGLE_PAGE_QUERY, { uri });
 
   const sf = serviceData.service.servicesSinglePageFields;
   const breadcrumbs = serviceData.service.seo?.breadcrumbs ?? [];
@@ -1471,20 +1469,33 @@ export async function fetchServiceSinglePage(uri: string) {
     },
   };
 
-  const faqCategories = sortFaqCategories(faqData.faqCategories.nodes.map((c) => c.name));
-  const faqItems = faqData.faqCategories.nodes.flatMap((cat) =>
-    cat.faqs.nodes.map((faq) => ({
-      question: faq.title,
-      answer: parseRichParagraphs(faq.content),
-      category: cat.name,
-    })),
-  );
-  const faq: FaqContent = {
-    eyebrow: "FAQ",
-    heading: "Have Questions? We Have Answers",
-    categories: faqCategories,
-    items: faqItems,
-  };
+  // Service pages (and shade sub-pages, which use this same fetch) don't
+  // use the generic sitewide FAQ block anymore — each one now has its own
+  // 6 question/answer pairs authored directly on the service, via these
+  // faqTitleN/faqAnswerN fields. A page with none of them filled in yet
+  // gets no FAQ section at all rather than falling back to the generic one.
+  const faqCategory = "General Questions";
+  const faqItems = [1, 2, 3, 4, 5, 6]
+    .map((n) => ({
+      question: sf[`faqTitle${n}`] as string | undefined,
+      answer: sf[`faqAnswer${n}`] as string | undefined,
+    }))
+    .filter((item): item is { question: string; answer: string } => Boolean(item.question && item.answer))
+    .map((item) => ({
+      question: item.question,
+      answer: parseRichParagraphs(item.answer),
+      category: faqCategory,
+    }));
+
+  const faq: FaqContent | undefined =
+    faqItems.length > 0
+      ? {
+          eyebrow: toTitleCase(sf.faqSubHeading as string) || "FAQ",
+          heading: (sf.faqHeading as string) || "Frequently Asked Questions",
+          categories: [faqCategory],
+          items: faqItems,
+        }
+      : undefined;
 
   return { content, faq };
 }
@@ -1653,7 +1664,7 @@ export async function fetchFreeQuotePage() {
     ],
     projectLabel: "Tell us about your project",
     projectPlaceholder: "Describe your project...",
-    submitLabel: "Submit Estimate Request",
+    submitLabel: "Request My Free Quote",
     assistanceHeading: "Need Immediate Assistance?",
     callLabel: "Call Us",
     callNumber: "+ (954) 555-1234",
@@ -1918,6 +1929,7 @@ export async function fetchKnowledgeBasePage() {
       knowledgeBaseItems: {
         nodes: Array<{
           title: string;
+          slug: string;
           excerpt: string;
           categories: { nodes: Array<{ name: string; slug: string }> };
         }>;
@@ -1928,23 +1940,30 @@ export async function fetchKnowledgeBasePage() {
   const af = archiveData.page.blogAndKbArchivePageFields;
   const items = kbData.knowledgeBaseItems.nodes;
 
+  // Render however many articles are actually published — do not pad with
+  // blank placeholder cards to hit a fixed count of 6. The grid is a
+  // 1/2/3-column layout, so any real count lays out cleanly.
   const articles = items.map((item) => ({
     category: item.categories?.nodes?.[0]?.name ?? "",
     title: item.title,
     description: stripHtml(item.excerpt),
-    href: "#",
+    href: `/knowledge-base/${item.slug}`,
   }));
-
-  while (articles.length < 6)
-    articles.push({ category: "", title: "", description: "", href: "#" });
 
   const result: KnowledgeBasePageContent = {
     heading: af.mainTitle,
     subtitle: parseRichParagraphs(af.mainParagraph),
-    articles: articles.slice(0, 6) as KnowledgeBasePageContent["articles"],
+    articles,
   };
 
   return result;
+}
+
+export async function fetchKnowledgeBaseSlugs(): Promise<string[]> {
+  const data = await fetchGraphQL<{
+    knowledgeBaseItems: { nodes: Array<{ slug: string }> };
+  }>(KNOWLEDGEBASE_SLUGS_QUERY);
+  return data.knowledgeBaseItems.nodes.map((n) => n.slug);
 }
 
 // ---------------------------------------------------------------------------

@@ -15,6 +15,8 @@ export function AboutHero({ content }: { content?: AboutHeroContent }) {
         alt={backgroundImage.alt}
         fill
         priority
+        fetchPriority="high"
+        sizes="100vw"
         className="object-cover"
       />
       <div

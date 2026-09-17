@@ -20,6 +20,7 @@ export function BlogArticleHero({
             src={heroImage.src}
             alt={heroImage.alt}
             fill
+            sizes="100vw"
             className="object-cover"
           />
           <div className="absolute left-6 top-6 flex items-center justify-center rounded-lg bg-navy px-4 py-3">

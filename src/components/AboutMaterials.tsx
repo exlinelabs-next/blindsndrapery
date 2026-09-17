@@ -114,14 +114,14 @@ export function AboutMaterials({ dark = false, contentKey = "serviceBlinds", con
       </div>
       <div className="flex w-full flex-col items-start gap-2 md:flex-row md:items-center xl:h-[501px] xl:pt-12">
         <div className="relative h-[294px] w-full shrink-0 overflow-hidden rounded-[4px] md:h-[452px] md:flex-1 xl:h-[453px]">
-          {gallery[0].src && <Image src={gallery[0].src} alt={gallery[0].alt} fill className="object-cover" />}
+          {gallery[0].src && <Image src={gallery[0].src} alt={gallery[0].alt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />}
           <div className="absolute inset-0 bg-black/12" />
         </div>
         <div className="relative h-[295px] w-full shrink-0 overflow-hidden rounded-[4px] md:h-[452px] md:flex-1 xl:h-[453px]">
-          {gallery[1].src && <Image src={gallery[1].src} alt={gallery[1].alt} fill className="object-cover" />}
+          {gallery[1].src && <Image src={gallery[1].src} alt={gallery[1].alt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />}
         </div>
         <div className="relative h-[294px] w-full shrink-0 overflow-hidden rounded-[4px] md:h-[452px] md:flex-1 xl:h-[453px]">
-          {gallery[2].src && <Image src={gallery[2].src} alt={gallery[2].alt} fill className="object-cover" />}
+          {gallery[2].src && <Image src={gallery[2].src} alt={gallery[2].alt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />}
         </div>
       </div>
     </section>

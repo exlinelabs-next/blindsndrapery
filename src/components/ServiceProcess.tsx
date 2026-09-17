@@ -257,7 +257,7 @@ export function ServiceProcess({ content }: { content?: ServiceHowItWorksContent
                   </p>
                 </div>
                 <div className="relative h-[426px] w-full shrink-0 overflow-hidden rounded-[8px] xl:flex-1">
-                  {step.image.src && <Image src={step.image.src} alt={step.image.alt} fill className="object-cover" />}
+                  {step.image.src && <Image src={step.image.src} alt={step.image.alt} fill sizes="(min-width: 1280px) 50vw, 100vw" className="object-cover" />}
                 </div>
               </div>
             ))}

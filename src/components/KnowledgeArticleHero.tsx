@@ -12,6 +12,7 @@ export function KnowledgeArticleHero({
         src={heroImage.src}
         alt={heroImage.alt}
         fill
+        sizes="100vw"
         className="rounded-lg object-cover"
       />
       <div className="absolute inset-0 flex items-center justify-center">

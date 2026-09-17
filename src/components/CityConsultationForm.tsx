@@ -109,8 +109,9 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
             {/* Name + Email row */}
             <div className="flex flex-col gap-5 xl:flex-row">
               <div className="flex flex-1 flex-col gap-2.5">
-                <label className="text-[16px] leading-[23px] text-black">Name</label>
+                <label htmlFor="city-consult-name" className="text-[16px] leading-[23px] text-black">Name</label>
                 <input
+                  id="city-consult-name"
                   type="text"
                   placeholder="John Doe"
                   className={FIELD_CLASSES}
@@ -119,8 +120,9 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
                 />
               </div>
               <div className="flex flex-1 flex-col gap-2.5">
-                <label className="text-[16px] leading-[23px] text-black">Email</label>
+                <label htmlFor="city-consult-email" className="text-[16px] leading-[23px] text-black">Email</label>
                 <input
+                  id="city-consult-email"
                   type="email"
                   placeholder="john@example.com"
                   className={FIELD_CLASSES}
@@ -132,8 +134,9 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
 
             {/* Phone */}
             <div className="flex flex-col gap-2.5">
-              <label className="text-[16px] leading-[23px] text-black">Phone</label>
+              <label htmlFor="city-consult-phone" className="text-[16px] leading-[23px] text-black">Phone</label>
               <input
+                id="city-consult-phone"
                 type="tel"
                 placeholder="+ (954) 555-1234"
                 className={FIELD_CLASSES}
@@ -144,9 +147,10 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
 
             {/* Service Interest */}
             <div className="flex flex-col gap-2.5">
-              <label className="text-[16px] leading-[23px] text-black">Service Interest</label>
+              <label htmlFor="city-consult-service" className="text-[16px] leading-[23px] text-black">Service Interest</label>
               <div className="relative">
                 <select
+                  id="city-consult-service"
                   className={`${FIELD_CLASSES} appearance-none pr-12`}
                   value={form.service}
                   onChange={(e) => setForm({ ...form, service: e.target.value })}
@@ -165,8 +169,9 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
 
             {/* Message */}
             <div className="flex flex-col gap-2.5">
-              <label className="text-[16px] leading-[23px] text-black">Tell us about your Project</label>
+              <label htmlFor="city-consult-message" className="text-[16px] leading-[23px] text-black">Tell us about your Project</label>
               <textarea
+                id="city-consult-message"
                 placeholder="Tell us about your project...."
                 rows={6}
                 className={`${FIELD_CLASSES} resize-none`}
