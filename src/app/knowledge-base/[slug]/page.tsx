@@ -2,37 +2,53 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { KnowledgeArticleHero } from "@/components/KnowledgeArticleHero";
 import { KnowledgeArticleContent } from "@/components/KnowledgeArticleContent";
-import { fetchKnowledgeBaseSinglePage } from "@/lib/api";
+import { fetchKnowledgeBaseSinglePage, fetchKnowledgeBaseSlugs } from "@/lib/api";
 import {
   getKnowledgeArticle,
   getKnowledgeArticleSlugs,
 } from "@/content/mock";
+import { pageMetadata } from "@/lib/seo";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return getKnowledgeArticleSlugs().map((slug) => ({ slug }));
+  // Build from the real published slugs so every live article actually
+  // gets a static page (this route previously only ever built the mock
+  // module's 6 placeholder slugs, none of which match a real WP post, so
+  // every real article 404'd no matter what the listing page linked to).
+  // Mock slugs are a build-time fallback only, used when the CMS fetch
+  // itself fails — not merged in alongside real data, since the mock's 6
+  // topics are placeholder content that doesn't exist in WP at all, and
+  // permanently shipping them as their own indexable pages is exactly what
+  // the launch checklist's "no placeholder text in production" rule bans.
+  const realSlugs = await fetchKnowledgeBaseSlugs().catch(() => null);
+  const slugs = realSlugs && realSlugs.length > 0 ? realSlugs : getKnowledgeArticleSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
+
+async function getData(slug: string) {
+  const article = await fetchKnowledgeBaseSinglePage(`/${slug}/`).catch(() => null);
+  const fallback = getKnowledgeArticle(slug);
+  return article ?? fallback;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = await fetchKnowledgeBaseSinglePage(`/${slug}/`).catch(() => null);
-  const fallback = getKnowledgeArticle(slug);
-  const title = article?.title ?? fallback?.title;
-  if (!title) return {};
-  return {
-    title: `${title} | Blinds & Drapery`,
-    description: `Read about ${title.toLowerCase()} — expert window treatment advice from Blinds & Drapery.`,
-  };
+  const data = await getData(slug);
+  if (!data) return {};
+  return pageMetadata({
+    path: `/knowledge-base/${slug}`,
+    title: `${data.title} | Blinds & Drapery`,
+    description: `Read about ${data.title.toLowerCase()} — expert window treatment advice from Blinds & Drapery.`,
+    image: data.heroImage,
+  });
 }
 
 export default async function KnowledgeArticlePage({ params }: Props) {
   const { slug } = await params;
-  const article = await fetchKnowledgeBaseSinglePage(`/${slug}/`).catch(() => null);
-  const fallback = getKnowledgeArticle(slug);
-  const data = article ?? fallback;
+  const data = await getData(slug);
   if (!data) notFound();
 
   return (

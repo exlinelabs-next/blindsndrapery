@@ -125,7 +125,7 @@ export function ServiceHowItWorks() {
                   every step image before this fix). flex-1 is only safe at
                   xl, where the row is horizontal and flex-1 governs width. */}
               <div className="relative h-[426px] w-full overflow-hidden rounded-lg xl:flex-1">
-                <Image src={step.image.src} alt={step.image.alt} fill className="object-cover" />
+                <Image src={step.image.src} alt={step.image.alt} fill sizes="(min-width: 1280px) 50vw, 100vw" className="object-cover" />
               </div>
             </div>
           ))}

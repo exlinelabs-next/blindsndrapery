@@ -99,7 +99,7 @@ function LocationCard({ city }: { city: LocationCityCard }) {
           href={city.href}
           className="font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-[#3e605e] transition-colors duration-200 group-hover:text-[#cddcdb]"
         >
-          Get an Estimate →
+          Request a quote →
         </Link>
       </div>
     </div>

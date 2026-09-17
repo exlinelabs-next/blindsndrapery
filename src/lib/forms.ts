@@ -1,11 +1,13 @@
-import { fetchGraphQL } from "./graphql";
-import { SUBMIT_CONTACT_FORM_MUTATION } from "./queries";
-
-// Home page and Free Quote page contact forms — routes through the custom
-// `submitContactForm` GraphQL mutation registered on the WP side. That
-// mutation bypasses auth so unauthenticated visitors can write to the
-// database, so callers must pair this with a spam guard (honeypot field)
-// on the form itself.
+// Home page, Free Quote page, and City page contact forms — posts to our
+// own /api/contact route rather than calling the `submitContactForm`
+// GraphQL mutation directly from the browser. WP's GraphQL endpoint is
+// moving to "Allow only specific queries" (a saved-queries allowlist), and
+// an unauthenticated browser request won't get past that; the WP
+// Application Password that does isn't something we can ship to
+// client-side JS, so the actual authenticated GraphQL call happens
+// server-side in the API route instead. Callers must still pair this with
+// a spam guard (honeypot field) on the form itself — the route has no
+// other protection against automated submissions.
 export interface ContactFormInput {
   name: string;
   email: string;
@@ -15,11 +17,18 @@ export interface ContactFormInput {
 }
 
 export async function submitContactForm(input: ContactFormInput): Promise<boolean> {
-  const data = await fetchGraphQL<{ submitContactForm: { success: boolean } }>(
-    SUBMIT_CONTACT_FORM_MUTATION,
-    { input },
-  );
-  return data.submitContactForm.success;
+  const res = await fetch("/api/contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(input),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Contact form submission failed: ${res.status} ${res.statusText}`);
+  }
+
+  const result = await res.json();
+  return Boolean(result.success);
 }
 
 const WP_BASE_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://blindsndrapery.exlinelabs.com";

@@ -5,12 +5,14 @@ import { InstallationGallery } from "@/components/InstallationGallery";
 import { CommercialQuoteForm } from "@/components/CommercialQuoteForm";
 import { FAQ } from "@/components/FAQ";
 import { fetchCommercialPage } from "@/lib/api";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/commercial",
   title: "Commercial Window Treatments | Blinds & Drapery",
   description:
     "High-volume window covering supply and installation for offices, hospitality, and healthcare facilities across South Florida.",
-};
+});
 
 export default async function CommercialPage() {
   const data = await fetchCommercialPage().catch(() => undefined);

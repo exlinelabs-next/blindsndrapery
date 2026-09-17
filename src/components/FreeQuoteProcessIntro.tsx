@@ -52,12 +52,12 @@ export function FreeQuoteProcessIntro({ content }: { content?: FreeQuoteProcessI
           <>
             <video
               ref={videoRef}
-              src={`${image.src}#t=0.1`}
+              src={image.src}
               muted
               loop
               playsInline
-              preload="metadata"
-              className="absolute inset-0 h-full w-full object-cover"
+              preload="none"
+              className="absolute inset-0 h-full w-full bg-navy object-cover"
             />
             <button
               type="button"

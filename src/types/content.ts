@@ -683,7 +683,7 @@ export interface KnowledgeArticle {
 export interface KnowledgeBasePageContent {
   heading: string;
   subtitle: RichParagraphs;
-  articles: [KnowledgeArticle, KnowledgeArticle, KnowledgeArticle, KnowledgeArticle, KnowledgeArticle, KnowledgeArticle];
+  articles: KnowledgeArticle[];
 }
 
 export type BlogContentBlock =

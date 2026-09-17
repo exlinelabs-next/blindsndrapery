@@ -57,7 +57,7 @@ function CategoryPanel({ category, widthClassName, onNavigate }: { category: Nav
         onClick={onNavigate}
         className={`relative block w-full overflow-hidden rounded-lg ${hasSubItems ? "h-[259px]" : "h-[338px]"}`}
       >
-        <Image src={category.image.src} alt={category.image.alt} fill className="object-cover" />
+        <Image src={category.image.src} alt={category.image.alt} fill sizes="(min-width: 1280px) 443px, 399px" className="object-cover" />
         <div className="absolute inset-0 bg-black/20" />
       </Link>
       <Link
@@ -79,7 +79,7 @@ function BlogCard({ blogCard, imageClassName, onNavigate }: { blogCard: NavDropd
     <div className="flex h-full w-full flex-col gap-2 rounded-lg">
       {blogCard.image.src && (
         <div className={`relative w-full shrink-0 overflow-hidden rounded-lg ${imageClassName}`}>
-          <Image src={blogCard.image.src} alt={blogCard.image.alt} fill className="object-cover" />
+          <Image src={blogCard.image.src} alt={blogCard.image.alt} fill sizes="(min-width: 1280px) 380px, 100vw" className="object-cover" />
         </div>
       )}
       <div className="flex flex-1 flex-col items-end gap-2.5 rounded-lg bg-[#e7eeee] p-6">
@@ -109,7 +109,7 @@ function ResourceCard({ card, onNavigate }: { card: NavResourceCard; onNavigate:
       className="group flex flex-1 flex-col gap-4 rounded-lg p-4 transition-colors hover:bg-[#e7eeee] xl:flex-row xl:items-center xl:gap-6"
     >
       <div className="relative h-[220px] w-full shrink-0 overflow-hidden rounded-lg xl:h-[295px] xl:w-[365px]">
-        <Image src={card.image.src} alt={card.image.alt} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
+        <Image src={card.image.src} alt={card.image.alt} fill sizes="(min-width: 1280px) 365px, 100vw" className="object-cover transition-transform duration-300 group-hover:scale-105" />
         <div
           className="absolute inset-x-0 bottom-0 h-[79px] rounded-b-lg"
           style={{ backgroundImage: "linear-gradient(180deg, rgba(0,0,0,0) 6.8%, rgba(44,40,53,0.84) 100%)" }}

@@ -48,6 +48,7 @@ export function ServiceTimeline({ contentKey = "serviceBlinds", content }: { con
             src={activeIndex < 2 ? images[0].src : images[1].src}
             alt={activeIndex < 2 ? images[0].alt : images[1].alt}
             fill
+            sizes="(min-width: 1280px) 50vw, 100vw"
             className="object-cover transition-opacity duration-500"
           />
         )}

@@ -38,6 +38,7 @@ function ImageGridBlock({
             src={img.src}
             alt={img.alt}
             fill
+            sizes="(min-width: 768px) 33vw, 100vw"
             className="object-cover"
           />
         </div>

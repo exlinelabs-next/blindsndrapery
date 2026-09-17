@@ -8,7 +8,7 @@ function ServiceCard({ card }: { card: SubServiceCard }) {
   return (
     <Link href={card.href} className="group flex flex-col gap-[10px]">
       <div className="relative h-[300px] w-full overflow-hidden rounded-lg md:h-[392px]">
-        <Image src={card.image.src} alt={card.image.alt} fill className="object-cover transition-transform duration-300 group-hover:scale-110" />
+        <Image src={card.image.src} alt={card.image.alt} fill sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-300 group-hover:scale-110" />
       </div>
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-2 text-white">

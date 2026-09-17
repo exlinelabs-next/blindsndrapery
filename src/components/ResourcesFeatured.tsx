@@ -14,6 +14,7 @@ export function ResourcesFeatured({ content }: { content?: ResourcesFeaturedCont
             src={article.image.src}
             alt={article.image.alt}
             fill
+            sizes="(min-width: 1280px) 759px, 100vw"
             className="object-cover"
           />
           <div className="absolute left-6 top-6 flex items-center justify-center rounded-lg bg-navy px-4 py-3">

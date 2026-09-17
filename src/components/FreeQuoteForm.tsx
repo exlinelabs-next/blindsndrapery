@@ -26,8 +26,11 @@ const INITIAL_STATE = {
 };
 
 // No CMS field exists for this — same "hardcode rather than guess at an
-// unverified GraphQL field" call as elsewhere in this codebase.
-const SUCCESS_MESSAGE = "Thanks! We've received your request and will be in touch shortly.";
+// unverified GraphQL field" call as elsewhere in this codebase. Personalized
+// with the submitter's own name and the page's call number, per spec.
+function buildSuccessMessage(name: string, phone: string): string {
+  return `Thanks, ${name}. We have your enquiry and will be in touch within one business day to arrange a convenient time for your consultation. If you would rather talk it through now, call us on ${phone}.`;
+}
 
 export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
   const {
@@ -63,7 +66,7 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
     if (submitting) return;
     if (form.website) {
       setForm(INITIAL_STATE);
-      showToast(SUCCESS_MESSAGE);
+      showToast(buildSuccessMessage(form.name, callNumber));
       return;
     }
     setSubmitting(true);
@@ -77,8 +80,9 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
         aboutTheProject: form.message,
       });
       if (success) {
+        const message = buildSuccessMessage(form.name, callNumber);
         setForm(INITIAL_STATE);
-        showToast(SUCCESS_MESSAGE);
+        showToast(message);
       } else {
         setError(true);
       }
@@ -132,10 +136,11 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
             {/* Name + Email row */}
             <div className="flex flex-col gap-6 xl:flex-row xl:gap-5">
               <div className="flex flex-1 flex-col gap-4">
-                <label className="text-[16px] leading-[23px] text-black">
+                <label htmlFor="free-quote-name" className="text-[16px] leading-[23px] text-black">
                   {nameLabel}
                 </label>
                 <input
+                  id="free-quote-name"
                   type="text"
                   placeholder={namePlaceholder}
                   className={FIELD_CLASSES}
@@ -144,10 +149,11 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
                 />
               </div>
               <div className="flex flex-1 flex-col gap-4">
-                <label className="text-[16px] leading-[23px] text-black">
+                <label htmlFor="free-quote-email" className="text-[16px] leading-[23px] text-black">
                   {emailLabel}
                 </label>
                 <input
+                  id="free-quote-email"
                   type="email"
                   placeholder={emailPlaceholder}
                   className={FIELD_CLASSES}
@@ -159,10 +165,11 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
 
             {/* Phone */}
             <div className="flex flex-col gap-4">
-              <label className="text-[16px] leading-[23px] text-black">
+              <label htmlFor="free-quote-phone" className="text-[16px] leading-[23px] text-black">
                 {phoneLabel}
               </label>
               <input
+                id="free-quote-phone"
                 type="tel"
                 placeholder={phonePlaceholder}
                 className={FIELD_CLASSES}
@@ -173,11 +180,12 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
 
             {/* Service Interest */}
             <div className="flex flex-col gap-4">
-              <label className="text-[16px] leading-[23px] text-black">
+              <label htmlFor="free-quote-service" className="text-[16px] leading-[23px] text-black">
                 {serviceLabel}
               </label>
               <div className="relative">
                 <select
+                  id="free-quote-service"
                   className={`${FIELD_CLASSES} appearance-none pr-12`}
                   value={form.service}
                   onChange={(e) =>
@@ -199,10 +207,11 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
 
             {/* Message */}
             <div className="flex flex-col gap-4">
-              <label className="text-[16px] leading-[23px] text-black">
+              <label htmlFor="free-quote-project" className="text-[16px] leading-[23px] text-black">
                 {projectLabel}
               </label>
               <textarea
+                id="free-quote-project"
                 placeholder={projectPlaceholder}
                 rows={6}
                 className={`${FIELD_CLASSES} resize-none`}
