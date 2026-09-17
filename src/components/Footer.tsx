@@ -119,7 +119,7 @@ export function Footer({ footerContent }: { footerContent?: FooterContent }) {
           {contact?.cta && (
             <Link
               href={contact.cta.href}
-              className="group rounded-lg bg-teal p-[2px] shadow-[0px_4px_2px_rgba(0,0,0,0.1)] transition-all duration-200 hover:bg-teal-pressed hover:p-[5px]"
+              className="group rounded-lg bg-teal-dark p-[2px] shadow-[0px_4px_2px_rgba(0,0,0,0.1)] transition-all duration-200 hover:bg-teal-dark-pressed hover:p-[5px]"
             >
               <div className="flex items-center justify-center gap-2 rounded-[6px] border border-white/33 px-6 py-[14px] transition-all duration-200 group-hover:rounded-[3px] group-hover:px-[21px] group-hover:py-[11px]">
                 <span className="whitespace-nowrap font-heading text-[15px] font-semibold leading-[27.2px] tracking-[0.56px] text-white">
@@ -174,6 +174,7 @@ export function Footer({ footerContent }: { footerContent?: FooterContent }) {
                         src={badge.src}
                         alt={badge.alt}
                         fill
+                        sizes="120px"
                         className="object-cover"
                       />
                     </div>
@@ -237,6 +238,7 @@ export function Footer({ footerContent }: { footerContent?: FooterContent }) {
                         src={badge.src}
                         alt={badge.alt}
                         fill
+                        sizes="120px"
                         className="object-cover"
                       />
                     </div>
