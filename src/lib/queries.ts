@@ -451,6 +451,20 @@ export const SERVICE_SINGLE_PAGE_QUERY = `
         serviceSubCategorySectionSubHeading
         serviceSubCategorySectionHeading
         serviceSubCategorySectionText
+        faqSubHeading
+        faqHeading
+        faqTitle1
+        faqAnswer1
+        faqTitle2
+        faqAnswer2
+        faqTitle3
+        faqAnswer3
+        faqTitle4
+        faqAnswer4
+        faqTitle5
+        faqAnswer5
+        faqTitle6
+        faqAnswer6
       }
       seo {
         breadcrumbs {
@@ -1018,6 +1032,7 @@ export const KNOWLEDGEBASE_CARDS_QUERY = `
     knowledgeBaseItems {
       nodes {
         title
+        slug
         excerpt
         categories {
           nodes {
@@ -1026,6 +1041,16 @@ export const KNOWLEDGEBASE_CARDS_QUERY = `
             slug
           }
         }
+      }
+    }
+  }
+`;
+
+export const KNOWLEDGEBASE_SLUGS_QUERY = `
+  query knowledgebaseSlugsQuery {
+    knowledgeBaseItems(first: 100) {
+      nodes {
+        slug
       }
     }
   }

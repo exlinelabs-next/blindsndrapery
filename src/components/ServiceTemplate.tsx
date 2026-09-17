@@ -55,7 +55,10 @@ export function ServiceTemplate({
       </section>
       <ServiceTimeline contentKey={contentKey} content={content?.timeline} />
       <ConsultationCTA content={cta} />
-      <FAQ content={faqContent} />
+      {/* Per-page FAQ, authored directly on this service in WP — not the
+          generic sitewide FAQ block. Hidden entirely (no fallback) when the
+          page hasn't had its own FAQ fields filled in yet. */}
+      {faqContent && <FAQ content={faqContent} />}
     </main>
   );
 }

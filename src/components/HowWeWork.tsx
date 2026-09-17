@@ -51,13 +51,26 @@ export function HowWeWork({ content }: { content?: HowItWorksContent }) {
             the step cards vertically instead of the desktop row, so the
             connector arrows (a row-only affordance) are desktop-only too.
             Stacked-card gap is 8px on both confirmed frames, not 16. */}
-        <div className="relative flex w-full max-w-[1056px] flex-col items-stretch gap-2 xl:flex-row xl:items-center">
+        {/* Grid rather than flex at xl: CSS Grid's default stretch reliably
+            equalizes each card to the tallest one's content-driven height
+            (Step 2's longer description needs more room than the fixed
+            316px this used to be capped at, which silently clipped it —
+            confirmed via scrollHeight vs clientHeight before this fix).
+            Flexbox's equivalent (items-stretch + h-full on a percentage
+            height child) doesn't resolve the same way here.
+            No xl:justify-between here — with cards no longer a fixed
+            height, that shoved whatever slack a shorter card had straight
+            into the label-to-icon gap, making it balloon past the intended
+            64px on every card except the tallest one (which had no slack
+            to distribute). Stretching every card to match instead keeps
+            that gap fixed and consistent everywhere. */}
+        <div className="relative flex w-full max-w-[1056px] flex-col items-stretch gap-2 xl:grid xl:grid-cols-4">
           {steps.map(({ stepLabel, icon, title, description: stepDescription }, i) => {
             const Icon = icons[icon];
             const isUrl = icon.startsWith("http");
             return (
-              <div key={stepLabel} className="relative xl:flex-1">
-                <div className="flex w-full flex-col items-start gap-4 overflow-clip rounded-lg bg-white/10 p-6 md:h-[196px] md:flex-row md:items-start md:justify-between md:gap-0 xl:h-[316px] xl:flex-col xl:justify-between">
+              <div key={stepLabel} className="relative xl:h-full">
+                <div className="flex w-full flex-col items-start gap-16 rounded-lg bg-white/10 p-6 md:min-h-[196px] md:flex-row md:items-start md:justify-between md:gap-0 xl:h-full xl:min-h-[316px] xl:flex-col xl:justify-start xl:gap-16">
                   <p className="text-[16px] leading-[23px] text-[#e6f8f6]">{stepLabel}</p>
                   <div className="flex w-full flex-col items-start gap-2 md:w-[399px] xl:w-full">
                     {isUrl ? (
@@ -69,7 +82,7 @@ export function HowWeWork({ content }: { content?: HowItWorksContent }) {
                       <p className="w-full font-heading text-[18px] font-semibold leading-[27px] tracking-[-0.0648px] xl:max-w-[140px]">
                         {title}
                       </p>
-                      <p className="w-full text-[16px] leading-[23px] xl:h-[74px]">{stepDescription}</p>
+                      <p className="w-full text-[16px] leading-[23px] xl:min-h-[74px]">{stepDescription}</p>
                     </div>
                   </div>
                 </div>
