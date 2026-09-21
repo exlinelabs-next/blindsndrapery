@@ -55,7 +55,7 @@ export function ProcessIntro({ content }: { content?: ProcessIntroContent }) {
               muted
               loop
               playsInline
-              preload="none"
+              preload="metadata"
               className="absolute inset-0 h-full w-full bg-navy object-cover"
             />
             <button
