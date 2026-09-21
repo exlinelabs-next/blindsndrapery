@@ -56,7 +56,7 @@ export function FreeQuoteProcessIntro({ content }: { content?: FreeQuoteProcessI
               muted
               loop
               playsInline
-              preload="none"
+              preload="metadata"
               className="absolute inset-0 h-full w-full bg-navy object-cover"
             />
             <button
