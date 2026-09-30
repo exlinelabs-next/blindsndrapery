@@ -4,8 +4,8 @@ import { getBlogArticleSlugs, getKnowledgeArticleSlugs } from "@/content/mock";
 import { fetchKnowledgeBaseSlugs } from "@/lib/api";
 import { subServiceMap } from "@/app/services/shades/[sub]/page";
 
-// Excludes /privacy-policy (and /terms, which currently resolves to the
-// same page) per the launch checklist's sitemap requirement.
+// Excludes /privacy-policy and /terms per the launch checklist's sitemap
+// requirement (legal pages are intentionally left out).
 const STATIC_ROUTES = [
   "",
   "/about",
