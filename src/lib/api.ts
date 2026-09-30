@@ -23,6 +23,7 @@ import {
   KNOWLEDGEBASE_CARDS_QUERY,
   KNOWLEDGEBASE_SLUGS_QUERY,
   POLICY_PAGE_QUERY,
+  TERMS_PAGE_QUERY,
   BLOG_SINGLE_PAGE_QUERY,
   KNOWLEDGE_BASE_SINGLE_PAGE_QUERY,
   MEGA_MENU_IMAGES_QUERY,
@@ -480,7 +481,7 @@ export async function fetchFooter(): Promise<FooterContent> {
     trustHighlights: [ff.pointText1, ff.pointText2, ff.pointText3],
     copyright: `© ${new Date().getFullYear()} Blinds & Drapery Co. All rights reserved`,
     legalLinks: [
-      { label: "Terms of Use", href: "/privacy-policy" },
+      { label: "Terms of Use", href: "/terms" },
       { label: "Privacy Policy", href: "/privacy-policy" },
     ],
     socialLinks,
@@ -1974,6 +1975,23 @@ export async function fetchPrivacyPolicyPage() {
   const data = await fetchGraphQL<{
     page: { title: string; content: string };
   }>(POLICY_PAGE_QUERY);
+
+  const result: LegalPageContent = {
+    heading: data.page.title,
+    paragraphs: parseRichParagraphs(data.page.content),
+  };
+
+  return result;
+}
+
+// ---------------------------------------------------------------------------
+// Terms of Use page (/terms)
+// ---------------------------------------------------------------------------
+
+export async function fetchTermsPage() {
+  const data = await fetchGraphQL<{
+    page: { title: string; content: string };
+  }>(TERMS_PAGE_QUERY);
 
   const result: LegalPageContent = {
     heading: data.page.title,

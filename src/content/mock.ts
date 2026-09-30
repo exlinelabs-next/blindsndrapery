@@ -635,9 +635,7 @@ export const mockContent: PageContent = {
     trustHighlights: ['Licensed & Insured', '10+ Years in Business', 'Manufacturer Guarantee'],
     copyright: '© 2026 Blinds & Drapery Co. All rights reserved',
     legalLinks: [
-      // Same combined-document destination as the real backend mapping in
-      // api.ts's fetchFooter — no separate /terms-of-use page exists.
-      { label: 'Terms of Use', href: '/privacy-policy' },
+      { label: 'Terms of Use', href: '/terms' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
     ],
     socialLinks: [
