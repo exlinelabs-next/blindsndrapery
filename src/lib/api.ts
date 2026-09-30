@@ -1973,12 +1973,13 @@ export async function fetchKnowledgeBaseSlugs(): Promise<string[]> {
 
 export async function fetchPrivacyPolicyPage() {
   const data = await fetchGraphQL<{
-    page: { title: string; content: string };
+    page: { title: string; content: string; seo: { metaRobotsNoindex: string | null } };
   }>(POLICY_PAGE_QUERY);
 
   const result: LegalPageContent = {
     heading: data.page.title,
     paragraphs: parseRichParagraphs(data.page.content),
+    noindex: data.page.seo.metaRobotsNoindex === "noindex",
   };
 
   return result;
@@ -1990,12 +1991,13 @@ export async function fetchPrivacyPolicyPage() {
 
 export async function fetchTermsPage() {
   const data = await fetchGraphQL<{
-    page: { title: string; content: string };
+    page: { title: string; content: string; seo: { metaRobotsNoindex: string | null } };
   }>(TERMS_PAGE_QUERY);
 
   const result: LegalPageContent = {
     heading: data.page.title,
     paragraphs: parseRichParagraphs(data.page.content),
+    noindex: data.page.seo.metaRobotsNoindex === "noindex",
   };
 
   return result;

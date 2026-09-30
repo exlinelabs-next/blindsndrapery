@@ -2360,6 +2360,7 @@ export const mockContent: PageContent = {
       [{ text: 'By continuing to use Blinds & Drapery services, you accept the terms outlined here. We recommend reviewing this policy regularly to stay updated on how we safeguard your privacy and rights. For any questions or concerns, our customer support team is ready to assist you.' }],
       [{ text: 'Thank you for trusting Blinds & Drapery to bring elegance and privacy to your home.' }],
     ],
+    noindex: true,
   },
 };
 
