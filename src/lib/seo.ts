@@ -20,6 +20,11 @@ export interface PageMetadataInput {
   title: string;
   description: string;
   image?: { src: string; alt: string; width?: number; height?: number };
+  // WP-editorial noindex signal (Yoast's metaRobotsNoindex) for pages whose
+  // content comes from a CMS field the editor can flag directly — distinct
+  // from robots.ts's blanket disallow, which only stops crawling, not
+  // indexing of a URL already linked from elsewhere.
+  noindex?: boolean;
 }
 
 // Shared shape for canonical + Open Graph + Twitter card metadata so every
@@ -27,7 +32,7 @@ export interface PageMetadataInput {
 // its own (and inevitably missing one). `path` is the route's own absolute
 // path (e.g. "/services/blinds") — combined with metadataBase on the root
 // layout, Next resolves every relative URL here to an absolute one.
-export function pageMetadata({ path, title, description, image }: PageMetadataInput) {
+export function pageMetadata({ path, title, description, image, noindex }: PageMetadataInput) {
   const ogImage = image
     ? { url: image.src, width: image.width ?? 1200, height: image.height ?? 630, alt: image.alt || title }
     : DEFAULT_OG_IMAGE;
@@ -38,6 +43,7 @@ export function pageMetadata({ path, title, description, image }: PageMetadataIn
     alternates: {
       canonical: path,
     },
+    ...(noindex ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       title,
       description,

@@ -1091,6 +1091,45 @@ export const POLICY_PAGE_QUERY = `
   }
 `;
 
+// Text (including whitespace) copied verbatim from Yehan's message, not
+// reformatted to this file's usual indentation — under the WPGraphQL Smart
+// Cache allowlist, the persisted-query hash is sha256 of this exact string,
+// so any reformatting risks a hash that doesn't match what he approves.
+export const TERMS_PAGE_QUERY = `
+query TermsPageQuery {
+  page(id: "988", idType: DATABASE_ID) {
+    title
+    content
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      title
+      metaDesc
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphTitle
+      opengraphDescription
+      opengraphImage {
+        sourceUrl
+        mediaItemUrl
+      }
+      twitterTitle
+      twitterDescription
+      twitterImage {
+        sourceUrl
+      }
+      schema {
+        articleType
+        pageType
+      }
+    }
+  }
+}
+`;
+
 export const BLOG_ARCHIVE_PAGE_QUERY = `
   query blogArchivePageQuery {
     page(id: "463", idType: DATABASE_ID) {
