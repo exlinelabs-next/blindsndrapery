@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter, DM_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ScrollProgress } from "@/components/ScrollProgress";
 import { fetchNav, fetchFooter } from "@/lib/api";
 import { SITE_URL, pageMetadata } from "@/lib/seo";
 import "./globals.css";
@@ -55,6 +56,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <Header navContent={navData} />
         {children}
         <Footer footerContent={footerData} />
+        <ScrollProgress />
       </body>
     </html>
   );
