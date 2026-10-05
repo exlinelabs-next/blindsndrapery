@@ -334,7 +334,10 @@ export async function fetchNav(): Promise<NavContent> {
   }));
 
   return {
-    logo: { src: logoImg.src, alt: logoImg.alt, href: "/" },
+    // Header logo is the committed SVG rather than WP's headerSiteLogo
+    // (a raster .webp) — crisper at every size and no image-optimizer hop.
+    // Alt text still comes from WP so editors keep control of it.
+    logo: { src: "/images/shared/logo.svg", alt: logoImg.alt || "blindsndrapery logo", href: "/" },
     servicesLabel: "Services",
     resourcesLabel: "Resources",
     servicesDropdown: {
