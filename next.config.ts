@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
+import { WP_URL, WP_HOSTNAME } from "./src/lib/wp";
 
 // The CMS origin — client-side form submissions (src/lib/forms.ts) POST
 // here directly for both the GraphQL mutation and the commercial-bid REST
 // route, so it needs to be allowed in connect-src, and its uploaded media
 // needs to be allowed in img-src alongside the frontend's own assets.
-const WP_ORIGIN = "https://blindsndrapery.exlinelabs.com";
+const WP_ORIGIN = WP_URL;
 
 // www.figma.com is a temporary allowance — see the TODO comments in
 // src/content/mock.ts on the handful of image fields still pointing at
@@ -88,7 +89,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "blindsndrapery.exlinelabs.com",
+        hostname: WP_HOSTNAME,
         pathname: "/wp-content/uploads/**",
       },
     ],

@@ -1,3 +1,5 @@
+import { WP_URL } from "./wp";
+
 // Home page, Free Quote page, and City page contact forms — posts to our
 // own /api/contact route rather than calling the `submitContactForm`
 // GraphQL mutation directly from the browser. WP's GraphQL endpoint is
@@ -31,8 +33,6 @@ export async function submitContactForm(input: ContactFormInput): Promise<boolea
   return Boolean(result.success);
 }
 
-const WP_BASE_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://blindsndrapery.exlinelabs.com";
-
 // Commercial page bid form — WP has no GraphQL mutation for this one since
 // it needs file upload support; posts directly to a custom REST endpoint
 // instead. Field names on the wire (company_name, contact_name, ...) must
@@ -59,7 +59,7 @@ export async function submitBidForm(input: BidFormInput): Promise<boolean> {
   formData.append("project_scope_and_message", input.message);
   input.files.forEach((file, i) => formData.append(`file_${i}`, file));
 
-  const res = await fetch(`${WP_BASE_URL}/wp-json/custom/v1/submit-bid`, {
+  const res = await fetch(`${WP_URL}/wp-json/custom/v1/submit-bid`, {
     method: "POST",
     body: formData,
   });

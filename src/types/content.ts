@@ -712,7 +712,7 @@ export interface LegalPageContent {
   paragraphs: RichParagraphs;
   // Only field pulled from WP's Yoast `seo` block that's actually safe to
   // trust here — title/metaDesc/opengraph* come back empty or referencing
-  // the WP backend's own domain (blindsndrapery.exlinelabs.com) rather than
+  // the WP backend's own domain (NEXT_PUBLIC_WP_URL) rather than
   // the real site, so using them verbatim would make metadata worse, not
   // better. `metaRobotsNoindex` is a real editorial signal, so it's honored.
   noindex: boolean;
