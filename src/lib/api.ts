@@ -1,3 +1,4 @@
+import sanitizeHtml from "sanitize-html";
 import { fetchGraphQL } from "./graphql";
 import {
   HEADER_NAV_AND_BUTTON,
@@ -1978,14 +1979,35 @@ export async function fetchKnowledgeBaseSlugs(): Promise<string[]> {
 // Privacy Policy page (/privacy-policy)
 // ---------------------------------------------------------------------------
 
+// Legal pages are long-form WYSIWYG content (h2/h3 sections, lists, links),
+// so their body is rendered as HTML rather than flattened through
+// parseRichParagraphs. Allowlist-sanitized server-side so nothing beyond
+// basic document markup from the CMS ever reaches the page.
+function sanitizeLegalHtml(html: string | null | undefined): string {
+  return sanitizeHtml(html ?? "", {
+    allowedTags: ["h2", "h3", "h4", "h5", "h6", "p", "br", "strong", "b", "em", "i", "u", "a", "ul", "ol", "li", "blockquote", "hr", "table", "thead", "tbody", "tr", "th", "td"],
+    allowedAttributes: { a: ["href", "target", "rel"] },
+    allowedSchemes: ["http", "https", "mailto", "tel"],
+    transformTags: {
+      // An h1 in the body would compete with the page's own title heading.
+      h1: "h2",
+      a: (tagName, attribs) => {
+        const external = /^https?:\/\//.test(attribs.href ?? "") && !/^https?:\/\/(www\.)?blindsndrapery\.com/.test(attribs.href ?? "");
+        return { tagName, attribs: external ? { ...attribs, target: "_blank", rel: "noopener noreferrer" } : attribs };
+      },
+    },
+  });
+}
+
 export async function fetchPrivacyPolicyPage() {
   const data = await fetchGraphQL<{
     page: { title: string; content: string; seo: { metaRobotsNoindex: string | null } };
   }>(POLICY_PAGE_QUERY);
 
   const result: LegalPageContent = {
-    heading: data.page.title,
+    heading: decodeEntities(data.page.title),
     paragraphs: parseRichParagraphs(data.page.content),
+    html: sanitizeLegalHtml(data.page.content),
     noindex: data.page.seo.metaRobotsNoindex === "noindex",
   };
 
@@ -2002,8 +2024,9 @@ export async function fetchTermsPage() {
   }>(TERMS_PAGE_QUERY);
 
   const result: LegalPageContent = {
-    heading: data.page.title,
+    heading: decodeEntities(data.page.title),
     paragraphs: parseRichParagraphs(data.page.content),
+    html: sanitizeLegalHtml(data.page.content),
     noindex: data.page.seo.metaRobotsNoindex === "noindex",
   };
 
