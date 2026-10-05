@@ -238,7 +238,7 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
             </p>
             <div className="flex w-full flex-col gap-4 md:flex-row">
               <a
-                href={`tel:${callNumber.replace(/\s/g, "")}`}
+                href={`tel:${callNumber.replace(/[^+\d]/g, "")}`}
                 className="flex flex-1 items-center justify-center gap-3 whitespace-nowrap rounded-lg bg-navy p-4"
               >
                 <Phone className="size-6 shrink-0 text-white" />
@@ -250,7 +250,7 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
                 </span>
               </a>
               <a
-                href={`sms:${callNumber.replace(/\s/g, "")}`}
+                href={`sms:${callNumber.replace(/[^+\d]/g, "")}`}
                 className="flex flex-1 items-center justify-center gap-3 whitespace-nowrap rounded-lg bg-navy p-4"
               >
                 <MessageCircle className="size-6 shrink-0 text-white" />

@@ -1606,11 +1606,15 @@ export async function fetchAboutPage() {
 // ---------------------------------------------------------------------------
 
 export async function fetchFreeQuotePage() {
-  const [quoteData, faqData] = await Promise.all([
+  const [quoteData, faqData, footerData] = await Promise.all([
     fetchGraphQL<{
       page: { quotePageFields: Record<string, unknown> };
     }>(FREE_QUOTE_PAGE_QUERY),
     fetchGraphQL<FaqAPIResponse>(FAQ_QUERY),
+    // Only for the business phone number — the quote page has no contact
+    // field of its own, so it reuses the footer's footerFields.contactNumber
+    // (same source as the footer and the header help bar).
+    fetchGraphQL<FooterAPIResponse>(FOOTER_QUERY),
   ]);
 
   const qp = quoteData.page.quotePageFields;
@@ -1671,7 +1675,7 @@ export async function fetchFreeQuotePage() {
     submitLabel: "Request My Free Quote",
     assistanceHeading: "Need Immediate Assistance?",
     callLabel: "Call Us",
-    callNumber: "+ (954) 555-1234",
+    callNumber: footerData.page.footerFields.contactNumber || "424-777-2140",
     textLabel: "Text Us",
     trustLine: "100% Satisfaction Guaranteed · Licensed & Insured · Florida Verified",
   };
