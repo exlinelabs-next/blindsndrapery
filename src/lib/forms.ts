@@ -10,6 +10,11 @@ import { WP_URL } from "./wp";
 // server-side in the API route instead. Callers must still pair this with
 // a spam guard (honeypot field) on the form itself — the route has no
 // other protection against automated submissions.
+// Shown in the SuccessDialog after any of the consultation/contact forms
+// (home, city, free-quote) submits successfully.
+export const CONTACT_SUCCESS_MESSAGE =
+  "Thank you. A member of our team will be in touch within 24 hours to confirm your appointment time.";
+
 export interface ContactFormInput {
   name: string;
   email: string;

@@ -3,11 +3,10 @@
 import { useState, type FormEvent } from "react";
 import { ChevronDown } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
-import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/Button";
-import { Toast } from "@/components/ui/Toast";
+import { SuccessDialog } from "@/components/ui/SuccessDialog";
 import { RichText } from "@/components/ui/RichText";
-import { submitContactForm } from "@/lib/forms";
+import { submitContactForm, CONTACT_SUCCESS_MESSAGE } from "@/lib/forms";
 import type { CityConsultationContent } from "@/types/content";
 
 const FIELD_CLASSES =
@@ -27,14 +26,12 @@ const INITIAL_STATE = {
 
 // No CMS field exists for this — same "hardcode rather than guess at an
 // unverified GraphQL field" call as elsewhere in this codebase.
-const SUCCESS_MESSAGE = "Thanks! We've received your request and will be in touch shortly.";
-
 export function CityConsultationForm({ content }: { content?: CityConsultationContent }) {
   const { eyebrow, heading, description, ctaLabel } = content ?? useContent("cityPage").consultation;
   const [form, setForm] = useState(INITIAL_STATE);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
-  const { message: toastMessage, showToast, hideToast } = useToast();
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -42,7 +39,7 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
     if (form.website) {
       // Honeypot tripped — silently pretend success, don't hit the API.
       setForm(INITIAL_STATE);
-      showToast(SUCCESS_MESSAGE);
+      setSuccessMessage(CONTACT_SUCCESS_MESSAGE);
       return;
     }
     setSubmitting(true);
@@ -57,7 +54,7 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
       });
       if (success) {
         setForm(INITIAL_STATE);
-        showToast(SUCCESS_MESSAGE);
+        setSuccessMessage(CONTACT_SUCCESS_MESSAGE);
       } else {
         setError(true);
       }
@@ -184,7 +181,7 @@ export function CityConsultationForm({ content }: { content?: CityConsultationCo
           <Button type="submit" className="w-fit">{submitting ? "Submitting..." : ctaLabel}</Button>
         </form>
       </div>
-      {toastMessage && <Toast message={toastMessage} onClose={hideToast} />}
+      <SuccessDialog message={successMessage} onClose={() => setSuccessMessage(null)} />
     </section>
   );
 }

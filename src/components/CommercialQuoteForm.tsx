@@ -3,9 +3,8 @@
 import { useState, type FormEvent } from "react";
 import { ChevronDown, FileUp } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
-import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/Button";
-import { Toast } from "@/components/ui/Toast";
+import { SuccessDialog } from "@/components/ui/SuccessDialog";
 import { RichText } from "@/components/ui/RichText";
 import { submitBidForm } from "@/lib/forms";
 import type { CommercialQuoteFormContent } from "@/types/content";
@@ -72,7 +71,7 @@ export function CommercialQuoteForm({ content: contentProp }: { content?: Commer
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
-  const { message: toastMessage, showToast, hideToast } = useToast();
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   function handleChange<K extends keyof FormState>(field: K, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -85,7 +84,7 @@ export function CommercialQuoteForm({ content: contentProp }: { content?: Commer
       // Honeypot tripped — silently pretend success, don't hit the API.
       setFormData(INITIAL_STATE);
       setFile(null);
-      showToast(content.successMessage);
+      setSuccessMessage(content.successMessage);
       return;
     }
     setSubmitting(true);
@@ -104,7 +103,7 @@ export function CommercialQuoteForm({ content: contentProp }: { content?: Commer
       if (success) {
         setFormData(INITIAL_STATE);
         setFile(null);
-        showToast(content.successMessage);
+        setSuccessMessage(content.successMessage);
       } else {
         setError(true);
       }
@@ -292,7 +291,7 @@ export function CommercialQuoteForm({ content: contentProp }: { content?: Commer
           <Button type="submit">{submitting ? "Submitting..." : content.submitLabel}</Button>
         </form>
       </div>
-      {toastMessage && <Toast message={toastMessage} onClose={hideToast} />}
+      <SuccessDialog message={successMessage} onClose={() => setSuccessMessage(null)} />
     </section>
   );
 }

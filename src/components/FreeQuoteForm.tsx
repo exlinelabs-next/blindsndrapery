@@ -3,11 +3,10 @@
 import { useState, type FormEvent } from "react";
 import { ChevronDown, Phone, MessageCircle } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
-import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/Button";
-import { Toast } from "@/components/ui/Toast";
+import { SuccessDialog } from "@/components/ui/SuccessDialog";
 import { RichText } from "@/components/ui/RichText";
-import { submitContactForm } from "@/lib/forms";
+import { submitContactForm, CONTACT_SUCCESS_MESSAGE } from "@/lib/forms";
 import type { FreeQuoteFormContent } from "@/types/content";
 
 const FIELD_CLASSES =
@@ -24,13 +23,6 @@ const INITIAL_STATE = {
   // used to silently drop the submission client-side.
   website: "",
 };
-
-// No CMS field exists for this — same "hardcode rather than guess at an
-// unverified GraphQL field" call as elsewhere in this codebase. Personalized
-// with the submitter's own name and the page's call number, per spec.
-function buildSuccessMessage(name: string, phone: string): string {
-  return `Thanks, ${name}. We have your enquiry and will be in touch within one business day to arrange a convenient time for your consultation. If you would rather talk it through now, call us on ${phone}.`;
-}
 
 export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
   const {
@@ -59,14 +51,14 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
   const [form, setForm] = useState(INITIAL_STATE);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
-  const { message: toastMessage, showToast, hideToast } = useToast();
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (submitting) return;
     if (form.website) {
       setForm(INITIAL_STATE);
-      showToast(buildSuccessMessage(form.name, callNumber));
+      setSuccessMessage(CONTACT_SUCCESS_MESSAGE);
       return;
     }
     setSubmitting(true);
@@ -80,9 +72,8 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
         aboutTheProject: form.message,
       });
       if (success) {
-        const message = buildSuccessMessage(form.name, callNumber);
         setForm(INITIAL_STATE);
-        showToast(message);
+        setSuccessMessage(CONTACT_SUCCESS_MESSAGE);
       } else {
         setError(true);
       }
@@ -269,7 +260,7 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
           </div>
         </div>
       </div>
-      {toastMessage && <Toast message={toastMessage} onClose={hideToast} />}
+      <SuccessDialog message={successMessage} onClose={() => setSuccessMessage(null)} />
     </section>
   );
 }
