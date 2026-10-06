@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
 import { SuccessDialog } from "@/components/ui/SuccessDialog";
+import { RecaptchaNotice } from "@/components/ui/RecaptchaNotice";
 import { RichText } from "@/components/ui/RichText";
 import { submitContactForm, CONTACT_SUCCESS_MESSAGE } from "@/lib/forms";
 import type { QuoteFormContent } from "@/types/content";
@@ -213,6 +214,7 @@ export function QuoteForm({ content: contentProp }: { content?: QuoteFormContent
           </div>
 
           <Button type="submit">{submitting ? "Submitting..." : content.submitLabel}</Button>
+          <RecaptchaNotice />
         </form>
       </div>
       <SuccessDialog message={successMessage} onClose={() => setSuccessMessage(null)} />
