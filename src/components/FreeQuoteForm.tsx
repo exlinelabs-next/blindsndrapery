@@ -5,6 +5,7 @@ import { ChevronDown, Phone, MessageCircle } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
 import { SuccessDialog } from "@/components/ui/SuccessDialog";
+import { RecaptchaNotice } from "@/components/ui/RecaptchaNotice";
 import { RichText } from "@/components/ui/RichText";
 import { submitContactForm, CONTACT_SUCCESS_MESSAGE } from "@/lib/forms";
 import type { FreeQuoteFormContent } from "@/types/content";
@@ -215,6 +216,7 @@ export function FreeQuoteForm({ content }: { content?: FreeQuoteFormContent }) {
 
             {/* Submit button — full width per Figma */}
             <Button type="submit" className="w-full">{submitting ? "Submitting..." : submitLabel}</Button>
+            <RecaptchaNotice />
           </div>
 
           {/* Divider */}

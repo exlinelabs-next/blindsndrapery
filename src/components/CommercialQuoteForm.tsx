@@ -5,6 +5,7 @@ import { ChevronDown, FileUp } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/Button";
 import { SuccessDialog } from "@/components/ui/SuccessDialog";
+import { RecaptchaNotice } from "@/components/ui/RecaptchaNotice";
 import { RichText } from "@/components/ui/RichText";
 import { submitBidForm } from "@/lib/forms";
 import type { CommercialQuoteFormContent } from "@/types/content";
@@ -289,6 +290,7 @@ export function CommercialQuoteForm({ content: contentProp }: { content?: Commer
           </label>
 
           <Button type="submit">{submitting ? "Submitting..." : content.submitLabel}</Button>
+          <RecaptchaNotice />
         </form>
       </div>
       <SuccessDialog message={successMessage} onClose={() => setSuccessMessage(null)} />

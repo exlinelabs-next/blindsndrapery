@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Plus_Jakarta_Sans, Inter, DM_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { CookieNotice } from "@/components/CookieNotice";
+import { RECAPTCHA_SITE_KEY } from "@/lib/recaptcha";
 import { fetchNav, fetchFooter } from "@/lib/api";
 import { SITE_URL, pageMetadata } from "@/lib/seo";
 import "./globals.css";
@@ -64,6 +67,12 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <Footer footerContent={footerData} />
         <ScrollProgress />
+        <CookieNotice />
+        {/* reCAPTCHA v3 (invisible, score-based) — loaded site-wide so Google
+            sees the whole visit; forms request a token on submit. */}
+        {RECAPTCHA_SITE_KEY && (
+          <Script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} strategy="afterInteractive" />
+        )}
       </body>
       <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>

@@ -18,14 +18,19 @@ const GA_SCRIPT = "https://*.googletagmanager.com";
 const GA_CONNECT = "https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com";
 const GA_IMG = "https://*.google-analytics.com https://*.googletagmanager.com";
 
+// reCAPTCHA v3: api.js is served from google.com, its runtime from
+// gstatic.com, and it mounts a hidden iframe back on google.com.
+const RECAPTCHA = "https://www.google.com https://www.gstatic.com";
+
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' ${GA_SCRIPT}`,
+  `script-src 'self' 'unsafe-inline' ${GA_SCRIPT} ${RECAPTCHA}`,
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: ${WP_ORIGIN} https://www.figma.com ${GA_IMG}`,
   `media-src 'self' ${WP_ORIGIN}`,
   "font-src 'self' data:",
-  `connect-src 'self' ${WP_ORIGIN} ${GA_CONNECT}`,
+  `connect-src 'self' ${WP_ORIGIN} ${GA_CONNECT} https://www.google.com`,
+  "frame-src https://www.google.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

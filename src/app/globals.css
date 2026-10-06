@@ -81,3 +81,8 @@ body {
 .legal-prose li + li { margin-top: 8px; }
 .legal-prose li::marker { color: var(--color-teal); }
 .legal-prose hr { border-color: var(--color-ice); margin: 40px 0; }
+
+/* reCAPTCHA v3's floating badge would cover the bottom-right ScrollProgress
+   button. Hiding it is allowed by Google as long as the attribution text is
+   shown in the user flow instead — see RecaptchaNotice under each form. */
+.grecaptcha-badge { visibility: hidden; }
