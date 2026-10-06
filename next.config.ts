@@ -11,14 +11,21 @@ const WP_ORIGIN = WP_URL;
 // src/content/mock.ts on the handful of image fields still pointing at
 // ephemeral Figma MCP export URLs. Remove once those are all replaced with
 // committed local assets.
+// Google Analytics 4 (gtag.js, see src/app/layout.tsx) — the script host,
+// plus the beacon endpoints it sends hits to (fetch/sendBeacon and pixel
+// fallback), per Google's GA4 CSP guidance.
+const GA_SCRIPT = "https://*.googletagmanager.com";
+const GA_CONNECT = "https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com";
+const GA_IMG = "https://*.google-analytics.com https://*.googletagmanager.com";
+
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline' ${GA_SCRIPT}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: ${WP_ORIGIN} https://www.figma.com`,
+  `img-src 'self' data: ${WP_ORIGIN} https://www.figma.com ${GA_IMG}`,
   `media-src 'self' ${WP_ORIGIN}`,
   "font-src 'self' data:",
-  `connect-src 'self' ${WP_ORIGIN}`,
+  `connect-src 'self' ${WP_ORIGIN} ${GA_CONNECT}`,
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
