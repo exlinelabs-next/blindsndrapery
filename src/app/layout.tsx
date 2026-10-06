@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Plus_Jakarta_Sans, Inter, DM_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -6,6 +7,12 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { fetchNav, fetchFooter } from "@/lib/api";
 import { SITE_URL, pageMetadata } from "@/lib/seo";
 import "./globals.css";
+
+// GA4 property "Blindsndrapery". Loaded via Next's official
+// @next/third-parties wrapper (gtag.js, fetched after hydration) rather
+// than a raw <script> in <head>; its domains are allowed in the CSP in
+// next.config.ts.
+const GA_MEASUREMENT_ID = "G-0D3QNX580T";
 
 // Font choices come straight from the Figma variable defs, not a guess:
 // Heading/H1/H2/H3 + Button/CTA all use Plus Jakarta Sans, Body/Regular uses
@@ -58,6 +65,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <Footer footerContent={footerData} />
         <ScrollProgress />
       </body>
+      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   );
 }
