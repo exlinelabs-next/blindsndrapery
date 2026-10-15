@@ -1,3 +1,11 @@
+import { WP_URL } from "./wp";
+import { getRecaptchaToken } from "./recaptcha";
+
+// Shown in the SuccessDialog after any of the consultation/contact forms
+// (home, city, free-quote) submits successfully.
+export const CONTACT_SUCCESS_MESSAGE =
+  "Thank you. A member of our team will be in touch within 24 hours to confirm your appointment time.";
+
 // Home page, Free Quote page, and City page contact forms — posts to our
 // own /api/contact route rather than calling the `submitContactForm`
 // GraphQL mutation directly from the browser. WP's GraphQL endpoint is
@@ -6,8 +14,8 @@
 // Application Password that does isn't something we can ship to
 // client-side JS, so the actual authenticated GraphQL call happens
 // server-side in the API route instead. Callers must still pair this with
-// a spam guard (honeypot field) on the form itself — the route has no
-// other protection against automated submissions.
+// a spam guard (honeypot field) on the form itself; the route also verifies
+// a reCAPTCHA v3 token attached here.
 export interface ContactFormInput {
   name: string;
   email: string;
@@ -17,10 +25,11 @@ export interface ContactFormInput {
 }
 
 export async function submitContactForm(input: ContactFormInput): Promise<boolean> {
+  const recaptchaToken = await getRecaptchaToken("contact_submit");
   const res = await fetch("/api/contact", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
+    body: JSON.stringify({ ...input, recaptchaToken }),
   });
 
   if (!res.ok) {
@@ -30,8 +39,6 @@ export async function submitContactForm(input: ContactFormInput): Promise<boolea
   const result = await res.json();
   return Boolean(result.success);
 }
-
-const WP_BASE_URL = process.env.NEXT_PUBLIC_WP_URL ?? "https://blindsndrapery.exlinelabs.com";
 
 // Commercial page bid form — WP has no GraphQL mutation for this one since
 // it needs file upload support; posts directly to a custom REST endpoint
@@ -58,8 +65,13 @@ export async function submitBidForm(input: BidFormInput): Promise<boolean> {
   formData.append("location", input.location);
   formData.append("project_scope_and_message", input.message);
   input.files.forEach((file, i) => formData.append(`file_${i}`, file));
+  // This form posts straight to WP (file uploads), so the token can only be
+  // verified there — the custom/v1/submit-bid handler should check it
+  // against Google's siteverify with the reCAPTCHA secret key.
+  const recaptchaToken = await getRecaptchaToken("bid_submit");
+  if (recaptchaToken) formData.append("recaptcha_token", recaptchaToken);
 
-  const res = await fetch(`${WP_BASE_URL}/wp-json/custom/v1/submit-bid`, {
+  const res = await fetch(`${WP_URL}/wp-json/custom/v1/submit-bid`, {
     method: "POST",
     body: formData,
   });

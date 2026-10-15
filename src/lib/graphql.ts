@@ -1,8 +1,7 @@
 import { createHash } from "crypto";
+import { WP_URL } from "./wp";
 
-const GRAPHQL_ENDPOINT =
-  process.env.NEXT_PUBLIC_GRAPHQL_URL ??
-  "https://blindsndrapery.exlinelabs.com/graphql";
+const GRAPHQL_ENDPOINT = `${WP_URL}/graphql`;
 
 // Automatic Persisted Queries (APQ) — WPGraphQL Smart Cache's mechanism for
 // registering a query as a permanent "GraphQL Document" the first time it's

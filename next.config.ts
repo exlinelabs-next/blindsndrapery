@@ -1,23 +1,36 @@
 import type { NextConfig } from "next";
+import { WP_URL, WP_HOSTNAME } from "./src/lib/wp";
 
 // The CMS origin — client-side form submissions (src/lib/forms.ts) POST
 // here directly for both the GraphQL mutation and the commercial-bid REST
 // route, so it needs to be allowed in connect-src, and its uploaded media
 // needs to be allowed in img-src alongside the frontend's own assets.
-const WP_ORIGIN = "https://blindsndrapery.exlinelabs.com";
+const WP_ORIGIN = WP_URL;
 
 // www.figma.com is a temporary allowance — see the TODO comments in
 // src/content/mock.ts on the handful of image fields still pointing at
 // ephemeral Figma MCP export URLs. Remove once those are all replaced with
 // committed local assets.
+// Google Analytics 4 (gtag.js, see src/app/layout.tsx) — the script host,
+// plus the beacon endpoints it sends hits to (fetch/sendBeacon and pixel
+// fallback), per Google's GA4 CSP guidance.
+const GA_SCRIPT = "https://*.googletagmanager.com";
+const GA_CONNECT = "https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com";
+const GA_IMG = "https://*.google-analytics.com https://*.googletagmanager.com";
+
+// reCAPTCHA v3: api.js is served from google.com, its runtime from
+// gstatic.com, and it mounts a hidden iframe back on google.com.
+const RECAPTCHA = "https://www.google.com https://www.gstatic.com";
+
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline' ${GA_SCRIPT} ${RECAPTCHA}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: ${WP_ORIGIN} https://www.figma.com`,
+  `img-src 'self' data: ${WP_ORIGIN} https://www.figma.com ${GA_IMG}`,
   `media-src 'self' ${WP_ORIGIN}`,
   "font-src 'self' data:",
-  `connect-src 'self' ${WP_ORIGIN}`,
+  `connect-src 'self' ${WP_ORIGIN} ${GA_CONNECT} https://www.google.com`,
+  "frame-src https://www.google.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -88,7 +101,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "blindsndrapery.exlinelabs.com",
+        hostname: WP_HOSTNAME,
         pathname: "/wp-content/uploads/**",
       },
     ],

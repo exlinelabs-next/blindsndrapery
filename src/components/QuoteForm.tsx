@@ -3,11 +3,11 @@
 import { useState, type FormEvent } from "react";
 import { ChevronDown } from "lucide-react";
 import { useContent } from "@/hooks/useContent";
-import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/Button";
-import { Toast } from "@/components/ui/Toast";
+import { SuccessDialog } from "@/components/ui/SuccessDialog";
+import { RecaptchaNotice } from "@/components/ui/RecaptchaNotice";
 import { RichText } from "@/components/ui/RichText";
-import { submitContactForm } from "@/lib/forms";
+import { submitContactForm, CONTACT_SUCCESS_MESSAGE } from "@/lib/forms";
 import type { QuoteFormContent } from "@/types/content";
 
 interface FormState {
@@ -37,7 +37,7 @@ export function QuoteForm({ content: contentProp }: { content?: QuoteFormContent
   const [formData, setFormData] = useState<FormState>(INITIAL_STATE);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
-  const { message: toastMessage, showToast, hideToast } = useToast();
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   function handleChange<K extends keyof FormState>(field: K, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -49,7 +49,7 @@ export function QuoteForm({ content: contentProp }: { content?: QuoteFormContent
     if (formData.website) {
       // Honeypot tripped — silently pretend success, don't hit the API.
       setFormData(INITIAL_STATE);
-      showToast(content.successMessage);
+      setSuccessMessage(CONTACT_SUCCESS_MESSAGE);
       return;
     }
     setSubmitting(true);
@@ -64,7 +64,7 @@ export function QuoteForm({ content: contentProp }: { content?: QuoteFormContent
       });
       if (success) {
         setFormData(INITIAL_STATE);
-        showToast(content.successMessage);
+        setSuccessMessage(CONTACT_SUCCESS_MESSAGE);
       } else {
         setError(true);
       }
@@ -214,9 +214,10 @@ export function QuoteForm({ content: contentProp }: { content?: QuoteFormContent
           </div>
 
           <Button type="submit">{submitting ? "Submitting..." : content.submitLabel}</Button>
+          <RecaptchaNotice />
         </form>
       </div>
-      {toastMessage && <Toast message={toastMessage} onClose={hideToast} />}
+      <SuccessDialog message={successMessage} onClose={() => setSuccessMessage(null)} />
     </section>
   );
 }
