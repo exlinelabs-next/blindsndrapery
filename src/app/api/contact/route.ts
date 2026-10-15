@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { fetchGraphQL } from "@/lib/graphql";
 import { SUBMIT_CONTACT_FORM_MUTATION } from "@/lib/queries";
+import { verifyRecaptcha } from "@/lib/recaptcha-server";
 import type { ContactFormInput } from "@/lib/forms";
 
 // The three contact forms (Home, Free Quote, City) used to call
@@ -13,7 +14,7 @@ import type { ContactFormInput } from "@/lib/forms";
 // instead — a server-side route that attaches WP_GRAPHQL_USERNAME /
 // WP_GRAPHQL_APP_PASSWORD (see src/lib/graphql.ts) the browser never sees.
 export async function POST(request: Request) {
-  let input: Partial<ContactFormInput>;
+  let input: Partial<ContactFormInput> & { recaptchaToken?: string | null };
   try {
     input = await request.json();
   } catch {
@@ -22,6 +23,12 @@ export async function POST(request: Request) {
 
   if (!input.name || !input.email) {
     return NextResponse.json({ success: false, error: "Name and email are required" }, { status: 400 });
+  }
+
+  const verdict = await verifyRecaptcha(input.recaptchaToken);
+  if (!verdict.ok) {
+    console.warn(`[contact] reCAPTCHA refused a submission: ${verdict.reason}`);
+    return NextResponse.json({ success: false, error: "Verification failed" }, { status: 400 });
   }
 
   try {

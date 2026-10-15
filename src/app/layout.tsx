@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Plus_Jakarta_Sans, Inter, DM_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ScrollProgress } from "@/components/ScrollProgress";
+import { CookieNotice } from "@/components/CookieNotice";
+import { RECAPTCHA_SITE_KEY } from "@/lib/recaptcha";
 import { fetchNav, fetchFooter } from "@/lib/api";
 import { SITE_URL, pageMetadata } from "@/lib/seo";
 import "./globals.css";
+
+// GA4 property "Blindsndrapery". Loaded via Next's official
+// @next/third-parties wrapper (gtag.js, fetched after hydration) rather
+// than a raw <script> in <head>; its domains are allowed in the CSP in
+// next.config.ts.
+const GA_MEASUREMENT_ID = "G-0D3QNX580T";
 
 // Font choices come straight from the Figma variable defs, not a guess:
 // Heading/H1/H2/H3 + Button/CTA all use Plus Jakarta Sans, Body/Regular uses
@@ -55,7 +66,15 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <Header navContent={navData} />
         {children}
         <Footer footerContent={footerData} />
+        <ScrollProgress />
+        <CookieNotice />
+        {/* reCAPTCHA v3 (invisible, score-based) — loaded site-wide so Google
+            sees the whole visit; forms request a token on submit. */}
+        {RECAPTCHA_SITE_KEY && (
+          <Script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} strategy="afterInteractive" />
+        )}
       </body>
+      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   );
 }

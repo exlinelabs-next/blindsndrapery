@@ -628,7 +628,7 @@ export const mockContent: PageContent = {
     ],
     contact: {
       servingAreaText: 'Serving Broward County and Florida statewide',
-      phone: '(555) 010-3456',
+      phone: '424-777-2140',
       email: 'info@blindsndrapery.com',
       cta: { label: 'Request a Free Quote', href: '/free-quote' },
     },
@@ -2346,7 +2346,7 @@ export const mockContent: PageContent = {
       submitLabel: 'Request My Free Quote',
       assistanceHeading: 'Need immediate assistance?',
       callLabel: 'Call',
-      callNumber: '+ (954) 555-1234',
+      callNumber: '424-777-2140',
       textLabel: 'Text us',
       trustLine: 'Licensed & Insured · No obligation · We come to you',
     },
