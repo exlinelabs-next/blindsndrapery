@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Plus_Jakarta_Sans, Inter, DM_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -73,6 +75,12 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         {RECAPTCHA_SITE_KEY && (
           <Script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} strategy="afterInteractive" />
         )}
+        {/* Vercel Web Analytics (cookieless visitor/page-view counts) and Speed
+            Insights (real-user Core Web Vitals). Both load from this site's own
+            /_vercel/* path, so the CSP's 'self' already covers them; they only
+            collect data on Vercel deployments with the feature enabled. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
       <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
