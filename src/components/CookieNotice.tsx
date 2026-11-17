@@ -54,7 +54,7 @@ export function CookieNotice() {
           </Link>{" "}
           for details.
         </p>
-        <Button type="button" showArrow={false} onClick={dismissNotice} className="shrink-0">
+        <Button type="button" showArrow={false} onClick={dismissNotice} className="w-full shrink-0 md:w-auto">
           Got it
         </Button>
       </div>
