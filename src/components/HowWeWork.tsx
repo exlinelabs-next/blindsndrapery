@@ -116,7 +116,7 @@ export function HowWeWork({ content }: { content?: HowItWorksContent }) {
           ))}
         </div>
 
-        <Button href={ctaHref}>{ctaLabel}</Button>
+        <Button href={ctaHref} className="w-full md:w-auto">{ctaLabel}</Button>
       </div>
     </section>
   );
