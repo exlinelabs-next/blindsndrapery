@@ -13,36 +13,66 @@ import type { ContactFormInput } from "@/lib/forms";
 // never be shipped to client-side JS, so the mutation has to run from here
 // instead — a server-side route that attaches WP_GRAPHQL_USERNAME /
 // WP_GRAPHQL_APP_PASSWORD (see src/lib/graphql.ts) the browser never sees.
+
+// The forms themselves set no length limits, so this route is the only
+// thing between a scripted request and the WP mutation. Caps are generous
+// (well past anything a real enquiry needs) so a genuine lead is never
+// refused; they exist to stop oversized payloads, not to police content.
+const MAX_LENGTHS: Record<keyof ContactFormInput, number> = {
+  name: 200,
+  email: 254,
+  phone: 50,
+  serviceInterest: 200,
+  aboutTheProject: 5000,
+};
+
+// Deliberately loose — just "something@something.tld" with no spaces. The
+// browser's type="email" already does the strict check for real visitors.
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function badRequest(error: string) {
+  return NextResponse.json({ success: false, error }, { status: 400 });
+}
+
 export async function POST(request: Request) {
-  let input: Partial<ContactFormInput> & { recaptchaToken?: string | null };
+  let body: Record<string, unknown>;
   try {
-    input = await request.json();
+    body = await request.json();
   } catch {
-    return NextResponse.json({ success: false, error: "Invalid request body" }, { status: 400 });
+    return badRequest("Invalid request body");
+  }
+  if (!body || typeof body !== "object") {
+    return badRequest("Invalid request body");
+  }
+
+  const input = {} as ContactFormInput;
+  for (const field of Object.keys(MAX_LENGTHS) as (keyof ContactFormInput)[]) {
+    const value = body[field] ?? "";
+    if (typeof value !== "string" || value.length > MAX_LENGTHS[field]) {
+      return badRequest(`Invalid ${field}`);
+    }
+    input[field] = value.trim();
   }
 
   if (!input.name || !input.email) {
-    return NextResponse.json({ success: false, error: "Name and email are required" }, { status: 400 });
+    return badRequest("Name and email are required");
+  }
+  if (!EMAIL_PATTERN.test(input.email)) {
+    return badRequest("Invalid email");
   }
 
-  const verdict = await verifyRecaptcha(input.recaptchaToken);
+  const recaptchaToken = typeof body.recaptchaToken === "string" ? body.recaptchaToken : null;
+
+  const verdict = await verifyRecaptcha(recaptchaToken);
   if (!verdict.ok) {
     console.warn(`[contact] reCAPTCHA refused a submission: ${verdict.reason}`);
-    return NextResponse.json({ success: false, error: "Verification failed" }, { status: 400 });
+    return badRequest("Verification failed");
   }
 
   try {
     const data = await fetchGraphQL<{ submitContactForm: { success: boolean } }>(
       SUBMIT_CONTACT_FORM_MUTATION,
-      {
-        input: {
-          name: input.name,
-          email: input.email,
-          phone: input.phone ?? "",
-          serviceInterest: input.serviceInterest ?? "",
-          aboutTheProject: input.aboutTheProject ?? "",
-        },
-      },
+      { input },
     );
     return NextResponse.json({ success: data.submitContactForm.success });
   } catch (error) {
